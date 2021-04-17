@@ -13,14 +13,14 @@ namespace FestivalAPI.Models
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("Festival")]
-        public int IdF { get; set; }
-        [ForeignKey("Artiste")]
-        public int IdA { get; set; }
-        [ForeignKey("Scene")]
-        public int IdS { get; set; }
-        [ForeignKey("Jour")]
-        public int IdJ { get; set; }
+        [ForeignKey("FK_Festival")]
+        public int FestivalId { get; set; }
+        [ForeignKey("FK_Artiste")]
+        public int ArtisteId { get; set; }
+        [ForeignKey("FK_Scene")]
+        public int? SceneId { get; set; }
+        [ForeignKey("FK_Jour")]
+        public int JourId { get; set; }
         public Festival_Artiste() { }
     }
 }

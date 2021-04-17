@@ -25,7 +25,7 @@ namespace FestivalAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Style>>> GetStyle()
         {
-            return await _context.Style.ToListAsync();
+            return await _context.Style.Include("Artistes").ToListAsync();
         }
 
         // GET: api/Styles/5

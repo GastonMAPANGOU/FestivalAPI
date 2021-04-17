@@ -27,7 +27,7 @@
   <Class Name="FestivalAPI.Models.Festival_Artiste">
     <Position X="9" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAQAAAACAAAAAgAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Models\Festival_Artiste.cs</FileName>
     </TypeIdentifier>
   </Class>

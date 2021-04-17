@@ -25,7 +25,7 @@ namespace FestivalAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Jour>>> GetJour()
         {
-            return await _context.Jour.Include("Tarifs").ToListAsync();
+            return await _context.Jour.Include("Festival_Artistes").Include("Tarifs").ToListAsync();
         }
 
         // GET: api/Jours/5

@@ -25,7 +25,7 @@ namespace FestivalAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Pays>>> GetPays()
         {
-            return await _context.Pays.ToListAsync();
+            return await _context.Pays.Include("Artistes").ToListAsync();
         }
 
         // GET: api/Pays/5
