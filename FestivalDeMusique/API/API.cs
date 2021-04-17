@@ -199,7 +199,9 @@ namespace FestivalDeMusique.API
             }
             return null;
         }
-
+       
+        
+        
         public async Task<Uri> SupprFestivalAsync(int id)
         {
             try
