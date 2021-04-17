@@ -1,0 +1,79 @@
+﻿@model IEnumerable<FestivalAPI.Models.Festival>
+
+@{
+    ViewData["Title"] = "Index";
+    IEnumerable<FestivalAPI.Models.Lieu> lieux = WebApplication1.ControllersAPI.API.Instance.GetLieuxAsync().Result;
+}
+
+<h1>Festivals Of The Year</h1>
+
+<p>
+    
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nom
+            </th>
+            <th>
+                Logo
+            </th>
+            <th>
+                Descriptif
+            </th>
+            <th>
+                Commune
+            </th>
+            <th>
+                Adresse
+            </th>
+            <th>
+                Date_Debut
+            </th>
+            <th>
+                Date_Fin
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Logo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descriptif)
+            </td>
+            <td>
+                @foreach (var it in lieux)
+                {
+                    if (item.LieuId == it.IdL)
+                    {
+                        @Html.DisplayFor(modelItem => it.Commune)}
+                }
+            </td>
+            <td>
+                @foreach (var it in lieux)
+                {
+                    if (item.LieuId == it.IdL)
+                    {
+                        @Html.DisplayFor(modelItem => it.Commune)}
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Debut)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date_Fin)
+            </td>
+
+        </tr>
+        }
+    </tbody>
+</table>

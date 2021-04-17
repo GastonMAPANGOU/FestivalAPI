@@ -1,0 +1,214 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
+
+.btn-primary {
+    color: #C7C7C7;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #C7C7C7;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    min-height: 100%;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #fff;
+}
+
+/* ----------------------------- CUSTOM CSS ----------------------------- */
+
+/*-------------------- Utility --------------------*/
+.hide {
+    display: none;
+}
+
+canvas {
+    width: 100% !important;
+}
+
+.img-fluid {
+    min-height: 70%;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.shadow-little {
+    box-shadow: 4px 4px 6px grey, 2px 4px 6px grey;
+    border: 1px solid rgb(231, 231, 231);
+}
+
+.shadow-card {
+    box-shadow: 8px 8px 4px rgba(186, 222, 254, .8), 6px 8px 10px rgba(186, 222, 254, .8);
+}
+
+.imgClassicHover {
+    transition: 0.2s ease-in;
+}
+
+    .imgClassicHover:hover {
+        position: relative;
+        box-shadow: 8px 8px 4px grey, 6px 8px 10px grey;
+        transform: scale(1.1) rotate(-5deg);
+    }
+
+
+.titleBox {
+    font-size: 60px;
+    border: 2px solid aqua;
+    box-shadow: 1px 4px 6px grey, 1px 4px 6px cyan;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 40px;
+    padding-right: 40px;
+    margin-bottom: 30px;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.littleBox {
+    border: 1px solid rgb(207, 207, 207);
+    padding: 10px;
+    background-color: white;
+    border-radius: 50px;
+}
+
+.slider-wrapper input[type='range'] {
+    width: 210px;
+    height: 100%;
+    margin: 0;
+    transform: rotate(-90deg) translate(-50%, -515%);
+}
+
+.slider-wrapper2 input[type='range'] {
+    width: 210px;
+    height: 100%;
+    margin: 0;
+    transform: rotate(-90deg) translate(-50%, -1115%);
+}
+
+/* -------------------- Size -------------------- */
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .slider-wrapper input[type='range'] {
+        width: 210px;
+        transform: rotate(-90deg) translate(-50%, -515%);
+    }
+
+    .slider-wrapper2 input[type='range'] {
+        width: 210px;
+        transform: rotate(-90deg) translate(-50%, -1115%);
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .slider-wrapper input[type='range'] {
+        width: 300px;
+        transform: rotate(-90deg) translate(-50%, -785%);
+    }
+
+    .slider-wrapper2 input[type='range'] {
+        width: 300px;
+        transform: rotate(-90deg) translate(-50%, -1385%);
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .slider-wrapper input[type='range'] {
+        width: 420px;
+        transform: rotate(-90deg) translate(-50%, -1150%);
+    }
+
+    .slider-wrapper2 input[type='range'] {
+        width: 420px;
+        transform: rotate(-90deg) translate(-50%, -1750%);
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .slider-wrapper input[type='range'] {
+        width: 520px;
+        transform: rotate(-90deg) translate(-50%, -1470%);
+    }
+
+    .slider-wrapper2 input[type='range'] {
+        width: 520px;
+        transform: rotate(-90deg) translate(-50%, -1570%);
+    }
+}
+/* -------------------- Home Page -------------------- */
+.homePage {
+    background-image: url(/pictures/back.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+    .homePage main .container {
+        margin-bottom: 4rem;
+        margin-top: 4rem;
+    }

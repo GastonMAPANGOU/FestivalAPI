@@ -1,0 +1,66 @@
+﻿@model IEnumerable<FestivalAPI.Models.Artiste>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Artist</h1>
+
+<p>
+    
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StyleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descriptif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaysId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Extrait)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Prenom)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Photo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StyleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descriptif)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaysId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Extrait)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,36 @@
+﻿@model FestivalAPI.Models.Hebergement
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Hebergement</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Lien)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Lien)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LieuId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LieuId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Type_HebrgementId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Type_HebrgementId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdH">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
