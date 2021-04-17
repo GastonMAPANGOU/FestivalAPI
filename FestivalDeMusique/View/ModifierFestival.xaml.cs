@@ -57,6 +57,7 @@ namespace FestivalDeMusique.View
                 if (dateDebut <= dateFin)
                 {
                     Festival festival = new Festival();
+                    festival.IdF = festivalAModifier.IdF;
                     festival.Nom = nom;
                     festival.Logo = logo;
                     festival.Descriptif = descriptif;

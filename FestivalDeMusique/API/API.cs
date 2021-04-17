@@ -101,13 +101,13 @@ namespace FestivalDeMusique.API
             return lieu;
         }
 
-        public async Task<Uri> AjoutLieuAsync(Lieu lieu)
+        public async Task<HttpResponseMessage> AjoutLieuAsync(Lieu lieu)
         {
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/lieux", lieu);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -116,13 +116,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> ModifLieuAsync(Lieu lieu)
+        public async Task<HttpResponseMessage> ModifLieuAsync(Lieu lieu)
         {
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/lieux/" + lieu.IdL, lieu);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -131,13 +131,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> SupprLieuAsync(int id)
+        public async Task<HttpResponseMessage> SupprLieuAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/lieux/" + id);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -202,13 +202,13 @@ namespace FestivalDeMusique.API
        
         
         
-        public async Task<Uri> SupprFestivalAsync(int id)
+        public async Task<HttpResponseMessage> SupprFestivalAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/festivals/" + id);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -241,13 +241,13 @@ namespace FestivalDeMusique.API
             return artiste;
         }
 
-        public async Task<Uri> AjoutArtisteAsync(Artiste artiste)
+        public async Task<HttpResponseMessage> AjoutArtisteAsync(Artiste artiste)
         {
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/artistes", artiste);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -256,13 +256,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> ModifArtisteAsync(Artiste artiste)
+        public async Task<HttpResponseMessage> ModifArtisteAsync(Artiste artiste)
         {
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/artistes/" + artiste.IdA, artiste);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -271,13 +271,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> SupprArtisteAsync(int id)
+        public async Task<HttpResponseMessage> SupprArtisteAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/artistes/" + id);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -311,13 +311,13 @@ namespace FestivalDeMusique.API
             return festival_Artiste;
         }
 
-        public async Task<Uri> AjoutFestival_ArtisteAsync(Festival_Artiste festival_Artiste)
+        public async Task<HttpResponseMessage> AjoutFestival_ArtisteAsync(Festival_Artiste festival_Artiste)
         {
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/festival_Artistes", festival_Artiste);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -326,13 +326,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> ModifFestival_ArtisteAsync(Festival_Artiste festival_Artiste)
+        public async Task<HttpResponseMessage> ModifFestival_ArtisteAsync(Festival_Artiste festival_Artiste)
         {
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/festival_Artistes/" + festival_Artiste.Id, festival_Artiste);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -341,13 +341,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> SupprFestival_ArtisteAsync(int id)
+        public async Task<HttpResponseMessage> SupprFestival_ArtisteAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/festival_Artistes/" + id);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -359,13 +359,13 @@ namespace FestivalDeMusique.API
         
         
 
-        public async Task<Uri> SupprFestival_OrganisateurAsync(int id)
+        public async Task<HttpResponseMessage> SupprFestival_OrganisateurAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/festival_Organisateurs/" + id);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -398,13 +398,13 @@ namespace FestivalDeMusique.API
             return hebergement;
         }
 
-        public async Task<Uri> AjoutHebergementAsync(Hebergement hebergement)
+        public async Task<HttpResponseMessage> AjoutHebergementAsync(Hebergement hebergement)
         {
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/hebergements", hebergement);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -413,13 +413,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> ModifHebergementAsync(Hebergement hebergement)
+        public async Task<HttpResponseMessage> ModifHebergementAsync(Hebergement hebergement)
         {
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/hebergements/" + hebergement.IdH, hebergement);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -428,13 +428,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> SupprHebergementAsync(int id)
+        public async Task<HttpResponseMessage> SupprHebergementAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/hebergements/" + id);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -467,13 +467,13 @@ namespace FestivalDeMusique.API
             return jour;
         }
 
-        public async Task<Uri> AjoutJourAsync(Jour jour)
+        public async Task<HttpResponseMessage> AjoutJourAsync(Jour jour)
         {
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/jours", jour);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -482,13 +482,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> ModifJourAsync(Jour jour)
+        public async Task<HttpResponseMessage> ModifJourAsync(Jour jour)
         {
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/jours/" + jour.IdJ, jour);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -497,13 +497,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> SupprJourAsync(int id)
+        public async Task<HttpResponseMessage> SupprJourAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/jours/" + id);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -536,13 +536,13 @@ namespace FestivalDeMusique.API
             return organisateur;
         }
 
-        public async Task<Uri> AjoutOrganisateurAsync(Organisateur organisateur)
+        public async Task<HttpResponseMessage> AjoutOrganisateurAsync(Organisateur organisateur)
         {
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/organisateurs", organisateur);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -551,13 +551,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> ModifOrganisateurAsync(Organisateur organisateur)
+        public async Task<HttpResponseMessage> ModifOrganisateurAsync(Organisateur organisateur)
         {
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/organisateurs/" + organisateur.IdO, organisateur);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -566,13 +566,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> SupprOrganisateurAsync(int id)
+        public async Task<HttpResponseMessage> SupprOrganisateurAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/organisateurs/" + id);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -605,13 +605,13 @@ namespace FestivalDeMusique.API
             return scene;
         }
 
-        public async Task<Uri> AjoutSceneAsync(Scene scene)
+        public async Task<HttpResponseMessage> AjoutSceneAsync(Scene scene)
         {
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/scenes", scene);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -620,13 +620,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> ModifSceneAsync(Scene scene)
+        public async Task<HttpResponseMessage> ModifSceneAsync(Scene scene)
         {
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/scenes/" + scene.IdS, scene);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -635,13 +635,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> SupprSceneAsync(int id)
+        public async Task<HttpResponseMessage> SupprSceneAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/scenes/" + id);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -674,13 +674,13 @@ namespace FestivalDeMusique.API
             return tarif;
         }
 
-        public async Task<Uri> AjoutTarifAsync(Tarif tarif)
+        public async Task<HttpResponseMessage> AjoutTarifAsync(Tarif tarif)
         {
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/tarifs", tarif);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -689,13 +689,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> ModifTarifAsync(Tarif tarif)
+        public async Task<HttpResponseMessage> ModifTarifAsync(Tarif tarif)
         {
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/tarifs/" + tarif.IdT, tarif);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -704,13 +704,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> SupprTarifAsync(int id)
+        public async Task<HttpResponseMessage> SupprTarifAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/tarifs/" + id);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -743,13 +743,13 @@ namespace FestivalDeMusique.API
             return type_Hebergement;
         }
 
-        public async Task<Uri> AjoutType_HebergementAsync(Type_Hebergement type_Hebergement)
+        public async Task<HttpResponseMessage> AjoutType_HebergementAsync(Type_Hebergement type_Hebergement)
         {
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/type_Hebergements", type_Hebergement);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -758,13 +758,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> ModifType_HebergementAsync(Type_Hebergement type_Hebergement)
+        public async Task<HttpResponseMessage> ModifType_HebergementAsync(Type_Hebergement type_Hebergement)
         {
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/type_Hebergements/" + type_Hebergement.IDTH, type_Hebergement);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
@@ -773,13 +773,13 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<Uri> SupprType_HebergementAsync(int id)
+        public async Task<HttpResponseMessage> SupprType_HebergementAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/type_Hebergements/" + id);
                 response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
+                return response;
             }
             catch (Exception ex)
             {
