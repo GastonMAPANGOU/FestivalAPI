@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="FestivalAPI.Models.Artiste">
+    <Position X="12" Y="6.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAACQABAAAAAQCQAAAAAAAAAACAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Models\Artiste.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Festival_Artistes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="FestivalAPI.Models.Festival">
+    <Position X="9" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQBAAEAAAAQAAAAAAAAIACAAAAQAAABAAAAAAAQ=</HashCode>
+      <FileName>Models\Festival.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Organisateur" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Festivaliers" />
+      <Property Name="Festival_Artistes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="FestivalAPI.Models.Festival_Artiste">
+    <Position X="9" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Festival_Artiste.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FestivalAPI.Models.Festivalier">
+    <Position X="6" Y="12.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAIAAAAAAAAAAAgAAAAAACBAAAAAAKAQAAAAAAA=</HashCode>
+      <FileName>Models\Festivalier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FestivalAPI.Models.Gimi">
+    <Position X="3.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAKAQAAAAAAA=</HashCode>
+      <FileName>Models\Gimi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FestivalAPI.Models.Hebergement">
+    <Position X="3.5" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAgQAAA=</HashCode>
+      <FileName>Models\Hebergement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FestivalAPI.Models.Jour">
+    <Position X="9" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACQABAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAACAAAA=</HashCode>
+      <FileName>Models\Jour.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tarifs" />
+      <Property Name="Festival_Artistes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="FestivalAPI.Models.Lieu">
+    <Position X="6.5" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAwAICAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Lieu.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Festivals" />
+      <Property Name="Scenes" />
+      <Property Name="Hebergements" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="FestivalAPI.Models.Organisateur">
+    <Position X="12" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAgAAAAAACAAAAAAAKAQAAAAAAA=</HashCode>
+      <FileName>Models\Organisateur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FestivalAPI.Models.Pays">
+    <Position X="12" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAACAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Pays.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Artistes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="FestivalAPI.Models.Scene">
+    <Position X="6" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAABAAAAAAgAAAAAAIAAIACAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Models\Scene.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Festival_Artistes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="FestivalAPI.Models.Style">
+    <Position X="15" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAACAAAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Style.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Artistes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="FestivalAPI.Models.Tarif">
+    <Position X="6.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAgAAAAAAAEAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Models\Tarif.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FestivalAPI.Models.Type_Hebergement">
+    <Position X="3.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>Models\Type_Hebergement.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Hebergements" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

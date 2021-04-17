@@ -18,6 +18,7 @@ namespace FestivalAPI.Models
         public int Accessibilite { get; set; }
         [ForeignKey("FK_Lieu")]
         public int LieuId { get; set; }
+        public ICollection<Festival_Artiste> Festival_Artistes { get; set; }
         public Scene() { }
     }
 }

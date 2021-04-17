@@ -14,8 +14,8 @@ namespace FestivalAPI.Models
         public string Lien { get; set; }
         [ForeignKey("FK_Lieu")]
         public int LieuId { get; set; }
-        [ForeignKey("FK_Type_Hebrgement")]
-        public int Type_HebrgementId { get; set; }
+        [ForeignKey("FK_Type_Hebergement")]
+        public int Type_HebergementId { get; set; }
         public Hebergement() { }
 
 

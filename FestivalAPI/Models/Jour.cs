@@ -13,6 +13,7 @@ namespace FestivalAPI.Models
         public string Numero_jour { get; set; }
         public DateTime Date_jour { get; set;}
         public ICollection<Tarif> Tarifs { get; set; }
+        public ICollection<Festival_Artiste> Festival_Artistes { get; set; }
         public Jour() { }
     }
 }
