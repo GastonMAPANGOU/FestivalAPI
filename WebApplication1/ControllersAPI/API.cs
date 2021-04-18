@@ -65,6 +65,29 @@ namespace WebApplication1.ControllersAPI
             return gimi;
         }
 
+        public async Task<Festivalier> GetFestivalier(string login, string pwd)
+        {
+            Festivalier festivalier = null;
+            HttpResponseMessage response = client.GetAsync("api/festivaliers/" + login + "/" + pwd).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                festivalier = JsonConvert.DeserializeObject<Festivalier>(resp);
+            }
+            return festivalier;
+        }
+        public async Task<Organisateur> GetOrganisateur(string login, string pwd)
+        {
+            Organisateur organisateur = null;
+            HttpResponseMessage response = client.GetAsync("api/organisateurs/" + login + "/" + pwd).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                organisateur = JsonConvert.DeserializeObject<Organisateur>(resp);
+            }
+            return organisateur;
+        }
+        
         public async Task<ICollection<Lieu>> GetLieuxAsync()
         {
             ICollection<Lieu> lieux = new List<Lieu>();
@@ -134,6 +157,8 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
+
+        
         public async Task<ICollection<Festival>> GetFestivalsAsync()
         {
             ICollection<Festival> festivals = new List<Festival>();
@@ -273,7 +298,7 @@ namespace WebApplication1.ControllersAPI
         }
 
 
-        /*public async Task<ICollection<Festival_Artiste>> GetFestival_ArtistesAsync()
+        public async Task<ICollection<Festival_Artiste>> GetFestival_ArtistesAsync()
         {
             ICollection<Festival_Artiste> festival_Artistes = new List<Festival_Artiste>();
             HttpResponseMessage response = client.GetAsync("api/festival_Artistes").Result;
@@ -342,75 +367,7 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        public async Task<ICollection<Festival_Oragnisateur>> GetFestival_OrganisateursAsync()
-        {
-            ICollection<Festival_Oragnisateur> festival_Organisateurs = new List<Festival_Oragnisateur>();
-            HttpResponseMessage response = client.GetAsync("api/festival_Organisateurs").Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var resp = await response.Content.ReadAsStringAsync();
-                festival_Organisateurs = JsonConvert.DeserializeObject<List<Festival_Oragnisateur>>(resp);
-            }
-            return festival_Organisateurs;
-        }
-
-        public async Task<Festival_Oragnisateur> GetFestival_OrganisateurAsync(int? id)
-        {
-            Festival_Oragnisateur festival_Organisateur = null;
-            HttpResponseMessage response = client.GetAsync("api/festival_Organisateurs/" + id).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var resp = await response.Content.ReadAsStringAsync();
-                festival_Organisateur = JsonConvert.DeserializeObject<Festival_Oragnisateur>(resp);
-            }
-            return festival_Organisateur;
-        }
-
-        public async Task<Uri> AjoutFestival_OrganisateurAsync(Festival_Oragnisateur festival_Organisateur)
-        {
-            try
-            {
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/festival_Organisateurs", festival_Organisateur);
-                response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return null;
-        }
-
-        public async Task<Uri> ModifFestival_OrganisateurAsync(Festival_Oragnisateur festival_Organisateur)
-        {
-            try
-            {
-                HttpResponseMessage response = await client.PutAsJsonAsync("api/festival_Organisateurs/" + festival_Organisateur.Id, festival_Organisateur);
-                response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return null;
-        }
-
-        public async Task<Uri> SupprFestival_OrganisateurAsync(int id)
-        {
-            try
-            {
-                HttpResponseMessage response = await client.DeleteAsync("api/festival_Organisateurs/" + id);
-                response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return null;
-        }*/
-
+        
         public async Task<ICollection<Hebergement>> GetHebergementsAsync()
         {
             ICollection<Hebergement> hebergements = new List<Hebergement>();
@@ -755,31 +712,6 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
-        public async Task<ICollection<Festival_Artiste>> GetFestival_ArtistesAsync()
-        {
-            ICollection<Festival_Artiste> Festival_Artistes = new List<Festival_Artiste>();
-            HttpResponseMessage response = client.GetAsync("api/festival_Artiste").Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var resp = await response.Content.ReadAsStringAsync();
-                Festival_Artistes = JsonConvert.DeserializeObject<List<Festival_Artiste>>(resp);
-            }
-            return Festival_Artistes;
-        }
-
-        public async Task<Festival_Artiste> GetFestival_ArtisteAsync(int? id)
-        {
-            Festival_Artiste Festival_Artiste = null;
-            HttpResponseMessage response = client.GetAsync("api/festival_Artiste/" + id).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var resp = await response.Content.ReadAsStringAsync();
-                Festival_Artiste = JsonConvert.DeserializeObject<Festival_Artiste>(resp);
-            }
-            return Festival_Artiste;
-        }
-
         public async Task<ICollection<Type_Hebergement>> GetType_HebergementsAsync()
         {
             ICollection<Type_Hebergement> type_Hebergements = new List<Type_Hebergement>();
@@ -848,6 +780,211 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
+        public async Task<ICollection<Pays>> GetPaysAsync()
+        {
+            ICollection<Pays> payss = new List<Pays>();
+            HttpResponseMessage response = client.GetAsync("api/pays").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                payss = JsonConvert.DeserializeObject<List<Pays>>(resp);
+            }
+            return payss;
+        }
 
+        public async Task<Pays> GetPaysAsync(int? id)
+        {
+            Pays pays = null;
+            HttpResponseMessage response = client.GetAsync("api/pays/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                pays = JsonConvert.DeserializeObject<Pays>(resp);
+            }
+            return pays;
+        }
+
+        public async Task<Uri> AjoutPaysAsync(Pays pays)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/pays", pays);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> ModifPaysAsync(Pays pays)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/pays/" + pays.Id, pays);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprPaysAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/pays/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Style>> GetStylesAsync()
+        {
+            ICollection<Style> styles = new List<Style>();
+            HttpResponseMessage response = client.GetAsync("api/styles").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                styles = JsonConvert.DeserializeObject<List<Style>>(resp);
+            }
+            return styles;
+        }
+
+        public async Task<Style> GetStyleAsync(int? id)
+        {
+            Style style = null;
+            HttpResponseMessage response = client.GetAsync("api/styles/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                style = JsonConvert.DeserializeObject<Style>(resp);
+            }
+            return style;
+        }
+
+        public async Task<Uri> AjoutStyleAsync(Style style)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/styles", style);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> ModifStyleAsync(Style style)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/styles/" + style.Id, style);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprStyleAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/styles/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Festivalier>> GetFestivaliersAsync()
+        {
+            ICollection<Festivalier> festivaliers = new List<Festivalier>();
+            HttpResponseMessage response = client.GetAsync("api/festivaliers").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                festivaliers = JsonConvert.DeserializeObject<List<Festivalier>>(resp);
+            }
+            return festivaliers;
+        }
+
+        public async Task<Festivalier> GetFestivalierAsync(int? id)
+        {
+            Festivalier festivalier = null;
+            HttpResponseMessage response = client.GetAsync("api/festivaliers/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                festivalier = JsonConvert.DeserializeObject<Festivalier>(resp);
+            }
+            return festivalier;
+        }
+
+        public async Task<Uri> AjoutFestivalierAsync(Festivalier festivalier)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/festivaliers", festivalier);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> ModifFestivalierAsync(Festivalier festivalier)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/festivaliers/" + festivalier.Id, festivalier);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprFestivalierAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/festivaliers/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
     }
 }

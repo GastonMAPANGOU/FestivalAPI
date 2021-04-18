@@ -45,12 +45,12 @@ namespace WebApplication1.Controllers
 
                 return View(Artistes);
             }
+        
 
 
 
-
-            // GET: Artiste/Details/5
-            public IActionResult Details(int? id)
+        // GET: Artiste/Details/5
+        public IActionResult Details(int? id)
             {
                 /*if (id == null)
                 {

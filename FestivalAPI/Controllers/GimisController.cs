@@ -42,6 +42,18 @@ namespace FestivalAPI.Controllers
             return gimi;
         }
 
+        [HttpGet("{login}/{pwd}")]
+        public async Task<ActionResult<Gimi>> GetGimi(string login, string pwd)
+        {
+            var gimi = await _context.Gimi.FirstOrDefaultAsync(u => u.Login.Equals(login) && u.Pwd.Equals(pwd));
+
+            if (gimi == null)
+            {
+                return NotFound();
+            }
+            return gimi;
+        }
+
         // PUT: api/Gimis/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

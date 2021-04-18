@@ -41,6 +41,17 @@ namespace FestivalAPI.Controllers
 
             return festivalier;
         }
+        [HttpGet("{login}/{pwd}")]
+        public async Task<ActionResult<Festivalier>> GetFestivalier(string login, string pwd)
+        {
+            var festivalier = await _context.Festivalier.FirstOrDefaultAsync(u => u.Login.Equals(login) && u.Pwd.Equals(pwd));
+
+            if (festivalier == null)
+            {
+                return NotFound();
+            }
+            return festivalier;
+        }
 
         // PUT: api/Festivaliers/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for

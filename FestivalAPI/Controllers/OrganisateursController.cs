@@ -42,6 +42,18 @@ namespace FestivalAPI.Controllers
             return organisateur;
         }
 
+        [HttpGet("{login}/{pwd}")]
+        public async Task<ActionResult<Organisateur>> GetOrganisateur(string login, string pwd)
+        {
+            var organisateur = await _context.Organisateur.FirstOrDefaultAsync(u => u.Login.Equals(login) && u.Pwd.Equals(pwd));
+
+            if (organisateur == null)
+            {
+                return NotFound();
+            }
+            return organisateur;
+        }
+
         // PUT: api/Organisateurs/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

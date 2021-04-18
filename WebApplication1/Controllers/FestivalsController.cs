@@ -29,23 +29,95 @@ namespace WebApplication1.Controllers
         {
             //return View(await _context.Festival.Include("Links").ToListAsync());
 
-
-
             //IEnumerable<Festival> Festivals = API.Instance.GetFestivalsAsync().Result;
             //return View(Festivals);
             var Festivals = API.Instance.GetFestivalsAsync().Result;
 
-
-
-
-
-
-
-
             return View(Festivals);
         }
 
+        public IActionResult Index(String lieu, String artiste, String style)
+        {
 
+            var artistes = from m in API.Instance.GetArtistesAsync().Result
+                           select m;
+            var artistes2 = from m in API.Instance.GetArtistesAsync().Result
+                            select m;
+
+            var lieux = from m in API.Instance.GetLieuxAsync().Result
+                        select m;
+            var styles = from m in API.Instance.GetStylesAsync().Result
+                         select m;
+            var festivals = from m in API.Instance.GetFestivalsAsync().Result
+                            select m;
+            var lieu_festival_artistes = from m in API.Instance.GetFestival_ArtistesAsync().Result
+                                         select m;
+            var artiste_festival_artistes = from m in API.Instance.GetFestival_ArtistesAsync().Result
+                                            select m;
+            var style_festival_artistes = from m in API.Instance.GetFestival_ArtistesAsync().Result
+                                          select m;
+            List<Festival_Artiste> final_festival_artistes = new List<Festival_Artiste>();
+            //recherche par lieu
+            if (!String.IsNullOrEmpty(lieu))
+            {
+                lieux = lieux.Where(s => s.Commune.Contains(lieu));
+                foreach (var item in lieux)
+                {
+                    festivals = festivals.Where(s => s.LieuId == item.IdL);
+                }
+                foreach (var item in festivals)
+                {
+                    lieu_festival_artistes = lieu_festival_artistes.Where(s => s.FestivalId == item.IdF);
+                }
+                foreach (var item in lieu_festival_artistes)
+                {
+                    if (!final_festival_artistes.Contains(item))
+                        final_festival_artistes.Add(item);
+                }
+            }
+            //recherche par artiste
+            if (!String.IsNullOrEmpty(artiste))
+            {
+                artistes = artistes.Where(s => s.Nom.Contains(artiste));
+                foreach (var item in artistes)
+                {
+                    artiste_festival_artistes = artiste_festival_artistes.Where(s => s.ArtisteId == item.IdA);
+                }
+                foreach (var item in artiste_festival_artistes)
+                {
+                    if (!final_festival_artistes.Contains(item))
+                        final_festival_artistes.Add(item);
+                }
+            }
+            // recherche par style
+            if (!String.IsNullOrEmpty(style))
+            {
+                styles = styles.Where(s => s.Nom.Contains(style));
+                foreach (var item in styles)
+                {
+                    artistes2 = artistes2.Where(s => s.StyleId == item.Id);
+                }
+                foreach (var item in artistes2)
+                {
+                    style_festival_artistes = style_festival_artistes.Where(s => s.ArtisteId == item.IdA);
+                }
+                foreach (var item in style_festival_artistes)
+                {
+                    if (!final_festival_artistes.Contains(item))
+                        final_festival_artistes.Add(item);
+                }
+            }
+            festivals = from m in API.Instance.GetFestivalsAsync().Result
+                        select m;
+            if (final_festival_artistes.Count != 0)
+                foreach (var item in final_festival_artistes)
+                {
+                    festivals = festivals.Where(s => s.IdF == item.FestivalId);
+                }
+
+
+            return View(festivals);
+        }
 
 
         // GET: Festival/Details/5
