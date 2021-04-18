@@ -11,7 +11,7 @@ namespace FestivalAPI.Models
     {
         [Key]
         public int IdT { get; set; }
-        public float Montant { get; set; }
+        public double Montant { get; set; }
         public string Type_Tarif { get; set; }
         public int Coefficient { get; set; }
         [ForeignKey("Jour")]
