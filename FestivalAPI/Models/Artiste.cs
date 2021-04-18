@@ -11,7 +11,9 @@ namespace FestivalAPI.Models
     {
         [Key]
         public int IdA { get; set; }
+        [Required]
         public string Nom { get; set; }
+        [Required]
         public string Prenom { get; set; }
         public string Photo { get; set; }
         [ForeignKey("FK_Style")]
@@ -20,6 +22,7 @@ namespace FestivalAPI.Models
         [ForeignKey("FK_Pays")]
         public int PaysId { get; set; }
         public ICollection<Festival_Artiste> Festival_Artistes { get; set; }
+        [Required]
         public string Extrait { get; set; }
         public Artiste() { }
 
