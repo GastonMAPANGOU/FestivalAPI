@@ -11,11 +11,11 @@ namespace FestivalAPI.Data
     {
         private string connectionString = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=FestivalAPIContext-adf8fbfd-4c0b-47bf-a2e7-41bddfef421b;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 
-        public Tarif valeur_tarif(int IdJ)
+        public Tarif valeur_tarif(int IdJ, int Coefficient)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Tarif where IdJ = " + IdJ;
+                string sqlQuery = "Select * from Tarif where IdJ = " + IdJ +"Coefficient = "+Coefficient;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 command.Parameters.Add("@Id", System.Data.SqlDbType.Int).Value = IdJ;
                 connection.Open();
@@ -25,11 +25,11 @@ namespace FestivalAPI.Data
                 {
                     while (reader.Read())
                     {
-                        tarif.Coefficient = reader.GetInt32(0);
-                        tarif.IdJ = reader.GetInt32(1);
-                        tarif.IdT = reader.GetInt32(2);
-                        tarif.Montant = reader.GetDouble(3);
-                        tarif.Type_Tarif = reader.GetString(4);
+                        tarif.Coefficient = reader.GetInt32(3);
+                        tarif.IdJ = reader.GetInt32(4);
+                        tarif.IdT = reader.GetInt32(0);
+                        tarif.Montant = reader.GetDouble(1);
+                        tarif.Type_Tarif = reader.GetString(2);
                     }
                 }
 

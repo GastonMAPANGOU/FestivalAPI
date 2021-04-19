@@ -125,8 +125,6 @@ namespace FestivalAPI.Data
                 }
 
             }
-
-
             return (artistes);
         }
     }
