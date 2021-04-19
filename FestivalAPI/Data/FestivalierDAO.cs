@@ -75,17 +75,17 @@ namespace FestivalAPI.Data
             return festivalier;
         }
 
-        public void Insert(DateTime dateJour, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId)
+        public void Insert(DateTime dateJour, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId, int nbr_Jour, int coefficient)
         {
             int IdJ;
             JourDAO jourDAO = new JourDAO();
             TarifDAO tarifDAO = new TarifDAO(); 
             Tarif tarif = new Tarif();
 
-            IdJ = jourDAO.Id_Jour(dateJour);
-            tarif = tarifDAO.valeur_tarif(IdJ);
+            IdJ = jourDAO.Id_Jour(dateJour, FestivalId);
+            tarif = tarifDAO.valeur_tarif(IdJ, coefficient);
 
-            somme = tarif.Montant * tarif.Coefficient * nbr_personne;
+            somme = tarif.Montant * tarif.Coefficient * nbr_personne * nbr_Jour;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -109,15 +109,15 @@ namespace FestivalAPI.Data
             }
         }
 
-        public void Update(int Id, DateTime dateJour, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId)
+        public void Update(int Id, DateTime dateJour, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId, int Coefficient)
         {
             int IdJ;
             JourDAO jourDAO = new JourDAO();
             TarifDAO tarifDAO = new TarifDAO();
             Tarif tarif = new Tarif();
 
-            IdJ = jourDAO.Id_Jour(dateJour);
-            tarif = tarifDAO.valeur_tarif(IdJ);
+            IdJ = jourDAO.Id_Jour(dateJour, FestivalId);
+            tarif = tarifDAO.valeur_tarif(IdJ, Coefficient);
 
             somme = tarif.Montant * tarif.Coefficient * nbr_personne;
 
