@@ -58,10 +58,10 @@ namespace FestivalAPI.Data
                         Festival_Artiste festival_Artiste = new Festival_Artiste();
 
                         festival_Artiste.Id = reader.GetInt32(0);
-                        festival_Artiste.ArtisteId = reader.GetInt32(1);
-                        festival_Artiste.FestivalId = reader.GetInt32(2);
-                        festival_Artiste.JourId = reader.GetInt32(3);
-                        festival_Artiste.SceneId = reader.GetInt32(4);
+                        festival_Artiste.ArtisteId = reader.GetInt32(2);
+                        festival_Artiste.FestivalId = reader.GetInt32(1);
+                        festival_Artiste.JourId = reader.GetInt32(4);
+                        festival_Artiste.SceneId = reader.GetInt32(3);
 
                         list.Add(festival_Artiste);
                     }

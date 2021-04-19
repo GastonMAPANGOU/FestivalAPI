@@ -29,11 +29,11 @@ namespace FestivalAPI.Data
                         Festivalier festivalier = new Festivalier();
 
                         festivalier.Id = reader.GetInt32(0);
-                        festivalier.Login = reader.GetString(1);
-                        festivalier.Nb_Participants = reader.GetInt32(2);
-                        festivalier.Nom = reader.GetString(3);
-                        festivalier.Prenom = reader.GetString(4);
-                        festivalier.Pwd = reader.GetString(5);
+                        festivalier.Login = reader.GetString(3);
+                        festivalier.Nb_Participants = reader.GetInt32(5);
+                        festivalier.Nom = reader.GetString(1);
+                        festivalier.Prenom = reader.GetString(2);
+                        festivalier.Pwd = reader.GetString(4);
                         festivalier.Somme = reader.GetDouble(6);
 
                         returnList.Add(festivalier);
@@ -61,12 +61,13 @@ namespace FestivalAPI.Data
                     while (reader.Read())
                     {
                         festivalier.Id = reader.GetInt32(0);
-                        festivalier.Login = reader.GetString(1);
-                        festivalier.Nb_Participants = reader.GetInt32(2);
-                        festivalier.Nom = reader.GetString(3);
-                        festivalier.Prenom = reader.GetString(4);
-                        festivalier.Pwd = reader.GetString(5);
+                        festivalier.Login = reader.GetString(3);
+                        festivalier.Nb_Participants = reader.GetInt32(5);
+                        festivalier.Nom = reader.GetString(1);
+                        festivalier.Prenom = reader.GetString(2);
+                        festivalier.Pwd = reader.GetString(4);
                         festivalier.Somme = reader.GetDouble(6);
+
                     }
                 }
             }
@@ -74,7 +75,7 @@ namespace FestivalAPI.Data
             return festivalier;
         }
 
-        public void Insert(DateTime dateJour, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId, int nbr_jour)
+        public void Insert(DateTime dateJour, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId)
         {
             int IdJ;
             JourDAO jourDAO = new JourDAO();
@@ -84,7 +85,7 @@ namespace FestivalAPI.Data
             IdJ = jourDAO.Id_Jour(dateJour);
             tarif = tarifDAO.valeur_tarif(IdJ);
 
-            somme = tarif.Montant * tarif.Coefficient * nbr_personne * nbr_jour;
+            somme = tarif.Montant * tarif.Coefficient * nbr_personne;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
