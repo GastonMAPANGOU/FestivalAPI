@@ -6,14 +6,11 @@
       <HashCode>gAACQABAAAAAQCQAAAAAAAAAACAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>Models\Artiste.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Festival_Artistes" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="FestivalAPI.Models.Festival">
     <Position X="9" Y="10.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAQBAAEAAAAQAAAAAAAAIACAAAAQAAABAAAAAAAQ=</HashCode>
+      <HashCode>AAACAQBAAEAAAAQAAAAAAEAIACAAAAQAAABAAAAAAAQ=</HashCode>
       <FileName>Models\Festival.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -21,14 +18,14 @@
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Festivaliers" />
-      <Property Name="Festival_Artistes" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="FestivalAPI.Models.Festival_Artiste">
+  <Class Name="FestivalAPI.Models.Ami">
     <Position X="9" Y="7" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAQAAAACAAAAAgAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
-      <FileName>Models\Festival_Artiste.cs</FileName>
+      <HashCode>AAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAA=</HashCode>
+      <FileName>Models\Ami.cs</FileName>
+      <NewMemberFileName>Models\Festival_Artiste.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Class Name="FestivalAPI.Models.Festivalier">
@@ -55,12 +52,11 @@
   <Class Name="FestivalAPI.Models.Jour">
     <Position X="9" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACQABAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAACAAAA=</HashCode>
+      <HashCode>AAACQABAAAAAAAAAAAgAAAAAAAAAAAAEAAAAAACAAAA=</HashCode>
       <FileName>Models\Jour.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Tarifs" />
-      <Property Name="Festival_Artistes" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="FestivalAPI.Models.Lieu">
@@ -98,9 +94,6 @@
       <HashCode>AAACAABAAAAAAgAAAAAAIAAIACAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Models\Scene.cs</FileName>
     </TypeIdentifier>
-    <ShowAsCollectionAssociation>
-      <Property Name="Festival_Artistes" />
-    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="FestivalAPI.Models.Style">
     <Position X="15" Y="6.25" Width="1.5" />

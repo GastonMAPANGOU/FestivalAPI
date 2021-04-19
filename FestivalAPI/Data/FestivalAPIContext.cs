@@ -42,5 +42,7 @@ namespace FestivalAPI.Data
         public DbSet<FestivalAPI.Models.Pays> Pays { get; set; }
 
         public DbSet<FestivalAPI.Models.Style> Style { get; set; }
+
+        public DbSet<FestivalAPI.Models.Ami> Ami { get; set; }
     }
 }
