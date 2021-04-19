@@ -480,6 +480,7 @@ namespace WebApplication1.ControllersAPI
         {
             DateTime date = festival.Date_Debut;
             Jour jour = new Jour();
+            jour.FestivalId = festival.IdF;
             int i = 1;
             //Festival_Artiste festival_Artiste = new Festival_Artiste();
             
