@@ -18,6 +18,7 @@ namespace FestivalAPI.Models
         [ForeignKey("FK_Festival")]
         public int Ami2 { get; set; }
         public bool Accepted { get; set; }
+        public bool Vue { get; set; }
 
         public Ami() { }
     }
