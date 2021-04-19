@@ -476,6 +476,27 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
+        public async Task<int> AjoutJoursAsync(Festival festival)
+        {
+            DateTime date = festival.Date_Debut;
+            Jour jour = new Jour();
+            int i = 1;
+            //Festival_Artiste festival_Artiste = new Festival_Artiste();
+            
+            jour.Date_jour = date;
+
+            while (jour.Date_jour<festival.Date_Fin)
+            {
+                
+                jour.Numero_jour = "Jour" + i;
+                await AjoutJourAsync(jour);
+                jour.Date_jour=jour.Date_jour.AddDays(1);
+                i++;
+            }
+            return i;
+           
+        }
+
         public async Task<Uri> ModifJourAsync(Jour jour)
         {
             try
