@@ -6,6 +6,9 @@
       <HashCode>gAACQABAAAAAQCQAAAAAAAAAACAAAAAAACAAAAAAAAA=</HashCode>
       <FileName>Models\Artiste.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Festival_Artistes" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="FestivalAPI.Models.Festival">
     <Position X="9" Y="10.25" Width="1.5" />
@@ -18,12 +21,13 @@
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Festivaliers" />
+      <Property Name="Festival_Artistes" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="FestivalAPI.Models.Ami">
-    <Position X="9" Y="7" Width="1.5" />
+    <Position X="14.5" Y="8.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAiAAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAAAA=</HashCode>
+      <HashCode>AAACQAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAACA=</HashCode>
       <FileName>Models\Ami.cs</FileName>
       <NewMemberFileName>Models\Festival_Artiste.cs</NewMemberFileName>
     </TypeIdentifier>
@@ -57,6 +61,7 @@
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Tarifs" />
+      <Property Name="Festival_Artistes" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="FestivalAPI.Models.Lieu">
@@ -94,6 +99,9 @@
       <HashCode>AAACAABAAAAAAgAAAAAAIAAIACAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Models\Scene.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Festival_Artistes" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="FestivalAPI.Models.Style">
     <Position X="15" Y="6.25" Width="1.5" />
@@ -121,6 +129,13 @@
     <ShowAsCollectionAssociation>
       <Property Name="Hebergements" />
     </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="FestivalAPI.Models.Festival_Artiste">
+    <Position X="9" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAACAAAAAgAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Models\Festival_Artiste.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

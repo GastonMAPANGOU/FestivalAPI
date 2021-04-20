@@ -15,7 +15,7 @@ namespace FestivalAPI.Models
         public string Nom { get; set; }
         public string Adresse { get; set; }
         public int Capacite { get; set; } 
-        public int Accessibilite { get; set; }
+        public bool Accessibilite { get; set; }
         [ForeignKey("FK_Lieu")]
         public int LieuId { get; set; }
         public ICollection<Festival_Artiste> Festival_Artistes { get; set; }
