@@ -1,52 +1,95 @@
 ﻿@model FestivalAPI.Models.Artiste
 
+
 @{
+    
     ViewData["Title"] = "Details";
+   
 }
 
 <h1>Details</h1>
 
-<div>
+@{
+    IEnumerable<FestivalAPI.Models.Style> styles = WebApplication1.ControllersAPI.API.Instance.GetStylesAsync().Result;
+    IEnumerable<FestivalAPI.Models.Pays> pays = WebApplication1.ControllersAPI.API.Instance.GetPaysAsync().Result;
+}
     <h4>Artiste</h4>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
+    <d1 class="row">
+        <div class="card" style="width: 18rem;">
+            <img src="@Url.Content("~/"+Model.Photo)" class="card-img-top" alt="Sample Photo" width="400" height="341">
+            <div class="card-body">
+                <h5 class="card-title">Profile artiste :</h5>
+                <p class="card-text"> @Html.DisplayNameFor(model => model.Descriptif)</p>
+            </div>
+            <ul class="list-group list-group-flush">
+                
+                <li class="list-group-item">
+                    @foreach (var it in styles)
+                    {
+                        if (it.Id == Model.StyleId)
+                        {
+                            @it.Nom
+                        }
+                    }
+                            </li>
+                <li class="list-group-item">
+                    @foreach (var it in pays)
+                    {
+                        if (it.Id == Model.PaysId)
+                        {
+                            @it.Nom
+                        }
+                    }
+                            </li>
+                <li class="list-group-item">@Html.DisplayNameFor(model => model.Extrait)</li>
+            </ul>
+            <div class="card-body">
+                <a asp-action="Edit" asp-route-id="@Model.IdA">Edit</a> |
+                <a asp-action="Index">Back to List</a>
+            </div>
+        </div>
+    </d1>
+
+
+    @*<dl class="row">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Nom)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Nom)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Prenom)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Prenom)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Photo)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Photo)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.StyleId)
         </dt>
-       
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Descriptif)
         </dt>
 
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Descriptif)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.PaysId)
         </dt>
-        
-        <dt class = "col-sm-2">
+
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Extrait)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Extrait)
         </dd>
     </dl>
@@ -54,4 +97,4 @@
 <div>
     <a asp-action="Edit" asp-route-id="@Model.IdA">Edit</a> |
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
