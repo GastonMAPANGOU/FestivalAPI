@@ -84,7 +84,7 @@ namespace WebApplication1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Nom,Prenom,Login,Pwd,Nb_Participants,Somme,FestivalId")] Festivalier festivalier,int id_jour, int coefficient, int id_festival=1)
+        public IActionResult Create([Bind("Id,Nom,Prenom,Login,Pwd,Nb_Participants,Somme,FestivalId")] Festivalier festivalier,int id_jour, int coefficient)
         {
             
             IEnumerable<FestivalAPI.Models.Tarif> tarifs = WebApplication1.ControllersAPI.API.Instance.GetTarifsAsync().Result.Where(s => s.JourId == id_jour);
@@ -166,37 +166,26 @@ namespace WebApplication1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Nom,Prenom,Login,Pwd,Nb_Participants,Somme,FestivalId")] Festivalier Festivalier)
+        public IActionResult Edit(int id, [Bind("Id,Nom,Prenom,Login,Pwd,Nb_Participants,Somme,FestivalId")] Festivalier festivalier, int id_jour, int coefficient)
         {
-            /*if (id != Festivalier.Id)
+            IEnumerable<FestivalAPI.Models.Tarif> tarifs = WebApplication1.ControllersAPI.API.Instance.GetTarifsAsync().Result.Where(s => s.JourId == id_jour);
+            foreach (var item in tarifs)
             {
-                return NotFound();
+                if (item.Coefficient == coefficient)
+                {
+                    festivalier.Somme = festivalier.Nb_Participants * coefficient * item.Montant;
+                }
             }
 
- 
-
-            if (ModelState.IsValid)
+            IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result.Where(s => s.IdJ == id_jour);
+            foreach (var item in jours)
             {
-                try
+                if (item.IdJ == id_jour)
                 {
-                    _context.Update(Festivalier);
-                    await _context.SaveChangesAsync();
+                    festivalier.FestivalId = (int)item.FestivalId;
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FestivalierExists(Festivalier.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
             }
-            return View(Festivalier);*/
-            if (id != Festivalier.Id)
+            if (id != festivalier.Id)
             {
                 return NotFound();
             }
@@ -204,10 +193,10 @@ namespace WebApplication1.Controllers
 
             if (ModelState.IsValid)
             {
-                var URI = API.Instance.ModifFestivalierAsync(Festivalier);
+                var URI = API.Instance.ModifFestivalierAsync(festivalier);
                 return RedirectToAction(nameof(Index));
             }
-            return View(Festivalier);
+            return View(festivalier);
         }
 
 
