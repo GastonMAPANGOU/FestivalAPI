@@ -16,7 +16,7 @@ namespace WebApplication1.ControllersAPI
 
         private API()
         {
-            client.BaseAddress = new Uri("http://localhost:53991/");
+            client.BaseAddress = new Uri("http://localhost:44344/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));

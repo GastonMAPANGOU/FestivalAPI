@@ -178,7 +178,7 @@ namespace FestivalAPI.Controllers
             return (scenes);
         }
 
-        [HttpPut]
+        [HttpGet("{Nom}/{Adresse}/{Capacite}/{Accessibilite}/{lieu}/{dateJour}/{artiste}")]
         public ActionResult<Scene> AddScene(int FestivalId, string Nom, string Adresse, int Capacite, bool Accessibilite, string lieu, DateTime dateJour, string artiste)
         {
             SceneDAO sceneDAO = new SceneDAO();
