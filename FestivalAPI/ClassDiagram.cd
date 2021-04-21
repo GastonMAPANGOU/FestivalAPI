@@ -24,14 +24,6 @@
       <Property Name="Festival_Artistes" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="FestivalAPI.Models.Ami">
-    <Position X="14.5" Y="8.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACQAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAACA=</HashCode>
-      <FileName>Models\Ami.cs</FileName>
-      <NewMemberFileName>Models\Festival_Artiste.cs</NewMemberFileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="FestivalAPI.Models.Festivalier">
     <Position X="6" Y="12.5" Width="1.5" />
     <TypeIdentifier>
@@ -135,6 +127,13 @@
     <TypeIdentifier>
       <HashCode>AAACAAAQAAAACAAAAAgAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
       <FileName>Models\Festival_Artiste.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FestivalAPI.Models.Ami">
+    <Position X="14.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACQAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAACA=</HashCode>
+      <FileName>Models\Ami.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

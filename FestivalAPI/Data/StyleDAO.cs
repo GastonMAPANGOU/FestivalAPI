@@ -85,7 +85,6 @@ namespace FestivalAPI.Data
                     }
                 }
                 return Id;
-
             }
         }
     }

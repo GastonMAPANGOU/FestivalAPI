@@ -16,7 +16,7 @@ namespace FestivalAPI.Data
             Jour jour = new Jour();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select IdJ from Jour where Date_Jour = " + dateJour + " And FestivalId" +FestivalId;
+                string sqlQuery = "Select IdJ from Jour where Date_Jour = " + dateJour + " And FestivalId = " +FestivalId;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -26,7 +26,7 @@ namespace FestivalAPI.Data
                     while(reader.Read())
                     {
                         jour.IdJ = reader.GetInt32(0);
-                    }
+                    }                
                 }
             }
             return jour.IdJ;

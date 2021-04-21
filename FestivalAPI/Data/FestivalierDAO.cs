@@ -75,12 +75,45 @@ namespace FestivalAPI.Data
             return festivalier;
         }
 
-        public void Insert(DateTime dateJour, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId, int nbr_Jour, int coefficient)
+        public Festivalier Display_One_Festivalier_Login(string Login, int FestivalId)
         {
+            Festivalier festivalier = new Festivalier();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "Select * from Festivalier where Login = " + Login + "and FestivalId = " +FestivalId;
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        festivalier.Id = reader.GetInt32(0);
+                        festivalier.Login = reader.GetString(3);
+                        festivalier.Nb_Participants = reader.GetInt32(5);
+                        festivalier.Nom = reader.GetString(1);
+                        festivalier.Prenom = reader.GetString(2);
+                        festivalier.Pwd = reader.GetString(4);
+                        festivalier.Somme = reader.GetDouble(6);
+
+                    }
+                }
+            }
+
+            return festivalier;
+        }
+
+
+
+
+        public Festivalier Insert(DateTime dateJour, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId, int nbr_Jour, int coefficient)
+        {
+            FestivalierDAO festivalierDAO = new FestivalierDAO();
             int IdJ;
             JourDAO jourDAO = new JourDAO();
             TarifDAO tarifDAO = new TarifDAO(); 
             Tarif tarif = new Tarif();
+            Festivalier festivalier = new Festivalier();
 
             IdJ = jourDAO.Id_Jour(dateJour, FestivalId);
             tarif = tarifDAO.valeur_tarif(IdJ, coefficient);
@@ -89,8 +122,8 @@ namespace FestivalAPI.Data
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Insert into Festivalier (Nom, Prenom, Login, Pwd, Nb_Participants, Somme, FestivalId) " +
-                                    "Values (@Nom, @Prenom, @Login, @Pwd, @Nb_Participants, @Somme, @FestiavalId)";
+                string sqlQuery = "Insert into Festivalier (Id, Nom, Prenom, Login, Pwd, Nb_Participants, Somme, FestivalId) " +
+                                    "Values (Id.nextVal, @Nom, @Prenom, @Login, @Pwd, @Nb_Participants, @Somme, @FestiavalId)";
 
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
 
@@ -106,6 +139,9 @@ namespace FestivalAPI.Data
                 command.ExecuteNonQuery();
                 connection.Close();
 
+                festivalier = festivalierDAO.Display_One_Festivalier_Login(Login, FestivalId);
+
+                return festivalier;
             }
         }
 
@@ -123,8 +159,8 @@ namespace FestivalAPI.Data
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Update Festivalier (Nom, Prenom, Login, Pwd, Nb_Participants, Somme, FestivalId) " +
-                                    "Values (@Nom, @Prenom, @Login, @Pwd, @Nb_Participants, @Somme, @FestiavalId) where Id = "+ Id;
+                string sqlQuery = "Update Festivalier (Id, Nom, Prenom, Login, Pwd, Nb_Participants, Somme, FestivalId) " +
+                                    "Values (Id.nextVal, @Nom, @Prenom, @Login, @Pwd, @Nb_Participants, @Somme, @FestiavalId) where Id = "+ Id;
 
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
 

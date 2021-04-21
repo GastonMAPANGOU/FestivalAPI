@@ -89,7 +89,6 @@ namespace FestivalAPI.Data
                     }
                 }
                 return Id;
-
             }
         }
 
@@ -123,7 +122,6 @@ namespace FestivalAPI.Data
                         artistes.Add(artiste);
                     }
                 }
-
             }
             return (artistes);
         }

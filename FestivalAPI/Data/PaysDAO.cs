@@ -64,5 +64,29 @@ namespace FestivalAPI.Data
                 return list_Pays;
             }
         }
+
+
+        public int Id_Pays(string Nom_Pays)
+        {
+              Pays pays = new Pays();
+
+              using (SqlConnection connection = new SqlConnection(connectionString))
+              {
+                   string sqlQuery = "Select Id from Pays where Nom = " + Nom_Pays;
+                   SqlCommand command = new SqlCommand(sqlQuery, connection);
+                   connection.Open();
+                   SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            pays.Id = reader.GetInt32(0);
+                        }
+                    }
+              }
+             return pays.Id;
+        }
+       
     }
 }
