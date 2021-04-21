@@ -1,0 +1,99 @@
+﻿@model FestivalAPI.Models.Festivalier
+
+@{ 
+    DateTime dateJour = new DateTime();
+    /* string @Nom = "";
+    string @Prenom = "";
+    string @Login = "";
+    string @Pwd = "";
+    int @Nb_Participants = 0;*/
+    int id_jour=0;
+    int nbr_Jour = 0;
+    int coefficient = 0;
+    IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result.Where(s => s.FestivalId==1);
+}
+
+
+
+<h1>Ajouter Festivalier</h1>
+
+
+
+<h4>Festivalier</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" >
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nom" class="control-label">Nom</label>
+                <input asp-for="Nom" class="form-control" required />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Prenom" class="control-label">Prénom</label>
+                <input asp-for="Prenom" class="form-control" required />
+                <span asp-validation-for="Prenom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Login" class="control-label">Login</label>
+                <input asp-for="Login" class="form-control" required />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Pwd" class="control-label">Mot de passe</label>
+                <input asp-for="Pwd" class="form-control" type="password" required />
+                <span asp-validation-for="Pwd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nb_Participants" class="control-label">Nombre de Participants:</label>
+                <input asp-for="Nb_Participants" class="form-control" type="number" required />
+                <span asp-validation-for="Nb_Participants" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@nbr_Jour" class="control-label">Nombre de jours:</label>
+                <input asp-for="@nbr_Jour" class="form-control" type="number" required />
+                <span asp-validation-for="@nbr_Jour" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="@id_jour" class="control-label">Sélectionnez une date</label>
+                <select class="form-control" asp-for="@id_jour">
+                    <option value="">Choisissez une option</option>
+                    @foreach (var it in jours)
+                    {
+                        <option value="@it.IdJ">
+                            @it.Numero_jour
+                        </option>
+                    }
+                </select>
+                <span asp-validation-for="@id_jour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Type de choix</label>
+                <select class="form-control" asp-for="@coefficient">
+                    <option value="">Choisissez une option</option>
+                    <option value=1>Demi-Tarif</option>
+                    <option value=2>Tarif-plein</option>
+
+                </select>
+                <span asp-validation-for="@coefficient" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -106,17 +106,14 @@ namespace FestivalAPI.Data
 
 
 
-        public Festivalier Insert(DateTime dateJour, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId, int nbr_Jour, int coefficient)
+        public Festivalier Insert(int JourId, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId, int nbr_Jour, int coefficient)
         {
             FestivalierDAO festivalierDAO = new FestivalierDAO();
-            int IdJ;
-            JourDAO jourDAO = new JourDAO();
             TarifDAO tarifDAO = new TarifDAO(); 
             Tarif tarif = new Tarif();
             Festivalier festivalier = new Festivalier();
 
-            IdJ = jourDAO.Id_Jour(dateJour, FestivalId);
-            tarif = tarifDAO.valeur_tarif(IdJ, coefficient);
+            tarif = tarifDAO.valeur_tarif(JourId, coefficient);
 
             somme = tarif.Montant * tarif.Coefficient * nbr_personne * nbr_Jour;
 

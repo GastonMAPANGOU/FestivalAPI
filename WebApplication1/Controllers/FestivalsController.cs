@@ -50,6 +50,8 @@ namespace WebApplication1.Controllers
                          select m;
             var festivals = from m in API.Instance.GetFestivalsAsync().Result
                             select m;
+            var scenes = from m in API.Instance.GetScenesAsync().Result
+                            select m;
             var lieu_festival_artistes = from m in API.Instance.GetFestival_ArtistesAsync().Result
                                          select m;
             var artiste_festival_artistes = from m in API.Instance.GetFestival_ArtistesAsync().Result
@@ -107,12 +109,12 @@ namespace WebApplication1.Controllers
                         final_festival_artistes.Add(item);
                 }
             }
-            festivals = from m in API.Instance.GetFestivalsAsync().Result
+            scenes = from m in API.Instance.GetScenesAsync().Result
                         select m;
             if (final_festival_artistes.Count != 0)
                 foreach (var item in final_festival_artistes)
                 {
-                    festivals = festivals.Where(s => s.IdF == item.FestivalId);
+                    scenes = scenes.Where(s => s.IdS == item.SceneId);
                 }
 
 

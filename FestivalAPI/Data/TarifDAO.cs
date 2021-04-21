@@ -26,7 +26,7 @@ namespace FestivalAPI.Data
                     while (reader.Read())
                     {
                         tarif.Coefficient = reader.GetInt32(3);
-                        tarif.IdJ = reader.GetInt32(4);
+                        tarif.JourId = reader.GetInt32(4);
                         tarif.IdT = reader.GetInt32(0);
                         tarif.Montant = reader.GetDouble(1);
                         tarif.Type_Tarif = reader.GetString(2);

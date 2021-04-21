@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FestivalAPI", "FestivalAPI\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FestivalDeMusique", "FestivalDeMusique\FestivalDeMusique.csproj", "{BE424FFE-135E-4829-936A-365D7ACAE724}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "..\..\..\Downloads\WebApplication1\WebApplication1.csproj", "{145C612C-3D2D-48FD-AA7B-339778BD232B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{D23A5792-66D7-4E4F-8ADB-8D990C2915B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{BE424FFE-135E-4829-936A-365D7ACAE724}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE424FFE-135E-4829-936A-365D7ACAE724}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE424FFE-135E-4829-936A-365D7ACAE724}.Release|Any CPU.Build.0 = Release|Any CPU
-		{145C612C-3D2D-48FD-AA7B-339778BD232B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{145C612C-3D2D-48FD-AA7B-339778BD232B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{145C612C-3D2D-48FD-AA7B-339778BD232B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{145C612C-3D2D-48FD-AA7B-339778BD232B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D23A5792-66D7-4E4F-8ADB-8D990C2915B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D23A5792-66D7-4E4F-8ADB-8D990C2915B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D23A5792-66D7-4E4F-8ADB-8D990C2915B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D23A5792-66D7-4E4F-8ADB-8D990C2915B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

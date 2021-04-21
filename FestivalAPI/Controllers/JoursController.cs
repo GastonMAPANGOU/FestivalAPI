@@ -42,6 +42,20 @@ namespace FestivalAPI.Controllers
             return jour;
         }
 
+
+        /*[HttpGet("{Date_jour,jour}")]
+        public async Task<ActionResult<Jour>> GetJour(DateTime dt,)
+        {
+            var jour = await _context.Jour.FindAsync(id);
+
+            if (jour == null)
+            {
+                return NotFound();
+            }
+
+            return jour;
+        }*/
+
         // PUT: api/Jours/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.

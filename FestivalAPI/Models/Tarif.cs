@@ -15,7 +15,7 @@ namespace FestivalAPI.Models
         public string Type_Tarif { get; set; }
         public int Coefficient { get; set; }
         [ForeignKey("Jour")]
-        public int IdJ { get; set; }
+        public int JourId { get; set; }
         public Tarif() { }
         public Tarif(float montant, int coefficient) 
         {
