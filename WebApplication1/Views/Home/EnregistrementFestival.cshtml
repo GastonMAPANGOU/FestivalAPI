@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Enregistrement Page";
+    ViewData["CustomBody"] = "EnregistrementPage";
+}
+
+<div class="container">
+    <div class="row flex-column align-items-center form-group">
+        <h1 class="titleBox text-center text-info"><strong>Definir un Festival </strong></h1>
+    </div>
+
+    <div class="card-deck mb-3 text-center">
+        <div class="card mb-3 shadow-card">
+            <div class="card-header">
+                <h4 id="lastActual" class="text-info"><strong>Festivals</strong></h4>
+            </div>
+            <div class="card-body">
+                <a id="actualViewOnlyButton" asp-action="ActualViewOnly" asp-route-date="" asp-route-month="" asp-route-charge="">
+                    <img src="/pictures/B.jfif" class="img-fluid shadow-little imgClassicHover rounded mb-3" alt="B">
+                </a>
+                <a role="button" id="lastActualButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Scenes" asp-action="Index">Aller à Festival</a>
+            </div>
+        </div>
+        <div class="card mb-3 shadow-card">
+            <div class="card-header">
+                <h4 id="comparison" class="text-info"><strong>Artists</strong></h4>
+            </div>
+            <div class="card-body">
+                <img src="/pictures/t.jfif" class="img-fluid shadow-little rounded mb-3" alt="t">
+                <a role="button" id="comparisonButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Artistes" asp-action="Index">Aller à Artist</a>
+            </div>
+        </div>
+        <div class="card mb-3 shadow-card">
+            <div class="card-header">
+                <h4 id="trajectory" class="text-info"><strong>Programm Of Festivals</strong></h4>
+            </div>
+            <div class="card-body">
+                <a id="trajectoryViewOnlyButton" asp-action="" asp-route-date="" asp-route-charge="">
+                    <img src="/pictures/F.jfif" class="img-fluid shadow-little imgClassicHover rounded mb-3" alt="F">
+                </a>
+                <a role="button" id="trajectoryButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Links" asp-action="Index">Aller à Programm</a>
+            </div>
+            <div class="card-body">
+                <a id="trajectoryViewOnlyButton" asp-action="" asp-route-date="" asp-route-charge="">
+                    <img src="/pictures/F.jfif" class="img-fluid shadow-little imgClassicHover rounded mb-3" alt="F">
+                </a>
+                <a role="button" id="trajectoryButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Scenes" asp-action="Index">Aller à Scene</a>
+            </div>
+        </div>
+        
+    </div>
+</div>
