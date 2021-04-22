@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\acceuil.jpg" />
+    <None Remove="images\shutdown.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
   </ItemGroup>
 
@@ -17,6 +22,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FestivalAPI\FestivalAPI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\acceuil.jpg" />
+    <Resource Include="images\shutdown.png" />
   </ItemGroup>
 
 </Project>
