@@ -1,4 +1,5 @@
 ﻿using FestivalAPI.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace FestivalDeMusique.View
         private readonly ICollection<Lieu> ListeLieu;
         private readonly Festival festivalAModifier;
         private readonly Lieu lieuFestival;
+        private string path;
         public ModifierFestival(Festival festival)
         {
             InitializeComponent();
@@ -40,7 +42,7 @@ namespace FestivalDeMusique.View
         private async void AjouterOnClick(object sender, RoutedEventArgs e)
         {
             string nom = nomTextBox.Text;
-            string logo = logoTextBox.Text;
+            string logo = path;
             string descriptif = descriptionTextBox.Text;
 
             if (nom.Length == 0 || logo.Length == 0 ||
@@ -116,11 +118,33 @@ namespace FestivalDeMusique.View
         private void FillFestivalData()
         {
             nomTextBox.Text = festivalAModifier.Nom;
-            logoTextBox.Text = festivalAModifier.Logo;
             descriptionTextBox.Text = festivalAModifier.Descriptif;
             dateDebutControl.SelectedDate = festivalAModifier.Date_Debut;
             dateFinControl.SelectedDate = festivalAModifier.Date_Fin;
             lieuComboBox.SelectedItem = lieuFestival.Commune;
+            try
+            {
+                imageUI.Source = new BitmapImage(new Uri(festivalAModifier.Logo));
+            }
+            catch
+            {
+                // To do after
+            }
+            
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Choisissez votre logo";
+            op.Filter = "Format compatibles|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                path = op.FileName;
+                imageUI.Source = new BitmapImage(new Uri(path));
+            }
         }
     }
 }

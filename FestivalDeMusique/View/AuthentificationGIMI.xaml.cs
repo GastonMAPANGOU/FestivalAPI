@@ -37,6 +37,8 @@ namespace FestivalDeMusique.View
                 pass = Hash(pass);
                 if (CheckCredentials(email, pass))
                 {
+                    textBoxEmail.Text = "";
+                    passwordTextBox.Text = "";
                     Hide();
                     MenuGestionnaire menu = new MenuGestionnaire();
                     menu.ShowDialog();
