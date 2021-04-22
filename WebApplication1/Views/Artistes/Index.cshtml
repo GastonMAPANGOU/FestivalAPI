@@ -1,63 +1,27 @@
 ﻿@model IEnumerable<FestivalAPI.Models.Artiste>
 
-@{
-    ViewData["Title"] = "Index";
-    IEnumerable<FestivalAPI.Models.Style> styles = WebApplication1.ControllersAPI.API.Instance.GetStylesAsync().Result;
+@{ ViewData["Title"] = "Index";
     IEnumerable<FestivalAPI.Models.Pays> pays = WebApplication1.ControllersAPI.API.Instance.GetPaysAsync().Result;
-}
+    IEnumerable<FestivalAPI.Models.Style> style = WebApplication1.ControllersAPI.API.Instance.GetStylesAsync().Result; }
 
-<h1>Artist</h1>
-
-<p>
-    <a asp-action="Create">Add an artist</a>
-</p>
-
-@foreach (var item in Model)
-{
-    
-    <d1 class="row">
-        <div class="card" style="width: 18rem;">
+<h1>Liste des artistes</h1>
 
 
-            <img src="@Url.Content("~/"+item.Photo)" class="card-img-top" alt="Sample Photo" width="400" height="341">
+<div class="row row-cols-1 row-cols-md-3 g-4">
 
-
-            <div class="card-body">
-                <h5 class="card-title">Profile artiste :</h5>
-                <p class="card-text"> @Html.DisplayFor(modelItem => item.Descriptif)</p>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Pays :</h5>
-                <p class="card-text">
-                    @foreach (var it in pays)
-                    {
-                        if (it.Id == item.PaysId)
-                        {
-                            @it.Nom
-                        }
-                    }
-                </p>
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Pays :</h5>
-                <p class="card-text">
-                    @foreach (var it in styles)
-                    {
-                        if (it.Id == item.StyleId)
-                        {
-                            @it.Nom
-                        }
-                    }
-                </p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">@Html.DisplayFor(modelItem => item.Extrait)</li>
-            </ul> @item.IdA
-            <div class="card-body">
-                <a asp-action="Edit" asp-route-id="@item.IdA">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdA">Delete</a> |
-                <a asp-action="Details" asp-route-id="@item.IdA">Details</a>
-            </div>
+    @foreach (var item in Model)
+    {
+<div class="col">
+    <div class="card shadow mb-4 text-center">
+        <div class="card-body">
+            <a asp-action="Details" asp-route-id="@item.IdA">
+                @Html.DisplayFor(modelItem => item.Nom)
+            </a>
         </div>
-    </d1>
-}
+    </div>
+</div>}
+
+</div>
+
+
+

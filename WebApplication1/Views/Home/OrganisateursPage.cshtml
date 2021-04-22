@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Oraganisateurs Page";
+    ViewData["CustomBody"] = "organisateurspage";
+}
+
+<div class="container">
+    <div class="row flex-column align-items-center form-group">
+        <h1 class="titleBox text-center text-info"><strong>PAGE DE L'ORGANISATEUR</strong></h1>
+    </div>
+
+    <div class="card-deck mb-auto text-center">
+        <div class="card mb-auto shadow-card">
+            <div class="card-header">
+                <h4 id="lastActual" class="text-info"><strong>Definir Un Festival</strong></h4>
+            </div>
+            <div class="card-body">
+                <a id="actualViewOnlyButton" asp-action="ActualViewOnly" asp-route-date="" asp-route-month="" asp-route-charge="">
+                    <img src="/pictures/G.jpg" class="img-fluid shadow-little imgClassicHover rounded mb-auto" alt="B">
+                </a>
+                <a role="button" id="lastActualButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Scenes" asp-action="Index"> ajouter une scene</a>
+                <a role="button" id="lastActualButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Jours" asp-action="Index"> definir la date du festival</a>
+                <a role="button" id="lastActualButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Hebergements" asp-action="Index">definir l'hebergement</a>
+
+            </div>
+        </div>
+        <div class="card mb-auto shadow-card">
+            <div class="card-header">
+                <h4 id="comparison" class="text-info"><strong>Enregistrer un Artiste</strong></h4>
+            </div>
+            <div class="card-body">
+                <img src="/pictures/H.png" class="img-fluid shadow-little imgClassicHover rounded mb-3" alt="t">
+                <a role="button" id="comparisonButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Artistes" asp-action="Index">Cliquez ici</a>
+            </div>
+        </div>
+        <div class="card mb-auto shadow-card">
+            <div class="card-header">
+                <h4 id="trajectory" class="text-info"><strong>Gestion des Factures</strong></h4>
+            </div>
+            <div class="card-body">
+                <a id="trajectoryViewOnlyButton" asp-action="" asp-route-date="" asp-route-charge="">
+                    <img src="/pictures/I.jpg" class="img-fluid shadow-little imgClassicHover rounded mb-3" alt="F">
+                </a>
+                <a role="button" id="trajectoryButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Tarifs" asp-action="Index">Cliquez ici</a>
+            </div>
+          
+        </div>
+        
+    </div>
+</div>
