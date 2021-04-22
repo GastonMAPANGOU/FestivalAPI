@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FestivalDeMusique.Views"
         mc:Ignorable="d"
-        Title="Authentification" Height="500" Width="800"
+        Title="Authentification" Height="580" Width="800"
         ResizeMode="NoResize"
         Background="Transparent"
         WindowStyle="None">
@@ -49,8 +49,8 @@
                                 <Setter Property="BorderBrush" TargetName="border" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="true">
-                                <Setter Property="Background" TargetName="border" Value="Blue"/>
-                                <Setter Property="BorderBrush" TargetName="border" Value="Blue"/>
+                                <Setter Property="Background" TargetName="border" Value="#EA3C53"/>
+                                <Setter Property="BorderBrush" TargetName="border" Value="#EA3C53"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="true">
                                 <Setter Property="Background" TargetName="border" Value="{StaticResource Button.Pressed.Background}"/>
@@ -68,7 +68,7 @@
         </Style>
     </Window.Resources>
     
-    <Border CornerRadius="20" MouseDown="DragFrame">
+    <Border CornerRadius="10" MouseDown="DragFrame">
 
         <Border.Background>
             <ImageBrush Stretch="Fill" ImageSource="/images/acceuil.jpg"/>
@@ -88,27 +88,42 @@
             </Grid.RowDefinitions>
 
             <Border BorderThickness="1" Grid.RowSpan="4" Grid.Column="1"
-                        CornerRadius="0,20,20,0" 
-                        BorderBrush="Black" 
+                        CornerRadius="0,10,10,0" 
+                        BorderBrush="Transparent" 
                         Background="Beige">
             </Border>
             
             <Grid Grid.Row="0" Grid.Column="1" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="6*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="3"
+                <Button
+                    Grid.Column="3"
                     Height="40" Width="40"
                     VerticalAlignment="Center" 
                     Visibility="Visible" 
                     Click="Fermer_Fenetre"
-                    Background="Beige">
+                    Background="Beige"
+                    BorderThickness="0"
+                    Style="{DynamicResource RoundButton}">
 
-                    <Image Source="/images/shutdown.png"/>
+                    <Image Source="/images/shutdownPastel.png"/>
+                </Button>
+
+                <Button
+                    Grid.Column="2"
+                    Height="40" Width="40"
+                    VerticalAlignment="Center" 
+                    Visibility="Visible" 
+                    Click="Reduire_Fenetre"
+                    Background="Beige"
+                    BorderThickness="0">
+
+                    <Image Source="/images/minimize.png"/>
                 </Button>
 
             </Grid>
@@ -151,11 +166,19 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
-                <StackPanel>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal">
                     <!--Icones facebook, Google+, linkedin-->
+                    <Image Margin="50 0 0 0" Source="/images/outlook.png"/>
+                    <Image Margin="50 0 0 0" Source="/images/yahoo.png"/>
+                    <Image Margin="50 0 0 0" Source="/images/gmail.png"/>
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Margin="0 0 0 0">
+                <StackPanel Grid.Column="1" Grid.Row="1" Margin="0 0 0 0">
                     <!--Textbox de saisie de champ-->
 
                     <TextBlock Height="25" 
@@ -172,11 +195,13 @@
                         </Grid.ColumnDefinitions>
                         <Image/>
                         <TextBox x:Name="textBoxEmail"
-                                 Height="25" 
+                                 Height="30" 
                                  Grid.ColumnSpan="3" 
-                                 Background="#ECECEC"/>
+                                 Background="#ECECEC" 
+                                  Padding="3 3 3 3"/>
                     </Grid>
 
+                    <!--Textbox de saisie de champ-->
                     <TextBlock Height="25" 
                                VerticalAlignment="Bottom" 
                                Text="Mot de passe" 
@@ -191,10 +216,11 @@
                             <ColumnDefinition Width="1*"/>
                         </Grid.ColumnDefinitions>
                         <Image/>
-                        <TextBox x:Name="passwordTextBox"
-                                 Height="25" 
+                        <PasswordBox x:Name="passwordTextBox"
+                                 Height="30" 
                                  Grid.ColumnSpan="3" 
-                                 Background="#ECECEC"/>
+                                 Background="#ECECEC" 
+                                 Padding="3 3 3 3"/>
                     </Grid>
 
                     <Button

@@ -9,7 +9,12 @@
 
   <ItemGroup>
     <None Remove="images\acceuil.jpg" />
-    <None Remove="images\shutdown.png" />
+    <None Remove="images\gmail.png" />
+    <None Remove="images\minimize.png" />
+    <None Remove="images\outlook.png" />
+    <None Remove="images\outlookGrey.png" />
+    <None Remove="images\shutdownPastel.png" />
+    <None Remove="images\yahoo.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,7 +31,12 @@
 
   <ItemGroup>
     <Resource Include="images\acceuil.jpg" />
-    <Resource Include="images\shutdown.png" />
+    <Resource Include="images\gmail.png" />
+    <Resource Include="images\minimize.png" />
+    <Resource Include="images\outlook.png" />
+    <Resource Include="images\outlookGrey.png" />
+    <Resource Include="images\shutdownPastel.png" />
+    <Resource Include="images\yahoo.png" />
   </ItemGroup>
 
 </Project>
