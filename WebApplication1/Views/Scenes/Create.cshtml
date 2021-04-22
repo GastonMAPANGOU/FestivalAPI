@@ -1,10 +1,11 @@
-﻿@{
+﻿@model FestivalAPI.Models.Scene
+@{
     ViewData["Title"] = "Create";
-    DateTime dateJour = new DateTime();
-    var scene = new FestivalAPI.Models.Scene();
-    var artiste = new FestivalAPI.Models.Artiste();
+
     IEnumerable<FestivalAPI.Models.Lieu> lieux = WebApplication1.ControllersAPI.API.Instance.GetLieuxAsync().Result;
-    IEnumerable<FestivalAPI.Models.Artiste>artistes  = WebApplication1.ControllersAPI.API.Instance.GetArtistesAsync().Result;
+    IEnumerable<FestivalAPI.Models.Artiste> artistes = WebApplication1.ControllersAPI.API.Instance.GetArtistesAsync().Result;
+    bool vrai = true;
+    bool faux = false;
 }
 
 <h1>Create</h1>
@@ -16,29 +17,33 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="@scene.Nom" class="control-label"></label>
-                <input asp-for="@scene.Nom" class="form-control" />
-                <span asp-validation-for="@scene.Nom" class="text-danger"></span>
+                <label asp-for="Nom" class="control-label"></label>
+                <input asp-for="Nom" class="form-control" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@scene.Adresse" class="control-label"></label>
-                <input asp-for="@scene.Adresse" class="form-control" />
-                <span asp-validation-for="@scene.Adresse" class="text-danger"></span>
+                <label asp-for="Adresse" class="control-label"></label>
+                <input asp-for="Adresse" class="form-control" />
+                <span asp-validation-for="Adresse" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@scene.Capacite" class="control-label"></label>
-                <input asp-for="@scene.Capacite" class="form-control" />
-                <span asp-validation-for="@scene.Capacite" class="text-danger"></span>
+                <label asp-for="Capacite" class="control-label"></label>
+                <input asp-for="Capacite" type="number" class="form-control" />
+                <span asp-validation-for="Capacite" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="@scene.Accessibilite" class="control-label"></label>
-                <input asp-for="@scene.Accessibilite" class="form-control" />
-                <span asp-validation-for="@scene.Accessibilite" class="text-danger"></span>
+                <label asp-for="Accessibilite" class="control-label">Accessible aux personnes handicapées</label>
+                <select asp-for="Accessibilite" class="form-control">
+
+                    <option value="@vrai">oui</option>
+                    <option value="@faux">non</option>
+                </select>
+                <span asp-validation-for="Accessibilite" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Lieu</label>
-                <select asp-for="@scene.LieuId" class="form-control " asp-items="ViewBag.LieuId">
-                    <option value="">--Choisissez une option--</option>
+                <label asp-for="LieuId" class="control-label">Sélectionnez une date</label>
+                <select class="form-control" asp-for="LieuId">
+                    <option value="">Choisissez une option</option>
                     @foreach (var it in lieux)
                     {
                         <option value="@it.IdL">
@@ -46,29 +51,10 @@
                         </option>
                     }
                 </select>
-                <span asp-validation-for="@scene.LieuId" class="text-danger"></span>
+                <span asp-validation-for="LieuId" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="@dateJour" class="control-label">Date : </label>
-                <input asp-for="@dateJour" class="form-control" type="date" />
-                <span asp-validation-for="@dateJour" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label">Artiste : </label>
-                <select asp-for="@artiste.Nom" class="form-control " asp-items="ViewBag.Nom">
-                    <option value="">--Choisissez une option--</option>
-
-
-
-                    @foreach (var it in artistes)
-                    {
-                        <option value="@it.Nom">
-                            @it.Nom
-                        </option>
-                    }
-                </select>
-                <span asp-validation-for="@artiste.Nom" class="text-danger"></span>
-            </div>
+            
+            
 
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -76,7 +62,7 @@
         </form>
     </div>
 
-                        
+
 </div>
 
 <div>
