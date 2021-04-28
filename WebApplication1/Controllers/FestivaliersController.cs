@@ -36,7 +36,30 @@ namespace WebApplication1.Controllers
             return View(Festivaliers);
         }
 
-        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Index(string searchString)
+        {
+            //return View(await _context.Festival.Include("Links").ToListAsync());
+
+
+
+            //IEnumerable<Festival> Festivals = API.Instance.GetFestivalsAsync().Result;
+            //return View(Festivals);
+
+
+            //var Festivals = API.Instance.GetFestivalsAsync().Result;
+
+            var festivals = from m in API.Instance.GetFestivalsAsync().Result
+                            select m;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                festivals = festivals.Where(s => s.Nom.Contains(searchString));
+            }
+            return View(festivals);
+        }
+
 
 
         // GET: Festivalier/Details/5

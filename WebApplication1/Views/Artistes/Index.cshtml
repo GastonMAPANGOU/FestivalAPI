@@ -4,8 +4,7 @@
     IEnumerable<FestivalAPI.Models.Pays> pays = WebApplication1.ControllersAPI.API.Instance.GetPaysAsync().Result;
     IEnumerable<FestivalAPI.Models.Style> style = WebApplication1.ControllersAPI.API.Instance.GetStylesAsync().Result; }
 
-<h1>Liste des artistes</h1>
-
+<h1><strong>Liste des artistes</strong></h1>
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
 
@@ -16,6 +15,7 @@
         <div class="card-body">
             <a asp-action="Details" asp-route-id="@item.IdA">
                 @Html.DisplayFor(modelItem => item.Nom)
+                @Html.DisplayFor(modelItem => item.Prenom)
             </a>
         </div>
     </div>

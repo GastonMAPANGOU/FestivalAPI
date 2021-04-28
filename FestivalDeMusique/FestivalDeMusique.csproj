@@ -10,6 +10,14 @@
   <ItemGroup>
     <None Remove="images\acceuil.jpg" />
     <None Remove="images\shutdown.png" />
+    <None Remove="img\artistes\tyttrt.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="img\artistes\tyttrt.png">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +35,10 @@
   <ItemGroup>
     <Resource Include="images\acceuil.jpg" />
     <Resource Include="images\shutdown.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="img\logos\" />
   </ItemGroup>
 
 </Project>

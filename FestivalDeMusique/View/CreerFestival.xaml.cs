@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -14,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace FestivalDeMusique.View
 {
@@ -60,6 +62,15 @@ namespace FestivalDeMusique.View
                     festival.Date_Debut = dateDebut;
                     festival.Date_Fin = dateFin;
                     festival.LieuId = NomCommuneToId(communePrincipale);
+
+                    try
+                    {
+                        festival.Logo = SaveImage(festival);
+                    }
+                    catch
+                    {
+                        // To do
+                    }
 
                     HttpResponseMessage response = await API.API.Instance.AjoutFestivalAsync(festival);
                     _ = MessageBox.Show("Création du festival en cours");
@@ -115,8 +126,53 @@ namespace FestivalDeMusique.View
             if (op.ShowDialog() == true)
             {
                 path = op.FileName;
-                imageUI.Source = new BitmapImage(new Uri(path));
+                
+                BitmapImage bitmap= new BitmapImage(new Uri(path));
+                imageUI.Source = bitmap;
             }
+
+        }
+
+        private String SaveImage(Festival festival)
+        {
+            //BitmapImage bitmap = new BitmapImage(new Uri(festival.Logo));
+            //bitmap.Save("");
+            using (FileStream file = File.Open(festival.Logo, FileMode.Open))
+            {
+                byte[] b = new byte[1024];
+                UTF8Encoding temp = new UTF8Encoding(true);
+                int taillemax = 2097152;
+
+                List<String> extensionsvalides = new List<String>();
+                List<String> strcut = new List<String>();
+                extensionsvalides.Add(".jpg");
+                extensionsvalides.Add(".jpeg");
+                extensionsvalides.Add(".gif");
+                extensionsvalides.Add(".png");
+                extensionsvalides.Add(".jfif");
+
+
+                string fileName = "img/festivals/" + festival.Nom;
+                string extension = Path.GetExtension(file.Name);
+                Console.WriteLine("Extension" + extension);
+                string chemin = fileName + extension.ToLower();
+                Console.WriteLine("Chemin du fichier" + chemin);
+                if (file.Length < taillemax && extensionsvalides.Contains(extension))
+                {
+                    using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
+                    {
+                        Console.WriteLine("Enregistrement");
+                        file.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+                    festival.Logo = chemin;
+                }
+
+            }
+
+            //bitmap.Save(fileName);
+            return festival.Logo;
+                           
         }
     }
 }

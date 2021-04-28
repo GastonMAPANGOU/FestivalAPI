@@ -35,7 +35,8 @@ namespace WebApplication1.Controllers
 
             return View(Festivals);
         }
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Index(String lieu, String artiste, String style)
         {
 
