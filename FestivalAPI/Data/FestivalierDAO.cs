@@ -30,7 +30,8 @@ namespace FestivalAPI.Data
 
                         festivalier.Id = reader.GetInt32(0);
                         festivalier.Login = reader.GetString(3);
-                        festivalier.Nb_Participants = reader.GetInt32(5);
+                        festivalier.Nb_ParticipantsPT = reader.GetInt32(5);
+                        festivalier.Nb_ParticipantsDT = reader.GetInt32(5);
                         festivalier.Nom = reader.GetString(1);
                         festivalier.Prenom = reader.GetString(2);
                         festivalier.Pwd = reader.GetString(4);
@@ -62,7 +63,8 @@ namespace FestivalAPI.Data
                     {
                         festivalier.Id = reader.GetInt32(0);
                         festivalier.Login = reader.GetString(3);
-                        festivalier.Nb_Participants = reader.GetInt32(5);
+                        festivalier.Nb_ParticipantsPT = reader.GetInt32(5);
+                        festivalier.Nb_ParticipantsDT = reader.GetInt32(5);
                         festivalier.Nom = reader.GetString(1);
                         festivalier.Prenom = reader.GetString(2);
                         festivalier.Pwd = reader.GetString(4);
@@ -90,7 +92,8 @@ namespace FestivalAPI.Data
                     {
                         festivalier.Id = reader.GetInt32(0);
                         festivalier.Login = reader.GetString(3);
-                        festivalier.Nb_Participants = reader.GetInt32(5);
+                        festivalier.Nb_ParticipantsPT = reader.GetInt32(5);
+                        festivalier.Nb_ParticipantsDT = reader.GetInt32(5);
                         festivalier.Nom = reader.GetString(1);
                         festivalier.Prenom = reader.GetString(2);
                         festivalier.Pwd = reader.GetString(4);

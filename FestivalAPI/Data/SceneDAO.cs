@@ -31,7 +31,7 @@ namespace FestivalAPI.Data
                         scene.Nom = reader.GetString(1);
                         scene.Adresse = reader.GetString(2);
                         scene.Capacite = reader.GetInt32(3);
-                        scene.Accessibilite = reader.GetBoolean(4);
+                        scene.Accessibilite = reader.GetString(2);
                         scene.LieuId = reader.GetInt32(5);
 
                        
@@ -63,7 +63,7 @@ namespace FestivalAPI.Data
                         scene.Nom = reader.GetString(1);
                         scene.Adresse = reader.GetString(2);
                         scene.Capacite = reader.GetInt32(3);
-                        scene.Accessibilite = reader.GetBoolean(4);
+                        scene.Accessibilite = reader.GetString(2);
                         scene.LieuId = reader.GetInt32(5);
 
                         list_Scene.Add(scene);
@@ -98,7 +98,7 @@ namespace FestivalAPI.Data
                             scene.Nom = reader.GetString(1);
                             scene.Adresse = reader.GetString(2);
                             scene.Capacite = reader.GetInt32(3);
-                            scene.Accessibilite = reader.GetBoolean(4);
+                            scene.Accessibilite = reader.GetString(2);
                             scene.LieuId = reader.GetInt32(5);
 
                             list_Scene.Add(scene);
@@ -132,7 +132,7 @@ namespace FestivalAPI.Data
                             scene.Nom = reader.GetString(1);
                             scene.Adresse = reader.GetString(2);
                             scene.Capacite = reader.GetInt32(3);
-                            scene.Accessibilite = reader.GetBoolean(4);
+                            scene.Accessibilite = reader.GetString(2);
                             scene.LieuId = reader.GetInt32(5);
 
                             list_Scene.Add(scene);
@@ -168,7 +168,7 @@ namespace FestivalAPI.Data
                             scene.Nom = reader.GetString(1);
                             scene.Adresse = reader.GetString(2);
                             scene.Capacite = reader.GetInt32(3);
-                            scene.Accessibilite = reader.GetBoolean(4);
+                            scene.Accessibilite = reader.GetString(2);
                             scene.LieuId = reader.GetInt32(5);
 
                             list_Scene.Add(scene);

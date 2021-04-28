@@ -107,28 +107,11 @@ namespace WebApplication1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Nom,Prenom,Login,Pwd,Nb_Participants,Somme,FestivalId")] Festivalier festivalier,int id_jour, int coefficient)
+        public IActionResult Create([Bind("Id,Nom,Prenom,Login,Pwd,Nb_ParticipantsPT,Nb_ParticipantsDT,Somme,FestivalId")] Festivalier festivalier, double somme,int festivalId)
         {
             
-            IEnumerable<FestivalAPI.Models.Tarif> tarifs = WebApplication1.ControllersAPI.API.Instance.GetTarifsAsync().Result.Where(s => s.JourId == id_jour);
-            foreach (var item in tarifs)
-            {
-                if (item.Coefficient == coefficient)
-                {
-                    festivalier.Somme = festivalier.Nb_Participants * coefficient *item.Montant;
-                }
-            }
-
-            IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result.Where(s => s.IdJ == id_jour);
-            foreach (var item in jours)
-            {
-                if (item.IdJ == id_jour)
-                {
-                    festivalier.FestivalId = (int)item.FestivalId;
-                }
-            }
-          
-
+            festivalier.Somme = festivalier.Nb_ParticipantsPT*somme + festivalier.Nb_ParticipantsDT * somme*0.5;
+            festivalier.FestivalId = festivalId;
             int drapeau = 0;
             IEnumerable<Festivalier> Festivaliers = API.Instance.GetFestivaliersAsync().Result;
             foreach (var item in Festivaliers)
@@ -189,25 +172,10 @@ namespace WebApplication1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Nom,Prenom,Login,Pwd,Nb_Participants,Somme,FestivalId")] Festivalier festivalier, int id_jour, int coefficient)
+        public IActionResult Edit(int id, [Bind("Id,Nom,Prenom,Login,Pwd,Nb_ParticipantsPT,Nb_ParticipantsDT,Somme,FestivalId")] Festivalier festivalier, double somme, int festivalId)
         {
-            IEnumerable<FestivalAPI.Models.Tarif> tarifs = WebApplication1.ControllersAPI.API.Instance.GetTarifsAsync().Result.Where(s => s.JourId == id_jour);
-            foreach (var item in tarifs)
-            {
-                if (item.Coefficient == coefficient)
-                {
-                    festivalier.Somme = festivalier.Nb_Participants * coefficient * item.Montant;
-                }
-            }
-
-            IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result.Where(s => s.IdJ == id_jour);
-            foreach (var item in jours)
-            {
-                if (item.IdJ == id_jour)
-                {
-                    festivalier.FestivalId = (int)item.FestivalId;
-                }
-            }
+            festivalier.Somme = festivalier.Nb_ParticipantsPT * somme + festivalier.Nb_ParticipantsDT * somme * 0.5;
+            festivalier.FestivalId = festivalId;
             if (id != festivalier.Id)
             {
                 return NotFound();
