@@ -31,6 +31,12 @@ namespace FestivalDeMusique.Views
             Close();
         }
 
+        private void Reduire_Fenetre(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+            // WindowState = WindowState.Maximized;
+        }
+
         private void DragFrame(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -39,7 +45,7 @@ namespace FestivalDeMusique.Views
         private void LoginFunction(object sender, RoutedEventArgs e)
         {
             string email = textBoxEmail.Text;
-            string pass = passwordTextBox.Text;
+            string pass = passwordTextBox.Password;
 
             if (email.Trim().Length == 0 || pass.Trim().Length == 0)
             {
@@ -51,7 +57,7 @@ namespace FestivalDeMusique.Views
                 if (CheckCredentials(email, pass))
                 {
                     textBoxEmail.Text = "";
-                    passwordTextBox.Text = "";
+                    passwordTextBox.Password = "";
                     Hide();
                     MenuGestionnaire menu = new MenuGestionnaire();
                     menu.ShowDialog();
@@ -84,5 +90,6 @@ namespace FestivalDeMusique.Views
             var hashBytes = System.Security.Cryptography.MD5.Create().ComputeHash(bytes);
             return Convert.ToBase64String(hashBytes);
         }
+
     }
 }
