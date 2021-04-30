@@ -8,6 +8,7 @@
         Title="Authentification" Height="580" Width="800"
         ResizeMode="NoResize"
         Background="Transparent"
+        AllowsTransparency="True"
         WindowStyle="None">
 
     <Window.Resources>
