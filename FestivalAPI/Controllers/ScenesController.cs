@@ -32,7 +32,7 @@ namespace FestivalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Scene>> GetScene(int id)
         {
-            var scene = await _context.Scene.FindAsync(id);
+            var scene = await _context.Scene.Include("Festival_Artistes").FirstOrDefaultAsync(f => f.IdS == id);
 
             if (scene == null)
             {

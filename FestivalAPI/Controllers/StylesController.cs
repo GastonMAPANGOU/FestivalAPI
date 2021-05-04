@@ -32,7 +32,7 @@ namespace FestivalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Style>> GetStyle(int id)
         {
-            var style = await _context.Style.FindAsync(id);
+            var style = await _context.Style.Include("Artistes").FirstOrDefaultAsync(f => f.Id == id);
 
             if (style == null)
             {

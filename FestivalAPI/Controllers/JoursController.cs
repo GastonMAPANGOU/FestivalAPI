@@ -32,7 +32,7 @@ namespace FestivalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Jour>> GetJour(int id)
         {
-            var jour = await _context.Jour.FindAsync(id);
+            var jour = await _context.Jour.Include("Festival_Artistes").Include("Tarifs").FirstOrDefaultAsync(f => f.IdJ == id);
 
             if (jour == null)
             {
