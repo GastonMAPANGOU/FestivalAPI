@@ -1,0 +1,91 @@
+﻿@model FestivalAPI.Models.Festival
+
+@{ 
+
+    /* string @Nom = "";
+    string @Prenom = "";
+    string @Login = "";
+    string @Pwd = "";
+    int @Nb_Participants = 0;*/
+    int id_jour=0;
+    int nbr_Jour = 0;
+
+    FestivalAPI.Models.Festivalier festivalier= new FestivalAPI.Models.Festivalier();
+
+
+    double somme = Model.Montant;
+    double festivalId = Model.IdF;
+
+    IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result.Where(s => s.FestivalId==Model.IdF);
+}
+
+
+
+<h1>Ajouter Festivalier</h1>
+
+
+
+<h4>Festivalier</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AjoutFestivalier">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="@somme" />
+            <input type="hidden" asp-for="@festivalId" />
+            <div class="form-group">
+                <label asp-for="@festivalier.Nom" class="control-label">Nom</label>
+                <input asp-for="@festivalier.Nom" class="form-control" required />
+                <span asp-validation-for="@festivalier.Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@festivalier.Prenom" class="control-label">Prénom</label>
+                <input asp-for="@festivalier.Prenom" class="form-control" required />
+                <span asp-validation-for="@festivalier.Prenom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@festivalier.Login" class="control-label">Login</label>
+                <input asp-for="@festivalier.Login" class="form-control" required />
+                <span asp-validation-for="@festivalier.Login" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@festivalier.Pwd" class="control-label">Mot de passe</label>
+                <input asp-for="@festivalier.Pwd" class="form-control" type="password" required />
+                <span asp-validation-for="@festivalier.Pwd" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@festivalier.Nb_ParticipantsPT" class="control-label">Nombre de places plein tarif(adultes):</label>
+                <input asp-for="@festivalier.Nb_ParticipantsPT" class="form-control" type="number" min="1" required />
+                <span asp-validation-for="@festivalier.Nb_ParticipantsPT" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@festivalier.Nb_ParticipantsDT" class="control-label">Nombre de places demi tarif(enfants):</label>
+                <input asp-for="@festivalier.Nb_ParticipantsDT" class="form-control" type="number" min="0" required />
+                <span asp-validation-for="@festivalier.Nb_ParticipantsDT" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@festivalier.NbJours" class="control-label">Nombre de jours:</label>
+                <input asp-for="@festivalier.NbJours" class="form-control" type="number" min="1" max="@jours.Count()" required />
+                <span asp-validation-for="@festivalier.NbJours" class="text-danger"></span>
+            </div>
+
+            
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

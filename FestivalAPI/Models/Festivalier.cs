@@ -15,6 +15,7 @@ namespace FestivalAPI.Models
         public string Prenom { get; set; }
         public string Login { get; set; }
         public string Pwd { get; set; }
+        public int NbJours { get; set; }
         public int Nb_ParticipantsPT { get; set; }
         public int Nb_ParticipantsDT { get; set; }
         public bool InscriptionAccepted { get; set; }

@@ -31,9 +31,9 @@ namespace WebApplication1.Controllers
 
             //IEnumerable<Festival> Festivals = API.Instance.GetFestivalsAsync().Result;
             //return View(Festivals);
-            var Festivals = API.Instance.GetFestivalsAsync().Result;
+            var festivals = API.Instance.GetFestivalsAsync().Result;
 
-            return View(Festivals);
+            return View(festivals);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -343,6 +343,49 @@ namespace WebApplication1.Controllers
 
         }
 
+        // GET: Festivalier/Create
+        public IActionResult AjoutFestivalier(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }
+
+
+
+        // POST: Festivalier/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AjoutFestivalier(Festivalier festivalier, double somme, int festivalId)
+        {
+
+            festivalier.Somme = (festivalier.Nb_ParticipantsPT * somme + festivalier.Nb_ParticipantsDT * somme * 0.5)*festivalier.NbJours;
+            festivalier.FestivalId = festivalId;
+            int drapeau = 0;
+            IEnumerable<Festivalier> Festivaliers = API.Instance.GetFestivaliersAsync().Result;
+            foreach (var item in Festivaliers)
+            {
+                if (item.Nom == festivalier.Nom)
+                {
+                    drapeau++;
+                }
+            }
+
+            if (ModelState.IsValid && drapeau == 0)
+            {
+                var URI = API.Instance.AjoutFestivalierAsync(festivalier);
+                return RedirectToAction(nameof(Index));
+            }
+            else if (drapeau != 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View(festivalier);
+        }
 
 
         /*private bool FestivalExists(int id)

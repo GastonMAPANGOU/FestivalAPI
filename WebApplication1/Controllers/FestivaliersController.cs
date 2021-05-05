@@ -107,7 +107,7 @@ namespace WebApplication1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,Nom,Prenom,Login,Pwd,Nb_ParticipantsPT,Nb_ParticipantsDT,Somme,FestivalId")] Festivalier festivalier, double somme,int festivalId)
+        public IActionResult Create(Festivalier festivalier, double somme,int festivalId)
         {
             
             festivalier.Somme = festivalier.Nb_ParticipantsPT*somme + festivalier.Nb_ParticipantsDT * somme*0.5;

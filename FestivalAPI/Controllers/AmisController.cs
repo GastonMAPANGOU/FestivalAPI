@@ -43,9 +43,9 @@ namespace FestivalAPI.Controllers
         }
 
         [HttpGet("{Ami1}/{Ami2}")]
-        public async Task<ActionResult<Ami>> GetAmis(int idami1, int idami2)
+        public async Task<ActionResult<Ami>> GetAmis(int amiDemandeur, int amiReceveur)
         {
-            var ami = await _context.Ami.FirstOrDefaultAsync(a => a.Ami1== idami1 && a.Ami2 == idami2);
+            var ami = await _context.Ami.FirstOrDefaultAsync(a => a.AmiDemandeur== amiDemandeur && a.AmiReceveur == amiReceveur);
 
             if (ami == null)
             {

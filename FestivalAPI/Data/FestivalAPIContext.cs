@@ -72,7 +72,7 @@ namespace FestivalAPI.Data
                 .HasIndex(l => new { l.Nom,l.Adresse })
                 .IsUnique(true);
             modelBuilder.Entity<Ami>()
-                .HasIndex(l => new { l.Ami1,l.Ami2})
+                .HasIndex(l => new { l.AmiDemandeur,l.AmiReceveur})
                 .IsUnique(true);
             modelBuilder.Entity<Artiste>()
                 .HasIndex(l => new { l.Nom,l.Prenom })
