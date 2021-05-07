@@ -119,7 +119,7 @@ namespace WebApplication1.Controllers
                 }
 
 
-            return View(festivals);
+            return View(scenes);
         }
 
 

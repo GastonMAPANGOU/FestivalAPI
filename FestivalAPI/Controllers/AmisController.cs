@@ -23,14 +23,14 @@ namespace FestivalAPI.Controllers
 
         // GET: api/Amis
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Ami>>> GetAmi()
+        public async Task<ActionResult<IEnumerable<Ami>>> GetAmitiés()
         {
             return await _context.Ami.ToListAsync();
         }
 
         // GET: api/Amis/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ami>> GetAmi(int id)
+        public async Task<ActionResult<Ami>> GetAmitié(int id)
         {
             var ami = await _context.Ami.FindAsync(id);
 
@@ -42,8 +42,8 @@ namespace FestivalAPI.Controllers
             return ami;
         }
 
-        [HttpGet("{Ami1}/{Ami2}")]
-        public async Task<ActionResult<Ami>> GetAmis(int amiDemandeur, int amiReceveur)
+        [HttpGet("{AmiDemandeur}/{AmiReceveur}")]
+        public async Task<ActionResult<Ami>> GetAmitié(int amiDemandeur, int amiReceveur)
         {
             var ami = await _context.Ami.FirstOrDefaultAsync(a => a.AmiDemandeur== amiDemandeur && a.AmiReceveur == amiReceveur);
 

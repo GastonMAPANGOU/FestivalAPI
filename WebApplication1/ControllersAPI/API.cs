@@ -1009,7 +1009,7 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        public async Task<ICollection<Ami>> GetAmisAsync()
+        public async Task<ICollection<Ami>> GetAmitiésAsync()
         {
             ICollection<Ami> amis = new List<Ami>();
             HttpResponseMessage response = client.GetAsync("api/amis").Result;
@@ -1021,7 +1021,7 @@ namespace WebApplication1.ControllersAPI
             return amis;
         }
 
-        public async Task<Ami> GetAmiAsync(int? id)
+        public async Task<Ami> GetAmitiéAsync(int? id)
         {
             Ami ami = null;
             HttpResponseMessage response = client.GetAsync("api/amis/" + id).Result;
@@ -1033,7 +1033,7 @@ namespace WebApplication1.ControllersAPI
             return ami;
         }
 
-        public async Task<Ami> AreFriendsAsync(int idami1,int idami2)
+        public async Task<Ami> GetAmitiéAsync(int idami1,int idami2)
         {
             Ami ami = null;
             HttpResponseMessage response = client.GetAsync("api/amis/" + idami1+"/"+ idami2).Result;
