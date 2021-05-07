@@ -89,7 +89,7 @@
             </Grid.RowDefinitions>
 
             <Border BorderThickness="1" Grid.RowSpan="4" Grid.Column="1"
-                        CornerRadius="0,10,10,0" 
+                        CornerRadius="0 10 10 0" 
                         BorderBrush="Transparent" 
                         Background="Beige">
             </Border>
