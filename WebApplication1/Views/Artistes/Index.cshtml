@@ -1,27 +1,66 @@
 ﻿@model IEnumerable<FestivalAPI.Models.Artiste>
 
-@{ ViewData["Title"] = "Index";
-    IEnumerable<FestivalAPI.Models.Pays> pays = WebApplication1.ControllersAPI.API.Instance.GetPaysAsync().Result;
-    IEnumerable<FestivalAPI.Models.Style> style = WebApplication1.ControllersAPI.API.Instance.GetStylesAsync().Result; }
+@{
+    ViewData["Title"] = "Index";
+}
 
-<h1><strong>Liste des artistes</strong></h1>
+<h1>Artist</h1>
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-
-    @foreach (var item in Model)
-    {
-<div class="col">
-    <div class="card shadow mb-4 text-center">
-        <div class="card-body">
-            <a asp-action="Details" asp-route-id="@item.IdA">
+<p>
+    
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Prenom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Photo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StyleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descriptif)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaysId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Extrait)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
                 @Html.DisplayFor(modelItem => item.Nom)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Prenom)
-            </a>
-        </div>
-    </div>
-</div>}
-
-</div>
-
-
-
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Photo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StyleId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descriptif)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaysId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Extrait)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

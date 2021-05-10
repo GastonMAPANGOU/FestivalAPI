@@ -476,28 +476,6 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        public async Task<int> AjoutJoursAsync(Festival festival)
-        {
-            DateTime date = festival.Date_Debut;
-            Jour jour = new Jour();
-            jour.FestivalId = festival.IdF;
-            int i = 1;
-            //Festival_Artiste festival_Artiste = new Festival_Artiste();
-            
-            jour.Date_jour = date;
-
-            while (jour.Date_jour<festival.Date_Fin)
-            {
-                
-                jour.Numero_jour = "Jour" + i;
-                await AjoutJourAsync(jour);
-                jour.Date_jour=jour.Date_jour.AddDays(1);
-                i++;
-            }
-            return i;
-           
-        }
-
         public async Task<Uri> ModifJourAsync(Jour jour)
         {
             try
@@ -999,97 +977,6 @@ namespace WebApplication1.ControllersAPI
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/festivaliers/" + id);
-                response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return null;
-        }
-
-        public async Task<ICollection<Ami>> GetAmitiésAsync()
-        {
-            ICollection<Ami> amis = new List<Ami>();
-            HttpResponseMessage response = client.GetAsync("api/amis").Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var resp = await response.Content.ReadAsStringAsync();
-                amis = JsonConvert.DeserializeObject<List<Ami>>(resp);
-            }
-            return amis;
-        }
-
-        public async Task<Ami> GetAmitiéAsync(int? id)
-        {
-            Ami ami = null;
-            HttpResponseMessage response = client.GetAsync("api/amis/" + id).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var resp = await response.Content.ReadAsStringAsync();
-                ami = JsonConvert.DeserializeObject<Ami>(resp);
-            }
-            return ami;
-        }
-
-        public async Task<Ami> GetAmitiéAsync(int idami1,int idami2)
-        {
-            Ami ami = null;
-            HttpResponseMessage response = client.GetAsync("api/amis/" + idami1+"/"+ idami2).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var resp = await response.Content.ReadAsStringAsync();
-                ami = JsonConvert.DeserializeObject<Ami>(resp);
-            }
-            else
-            {
-                response = client.GetAsync("api/amis/" + idami2 + "/" + idami1).Result;
-                if (response.IsSuccessStatusCode)
-                {
-                    var resp = await response.Content.ReadAsStringAsync();
-                    ami = JsonConvert.DeserializeObject<Ami>(resp);
-                }
-
-            }
-            return ami;
-        }
-
-        public async Task<Uri> AjoutAmiAsync(Ami ami)
-        {
-            try
-            {
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/amis", ami);
-                response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return null;
-        }
-
-        public async Task<Uri> ModifAmiAsync(Ami ami)
-        {
-            try
-            {
-                HttpResponseMessage response = await client.PutAsJsonAsync("api/amis/" + ami.Id, ami);
-                response.EnsureSuccessStatusCode();
-                return response.Headers.Location;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return null;
-        }
-
-        public async Task<Uri> SupprAmiAsync(int id)
-        {
-            try
-            {
-                HttpResponseMessage response = await client.DeleteAsync("api/amis/" + id);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }

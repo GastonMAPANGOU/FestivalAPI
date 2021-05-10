@@ -12,8 +12,7 @@ namespace FestivalAPI.Models
         [Key]
         public int Id { get; set; }
         public string Nom { get; set; }
-        public string Departement { get; set;}
-        public string Region { get; set; }
+
         public ICollection<Artiste> Artistes { get; set; }
         public Pays() { }
     }

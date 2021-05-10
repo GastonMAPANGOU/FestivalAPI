@@ -32,7 +32,7 @@ namespace FestivalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Lieu>> GetLieu(int id)
         {
-            var lieu = await _context.Lieu.Include("Hebergements").Include("Festivals").Include("Scenes").FirstOrDefaultAsync(f => f.IdL == id);
+            var lieu = await _context.Lieu.FindAsync(id);
 
             if (lieu == null)
             {

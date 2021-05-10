@@ -32,7 +32,7 @@ namespace FestivalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Type_Hebergement>> GetType_Hebergement(int id)
         {
-            var type_Hebergement = await _context.Type_Hebergement.Include("Hebergements").FirstOrDefaultAsync(f => f.IDTH == id);
+            var type_Hebergement = await _context.Type_Hebergement.FindAsync(id);
 
             if (type_Hebergement == null)
             {

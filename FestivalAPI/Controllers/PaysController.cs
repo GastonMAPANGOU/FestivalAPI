@@ -32,7 +32,7 @@ namespace FestivalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Pays>> GetPays(int id)
         {
-            var pays = await _context.Pays.Include("Artistes").FirstOrDefaultAsync(f => f.Id == id);
+            var pays = await _context.Pays.FindAsync(id);
 
             if (pays == null)
             {

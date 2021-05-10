@@ -94,7 +94,7 @@ namespace WebApplication1.Controllers
             // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
             [HttpPost]
             [ValidateAntiForgeryToken]
-            public IActionResult Create([Bind("IdS,Nom,Adresse,Capacite,Accessibilite,LieuId")] Scene scene)
+            public IActionResult Create([Bind("IdA,Nom,Emplacement,Capacite,Accessibilite")] Scene scene)
             {
                 /*if (ModelState.IsValid)
                 {
@@ -168,7 +168,7 @@ namespace WebApplication1.Controllers
             // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
             [HttpPost]
             [ValidateAntiForgeryToken]
-            public IActionResult Edit(int id, [Bind("IdS,Nom,Adresse,Capacite,Accessibilite,LieuId")] Scene scene)
+            public IActionResult Edit(int id, [Bind("IdA,Nom,Emplacement,Capacite,Accessibilite")] Scene scene)
             {
                 /*if (id != Scene.Id)
                 {

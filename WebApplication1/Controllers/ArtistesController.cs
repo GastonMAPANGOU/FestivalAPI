@@ -9,9 +9,6 @@ using FestivalAPI.Data;
 using FestivalAPI.Models;
 
 using WebApplication1.ControllersAPI;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
 
 namespace WebApplication1.Controllers
 {
@@ -92,35 +89,20 @@ namespace WebApplication1.Controllers
 
 
 
-        // POST: Artiste/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("IdA,Nom,Prenom,Photo,StyleId,Descriptif,PaysId,Extrait")] Artiste artiste, IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment)
-        {
-            int taillemax = 2097152;
-
-            List<String> extensionsvalides = new List<String>();
-            List<String> strcut = new List<String>();
-            extensionsvalides.Add(".jpg");
-            extensionsvalides.Add(".jpeg");
-            extensionsvalides.Add(".gif");
-            extensionsvalides.Add(".png");
-            extensionsvalides.Add(".jfif");
-            string fileNamtre = file.FileName;
-
-            string fileName = "img/artistes/" + artiste.Nom;
-            string extension = Path.GetExtension(file.FileName);
-            string chemin = fileName + extension.ToLower();
-            if (file.Length < taillemax && extensionsvalides.Contains(extension))
+            // POST: Artiste/Create
+            // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+            // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+            [HttpPost]
+            [ValidateAntiForgeryToken]
+            public IActionResult Create([Bind("IdA,Nom,Prenom,Photo,Style,Descriptif,LieuId,Pays,Extrait")] Artiste Artiste)
             {
-                using (FileStream fileStream = System.IO.File.Create("wwwroot/"+chemin))
+                /*if (ModelState.IsValid)
                 {
-                    file.CopyTo(fileStream);
-                    fileStream.Flush();
+                    _context.Add(Artiste);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
                 }
-                artiste.Photo = chemin;
+                return View(Artiste);*/
 
 
 
@@ -128,24 +110,25 @@ namespace WebApplication1.Controllers
                 IEnumerable<Artiste> Artistes = API.Instance.GetArtistesAsync().Result;
                 foreach (var item in Artistes)
                 {
-                    if (item.Nom == artiste.Nom)
+                    if (item.Nom == Artiste.Nom)
                     {
                         drapeau++;
                     }
                 }
 
+
+
                 if (ModelState.IsValid && drapeau == 0)
                 {
-                    var URI = API.Instance.AjoutArtisteAsync(artiste);
+                    var URI = API.Instance.AjoutArtisteAsync(Artiste);
                     return RedirectToAction(nameof(Index));
                 }
                 else if (drapeau != 0)
                 {
                     return RedirectToAction(nameof(Index));
                 }
+                return View(Artiste);
             }
-            return View(artiste);
-        }
 
 
 
@@ -185,55 +168,51 @@ namespace WebApplication1.Controllers
             // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
             [HttpPost]
             [ValidateAntiForgeryToken]
-            public IActionResult Edit(int id, [Bind("IdA,Nom,Prenom,Photo,StyleId,Descriptif,PaysId,Extrait")] Artiste artiste, IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment)
+            public IActionResult Edit(int id, [Bind("IdA,Nom,Prenom,Photo,Style,Descriptif,LieuId,Pays,Extrait")] Artiste Artiste)
             {
-
-            int taillemax = 2097152;
-
-            List<String> extensionsvalides = new List<String>();
-            List<String> strcut = new List<String>();
-            extensionsvalides.Add(".jpg");
-            extensionsvalides.Add(".jpeg");
-            extensionsvalides.Add(".gif");
-            extensionsvalides.Add(".png");
-            extensionsvalides.Add(".jfif");
-            string fileNamtre = file.FileName;
-
-            string fileName = "img/artistes/" + artiste.Nom;
-            string extension = Path.GetExtension(file.FileName);
-            string chemin = fileName + extension.ToLower();
-            if (file.Length < taillemax && extensionsvalides.Contains(extension))
-            {
-                using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
+                /*if (id != Artiste.Id)
                 {
-                    file.CopyTo(fileStream);
-                    fileStream.Flush();
+                    return NotFound();
                 }
-                artiste.Photo = chemin;
 
 
 
-                int drapeau = 0;
-                IEnumerable<Artiste> Artistes = API.Instance.GetArtistesAsync().Result;
-                foreach (var item in Artistes)
+                if (ModelState.IsValid)
                 {
-                    if (item.Nom == artiste.Nom)
+                    try
                     {
-                        drapeau++;
+                        _context.Update(Artiste);
+                        await _context.SaveChangesAsync();
                     }
+                    catch (DbUpdateConcurrencyException)
+                    {
+                        if (!ArtisteExists(Artiste.Id))
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    return RedirectToAction(nameof(Index));
+                }
+                return View(Artiste);*/
+                if (id != Artiste.IdA)
+                {
+                    return NotFound();
                 }
 
-                if (ModelState.IsValid && drapeau == 0)
+
+
+
+
+                if (ModelState.IsValid)
                 {
-                    var URI = API.Instance.ModifArtisteAsync(artiste);
+                    var URI = API.Instance.ModifArtisteAsync(Artiste);
                     return RedirectToAction(nameof(Index));
                 }
-                else if (drapeau != 0)
-                {
-                    return RedirectToAction(nameof(Index));
-                }
-            }
-            return View(artiste);
+                return View(Artiste);
             }
 
 

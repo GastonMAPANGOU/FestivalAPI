@@ -1,67 +1,47 @@
 ﻿@model FestivalAPI.Models.Artiste
 
-
 @{
     ViewData["Title"] = "Create";
-    IEnumerable<FestivalAPI.Models.Style> styles = WebApplication1.ControllersAPI.API.Instance.GetStylesAsync().Result;
-    IEnumerable<FestivalAPI.Models.Pays> pays = WebApplication1.ControllersAPI.API.Instance.GetPaysAsync().Result;
 }
 
-<h1><strong>GESTION DES ARTISTES</strong></h1>
+<h1>Create</h1>
 
-
+<h4>Artiste</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create" method="post" enctype="multipart/form-data">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Nom" class="control-label">Nom :</label>
-                <input asp-for="Nom" class="form-control" type="text" required />
+                <label asp-for="Nom" class="control-label"></label>
+                <input asp-for="Nom" class="form-control" />
                 <span asp-validation-for="Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Prenom" class="control-label">Prenom :</label>
-                <input asp-for="Prenom" class="form-control" type="text" required />
+                <label asp-for="Prenom" class="control-label"></label>
+                <input asp-for="Prenom" class="form-control" />
                 <span asp-validation-for="Prenom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="file" name="file" />
+                <label asp-for="Photo" class="control-label"></label>
+                <input asp-for="Photo" class="form-control" />
+                <span asp-validation-for="Photo" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label class="control-label">Style de musique :</label>
-                <select asp-for="StyleId" class="form-control " asp-items="ViewBag.StyleId">
-                    <option value="">--Choisissez une option--</option>
-                    @foreach (var it in styles)
-                    {
-                        <option value="@it.Id">
-                            @it.Nom
-                        </option>
-                    }
-                </select>
-                <span asp-validation-for="StyleId"></span>
+                <label asp-for="StyleId" class="control-label"></label>
+                <input asp-for="StyleId" class="form-control" />
+                <span asp-validation-for="StyleId" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="Descriptif" class="control-label">Descriptif :</label>
-                <input asp-for="Descriptif" class="form-control" type="text" required />
+                <label asp-for="Descriptif" class="control-label"></label>
+                <input asp-for="Descriptif" class="form-control" />
                 <span asp-validation-for="Descriptif" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Pays :</label>
-                <select asp-for="PaysId" class="form-control " asp-items="ViewBag.StyleId">
-                    <option value="">--Choisissez une option--</option>
-                    @foreach (var it in pays)
-                    {
-                        <option value="@it.Id">
-                            @it.Nom
-                        </option>
-                    }
-                </select>
-                <span asp-validation-for="PaysId"></span>
+                <label asp-for="PaysId" class="control-label"></label>
+                <input asp-for="PaysId" class="form-control" />
+                <span asp-validation-for="PaysId" class="text-danger"></span>
             </div>
-
             <div class="form-group">
                 <label asp-for="Extrait" class="control-label"></label>
                 <input asp-for="Extrait" class="form-control" />
@@ -73,8 +53,6 @@
         </form>
     </div>
 </div>
-
-
 
 <div>
     <a asp-action="Index">Back to List</a>

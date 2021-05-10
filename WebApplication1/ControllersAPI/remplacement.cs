@@ -16,7 +16,7 @@ namespace WebApplication1.ControllersAPI
 
         private remplacement()
         {
-            client.BaseAddress = new Uri("http://localhost:44344");
+            client.BaseAddress = new Uri("http://localhost:51179");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
@@ -40,35 +40,35 @@ namespace WebApplication1.ControllersAPI
         }
 
 
-        public async Task<ICollection<Ami>> GetAmisAsync()
+        public async Task<ICollection<Festivalier>> GetFestivaliersAsync()
         {
-            ICollection<Ami> amis = new List<Ami>();
-            HttpResponseMessage response = client.GetAsync("api/amis").Result;
+            ICollection<Festivalier> festivaliers = new List<Festivalier>();
+            HttpResponseMessage response = client.GetAsync("api/festivaliers").Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
-                amis = JsonConvert.DeserializeObject<List<Ami>>(resp);
+                festivaliers = JsonConvert.DeserializeObject<List<Festivalier>>(resp);
             }
-            return amis;
+            return festivaliers;
         }
 
-        public async Task<Ami> GetAmiAsync(int? id)
+        public async Task<Festivalier> GetFestivalierAsync(int? id)
         {
-            Ami ami = null;
-            HttpResponseMessage response = client.GetAsync("api/amis/" + id).Result;
+            Festivalier festivalier = null;
+            HttpResponseMessage response = client.GetAsync("api/festivaliers/" + id).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
-                ami = JsonConvert.DeserializeObject<Ami>(resp);
+                festivalier = JsonConvert.DeserializeObject<Festivalier>(resp);
             }
-            return ami;
+            return festivalier;
         }
 
-        public async Task<Uri> AjoutAmiAsync(Ami ami)
+        public async Task<Uri> AjoutFestivalierAsync(Festivalier festivalier)
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/amis", ami);
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/festivaliers", festivalier);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -79,11 +79,11 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        public async Task<Uri> ModifAmiAsync(Ami ami)
+        public async Task<Uri> ModifFestivalierAsync(Festivalier festivalier)
         {
             try
             {
-                HttpResponseMessage response = await client.PutAsJsonAsync("api/amis/" + ami.Id, ami);
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/festivaliers/" + festivalier.Id, festivalier);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -94,11 +94,11 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        public async Task<Uri> SupprAmiAsync(int id)
+        public async Task<Uri> SupprFestivalierAsync(int id)
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync("api/amis/" + id);
+                HttpResponseMessage response = await client.DeleteAsync("api/festivaliers/" + id);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }

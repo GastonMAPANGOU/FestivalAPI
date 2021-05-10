@@ -15,18 +15,10 @@ namespace FestivalAPI.Models
         public string Prenom { get; set; }
         public string Login { get; set; }
         public string Pwd { get; set; }
-        public int NbJours { get; set; }
-        public int Nb_ParticipantsPT { get; set; }
-        public int Nb_ParticipantsDT { get; set; }
-        public int Age { get; set;}
-        public string Genre { get; set;}
-        [ForeignKey("FK_LieuId")]
-        public int LieuId { get; set;}
-        public bool InscriptionAccepted { get; set; }
+        public int Nb_Participants { get; set; }
         public double Somme { get; set; }
         [ForeignKey("FK_Festival")]
         public int FestivalId { get;  set; }
-        public DateTime Date_Inscription { get; set;}
         public Festivalier() { }
 
     }

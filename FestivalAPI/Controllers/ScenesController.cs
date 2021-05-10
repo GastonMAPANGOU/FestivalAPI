@@ -32,7 +32,7 @@ namespace FestivalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Scene>> GetScene(int id)
         {
-            var scene = await _context.Scene.Include("Festival_Artistes").FirstOrDefaultAsync(f => f.IdS == id);
+            var scene = await _context.Scene.FindAsync(id);
 
             if (scene == null)
             {
@@ -106,89 +106,5 @@ namespace FestivalAPI.Controllers
         {
             return _context.Scene.Any(e => e.IdS == id);
         }
-
-        [HttpGet("Filter_Scene_Artiste/{search}")]
-        public ActionResult<List<Scene>> Filter_Scene_Artiste(string search)
-        {
-            StyleDAO styleDAO = new StyleDAO();
-            ArtisteDAO artisteDAO = new ArtisteDAO();
-            Festival_ArtisteDAO festival_ArtisteDAO = new Festival_ArtisteDAO();
-            SceneDAO sceneDAO = new SceneDAO();
-
-            List<Artiste> artistes = new List<Artiste>();
-            List<int> list_IdScene = new List<int>();
-            List<Scene> scenes = new List<Scene>();
-
-            int Id = styleDAO.Return_IdStyle(search);
-            artistes = artisteDAO.Return_Artiste_By_Style(Id);
-            list_IdScene = festival_ArtisteDAO.List_Id_Scene(artistes);
-            scenes = sceneDAO.List_Scene_Id(list_IdScene);
-
-            return (scenes);
-        }
-
-        [HttpGet("Filter_Scene_Artiste_Style/{search}/{searchArtiste}")]
-        public ActionResult<List<Scene>> Filter_Scene_Artiste_Style(string search, string searchArtiste)
-        {
-            StyleDAO styleDAO = new StyleDAO();
-            ArtisteDAO artisteDAO = new ArtisteDAO();
-            Festival_ArtisteDAO festival_ArtisteDAO = new Festival_ArtisteDAO();
-            SceneDAO sceneDAO = new SceneDAO();
-            List<Festival_Artiste> festival_Artistes = new List<Festival_Artiste>();
-            List<Scene> scenes = new List<Scene>();
-
-            int IdS = styleDAO.Return_IdStyle(search);
-            int IdA = artisteDAO.Return_IdArtiste(searchArtiste);
-            festival_Artistes = festival_ArtisteDAO.list_Festival_Artiste(IdS, IdA);
-            scenes = sceneDAO.List_Scene(festival_Artistes);
-
-            return (scenes);
-        }
-
-        [HttpGet("Filter_Scene_Lieu/{search}")]
-        public ActionResult<List<Scene>> Filter_Scene_Lieu(string search)
-        {
-            LieuDAO lieuDAO = new LieuDAO();
-            SceneDAO sceneDAO = new SceneDAO();
-            List<Scene> scenes = new List<Scene>();
-            int LieuId = lieuDAO.Return_IdLieu(search);
-
-            scenes = sceneDAO.Display_By_Lieu(LieuId);
-
-            return (scenes);
-        }
-
-        [HttpGet("Filter_Scene_Artiste_Style_Lieu/{search}/{searchArtiste}/{searchLieu}")]
-        public ActionResult<List<Scene>> Filter_Scene_Artiste_Style_Lieu(string search, string searchArtiste, string searchLieu)
-        {
-            LieuDAO lieuDAO = new LieuDAO();
-            StyleDAO styleDAO = new StyleDAO();
-            ArtisteDAO artisteDAO = new ArtisteDAO();
-            Festival_ArtisteDAO festival_ArtisteDAO = new Festival_ArtisteDAO();
-            SceneDAO sceneDAO = new SceneDAO();
-            List<Festival_Artiste> festival_Artistes = new List<Festival_Artiste>();
-            List<Scene> scenes = new List<Scene>();
-
-            int IdS = styleDAO.Return_IdStyle(search);
-            int IdA = artisteDAO.Return_IdArtiste(searchArtiste);
-            int LieuId = lieuDAO.Return_IdLieu(searchLieu);
-            festival_Artistes = festival_ArtisteDAO.list_Festival_Artiste(IdS, IdA);
-            scenes = sceneDAO.List_Scene_by_Artist_Lieu_Style(festival_Artistes, LieuId);
-
-            return (scenes);
-        }
-
-        [HttpGet("{Nom}/{Adresse}/{Capacite}/{Accessibilite}/{lieu}/{dateJour}/{artiste}")]
-        public ActionResult<Scene> AddScene(int FestivalId, string Nom, string Adresse, int Capacite, bool Accessibilite, string lieu, DateTime dateJour, string artiste)
-        {
-            SceneDAO sceneDAO = new SceneDAO();
-            Scene scene = new Scene();
-            sceneDAO.InsertScene(FestivalId, Nom, Adresse, Capacite, Accessibilite, lieu, dateJour, artiste);
-            scene = sceneDAO.GetScene_Nom(Nom);
-
-            return scene;
-        }
-
-
     }
 }

@@ -21,8 +21,6 @@ namespace FestivalAPI.Models
         public string Descriptif { get; set; }
         [ForeignKey("FK_Pays")]
         public int PaysId { get; set; }
-        [ForeignKey("FK_Festival")]
-        public int? FestivalId { get; set; }
         public ICollection<Festival_Artiste> Festival_Artistes { get; set; }
         [Required]
         public string Extrait { get; set; }

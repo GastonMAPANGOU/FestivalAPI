@@ -12,7 +12,8 @@
         <Label Content="Logo" HorizontalAlignment="Left" Margin="7,170,0,0" VerticalAlignment="Top" Width="156" FontSize="22" RenderTransformOrigin="0.448,2.115"/>
         <Label Content="Date de début" HorizontalAlignment="Left" Margin="242,229,0,0" VerticalAlignment="Top" Width="156" FontSize="22"/>
         <Label Content="Date de fin" HorizontalAlignment="Left" Margin="526,229,0,0" VerticalAlignment="Top" Width="156" FontSize="22" RenderTransformOrigin="0.483,1.786"/>
-        <TextBox x:Name="nomTextBox" HorizontalAlignment="Left" Height="39" Margin="242,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="156"/>
+        <TextBox x:Name="nomTextBox" HorizontalAlignment="Left" Height="39" Margin="242,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="448"/>
+        <TextBox x:Name="logoTextBox" HorizontalAlignment="Left" Height="38" Margin="242,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="448"/>
         <Button Click="AjouterOnClick" Content="Ajouter" HorizontalAlignment="Left" Margin="238,529,0,0" VerticalAlignment="Top" Width="144" Height="44"/>
         <Button Click="RetourOnClick" Content="Retour" HorizontalAlignment="Left" Margin="538,529,0,0" VerticalAlignment="Top" Width="144" Height="44"/>
         <Label Content="Description" HorizontalAlignment="Left" Margin="10,321,0,0" VerticalAlignment="Top" Width="156" FontSize="22" RenderTransformOrigin="0.483,1.786"/>
@@ -22,7 +23,5 @@
         <TextBox x:Name="descriptionTextBox" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Height="116" Margin="242,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="448"/>
         <ComboBox x:Name="lieuComboBox" HorizontalAlignment="Left" Margin="238,465,0,0" VerticalAlignment="Top" Width="448" Height="42"/>
         <Button Click="AnnulerOnClick" Content="Annuler" HorizontalAlignment="Left" Margin="389,529,0,0" VerticalAlignment="Top" Width="144" Height="44"/>
-        <Button Content="Charger Image" HorizontalAlignment="Left" Margin="242,171,0,0" VerticalAlignment="Top" Height="38" Width="176" Click="Button_Click"/>
-        <Image x:Name="imageUI" HorizontalAlignment="Left" Height="100" Margin="539,106,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

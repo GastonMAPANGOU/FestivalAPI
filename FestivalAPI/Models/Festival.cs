@@ -14,8 +14,6 @@ namespace FestivalAPI.Models
         public string Nom { get; set; }
         public string Logo { get; set; }
         public string Descriptif { get; set; }
-        public bool IsFree { get; set; }
-        public double Montant { get; set; }
         public DateTime Date_Debut { get; set; }
         public DateTime Date_Fin { get; set; }
         [ForeignKey("FK_Lieu")]
@@ -23,7 +21,6 @@ namespace FestivalAPI.Models
         public Organisateur Organisateur { get; set; }
         public ICollection<Festivalier> Festivaliers { get; set; }
         public ICollection<Festival_Artiste> Festival_Artistes { get; set; }
-        public ICollection<Jour> Jours { get; set; }
         public Festival() { }
     }
 }

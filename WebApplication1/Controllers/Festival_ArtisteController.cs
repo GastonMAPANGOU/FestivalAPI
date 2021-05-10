@@ -38,7 +38,7 @@ namespace WebApplication1.Controllers
                     {
                         foreach (Festival_Artiste it in Festival_Artistes)
                         {
-                            if (it.FestivalId == item.IdF)
+                            if (it.IdF == item.IdF)
                             {
                                 Festival_Artistes2.Append(it);
                             }

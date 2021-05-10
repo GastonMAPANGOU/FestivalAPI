@@ -20,21 +20,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\img\logos\" />
-    <Folder Include="wwwroot\img\artistes\" />
-    <Folder Include="wwwroot\img\festivals\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Views\Artistes\Create.cshtml" />
-    <None Include="Views\Artistes\Delete.cshtml" />
-    <None Include="Views\Artistes\Details.cshtml" />
-    <None Include="Views\Artistes\Edit.cshtml" />
-    <None Include="Views\Artistes\Index.cshtml" />
-    <None Include="Views\Scenes\Create.cshtml" />
-    <None Include="Views\Scenes\Delete.cshtml" />
-    <None Include="Views\Scenes\Details.cshtml" />
-    <None Include="Views\Scenes\Edit.cshtml" />
-    <None Include="Views\Scenes\Index.cshtml" />
   </ItemGroup>
 
 </Project>

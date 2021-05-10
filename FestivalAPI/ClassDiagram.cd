@@ -13,7 +13,7 @@
   <Class Name="FestivalAPI.Models.Festival">
     <Position X="9" Y="10.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAQBAAEAAAAQAAAAAAEAIACAAAAQAAABAAAAAAAQ=</HashCode>
+      <HashCode>AAACAQBAAEAAAAQAAAAAAAAIACAAAAQAAABAAAAAAAQ=</HashCode>
       <FileName>Models\Festival.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -23,6 +23,13 @@
       <Property Name="Festivaliers" />
       <Property Name="Festival_Artistes" />
     </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="FestivalAPI.Models.Festival_Artiste">
+    <Position X="9" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQAAAACAAAAAgAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Models\Festival_Artiste.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Class Name="FestivalAPI.Models.Festivalier">
     <Position X="6" Y="12.5" Width="1.5" />
@@ -48,7 +55,7 @@
   <Class Name="FestivalAPI.Models.Jour">
     <Position X="9" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACQABAAAAAAAAAAAgAAAAAAAAAAAAEAAAAAACAAAA=</HashCode>
+      <HashCode>AAACQABAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAACAAAA=</HashCode>
       <FileName>Models\Jour.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -121,20 +128,6 @@
     <ShowAsCollectionAssociation>
       <Property Name="Hebergements" />
     </ShowAsCollectionAssociation>
-  </Class>
-  <Class Name="FestivalAPI.Models.Festival_Artiste">
-    <Position X="9" Y="6.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAQAAAACAAAAAgAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
-      <FileName>Models\Festival_Artiste.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="FestivalAPI.Models.Ami">
-    <Position X="14.5" Y="8.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAACQAAAAAAAAAAAAAAAAAAAAAAAAAAADAAAAAAAACA=</HashCode>
-      <FileName>Models\Ami.cs</FileName>
-    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
