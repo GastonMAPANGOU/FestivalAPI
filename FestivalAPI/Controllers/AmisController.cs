@@ -93,7 +93,7 @@ namespace FestivalAPI.Controllers
             _context.Ami.Add(ami);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAmitié", new { id = ami.Id }, ami);
+            return CreatedAtAction("GetAmi", new { id = ami.Id }, ami);
         }
 
         // DELETE: api/Amis/5

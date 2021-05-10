@@ -125,5 +125,39 @@ namespace FestivalAPI.Data
             }
             return (artistes);
         }
+
+        public List<Artiste> Return_Artiste_10()
+        {
+            List<Artiste> artistes = new List<Artiste>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "Select * from Artiste Order By Nom ASC Limit 10";
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Artiste artiste = new Artiste();
+
+                        artiste.IdA = reader.GetInt32(0);
+                        artiste.Nom = reader.GetString(1);
+                        artiste.Prenom = reader.GetString(2);
+                        artiste.Photo = reader.GetString(3);
+                        artiste.StyleId = reader.GetInt32(4);
+                        artiste.Descriptif = reader.GetString(5);
+                        artiste.PaysId = reader.GetInt32(6);
+                        artiste.Extrait = reader.GetString(7);
+
+                        artistes.Add(artiste);
+                    }
+                }
+            }
+            return (artistes);
+        }
     }
 }

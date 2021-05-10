@@ -74,6 +74,38 @@ namespace FestivalAPI.Data
             }
         }
 
+        public List<Scene> Display_Scene()
+        {
+            List<Scene> list_Scene = new List<Scene>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "Select * from Scene Order By Nom ASC ";
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Scene scene = new Scene();
+
+                        scene.IdS = reader.GetInt32(0);
+                        scene.Nom = reader.GetString(1);
+                        scene.Adresse = reader.GetString(2);
+                        scene.Capacite = reader.GetInt32(3);
+                        scene.Accessibilite = reader.GetString(2);
+                        scene.LieuId = reader.GetInt32(5);
+
+                        list_Scene.Add(scene);
+                    }
+                }
+
+                return list_Scene;
+            }
+        }
+
         public List<Scene>List_Scene(List<Festival_Artiste>list_Festival_Artiste)
         {
 
@@ -199,8 +231,8 @@ namespace FestivalAPI.Data
                         Id = reader.GetInt32(0);
                     }
                 }
-                return Id;
             }
+            return Id;
         }
 
         public void InsertScene(int FestivalId, string Nom, string Adresse, int Capacite, bool Accessibilite, string lieu, DateTime dateJour, string artiste )
@@ -240,8 +272,6 @@ namespace FestivalAPI.Data
 
                 commandFestivalArtist.ExecuteNonQuery();
                 connection.Close();
-
-
             }
         }
 

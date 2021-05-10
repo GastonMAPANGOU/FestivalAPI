@@ -13,9 +13,9 @@ namespace FestivalAPI.Models
     {
         [Key]
         public int Id { get; set; }
-        [ForeignKey("FK_Festivalier")]
+        [ForeignKey("FK_Festival")]
         public int AmiDemandeur { get; set; }
-        [ForeignKey("FK_Festivalier")]
+        [ForeignKey("FK_Festival")]
         public int AmiReceveur { get; set; }
         public bool Accepted { get; set; }
         public bool Vue { get; set; }
