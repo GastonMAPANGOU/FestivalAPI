@@ -1,7 +1,11 @@
 ﻿@model FestivalAPI.Models.Scene
-
 @{
     ViewData["Title"] = "Edit";
+
+    IEnumerable<FestivalAPI.Models.Lieu> lieux = WebApplication1.ControllersAPI.API.Instance.GetLieuxAsync().Result;
+
+    bool vrai = true;
+    bool faux = false;
 }
 
 <h1>Edit</h1>
@@ -25,24 +29,41 @@
             </div>
             <div class="form-group">
                 <label asp-for="Capacite" class="control-label"></label>
-                <input asp-for="Capacite" class="form-control" />
+                <input asp-for="Capacite" type="number" class="form-control" />
                 <span asp-validation-for="Capacite" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Accessibilite" class="control-label"></label>
-                <input asp-for="Accessibilite" class="form-control" />
+                <label asp-for="Accessibilite" class="control-label">Accessible aux personnes handicapées</label>
+                <select asp-for="Accessibilite" class="form-control">
+
+                    <option value="@vrai">oui</option>
+                    <option value="@faux">non</option>
+                </select>
                 <span asp-validation-for="Accessibilite" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LieuId" class="control-label"></label>
-                <select asp-for="LieuId" class="form-control" asp-items="ViewBag.LieuId"></select>
+                <label asp-for="LieuId" class="control-label">Sélectionnez une date</label>
+                <select class="form-control" asp-for="LieuId">
+                    <option value="">Choisissez une option</option>
+                    @foreach (var it in lieux)
+                    {
+                        <option value="@it.IdL">
+                            @it.Commune
+                        </option>
+                    }
+                </select>
                 <span asp-validation-for="LieuId" class="text-danger"></span>
             </div>
+
+
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Edit" class="btn btn-primary" />
             </div>
         </form>
     </div>
+
+
 </div>
 
 <div>

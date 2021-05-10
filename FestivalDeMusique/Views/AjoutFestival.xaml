@@ -5,16 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FestivalDeMusique.Views"
         mc:Ignorable="d"
-        Title="AjoutFestival" Height="700" Width="1000"
-        MinHeight="700" MinWidth="1000">
+        Title="AjoutFestival" Height="450" Width="800">
     
     
 
-    <Border Padding="50 20 50 40">
-        <Border.Background>
-            <ImageBrush Stretch="Fill" ImageSource="/images/music_bg_3.jpg"/>
-        </Border.Background>
-        <Border BorderThickness="2" BorderBrush="Gray">
+    <Border Padding="50 40 50 40">
+        <Border>
             <Border.Background>
                 <ImageBrush Stretch="Fill" ImageSource="/images/music_bg_3.jpg"/>
             </Border.Background>
@@ -25,188 +21,8 @@
                     <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="50"/>
-                </Grid.RowDefinitions>
-
-                <Rectangle Fill="White" 
-                           Margin="0 0 0 0"
-                           Grid.Column="1"
-                           Grid.RowSpan="2"/>
-                
-                <StackPanel Margin="0 0 0 0"
-                            Grid.Column="0"
-                            Grid.Row="0"
-                            Grid.RowSpan="2">
-                    <TextBlock Text="Création de" 
-                               Margin="0 20 0 0" 
-                               Foreground="White"
-                               FontSize="40"
-                               HorizontalAlignment="Center"/>
-                    <TextBlock Text="Festival" 
-                               Margin="0 0 0 0" 
-                               Foreground="White"
-                               FontSize="40"
-                               HorizontalAlignment="Center"/>
-                    <TextBlock Text="Créer des festivals pour les mettre à disposition d'organisateurs et de festivaliers" 
-                               Margin="10 20 10 0" 
-                               TextWrapping="Wrap"
-                               Foreground="LightGray"
-                               FontSize="20"
-                               HorizontalAlignment="Center"/>
-                </StackPanel>
-
-                <StackPanel Margin="20 20 20 0"
-                            Grid.Column="1"
-                            Grid.Row="0">
-                    <Grid Margin="0 0 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="Festival" 
-                                   Margin="0 0 0 20" 
-                                   Foreground="Black"
-                                   FontSize="40"
-                                   FontWeight="Bold"
-                                   Grid.Column="0"/>
-                        <Border BorderThickness="1"
-                                Background="Transparent"
-                                BorderBrush="Black"
-                                Width="51"
-                                Height="51"
-                                Grid.Column="1"
-                                HorizontalAlignment="Right">
-                            <Image Source="/images/outlook.png"
-                                   Height="50" Width="50"/>
-                        </Border>
-
-                    </Grid>
-
-
-                    <TextBlock Text="Nom" 
-                               Margin="0 0 0 0" 
-                               Foreground="#FF1C252B"
-                               FontSize="15"
-                               FontWeight="Bold"/>
-
-                    <TextBox Text=""
-                             Height="30"
-                             BorderBrush="#FF8EA5B4"
-                             BorderThickness="2"
-                             Padding="3"
-                             x:Name="nomTextBox"/>
-
-                    <Grid Margin="0 10 0 0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock Text="Logo du festival" 
-                                   Margin="0 20 0 0" 
-                                   Foreground="#FF1C252B"
-                                   FontSize="15"
-                                   FontWeight="Bold"/>
-                        <Border BorderThickness="1"
-                                Background="Transparent"
-                                BorderBrush="Blue"
-                                Width="51"
-                                Height="51"
-                                Grid.Column="1"
-                                HorizontalAlignment="Right">
-                            <Image Source="/images/outlook.png"
-                                   Height="50" Width="50"
-                                   x:Name="imageUI"
-                                   MouseDown="imageUI_MouseDown"/>
-                        </Border>
-
-                    </Grid>
-
-                    <TextBlock Text="Description" 
-                               Margin="0 20 0 0" 
-                               Foreground="#FF1C252B"
-                               FontSize="15"
-                               FontWeight="Bold"/>
-
-                    <TextBox Text=""
-                             Height="80"
-                             AcceptsReturn="True"
-                             BorderBrush="#FF8EA5B4"
-                             BorderThickness="2"
-                             Padding="3"
-                             x:Name="descriptionTextBox"/>
-
-                    <TextBlock Text="Commune principale" 
-                               Margin="0 20 10 0" 
-                               Foreground="#FF1C252B"
-                               FontSize="15"
-                               FontWeight="Bold"/>
-
-                    <ComboBox SelectedIndex="0" 
-                              Padding="3"
-                              IsEditable="True"
-                              IsReadOnly="True"
-                              Height="25"
-                              BorderBrush="#FF8EA5B4"
-                              BorderThickness="2"
-                              x:Name="lieuComboBox">
-                        <ComboBoxItem>Rouen</ComboBoxItem>
-                    </ComboBox>
-
-                    <TextBlock Text="Date de début" 
-                               Margin="0 20 10 0" 
-                               Foreground="#FF1C252B"
-                               FontSize="15"
-                               FontWeight="Bold"/>
-                    <DatePicker Margin="0 0 0 0"
-                                Height="30"
-                                BorderBrush="#FF8EA5B4"
-                                BorderThickness="2"
-                                Padding="3"
-                                x:Name="dateDebutControl">
-                    </DatePicker>
-
-                    <TextBlock Text="Date de fin" 
-                               Margin="0 20 10 0" 
-                               Foreground="#FF1C252B"
-                               FontSize="15"
-                               FontWeight="Bold"/>
-                    <DatePicker Margin="0 0 0 0"
-                                Height="30"
-                                BorderBrush="#FF8EA5B4"
-                                BorderThickness="2"
-                                Padding="3"
-                                x:Name="dateFinControl">
-                    </DatePicker>
-                </StackPanel>
-                <Grid Margin="0 0 10 10" 
-                      HorizontalAlignment="Right"
-                      Grid.Column="1"
-                      Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Button Margin="0 0 10 0"
-                            Content="Valider"
-                            Grid.Column="0"
-                            Height="30"
-                            Width="100"
-                            Click="AjouterOnClick">
-
-                    </Button>
-
-                    <Button Margin="10 0 0 0"
-                                Content="Annuler"
-                                Grid.Column="1"
-                                Height="30"
-                                Width="100"
-                            Click="RetourOnClick">
-
-                    </Button>
-                </Grid>
+                <Rectangle Fill="LightGray"
+                       Grid.Column="1"/>
             </Grid>
 
         </Border>

@@ -12,8 +12,8 @@
         <Label Content="Logo" HorizontalAlignment="Left" Margin="7,170,0,0" VerticalAlignment="Top" Width="156" FontSize="22" RenderTransformOrigin="0.448,2.115"/>
         <Label Content="Date de début" HorizontalAlignment="Left" Margin="242,229,0,0" VerticalAlignment="Top" Width="156" FontSize="22"/>
         <Label Content="Date de fin" HorizontalAlignment="Left" Margin="526,229,0,0" VerticalAlignment="Top" Width="156" FontSize="22" RenderTransformOrigin="0.483,1.786"/>
-        <TextBox x:Name="nomTextBox" HorizontalAlignment="Left" Height="39" Margin="242,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="448"/>
-        <TextBox x:Name="logoTextBox" HorizontalAlignment="Left" Height="38" Margin="242,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="448"/>
+        <TextBox x:Name="nomTextBox" HorizontalAlignment="Left" Height="39" Margin="242,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244"/>
+        <TextBox x:Name="logoTextBox" HorizontalAlignment="Left" Height="38" Margin="242,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78"/>
         <Button Click="AjouterOnClick" Content="Ajouter" HorizontalAlignment="Left" Margin="274,529,0,0" VerticalAlignment="Top" Width="144" Height="44"/>
         <Button Click="RetourOnClick" Content="Retour" HorizontalAlignment="Left" Margin="467,529,0,0" VerticalAlignment="Top" Width="144" Height="44"/>
         <Label Content="Description" HorizontalAlignment="Left" Margin="10,321,0,0" VerticalAlignment="Top" Width="156" FontSize="22" RenderTransformOrigin="0.483,1.786"/>
@@ -22,5 +22,7 @@
         <Label Content="Commune principale" HorizontalAlignment="Left" Margin="7,465,0,0" VerticalAlignment="Top" Width="226" FontSize="22" RenderTransformOrigin="0.483,1.786"/>
         <TextBox x:Name="descriptionTextBox" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Height="116" Margin="242,321,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="448"/>
         <ComboBox x:Name="lieuComboBox" HorizontalAlignment="Left" Margin="238,465,0,0" VerticalAlignment="Top" Width="448" Height="42"/>
+        <Button Content="Image" HorizontalAlignment="Left" Margin="357,171,0,0" VerticalAlignment="Top" Height="38" Width="61" Click="Button_Click"/>
+        <Image x:Name="imageUI" HorizontalAlignment="Left" Height="100" Margin="539,106,0,0" VerticalAlignment="Top" Width="100"/>
     </Grid>
 </Window>

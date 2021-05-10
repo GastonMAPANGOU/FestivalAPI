@@ -94,18 +94,8 @@ namespace WebApplication1.Controllers
             // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
             [HttpPost]
             [ValidateAntiForgeryToken]
-            public IActionResult Create([Bind("IdA,Nom,Emplacement,Capacite,Accessibilite")] Scene scene)
+            public IActionResult Create([Bind("IdS,Nom,Adresse,Capacite,Accessibilite,LieuId")] Scene scene)
             {
-                /*if (ModelState.IsValid)
-                {
-                    _context.Add(Scene);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                return View(Scene);*/
-
-
-
                 int drapeau = 0;
                 IEnumerable<Scene> scenes = API.Instance.GetScenesAsync().Result;
                 foreach (var item in scenes)
@@ -168,7 +158,7 @@ namespace WebApplication1.Controllers
             // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
             [HttpPost]
             [ValidateAntiForgeryToken]
-            public IActionResult Edit(int id, [Bind("IdA,Nom,Emplacement,Capacite,Accessibilite")] Scene scene)
+            public IActionResult Edit(int id, [Bind("IdS,Nom,Adresse,Capacite,Accessibilite,LieuId")] Scene scene)
             {
                 /*if (id != Scene.Id)
                 {

@@ -29,19 +29,13 @@ namespace FestivalAPI.Data
                         Festivalier festivalier = new Festivalier();
 
                         festivalier.Id = reader.GetInt32(0);
+                        festivalier.Login = reader.GetString(3);
+                        festivalier.Nb_ParticipantsPT = reader.GetInt32(5);
+                        festivalier.Nb_ParticipantsDT = reader.GetInt32(5);
                         festivalier.Nom = reader.GetString(1);
                         festivalier.Prenom = reader.GetString(2);
-                        festivalier.Login = reader.GetString(3);
                         festivalier.Pwd = reader.GetString(4);
-                        festivalier.NbJours = reader.GetInt32(5);
-                        festivalier.Nb_ParticipantsPT = reader.GetInt32(6);
-                        festivalier.Nb_ParticipantsDT = reader.GetInt32(7);
-                        festivalier.Age = reader.GetInt32(8);
-                        festivalier.Genre = reader.GetString(9);
-                        festivalier.LieuId = reader.GetInt32(10);
-                        festivalier.InscriptionAccepted = reader.GetBoolean(11);
-                        festivalier.Somme = reader.GetDouble(12);
-                        festivalier.FestivalId = reader.GetInt32(13);
+                        festivalier.Somme = reader.GetDouble(6);
 
                         returnList.Add(festivalier);
 
@@ -68,19 +62,13 @@ namespace FestivalAPI.Data
                     while (reader.Read())
                     {
                         festivalier.Id = reader.GetInt32(0);
+                        festivalier.Login = reader.GetString(3);
+                        festivalier.Nb_ParticipantsPT = reader.GetInt32(5);
+                        festivalier.Nb_ParticipantsDT = reader.GetInt32(5);
                         festivalier.Nom = reader.GetString(1);
                         festivalier.Prenom = reader.GetString(2);
-                        festivalier.Login = reader.GetString(3);
                         festivalier.Pwd = reader.GetString(4);
-                        festivalier.NbJours = reader.GetInt32(5);
-                        festivalier.Nb_ParticipantsPT = reader.GetInt32(6);
-                        festivalier.Nb_ParticipantsDT = reader.GetInt32(7);
-                        festivalier.Age = reader.GetInt32(8);
-                        festivalier.Genre = reader.GetString(9);
-                        festivalier.LieuId = reader.GetInt32(10);
-                        festivalier.InscriptionAccepted = reader.GetBoolean(11);
-                        festivalier.Somme = reader.GetDouble(12);
-                        festivalier.FestivalId = reader.GetInt32(13);
+                        festivalier.Somme = reader.GetDouble(6);
 
                     }
                 }
@@ -103,19 +91,13 @@ namespace FestivalAPI.Data
                     while (reader.Read())
                     {
                         festivalier.Id = reader.GetInt32(0);
+                        festivalier.Login = reader.GetString(3);
+                        festivalier.Nb_ParticipantsPT = reader.GetInt32(5);
+                        festivalier.Nb_ParticipantsDT = reader.GetInt32(5);
                         festivalier.Nom = reader.GetString(1);
                         festivalier.Prenom = reader.GetString(2);
-                        festivalier.Login = reader.GetString(3);
                         festivalier.Pwd = reader.GetString(4);
-                        festivalier.NbJours = reader.GetInt32(5);
-                        festivalier.Nb_ParticipantsPT = reader.GetInt32(6);
-                        festivalier.Nb_ParticipantsDT = reader.GetInt32(7);
-                        festivalier.Age = reader.GetInt32(8);
-                        festivalier.Genre = reader.GetString(9);
-                        festivalier.LieuId = reader.GetInt32(10);
-                        festivalier.InscriptionAccepted = reader.GetBoolean(11);
-                        festivalier.Somme = reader.GetDouble(12);
-                        festivalier.FestivalId = reader.GetInt32(13);
+                        festivalier.Somme = reader.GetDouble(6);
 
                     }
                 }
@@ -124,10 +106,83 @@ namespace FestivalAPI.Data
             return festivalier;
         }
 
+
+
+
+        public Festivalier Insert(int JourId, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId, int nbr_Jour, int coefficient)
+        {
+            FestivalierDAO festivalierDAO = new FestivalierDAO();
+            TarifDAO tarifDAO = new TarifDAO(); 
+            Tarif tarif = new Tarif();
+            Festivalier festivalier = new Festivalier();
+
+            tarif = tarifDAO.valeur_tarif(JourId, coefficient);
+
+            somme = tarif.Montant * tarif.Coefficient * nbr_personne * nbr_Jour;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "Insert into Festivalier (Id, Nom, Prenom, Login, Pwd, Nb_Participants, Somme, FestivalId) " +
+                                    "Values (Id.nextVal, @Nom, @Prenom, @Login, @Pwd, @Nb_Participants, @Somme, @FestiavalId)";
+
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+
+                command.Parameters["@Nom"].Value = Nom;
+                command.Parameters["@Prenom"].Value = Prenom;
+                command.Parameters["@Login"].Value = Login;
+                command.Parameters["@Pwd"].Value = Pwd;
+                command.Parameters["@Nb_Participants"].Value = nbr_personne;
+                command.Parameters["@Somme"].Value = somme;
+                command.Parameters["@FestivalId"].Value = FestivalId;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+
+                festivalier = festivalierDAO.Display_One_Festivalier_Login(Login, FestivalId);
+
+                return festivalier;
+            }
+        }
+
+        public void Update(int Id, DateTime dateJour, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId, int Coefficient)
+        {
+            int IdJ;
+            JourDAO jourDAO = new JourDAO();
+            TarifDAO tarifDAO = new TarifDAO();
+            Tarif tarif = new Tarif();
+
+            IdJ = jourDAO.Id_Jour(dateJour, FestivalId);
+            tarif = tarifDAO.valeur_tarif(IdJ, Coefficient);
+
+            somme = tarif.Montant * tarif.Coefficient * nbr_personne;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "Update Festivalier (Id, Nom, Prenom, Login, Pwd, Nb_Participants, Somme, FestivalId) " +
+                                    "Values (Id.nextVal, @Nom, @Prenom, @Login, @Pwd, @Nb_Participants, @Somme, @FestiavalId) where Id = "+ Id;
+
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+
+                command.Parameters["@Nom"].Value = Nom;
+                command.Parameters["@Prenom"].Value = Prenom;
+                command.Parameters["@Login"].Value = Login;
+                command.Parameters["@Pwd"].Value = Pwd;
+                command.Parameters["@Nb_Participants"].Value = nbr_personne;
+                command.Parameters["@Somme"].Value = somme;
+                command.Parameters["@FestivalId"].Value = FestivalId;
+
+                connection.Open();
+                command.ExecuteNonQuery();
+                connection.Close();
+
+            }
+        }
+
         public int Delete_Id(int Id)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
-            using(SqlCommand command = connection.CreateCommand())
+                using(SqlCommand command = connection.CreateCommand())
             {
                 command.CommandText = "Delete from Festivalier where Id = " + Id;
                 connection.Open();

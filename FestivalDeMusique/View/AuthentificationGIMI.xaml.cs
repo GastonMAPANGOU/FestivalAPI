@@ -25,17 +25,20 @@ namespace FestivalDeMusique.View
 
         private void LoginFunction(object sender, RoutedEventArgs e)
         {
-            string email = textBoxEmail.Text.Trim();
-            string pass = passwordTextBox.Text.Trim();
+            string email = textBoxEmail.Text;
+            string pass = passwordTextBox.Text;
 
-            if (email.Length == 0 || pass.Length == 0)
+            if (email.Trim().Length == 0 || pass.Trim().Length == 0)
             {
                 MessageBox.Show("Veuillez remplir tous les champs");
             }
             else
             {
+                pass = Hash(pass);
                 if (CheckCredentials(email, pass))
                 {
+                    textBoxEmail.Text = "";
+                    passwordTextBox.Text = "";
                     Hide();
                     MenuGestionnaire menu = new MenuGestionnaire();
                     menu.ShowDialog();
@@ -50,16 +53,22 @@ namespace FestivalDeMusique.View
 
         private bool CheckCredentials(string email, string pass)
         {
-            ICollection<Gimi> liste;
-            liste = API.API.Instance.GetGimis().Result;
-            foreach(Gimi gimi in liste)
+            Gimi gimi = API.API.Instance.GetGimi(email, pass).Result;
+            try
             {
-                if(gimi.Login == email && gimi.Pwd == pass)
-                {
-                    return true;
-                }
+                return email == gimi.Login && pass == gimi.Pwd;
             }
-            return false;
+            catch
+            {
+                return false;
+            }
+        }
+
+        private string Hash(String mdp)
+        {
+            var bytes = new UTF8Encoding().GetBytes(mdp);
+            var hashBytes = System.Security.Cryptography.MD5.Create().ComputeHash(bytes);
+            return Convert.ToBase64String(hashBytes);
         }
     }
 }

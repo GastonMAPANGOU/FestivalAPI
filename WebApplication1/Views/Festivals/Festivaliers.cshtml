@@ -1,0 +1,43 @@
+﻿@model IEnumerable<FestivalAPI.Models.Festivalier>
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{ ViewData["Title"] = "Index"; }
+<h1>Festivals Of The Year</h1>
+
+
+
+<div class="card-deck">
+    <span style="color:red">@Html.ValidationMessage("error")</span>
+
+    @foreach (var item in Model)
+    {
+        if (item.Id != (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf"))
+        {
+<div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
+    <div class="card text-center">
+
+
+
+        <div class="card-body">
+            <h5 class="card-title">
+                @Html.DisplayFor(modelItem => item.Nom)
+            </h5>
+            <p class="card-text">@(item.Prenom + " " + item.Nom)</p>
+
+            @if (WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result == null)
+            {
+        <a class="btn btn-primary" asp-action="Festivaliers" asp-route-id="@item.Id"> Ajouter comme ami</a>}
+else if (!WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result.Accepted)
+{
+        <a class="btn btn-primary" asp-action="DeleteAmitié" asp-route-id="@item.Id">  Annuler la demande</a> }
+
+else
+{
+<a class="btn btn-primary" asp-action="DeleteAmitié" asp-route-id="@item.Id">Supprimer de la liste d'amis</a>}
+
+
+        </div>
+    </div>
+</div>}
+            }
+</div>

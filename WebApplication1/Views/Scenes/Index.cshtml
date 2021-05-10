@@ -2,12 +2,13 @@
 
 @{
     ViewData["Title"] = "Index";
+    IEnumerable<FestivalAPI.Models.Lieu> lieux = WebApplication1.ControllersAPI.API.Instance.GetLieuxAsync().Result;
 }
 
-<h1>Index</h1>
+<h1><strong>GESTION DES SCENES</strong></h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Ajouter des scènes</a>
 </p>
 <table class="table">
     <thead>
@@ -23,6 +24,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Accessibilite)
+            </th>
+            <th>
+                Lieu
             </th>
             <th></th>
         </tr>
@@ -42,6 +46,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Accessibilite)
             </td>
+            <td>
+                @foreach (var it in lieux)
+                {
+                    if (it.IdL == item.LieuId)
+                        @it.Commune
+                }
+            </td>
+            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdS">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.IdS">Details</a> |

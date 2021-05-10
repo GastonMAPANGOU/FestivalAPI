@@ -113,6 +113,19 @@ namespace FestivalAPI.Controllers
             return festivalier;
         }
 
+        /*[HttpGet]
+        public ActionResult<Festivalier> AddFestivalier(DateTime dateJour, int nbr_personne, string Nom, string Prenom, String Login, string Pwd, Double somme, int FestivalId, int nbr_Jour, int coefficient)
+        {
+            FestivalierDAO festivalierDAO = new FestivalierDAO();
+            Festivalier festivalier = new Festivalier();
+
+            festivalier = festivalierDAO.Display_One_Festivalier_Login(Login, FestivalId);
+
+            return (festivalier);
+        }*/
+
+
+
         private bool FestivalierExists(int id)
         {
             return _context.Festivalier.Any(e => e.Id == id);

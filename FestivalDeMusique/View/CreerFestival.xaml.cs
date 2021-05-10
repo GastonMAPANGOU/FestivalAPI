@@ -1,6 +1,8 @@
 ﻿using FestivalAPI.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -13,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Path = System.IO.Path;
 
 namespace FestivalDeMusique.View
 {
@@ -23,6 +26,7 @@ namespace FestivalDeMusique.View
     {
         private Dictionary<string, int> communeLieuId = new Dictionary<string, int>();
         private readonly ICollection<Lieu> ListeLieu;
+        private string path;
         public CreerFestival()
         {
             InitializeComponent();
@@ -35,7 +39,7 @@ namespace FestivalDeMusique.View
         private async void AjouterOnClick(object sender, RoutedEventArgs e)
         {
             string nom = nomTextBox.Text;
-            string logo = logoTextBox.Text;
+            string logo = path;
             string descriptif = descriptionTextBox.Text;
 
             if (nom.Length == 0 || logo.Length == 0 || 
@@ -58,6 +62,15 @@ namespace FestivalDeMusique.View
                     festival.Date_Debut = dateDebut;
                     festival.Date_Fin = dateFin;
                     festival.LieuId = NomCommuneToId(communePrincipale);
+
+                    try
+                    {
+                        festival.Logo = SaveImage(festival);
+                    }
+                    catch
+                    {
+                        // To do
+                    }
 
                     HttpResponseMessage response = await API.API.Instance.AjoutFestivalAsync(festival);
                     _ = MessageBox.Show("Création du festival en cours");
@@ -103,5 +116,63 @@ namespace FestivalDeMusique.View
             }
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog op = new OpenFileDialog();
+            op.Title = "Choisissez votre logo";
+            op.Filter = "Format compatibles|*.jpg;*.jpeg;*.png|" +
+              "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+              "Portable Network Graphic (*.png)|*.png";
+            if (op.ShowDialog() == true)
+            {
+                path = op.FileName;
+                
+                BitmapImage bitmap= new BitmapImage(new Uri(path));
+                imageUI.Source = bitmap;
+            }
+
+        }
+
+        private String SaveImage(Festival festival)
+        {
+            //BitmapImage bitmap = new BitmapImage(new Uri(festival.Logo));
+            //bitmap.Save("");
+            using (FileStream file = File.Open(festival.Logo, FileMode.Open))
+            {
+                byte[] b = new byte[1024];
+                UTF8Encoding temp = new UTF8Encoding(true);
+                int taillemax = 2097152;
+
+                List<String> extensionsvalides = new List<String>();
+                List<String> strcut = new List<String>();
+                extensionsvalides.Add(".jpg");
+                extensionsvalides.Add(".jpeg");
+                extensionsvalides.Add(".gif");
+                extensionsvalides.Add(".png");
+                extensionsvalides.Add(".jfif");
+
+
+                string fileName = "img/festivals/" + festival.Nom;
+                string extension = Path.GetExtension(file.Name);
+                Console.WriteLine("Extension" + extension);
+                string chemin = fileName + extension.ToLower();
+                Console.WriteLine("Chemin du fichier" + chemin);
+                if (file.Length < taillemax && extensionsvalides.Contains(extension))
+                {
+                    using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
+                    {
+                        Console.WriteLine("Enregistrement");
+                        file.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+                    festival.Logo = chemin;
+                }
+
+            }
+
+            //bitmap.Save(fileName);
+            return festival.Logo;
+                           
+        }
     }
 }

@@ -11,26 +11,24 @@ namespace FestivalAPI.Models
     {
         [Key]
         public int IdT { get; set; }
-        public float Montant { get; set; }
+        public double Montant { get; set; }
         public string Type_Tarif { get; set; }
         public int Coefficient { get; set; }
         [ForeignKey("Jour")]
-        public int IdJ { get; set; }
+        public int JourId { get; set; }
         public Tarif() { }
-        public Tarif(int idT, float montant, int coefficient) 
+        public Tarif(float montant, int coefficient) 
         {
             Montant = montant;
-            IdT = idT;
             Coefficient = coefficient;
             if (Coefficient==2)
             {
                 Type_Tarif = "plein tarif";
             }
-            if (Coefficient == 1)
+            else if (Coefficient == 1)
             {
                 Type_Tarif = "demi tarif";
-            }
-            
+            }      
         }
 
     }

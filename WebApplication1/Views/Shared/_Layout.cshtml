@@ -1,29 +1,85 @@
-﻿<!DOCTYPE html>
+﻿
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{ 
+    FestivalAPI.Models.Festivalier festivalier = new FestivalAPI.Models.Festivalier();
+    FestivalAPI.Models.Organisateur organisateur = new FestivalAPI.Models.Organisateur();
+}
+
+@if (HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null)
+{
+    festivalier = WebApplication1.ControllersAPI.API.Instance.GetFestivalierAsync((int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result;
+
+}
+
+@if (HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null)
+{
+     organisateur = WebApplication1.ControllersAPI.API.Instance.GetOrganisateurAsync((int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result;
+
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Festival</title>
+    <title>@ViewData["Title"] - Festi'Normandie</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Festival</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
+            <a class="navbar-brand" href="#">Festi'Normandie</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Index">Festivals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Artistes" asp-action="Index">Artistes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Festival_Artiste" asp-action="Index">Festival & Artiste</a>
+                    </li>
+                    @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")) )
+                    {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Festivaliers">Festivaliers</a>
                         </li>
-                    </ul>
-                </div>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Demandes">Demandes</a>
+                        </li>
+                    }
+
+                    @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")) || (HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisateur")))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Connexion" asp-action="Deconnexion">LogOff</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Connexion" asp-action="ConnexionFestivalier">LogIn</a>
+                        </li>
+                    }
+
+
+
+                </ul>
             </div>
+            <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Festivals" asp-action="Index">
+                <input type="text" class="form-control" placeholder="Search for a Festival" name="searchString" value="@ViewData["searchString"]">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
         </nav>
     </header>
     <div class="container">
@@ -34,7 +90,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - Group3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2021 - Festi'Normandie
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
