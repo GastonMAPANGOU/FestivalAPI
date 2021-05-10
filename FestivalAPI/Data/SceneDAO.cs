@@ -231,8 +231,8 @@ namespace FestivalAPI.Data
                         Id = reader.GetInt32(0);
                     }
                 }
-                return Id;
             }
+            return Id;
         }
 
         public void InsertScene(int FestivalId, string Nom, string Adresse, int Capacite, bool Accessibilite, string lieu, DateTime dateJour, string artiste )
@@ -272,8 +272,6 @@ namespace FestivalAPI.Data
 
                 commandFestivalArtist.ExecuteNonQuery();
                 connection.Close();
-
-
             }
         }
 

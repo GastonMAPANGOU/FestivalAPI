@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace FestivalAPI.Models
 {
-    public class Pays
+    public class Rapport_Temps
     {
         [Key]
         public int Id { get; set; }
-        public string Nom { get; set; }
-        public string Departement { get; set;}
-        public string Region { get; set; }
-        public ICollection<Artiste> Artistes { get; set; }
-        public Pays() { }
+        public DateTime Date_Inscription { get; set; }
+        [ForeignKey("FK_Festival")]
+        public int? FestivalId { get; set; }
+        public int Nombre_Inscription { get; set; }
+
+        public Rapport_Temps() { }
     }
 }
