@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="AjoutFestival" Height="700" Width="1000"
         MinHeight="700" MinWidth="1000">
-    
-    
+
+
 
     <Border Padding="50 20 50 40">
         <Border.Background>
@@ -34,7 +34,7 @@
                            Margin="0 0 0 0"
                            Grid.Column="1"
                            Grid.RowSpan="2"/>
-                
+
                 <StackPanel Margin="0 0 0 0"
                             Grid.Column="0"
                             Grid.Row="0"
@@ -95,7 +95,8 @@
                              Height="30"
                              BorderBrush="#FF8EA5B4"
                              BorderThickness="2"
-                             Padding="3"/>
+                             Padding="3"
+                             x:Name="nomTextBox"/>
 
                     <Grid Margin="0 10 0 0">
                         <Grid.ColumnDefinitions>
@@ -116,7 +117,9 @@
                                 Grid.Column="1"
                                 HorizontalAlignment="Right">
                             <Image Source="/images/outlook.png"
-                                   Height="50" Width="50"/>
+                                   Height="50" Width="50"
+                                   x:Name="imageUI"
+                                   MouseDown="imageUI_MouseDown"/>
                         </Border>
 
                     </Grid>
@@ -132,7 +135,8 @@
                              AcceptsReturn="True"
                              BorderBrush="#FF8EA5B4"
                              BorderThickness="2"
-                             Padding="3"/>
+                             Padding="3"
+                             x:Name="descriptionTextBox"/>
 
                     <TextBlock Text="Commune principale" 
                                Margin="0 20 10 0" 
@@ -146,7 +150,8 @@
                               IsReadOnly="True"
                               Height="25"
                               BorderBrush="#FF8EA5B4"
-                              BorderThickness="2">
+                              BorderThickness="2"
+                              x:Name="lieuComboBox">
                         <ComboBoxItem>Rouen</ComboBoxItem>
                     </ComboBox>
 
@@ -159,7 +164,8 @@
                                 Height="30"
                                 BorderBrush="#FF8EA5B4"
                                 BorderThickness="2"
-                                Padding="3">
+                                Padding="3"
+                                x:Name="dateDebutControl">
                     </DatePicker>
 
                     <TextBlock Text="Date de fin" 
@@ -171,7 +177,8 @@
                                 Height="30"
                                 BorderBrush="#FF8EA5B4"
                                 BorderThickness="2"
-                                Padding="3">
+                                Padding="3"
+                                x:Name="dateFinControl">
                     </DatePicker>
                 </StackPanel>
                 <Grid Margin="0 0 10 10" 
@@ -183,10 +190,11 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Button Margin="0 0 10 0"
-                                Content="Valider"
-                                Grid.Column="0"
-                                Height="30"
-                                Width="100">
+                            Content="Valider"
+                            Grid.Column="0"
+                            Height="30"
+                            Width="100"
+                            Click="AjouterOnClick">
 
                     </Button>
 
@@ -194,7 +202,8 @@
                                 Content="Annuler"
                                 Grid.Column="1"
                                 Height="30"
-                                Width="100">
+                                Width="100"
+                            Click="RetourOnClick">
 
                     </Button>
                 </Grid>
