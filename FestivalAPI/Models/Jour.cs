@@ -13,7 +13,6 @@ namespace FestivalAPI.Models
         public int IdJ { get; set; }
         public string Numero_jour { get; set; }
         public DateTime Date_jour { get; set;}
-        public int Mois { get; set;}
         [ForeignKey("FK_Festival")]
         public int? FestivalId { get; set; }
         public ICollection<Tarif> Tarifs { get; set; }

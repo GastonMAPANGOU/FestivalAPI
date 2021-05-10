@@ -96,16 +96,6 @@ namespace WebApplication1.Controllers
             [ValidateAntiForgeryToken]
             public IActionResult Create([Bind("IdS,Nom,Adresse,Capacite,Accessibilite,LieuId")] Scene scene)
             {
-                /*if (ModelState.IsValid)
-                {
-                    _context.Add(Scene);
-                    await _context.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
-                }
-                return View(Scene);*/
-
-
-
                 int drapeau = 0;
                 IEnumerable<Scene> scenes = API.Instance.GetScenesAsync().Result;
                 foreach (var item in scenes)

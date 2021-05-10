@@ -26,9 +26,11 @@ namespace WebApplication1
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSession();
+            services.AddHttpContextAccessor();
 
             //services.AddDbContext<WebApplication1Context>(options =>
-                   // options.UseSqlServer(Configuration.GetConnectionString("WebApplication1Context")));
+            // options.UseSqlServer(Configuration.GetConnectionString("WebApplication1Context")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +52,7 @@ namespace WebApplication1
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

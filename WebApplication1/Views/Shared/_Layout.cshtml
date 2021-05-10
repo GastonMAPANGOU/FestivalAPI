@@ -1,4 +1,24 @@
-﻿<!DOCTYPE html>
+﻿
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{ 
+    FestivalAPI.Models.Festivalier festivalier = new FestivalAPI.Models.Festivalier();
+    FestivalAPI.Models.Organisateur organisateur = new FestivalAPI.Models.Organisateur();
+}
+
+@if (HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null)
+{
+    festivalier = WebApplication1.ControllersAPI.API.Instance.GetFestivalierAsync((int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result;
+
+}
+
+@if (HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null)
+{
+     organisateur = WebApplication1.ControllersAPI.API.Instance.GetOrganisateurAsync((int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result;
+
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,12 +49,30 @@
                     <li class="nav-item">
                         <a class="nav-link " asp-area="" asp-controller="Festival_Artiste" asp-action="Index">Festival & Artiste</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Login" asp-action="Index">LogIn</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Login" asp-action="LogOff">LogOff</a>
-                    </li>
+                    @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")) )
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Festivaliers">Festivaliers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Demandes">Demandes</a>
+                        </li>
+                    }
+
+                    @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")) || (HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisateur")))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Connexion" asp-action="Deconnexion">LogOff</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Connexion" asp-action="ConnexionFestivalier">LogIn</a>
+                        </li>
+                    }
+
+
 
                 </ul>
             </div>
