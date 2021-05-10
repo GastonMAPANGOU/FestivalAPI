@@ -1099,5 +1099,20 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
+
+
+        // Artiste-Festival
+
+        public async Task<ICollection<ClassAssociation>> GetAssociationAsync()
+        {
+            ICollection<ClassAssociation> classAssociations = new List<ClassAssociation>();
+            HttpResponseMessage response = client.GetAsync("api/ClassAssociations").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                classAssociations = JsonConvert.DeserializeObject<List<ClassAssociation>>(resp);
+            }
+            return classAssociations;
+        }
     }
 }
