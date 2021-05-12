@@ -16,6 +16,7 @@ namespace FestivalAPI.Models
         public string Descriptif { get; set; }
         public bool IsFree { get; set; }
         public bool IsCanceled { get; set; }
+        public int NbPlacesDispo { get; set; }
         public double Montant { get; set; }
         public DateTime Date_Debut { get; set; }
         public DateTime Date_Fin { get; set; }

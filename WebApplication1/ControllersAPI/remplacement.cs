@@ -40,35 +40,35 @@ namespace WebApplication1.ControllersAPI
         }
 
 
-        public async Task<ICollection<Ami>> GetAmisAsync()
+        public async Task<ICollection<Departement>> GetDepartementsAsync()
         {
-            ICollection<Ami> amis = new List<Ami>();
-            HttpResponseMessage response = client.GetAsync("api/amis").Result;
+            ICollection<Departement> departements = new List<Departement>();
+            HttpResponseMessage response = client.GetAsync("api/departements").Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
-                amis = JsonConvert.DeserializeObject<List<Ami>>(resp);
+                departements = JsonConvert.DeserializeObject<List<Departement>>(resp);
             }
-            return amis;
+            return departements;
         }
 
-        public async Task<Ami> GetAmiAsync(int? id)
+        public async Task<Departement> GetDepartementAsync(int? id)
         {
-            Ami ami = null;
-            HttpResponseMessage response = client.GetAsync("api/amis/" + id).Result;
+            Departement departement = null;
+            HttpResponseMessage response = client.GetAsync("api/departements/" + id).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
-                ami = JsonConvert.DeserializeObject<Ami>(resp);
+                departement = JsonConvert.DeserializeObject<Departement>(resp);
             }
-            return ami;
+            return departement;
         }
 
-        public async Task<Uri> AjoutAmiAsync(Ami ami)
+        public async Task<Uri> AjoutDepartementAsync(Departement departement)
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/amis", ami);
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/departements", departement);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -79,11 +79,11 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        public async Task<Uri> ModifAmiAsync(Ami ami)
+        public async Task<Uri> ModifDepartementAsync(Departement departement)
         {
             try
             {
-                HttpResponseMessage response = await client.PutAsJsonAsync("api/amis/" + ami.Id, ami);
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/departements/" + departement.Id, departement);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -94,11 +94,11 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        public async Task<Uri> SupprAmiAsync(int id)
+        public async Task<Uri> SupprDepartementAsync(int id)
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync("api/amis/" + id);
+                HttpResponseMessage response = await client.DeleteAsync("api/departements/" + id);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }

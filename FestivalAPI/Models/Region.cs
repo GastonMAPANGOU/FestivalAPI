@@ -2,18 +2,20 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace FestivalAPI.Models
 {
-    public class Pays
+    public class Region
     {
         [Key]
         public int Id { get; set; }
         public string Nom { get; set; }
-        public ICollection<Artiste> Artistes { get; set; }
-        public ICollection<Region> Regions { get; set; }
-        public Pays() { }
+        [ForeignKey("FK_Pays")]
+        public int PaysId { get; set; }
+        public ICollection<Departement> Departements { get; set; }
+
+        public Region() { }
+
     }
 }

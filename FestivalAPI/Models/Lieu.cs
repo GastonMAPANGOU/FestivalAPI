@@ -13,8 +13,8 @@ namespace FestivalAPI.Models
         [Key]
         public int IdL { get; set; }
         public string Commune { get; set; }
-        [ForeignKey("FK_Pays")]
-        public int PaysId { get; set;}
+        [ForeignKey("FK_Departement")]
+        public int DepartementId { get; set; }
         public ICollection<Festival> Festivals { get; set; }
         public ICollection<Scene> Scenes { get; set; }
         public ICollection<Hebergement> Hebergements { get; set; }

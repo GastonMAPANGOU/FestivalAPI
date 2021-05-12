@@ -228,6 +228,75 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
+        public async Task<ICollection<Region>> GetRegionsAsync()
+        {
+            ICollection<Region> regions = new List<Region>();
+            HttpResponseMessage response = client.GetAsync("api/regions").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                regions = JsonConvert.DeserializeObject<List<Region>>(resp);
+            }
+            return regions;
+        }
+
+        public async Task<Region> GetRegionAsync(int? id)
+        {
+            Region region = null;
+            HttpResponseMessage response = client.GetAsync("api/regions/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                region = JsonConvert.DeserializeObject<Region>(resp);
+            }
+            return region;
+        }
+
+        public async Task<Uri> AjoutRegionAsync(Region region)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/regions", region);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> ModifRegionAsync(Region region)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/regions/" + region.Id, region);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprRegionAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/regions/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
         public async Task<ICollection<Artiste>> GetArtistesAsync()
         {
             ICollection<Artiste> artistes = new List<Artiste>();
@@ -518,6 +587,75 @@ namespace WebApplication1.ControllersAPI
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/jours/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Departement>> GetDepartementsAsync()
+        {
+            ICollection<Departement> departements = new List<Departement>();
+            HttpResponseMessage response = client.GetAsync("api/departements").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                departements = JsonConvert.DeserializeObject<List<Departement>>(resp);
+            }
+            return departements;
+        }
+
+        public async Task<Departement> GetDepartementAsync(int? id)
+        {
+            Departement departement = null;
+            HttpResponseMessage response = client.GetAsync("api/departements/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                departement = JsonConvert.DeserializeObject<Departement>(resp);
+            }
+            return departement;
+        }
+
+        public async Task<Uri> AjoutDepartementAsync(Departement departement)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/departements", departement);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> ModifDepartementAsync(Departement departement)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/departements/" + departement.Id, departement);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprDepartementAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/departements/" + id);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -1098,6 +1236,366 @@ namespace WebApplication1.ControllersAPI
                 Console.WriteLine(ex.Message);
             }
             return null;
+        }
+
+        public async Task<ICollection<Rapport_Activite>> GetRapport_ActivitésAsync()
+        {
+            ICollection<Rapport_Activite> amis = new List<Rapport_Activite>();
+            HttpResponseMessage response = client.GetAsync("api/rapport_activite").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                amis = JsonConvert.DeserializeObject<List<Rapport_Activite>>(resp);
+            }
+            return amis;
+        }
+
+        public async Task<Rapport_Activite> GetRapport_ActivitéAsync(int? id)
+        {
+            Rapport_Activite ami = null;
+            HttpResponseMessage response = client.GetAsync("api/rapport_activite/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                ami = JsonConvert.DeserializeObject<Rapport_Activite>(resp);
+            }
+            return ami;
+        }
+
+        public async Task<Uri> AjoutRapport_ActiviteAsync(Rapport_Activite ra)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/rapport_activite", ra);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprRapport_ActiviteAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/rapport_activite/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<List<Rapport_Activite>> AjoutRapportActivitesAsync(Festival festival)
+        {
+            List<Rapport_Activite> ras = new List<Rapport_Activite>();
+            Rapport_Activite ra = new Rapport_Activite();
+            ra.FestivalId = festival.IdF;
+            List<int> annees = new List<int>();
+
+            
+            foreach (var festivalier in festival.Festivaliers)
+            {
+                if (!annees.Contains(festivalier.Date_Inscription.Year))
+                    annees.Add(festivalier.Date_Inscription.Year);
+            }
+
+            foreach (var lieu in Instance.GetLieuxAsync().Result)
+            {
+                if (festival.LieuId == lieu.IdL)
+                {
+                    foreach (var departement in Instance.GetDepartementsAsync().Result)
+                    {
+                        if (departement.Id == lieu.DepartementId)
+                        {
+                            ra.Departement = departement.Nom;
+                            foreach (var region in Instance.GetRegionsAsync().Result)
+                            {
+                                if (region.Id == departement.RegionId)
+                                {
+                                    ra.Region = region.Nom;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach (var annee in annees)
+            {
+                ra.Somme_Vente = 0;
+                ra.Annee = annee;
+                foreach (var festivalier in festival.Festivaliers)
+                {
+                    if(festivalier.Date_Inscription.Year==annee)
+                    ra.Somme_Vente = ra.Somme_Vente + festivalier.Somme;
+                }
+                await Instance.AjoutRapport_ActiviteAsync(ra);
+                ras.Add(ra);
+            }
+            
+            return ras;
+        }
+
+        public async Task<Uri> ModifRapport_ActiviteAsync(Rapport_Activite Rapport_Activite)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/Rapport_Activite/" + Rapport_Activite.Id, Rapport_Activite);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Rapport_Temps>> GetRapport_TempsAsync()
+        {
+            ICollection<Rapport_Temps> amis = new List<Rapport_Temps>();
+            HttpResponseMessage response = client.GetAsync("api/rapport_activite").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                amis = JsonConvert.DeserializeObject<List<Rapport_Temps>>(resp);
+            }
+            return amis;
+        }
+
+        public async Task<Rapport_Temps> GetRapport_TempsAsync(int? id)
+        {
+            Rapport_Temps ami = null;
+            HttpResponseMessage response = client.GetAsync("api/rapport_temps/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                ami = JsonConvert.DeserializeObject<Rapport_Temps>(resp);
+            }
+            return ami;
+        }
+
+        public async Task<Uri> AjoutRapport_TempsAsync(Rapport_Temps ra)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/rapport_temps", ra);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprRapport_TempsAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/rapport_temps/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<List<Rapport_Temps>> AjoutRapportTempsAsync(Festival festival)
+        {
+            List<Rapport_Temps> ras = new List<Rapport_Temps>();
+            Rapport_Temps rt = new Rapport_Temps();
+            rt.FestivalId = festival.IdF;
+            List<DateTime> dates = new List<DateTime>();
+
+            foreach (var festivalier in festival.Festivaliers)
+            {
+                if (!dates.Contains(festivalier.Date_Inscription))
+                    dates.Add(festivalier.Date_Inscription);
+            }
+
+            
+
+            foreach (var date in dates)
+            {
+                rt.Date_Inscription = date;
+                rt.Nombre_Inscription = 0;
+                foreach (var festivalier in festival.Festivaliers)
+                {
+                    if (festivalier.Date_Inscription == date)
+                        rt.Nombre_Inscription++;
+                }
+                await Instance.AjoutRapport_TempsAsync(rt);
+                ras.Add(rt);
+            }
+
+            return ras;
+        }
+
+        public async Task<Uri> ModifRapport_TempsAsync(Rapport_Temps Rapport_Temps)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/Rapport_Temps/" + Rapport_Temps.Id, Rapport_Temps);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Rapport_Geo>> GetRapport_GeosAsync()
+        {
+            ICollection<Rapport_Geo> amis = new List<Rapport_Geo>();
+            HttpResponseMessage response = client.GetAsync("api/rapport_geo").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                amis = JsonConvert.DeserializeObject<List<Rapport_Geo>>(resp);
+            }
+            return amis;
+        }
+
+        public async Task<Rapport_Geo> GetRapport_GeoAsync(int? id)
+        {
+            Rapport_Geo ami = null;
+            HttpResponseMessage response = client.GetAsync("api/rapport_geo/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                ami = JsonConvert.DeserializeObject<Rapport_Geo>(resp);
+            }
+            return ami;
+        }
+
+        public async Task<Uri> AjoutRapport_GeoAsync(Rapport_Geo ra)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/rapport_geo", ra);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprRapport_GeoAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/rapport_geo/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public List<Rapport_Geo> AjoutRapportGeos(Festival festival)
+        {
+            List<Rapport_Geo> ras = new List<Rapport_Geo>();
+            Rapport_Geo ra = new Rapport_Geo();
+
+            ra.FestivalId = festival.IdF;
+
+            foreach (var lieu in Instance.GetLieuxAsync().Result)
+            {
+                if (festival.LieuId == lieu.IdL)
+                {
+                    foreach (var departement in Instance.GetDepartementsAsync().Result)
+                    {
+                        if (departement.Id == lieu.DepartementId)
+                        {
+                            ra.Departement = departement.Nom;
+                            foreach (var region in Instance.GetRegionsAsync().Result)
+                            {
+                                if (region.Id == departement.RegionId)
+                                {
+                                    ra.Region = region.Nom;
+                                    foreach (var pays in Instance.GetPaysAsync().Result)
+                                    {
+                                        if (pays.Id == region.PaysId)
+                                        {
+                                            ra.Pays = pays.Nom;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+            return ras;
+        }
+
+        public async Task<Uri> ModifRapport_GeoAsync(Rapport_Geo Rapport_Geo)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/Rapport_Geo/" + Rapport_Geo.Id, Rapport_Geo);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Rapport_Temps>> GetRapport_GeoAsync()
+        {
+            ICollection<Rapport_Temps> amis = new List<Rapport_Temps>();
+            HttpResponseMessage response = client.GetAsync("api/rapport_geo").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                amis = JsonConvert.DeserializeObject<List<Rapport_Temps>>(resp);
+            }
+            return amis;
+        }
+
+        
+
+        public async void MAJAsync()
+        {
+            foreach (var item in Instance.GetRapport_ActivitésAsync().Result)
+            {
+                await Instance.SupprRapport_ActiviteAsync(item.Id);
+            }
+            foreach (var item in Instance.GetRapport_TempsAsync().Result)
+            {
+                await Instance.SupprRapport_TempsAsync(item.Id);
+            }
+            foreach (var item in Instance.GetFestivalsAsync().Result)
+            {
+                await Instance.AjoutRapportActivitesAsync(item);
+                await Instance.AjoutRapportTempsAsync(item);
+            }
         }
     }
 }
