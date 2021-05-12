@@ -100,6 +100,34 @@ namespace FestivalAPI.Controllers
             return NoContent();
         }
 
+
+        [HttpGet("Rapport_Activite_Region/{Region}")]
+        public ActionResult<List<Rapport_Activite>> Rapport_Activite_Region(string Region)
+        {
+            List<Rapport_Activite> rapport = new List<Rapport_Activite>();
+            Rapport_ActiviteDAO rapport_ActiviteDAO = new Rapport_ActiviteDAO();
+            rapport = rapport_ActiviteDAO.Rapport_Activite_Region(Region);
+            return rapport;
+        }
+
+        [HttpGet("Rapport_Activite_Departement/{Departement}")]
+        public ActionResult<List<Rapport_Activite>> Rapport_Activite_Departement(string Departement)
+        {
+            List<Rapport_Activite> rapport = new List<Rapport_Activite>();
+            Rapport_ActiviteDAO rapport_ActiviteDAO = new Rapport_ActiviteDAO();
+            rapport = rapport_ActiviteDAO.Rapport_Activite_Departement(Departement);
+            return rapport;
+        }
+
+        [HttpGet("Rapport_Activite_Pays/{FestivalId}")]
+        public ActionResult<List<Rapport_Activite>> Rapport_Activite_Pays(int FestivalId)
+        {
+            List<Rapport_Activite> rapport = new List<Rapport_Activite>();
+            Rapport_ActiviteDAO rapport_ActiviteDAO = new Rapport_ActiviteDAO();
+            rapport = rapport_ActiviteDAO.Rapport_Activite_Festival(FestivalId);
+            return rapport;
+        }
+
         private bool Rapport_ActiviteExists(int id)
         {
             return _context.Rapport_Activite.Any(e => e.Id == id);

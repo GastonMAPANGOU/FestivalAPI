@@ -100,6 +100,25 @@ namespace FestivalAPI.Controllers
             return NoContent();
         }
 
+        [HttpGet("Rapport_Temps_Jours/{id}")]
+        public ActionResult<List<Rapport_Temps>> Rapport_Temps_Jours(int id, DateTime dateInscription)
+        {
+            List<Rapport_Temps> rapport = new List<Rapport_Temps>();
+            Rapport_TempsDAO rapport_TempsDAO = new Rapport_TempsDAO();
+            rapport = rapport_TempsDAO.Rapport_Temps_Jour(id, dateInscription);
+            return (rapport);
+        }
+
+        [HttpGet("Rapport_Temps_Jours/{id}")]
+        public ActionResult<List<Rapport_Temps>>Rapport_Temps_Festival(int id)
+        {
+            List<Rapport_Temps> rapport = new List<Rapport_Temps>();
+            Rapport_TempsDAO rapport_TempsDAO = new Rapport_TempsDAO();
+            rapport = rapport_TempsDAO.Rapport_Temps_Festival(id);
+            return (rapport);
+        }
+
+
         private bool Rapport_TempsExists(int id)
         {
             return _context.Rapport_Temps.Any(e => e.Id == id);
