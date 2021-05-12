@@ -100,6 +100,42 @@ namespace FestivalAPI.Controllers
             return NoContent();
         }
 
+        [HttpGet("Rapport_Geo_Departement/{departement}")]
+        public ActionResult<List<Rapport_Geo>> Rapport_Geo_Departement(string departement )
+        {
+            List<Rapport_Geo> rapport = new List<Rapport_Geo>();
+            Rapport_GeoDAO rapport_GeoDAO = new Rapport_GeoDAO();
+            rapport = rapport_GeoDAO.Rapport_Geo_Departement(departement);
+            return rapport;
+        }
+
+        [HttpGet("Rapport_Geo_Region/{region}")]
+        public ActionResult<List<Rapport_Geo>> Rapport_Geo_Region(string region)
+        {
+            List<Rapport_Geo> rapport = new List<Rapport_Geo>();
+            Rapport_GeoDAO rapport_GeoDAO = new Rapport_GeoDAO();
+            rapport = rapport_GeoDAO.Rapport_Geo_Region(region);
+            return rapport;
+        }
+
+        [HttpGet("Rapport_Geo_Pays/{Pays}")]
+        public ActionResult<List<Rapport_Geo>> Rapport_Geo_Pays(string pays)
+        {
+            List<Rapport_Geo> rapport = new List<Rapport_Geo>();
+            Rapport_GeoDAO rapport_GeoDAO = new Rapport_GeoDAO();
+            rapport = rapport_GeoDAO.Rapport_Geo_Pays(pays);
+            return rapport;
+        }
+
+        [HttpGet("Rapport_Geo_Genre/{Genre}")]
+        public ActionResult<List<Rapport_Geo>> Rapport_Geo_Genre(string Genre)
+        {
+            List<Rapport_Geo> rapport = new List<Rapport_Geo>();
+            Rapport_GeoDAO rapport_GeoDAO = new Rapport_GeoDAO();
+            rapport = rapport_GeoDAO.Rapport_Geo_Genre(Genre);
+            return rapport;
+        }
+
         private bool Rapport_GeoExists(int id)
         {
             return _context.Rapport_Geo.Any(e => e.Id == id);

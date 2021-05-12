@@ -1099,5 +1099,106 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
+
+        public async Task<IEnumerable<Rapport_Activite>> Rapport_Activites_RegionAsync(string? Region)
+        {
+            List<Rapport_Activite> List = new List<Rapport_Activite>();
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Region/"+Region).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                List = JsonConvert.DeserializeObject<List<Rapport_Activite>>(resp);
+            }
+            return List;
+        }
+        public async Task<IEnumerable<Rapport_Activite>> Rapport_Activites_FestivalAsync(int? FestivalId)
+        {
+            List<Rapport_Activite> List = new List<Rapport_Activite>();
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Festival/"+FestivalId).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                List = JsonConvert.DeserializeObject<List<Rapport_Activite>>(resp);
+            }
+            return List;
+        }
+        public async Task<IEnumerable<Rapport_Activite>> Rapport_Activites_DepartementAsync(string? Departement)
+        {
+            List<Rapport_Activite> List = new List<Rapport_Activite>();
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Departement/" + Departement).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                List = JsonConvert.DeserializeObject<List<Rapport_Activite>>(resp);
+            }
+            return List;
+        }
+        public async Task<IEnumerable<Rapport_Geo>> Rapport_Geo_PaysAsync(string? Pays)
+        {
+            List<Rapport_Geo> List = new List<Rapport_Geo>();
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Pays/" + Pays).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                List = JsonConvert.DeserializeObject<List<Rapport_Geo>>(resp);
+            }
+            return List;
+        }
+        public async Task<IEnumerable<Rapport_Geo>> Rapport_Geo_DepartementAsync(string? Departement)
+        {
+            List<Rapport_Geo> List = new List<Rapport_Geo>();
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Departement/" + Departement).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                List = JsonConvert.DeserializeObject<List<Rapport_Geo>>(resp);
+            }
+            return List;
+        }
+        public async Task<IEnumerable<Rapport_Geo>> Rapport_Geo_RegionAsync(string? Region)
+        {
+            List<Rapport_Geo> List = new List<Rapport_Geo>();
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Region/" + Region).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                List = JsonConvert.DeserializeObject<List<Rapport_Geo>>(resp);
+            }
+            return List;
+        }
+        public async Task<IEnumerable<Rapport_Geo>> Rapport_Geo_GenreAsync(string? Genre)
+        {
+            List<Rapport_Geo> List = new List<Rapport_Geo>();
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Genre/" +Genre).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                List = JsonConvert.DeserializeObject<List<Rapport_Geo>>(resp);
+            }
+            return List;
+        }
+        public async Task<IEnumerable<Rapport_Temps>> Rapport_Temps_JourAsync(int FestivalId, DateTime? dateInscription)
+        {
+            List<Rapport_Temps> List = new List<Rapport_Temps>();
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Temps/Rapport_Temps_Jours/" +FestivalId).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                List = JsonConvert.DeserializeObject<List<Rapport_Temps>>(resp);
+            }
+            return List;
+        }
+
+        public async Task<IEnumerable<Rapport_Temps>> Rapport_Temps_FestivalAsync(int FestivalId)
+        {
+            List<Rapport_Temps> List = new List<Rapport_Temps>();
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Temps/Rapport_Temps_Festival/" + FestivalId).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                List = JsonConvert.DeserializeObject<List<Rapport_Temps>>(resp);
+            }
+            return List;
+        }
     }
 }
