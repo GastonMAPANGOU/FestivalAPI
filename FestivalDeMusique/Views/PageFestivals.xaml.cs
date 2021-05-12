@@ -32,8 +32,8 @@ namespace FestivalDeMusique.Views
 
         private void CreerOnClick(object sender, RoutedEventArgs e)
         {
-            CreerFestival creerFestival = new CreerFestival();
-            creerFestival.ShowDialog();
+            AjoutFestival ajoutFestival = new AjoutFestival();
+            ajoutFestival.ShowDialog();
             Reload();
             DeactivateButtons();
         }
@@ -44,14 +44,14 @@ namespace FestivalDeMusique.Views
             _ = API.API.Instance.SupprFestivalAsync(festival.IdF);
             Reload();
             DeactivateButtons();
-            
+
         }
 
         private void ModifierOnClick(object sender, RoutedEventArgs e)
         {
             Festival festivalAModifier = festivalGrid.SelectedItem as Festival;
-            ModifierFestival modifierFestival = new ModifierFestival(festivalAModifier);
-            _ = modifierFestival.ShowDialog();
+            ModificationFestival modificationFestival = new ModificationFestival(festivalAModifier);
+            _ = modificationFestival.ShowDialog();
             DeactivateButtons();
         }
 
