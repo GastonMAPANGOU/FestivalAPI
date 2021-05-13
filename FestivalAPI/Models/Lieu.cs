@@ -16,6 +16,7 @@ namespace FestivalAPI.Models
         [ForeignKey("FK_Departement")]
         public int DepartementId { get; set; }
         public ICollection<Festival> Festivals { get; set; }
+        public ICollection<Festivalier> Festivaliers { get; set; }
         public ICollection<Scene> Scenes { get; set; }
         public ICollection<Hebergement> Hebergements { get; set; }
         public Lieu() { }

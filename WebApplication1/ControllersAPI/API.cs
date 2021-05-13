@@ -1238,6 +1238,75 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
+        public async Task<ICollection<Genre>> GetGenresAsync()
+        {
+            ICollection<Genre> genres = new List<Genre>();
+            HttpResponseMessage response = client.GetAsync("api/genres").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                genres = JsonConvert.DeserializeObject<List<Genre>>(resp);
+            }
+            return genres;
+        }
+
+        public async Task<Genre> GetGenreAsync(int? id)
+        {
+            Genre genre = null;
+            HttpResponseMessage response = client.GetAsync("api/genres/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                genre = JsonConvert.DeserializeObject<Genre>(resp);
+            }
+            return genre;
+        }
+
+        public async Task<Uri> AjoutGenreAsync(Genre genre)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/genres", genre);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> ModifGenreAsync(Genre genre)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/genres/" + genre.Id, genre);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprGenreAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/genres/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
         public async Task<ICollection<Rapport_Activite>> GetRapport_ActivitésAsync()
         {
             ICollection<Rapport_Activite> amis = new List<Rapport_Activite>();
@@ -1613,16 +1682,25 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        public async Task<List<Rapport_Geo>> AjoutRapportGeoAsync(Festival festival)
+        public async Task<List<Rapport_Geo>> AjoutRapportGeoAsync(Festivalier festivalier)
         {
             List<Rapport_Geo> ras = new List<Rapport_Geo>();
             Rapport_Geo ra = new Rapport_Geo();
+            Festival festival = Instance.GetFestivalAsync(festivalier.Id).Result;
 
             ra.FestivalId = festival.IdF;
+            ra.FestivalierId = festivalier.Id;
+            foreach (var genre in Instance.GetGenresAsync().Result)
+            {
+                if (genre.Id == festivalier.GenreId)
+                {
+                    ra.Genre = genre.Nom;
+                }
+            }
 
             foreach (var lieu in Instance.GetLieuxAsync().Result)
             {
-                if (festival.LieuId == lieu.IdL)
+                if (festivalier.LieuId == lieu.IdL)
                 {
                     foreach (var departement in Instance.GetDepartementsAsync().Result)
                     {
@@ -1700,6 +1778,9 @@ namespace WebApplication1.ControllersAPI
             {
                 await Instance.AjoutRapportActivitesAsync(item);
                 await Instance.AjoutRapportTempsAsync(item);
+            }
+            foreach (var item in Instance.GetFestivaliersAsync().Result)
+            {
                 await Instance.AjoutRapportGeoAsync(item);
             }
         }

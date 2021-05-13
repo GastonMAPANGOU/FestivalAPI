@@ -100,5 +100,7 @@ namespace FestivalAPI.Data
         public DbSet<FestivalAPI.Models.Departement> Departement { get; set; }
 
         public DbSet<FestivalAPI.Models.Region> Region { get; set; }
+
+        public DbSet<FestivalAPI.Models.Genre> Genre { get; set; }
     }
 }
