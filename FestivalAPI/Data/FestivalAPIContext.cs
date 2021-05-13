@@ -91,9 +91,9 @@ namespace FestivalAPI.Data
                 .IsUnique(true);
         }
 
-<<<<<<< HEAD
+
         public DbSet<FestivalAPI.Models.Favoris> Favoris { get; set; }
-=======
+
         public DbSet<FestivalAPI.Models.Rapport_Activite> Rapport_Activite { get; set; }
 
         public DbSet<FestivalAPI.Models.Rapport_Geo> Rapport_Geo { get; set; }
@@ -105,6 +105,5 @@ namespace FestivalAPI.Data
         public DbSet<FestivalAPI.Models.Region> Region { get; set; }
 
         public DbSet<FestivalAPI.Models.Genre> Genre { get; set; }
->>>>>>> 5ea8da48f3678d21ecdd71444511d59045f20634
-    }
+   }
 }

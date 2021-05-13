@@ -23,7 +23,7 @@ namespace WebApplication1.ControllersAPI
         }
         private static readonly object padlock = new object();
         private static API instance = null;
-        
+
         public static API Instance
         {
             get
@@ -48,10 +48,10 @@ namespace WebApplication1.ControllersAPI
                 var resp = await response.Content.ReadAsStringAsync();
                 gimi = JsonConvert.DeserializeObject<Gimi>(resp);
             }
-            return gimi; 
+            return gimi;
         }
 
-        
+
 
         public async Task<Gimi> GetGimi(string login, string pwd)
         {
@@ -87,7 +87,7 @@ namespace WebApplication1.ControllersAPI
             }
             return organisateur;
         }
-        
+
         public async Task<ICollection<Lieu>> GetLieuxAsync()
         {
             ICollection<Lieu> lieux = new List<Lieu>();
@@ -158,7 +158,7 @@ namespace WebApplication1.ControllersAPI
         }
 
 
-        
+
         public async Task<ICollection<Festival>> GetFestivalsAsync()
         {
             ICollection<Festival> festivals = new List<Festival>();
@@ -227,9 +227,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-<<<<<<< HEAD
-        ///////////////////////////Artiste//////////////////////////////////////////
-=======
+
 
         public async Task<ICollection<Region>> GetRegionsAsync()
         {
@@ -300,7 +298,7 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
->>>>>>> 5ea8da48f3678d21ecdd71444511d59045f20634
+
         public async Task<ICollection<Artiste>> GetArtistesAsync()
         {
             ICollection<Artiste> artistes = new List<Artiste>();
@@ -440,7 +438,7 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        
+
         public async Task<ICollection<Hebergement>> GetHebergementsAsync()
         {
             ICollection<Hebergement> hebergements = new List<Hebergement>();
@@ -556,19 +554,19 @@ namespace WebApplication1.ControllersAPI
             jour.FestivalId = festival.IdF;
             int i = 1;
             //Festival_Artiste festival_Artiste = new Festival_Artiste();
-            
+
             jour.Date_jour = date;
 
-            while (jour.Date_jour<festival.Date_Fin)
+            while (jour.Date_jour < festival.Date_Fin)
             {
-                
+
                 jour.Numero_jour = "Jour" + i;
                 await AjoutJourAsync(jour);
-                jour.Date_jour=jour.Date_jour.AddDays(1);
+                jour.Date_jour = jour.Date_jour.AddDays(1);
                 i++;
             }
             return i;
-           
+
         }
 
         public async Task<Uri> ModifJourAsync(Jour jour)
@@ -1012,7 +1010,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-         //////////////////////////////////////////////////////Style//////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////Style//////////////////////////////////////////////////////////
         public async Task<ICollection<Style>> GetStylesAsync()
         {
             ICollection<Style> styles = new List<Style>();
@@ -1175,10 +1173,10 @@ namespace WebApplication1.ControllersAPI
             return ami;
         }
 
-        public async Task<Ami> GetAmitiéAsync(int idami1,int idami2)
+        public async Task<Ami> GetAmitiéAsync(int idami1, int idami2)
         {
             Ami ami = null;
-            HttpResponseMessage response = client.GetAsync("api/amis/" + idami1+"/"+ idami2).Result;
+            HttpResponseMessage response = client.GetAsync("api/amis/" + idami1 + "/" + idami2).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1242,7 +1240,7 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-<<<<<<< HEAD
+
 
         ///////////////////////////////////////////////////Artiste-Festival////////////////////////////////////////////////
 
@@ -1305,12 +1303,8 @@ namespace WebApplication1.ControllersAPI
             return favoris;
         }
 
-        public async Task<Uri> AjoutFavorisAsync(Favoris favoris)
-        {
-            try
-            {
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/Favoris", favoris);
-=======
+
+
         public async Task<ICollection<Genre>> GetGenresAsync()
         {
             ICollection<Genre> genres = new List<Genre>();
@@ -1441,7 +1435,7 @@ namespace WebApplication1.ControllersAPI
             ra.FestivalId = festival.IdF;
             List<int> annees = new List<int>();
 
-            
+
             foreach (var festivalier in festival.Festivaliers)
             {
                 if (!annees.Contains(festivalier.Date_Inscription.Year))
@@ -1475,13 +1469,13 @@ namespace WebApplication1.ControllersAPI
                 ra.Annee = annee;
                 foreach (var festivalier in festival.Festivaliers)
                 {
-                    if(festivalier.Date_Inscription.Year==annee)
-                    ra.Somme_Vente = ra.Somme_Vente + festivalier.Somme;
+                    if (festivalier.Date_Inscription.Year == annee)
+                        ra.Somme_Vente = ra.Somme_Vente + festivalier.Somme;
                 }
                 await Instance.AjoutRapport_ActiviteAsync(ra);
                 ras.Add(ra);
             }
-            
+
             return ras;
         }
 
@@ -1557,7 +1551,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<IEnumerable<Rapport_Activite>> Rapport_Activites_RegionAsync(string? Region)
         {
             List<Rapport_Activite> List = new List<Rapport_Activite>();
-            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Region/"+Region).Result;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Region/" + Region).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1568,7 +1562,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<IEnumerable<Rapport_Activite>> Rapport_Activites_FestivalAsync(int? FestivalId)
         {
             List<Rapport_Activite> List = new List<Rapport_Activite>();
-            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Festival/"+FestivalId).Result;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Festival/" + FestivalId).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1623,7 +1617,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<IEnumerable<Rapport_Geo>> Rapport_Geo_GenreAsync(string? Genre)
         {
             List<Rapport_Geo> List = new List<Rapport_Geo>();
-            HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Genre/" +Genre).Result;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Genre/" + Genre).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1634,7 +1628,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<IEnumerable<Rapport_Temps>> Rapport_Temps_JourAsync(int FestivalId, DateTime? dateInscription)
         {
             List<Rapport_Temps> List = new List<Rapport_Temps>();
-            HttpResponseMessage response = client.GetAsync("api/Rapport_Temps/Rapport_Temps_Jours/" +FestivalId).Result;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Temps/Rapport_Temps_Jours/" + FestivalId).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1668,7 +1662,7 @@ namespace WebApplication1.ControllersAPI
                     dates.Add(festivalier.Date_Inscription);
             }
 
-            
+
 
             foreach (var date in dates)
             {
@@ -1730,7 +1724,6 @@ namespace WebApplication1.ControllersAPI
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/rapport_geo", ra);
->>>>>>> 5ea8da48f3678d21ecdd71444511d59045f20634
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -1741,19 +1734,14 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-<<<<<<< HEAD
-        public async Task<Uri> ModifFavorisAsync(Favoris favoris)
-        {
-            try
-            {
-                HttpResponseMessage response = await client.PutAsJsonAsync("api/Favoris/" + favoris.Id, favoris);
-=======
+
+
+
         public async Task<Uri> SupprRapport_GeoAsync(int id)
         {
             try
             {
                 HttpResponseMessage response = await client.DeleteAsync("api/rapport_geo/" + id);
->>>>>>> 5ea8da48f3678d21ecdd71444511d59045f20634
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -1763,14 +1751,6 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
-<<<<<<< HEAD
-        public async Task<Uri> SupprFavorisAsync(int id)
-        {
-            try
-            {
-                HttpResponseMessage response = await client.DeleteAsync("api/Favoris/" + id);
-=======
         public async Task<List<Rapport_Geo>> AjoutRapportGeoAsync(Festivalier festivalier)
         {
             List<Rapport_Geo> ras = new List<Rapport_Geo>();
@@ -1825,7 +1805,7 @@ namespace WebApplication1.ControllersAPI
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/Rapport_Geo/" + Rapport_Geo.Id, Rapport_Geo);
->>>>>>> 5ea8da48f3678d21ecdd71444511d59045f20634
+
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -1836,8 +1816,6 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-<<<<<<< HEAD
-=======
         public async Task<ICollection<Rapport_Temps>> GetRapport_GeoAsync()
         {
             ICollection<Rapport_Temps> amis = new List<Rapport_Temps>();
@@ -1850,7 +1828,7 @@ namespace WebApplication1.ControllersAPI
             return amis;
         }
 
-        
+
 
         public async void MAJAsync()
         {
@@ -1876,6 +1854,8 @@ namespace WebApplication1.ControllersAPI
                 await Instance.AjoutRapportGeoAsync(item);
             }
         }
->>>>>>> 5ea8da48f3678d21ecdd71444511d59045f20634
     }
 }
+    
+
+
