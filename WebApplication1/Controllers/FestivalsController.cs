@@ -350,30 +350,43 @@ namespace WebApplication1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AjoutFestivalier(Festivalier festivalier, double somme, int festivalId, int id_jour)
+        public IActionResult AjoutFestivalier(Festivalier festivalier, double somme, int festivalId)
         {
 
             festivalier.Somme = (festivalier.Nb_ParticipantsPT * somme + festivalier.Nb_ParticipantsDT * somme * 0.5)*festivalier.NbJours;
             festivalier.FestivalId = festivalId;
+            festivalier.Date_Inscription = DateTime.Now;
             int drapeau = 0;
+            Festival festival = API.Instance.GetFestivalAsync(festivalId).Result;
             IEnumerable<Festivalier> Festivaliers = API.Instance.GetFestivaliersAsync().Result;
-            foreach (var item in Festivaliers)
+
+            if (festival.NbPlacesDispo > 0)
             {
-                if (item.Nom == festivalier.Nom)
+                festival.NbPlacesDispo--;
+                foreach (var item in Festivaliers)
                 {
-                    drapeau++;
+                    if (item.Nom == festivalier.Nom)
+                    {
+                        drapeau++;
+                    }
+                }
+
+                if (ModelState.IsValid && drapeau == 0)
+                {
+                    var URI = API.Instance.AjoutFestivalierAsync(festivalier);
+                    var URI2 = API.Instance.ModifFestivalAsync(festival);
+                    return RedirectToAction(nameof(Index));
+                }
+                else if (drapeau != 0)
+                {
+                    return RedirectToAction(nameof(Index));
                 }
             }
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
-            if (ModelState.IsValid && drapeau == 0)
-            {
-                var URI = API.Instance.AjoutFestivalierAsync(festivalier);
-                return RedirectToAction(nameof(Index));
-            }
-            else if (drapeau != 0)
-            {
-                return RedirectToAction(nameof(Index));
-            }
             return View(festivalier);
         }
 

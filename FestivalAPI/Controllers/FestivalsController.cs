@@ -32,7 +32,11 @@ namespace FestivalAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Festival>> GetFestival(int id)
         {
+<<<<<<< HEAD
             var festival = await _context.Festival.Include("Organisateur").Include("Festivaliers").Include("Festival_Artistes").Include("Scenes").FirstOrDefaultAsync(f => f.IdF == id); ;
+=======
+            var festival = await _context.Festival.Include("Organisateur").Include("Festivaliers").Include("Festival_Artistes").FirstOrDefaultAsync(f => f.IdF == id); 
+>>>>>>> 5ea8da48f3678d21ecdd71444511d59045f20634
 
             if (festival == null)
             {

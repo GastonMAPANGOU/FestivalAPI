@@ -16,7 +16,7 @@ namespace FestivalAPI.Models
         [ForeignKey("FK_Festival")]
         public int FestivalId { get; set; }
         [ForeignKey("FK_Artiste")]
-        public int ArtisteId { get; set; }
+        public int? ArtisteId { get; set; }
         [ForeignKey("FK_Scene")]
         public int? SceneId { get; set; }
         [ForeignKey("FK_Jour")]

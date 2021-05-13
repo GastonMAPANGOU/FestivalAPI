@@ -15,6 +15,6 @@ namespace FestivalAPI.Models
         public int ArtisteId { get; set; }
         [ForeignKey("FK_Festivalier")]
         public int FestivalierId { get; set; }
-        public bool like { get; set; }
+        public bool Like { get; set; }
     }
 }

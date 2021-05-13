@@ -25,14 +25,14 @@ namespace FestivalAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Pays>>> GetPays()
         {
-            return await _context.Pays.Include("Artistes").ToListAsync();
+            return await _context.Pays.Include("Regions").Include("Artistes").ToListAsync();
         }
 
         // GET: api/Pays/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Pays>> GetPays(int id)
         {
-            var pays = await _context.Pays.Include("Artistes").FirstOrDefaultAsync(f => f.Id == id);
+            var pays = await _context.Pays.Include("Regions").Include("Artistes").FirstOrDefaultAsync(f => f.Id == id);
 
             if (pays == null)
             {

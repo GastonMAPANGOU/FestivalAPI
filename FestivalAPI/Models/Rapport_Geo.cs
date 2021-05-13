@@ -13,6 +13,8 @@ namespace FestivalAPI.Models
         public int Id { get; set; }
         [ForeignKey("FK_Festival")]
         public int? FestivalId { get; set; }
+        [ForeignKey("FK_Festivalier")]
+        public int? FestivalierId { get; set; }
         public string Pays { get; set; }
         public string Departement { get; set; }
         public string Region { get; set; }

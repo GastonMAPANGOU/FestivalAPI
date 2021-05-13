@@ -40,35 +40,35 @@ namespace WebApplication1.ControllersAPI
         }
 
 
-        public async Task<ICollection<Ami>> GetAmisAsync()
+        public async Task<ICollection<Genre>> GetGenresAsync()
         {
-            ICollection<Ami> amis = new List<Ami>();
-            HttpResponseMessage response = client.GetAsync("api/amis").Result;
+            ICollection<Genre> genres = new List<Genre>();
+            HttpResponseMessage response = client.GetAsync("api/genres").Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
-                amis = JsonConvert.DeserializeObject<List<Ami>>(resp);
+                genres = JsonConvert.DeserializeObject<List<Genre>>(resp);
             }
-            return amis;
+            return genres;
         }
 
-        public async Task<Ami> GetAmiAsync(int? id)
+        public async Task<Genre> GetGenreAsync(int? id)
         {
-            Ami ami = null;
-            HttpResponseMessage response = client.GetAsync("api/amis/" + id).Result;
+            Genre genre = null;
+            HttpResponseMessage response = client.GetAsync("api/genres/" + id).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
-                ami = JsonConvert.DeserializeObject<Ami>(resp);
+                genre = JsonConvert.DeserializeObject<Genre>(resp);
             }
-            return ami;
+            return genre;
         }
 
-        public async Task<Uri> AjoutAmiAsync(Ami ami)
+        public async Task<Uri> AjoutGenreAsync(Genre genre)
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/amis", ami);
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/genres", genre);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -79,11 +79,11 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        public async Task<Uri> ModifAmiAsync(Ami ami)
+        public async Task<Uri> ModifGenreAsync(Genre genre)
         {
             try
             {
-                HttpResponseMessage response = await client.PutAsJsonAsync("api/amis/" + ami.Id, ami);
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/genres/" + genre.Id, genre);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -94,11 +94,11 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        public async Task<Uri> SupprAmiAsync(int id)
+        public async Task<Uri> SupprGenreAsync(int id)
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync("api/amis/" + id);
+                HttpResponseMessage response = await client.DeleteAsync("api/genres/" + id);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }

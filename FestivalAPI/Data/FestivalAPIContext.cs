@@ -48,7 +48,7 @@ namespace FestivalAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Lieu>()
-                .HasIndex(l => new { l.Commune})
+                .HasIndex(l => new { l.Commune,l.IdL})
                 .IsUnique(true);
             modelBuilder.Entity<Gimi>()
                 .HasIndex(g => new { g.Login,g.Pwd })
@@ -91,6 +91,20 @@ namespace FestivalAPI.Data
                 .IsUnique(true);
         }
 
+<<<<<<< HEAD
         public DbSet<FestivalAPI.Models.Favoris> Favoris { get; set; }
+=======
+        public DbSet<FestivalAPI.Models.Rapport_Activite> Rapport_Activite { get; set; }
+
+        public DbSet<FestivalAPI.Models.Rapport_Geo> Rapport_Geo { get; set; }
+
+        public DbSet<FestivalAPI.Models.Rapport_Temps> Rapport_Temps { get; set; }
+
+        public DbSet<FestivalAPI.Models.Departement> Departement { get; set; }
+
+        public DbSet<FestivalAPI.Models.Region> Region { get; set; }
+
+        public DbSet<FestivalAPI.Models.Genre> Genre { get; set; }
+>>>>>>> 5ea8da48f3678d21ecdd71444511d59045f20634
     }
 }

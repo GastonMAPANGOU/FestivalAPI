@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="ModificationFestival" Height="700" Width="1000"
         MinHeight="700" MinWidth="1000">
-    
+
     <Border Padding="50 20 50 40">
         <Border.Background>
             <ImageBrush Stretch="Fill" ImageSource="/images/music_bg_3.jpg"/>
@@ -37,7 +37,7 @@
                             Grid.Column="0"
                             Grid.Row="0"
                             Grid.RowSpan="2">
-                    <TextBlock Text="Création de" 
+                    <TextBlock Text="Modification de" 
                                Margin="0 20 0 0" 
                                Foreground="White"
                                FontSize="40"
@@ -47,7 +47,7 @@
                                Foreground="White"
                                FontSize="40"
                                HorizontalAlignment="Center"/>
-                    <TextBlock Text="Créer des festivals pour les mettre à disposition d'organisateurs et de festivaliers" 
+                    <TextBlock Text="Faites des mises à jours sur les festivals qui seront vues par les organisateurs et les festivaliers" 
                                Margin="10 20 10 0" 
                                TextWrapping="Wrap"
                                Foreground="LightGray"
@@ -93,7 +93,8 @@
                              Height="30"
                              BorderBrush="#FF8EA5B4"
                              BorderThickness="2"
-                             Padding="3"/>
+                             Padding="3"
+                             x:Name="nomTextBox"/>
 
                     <Grid Margin="0 10 0 0">
                         <Grid.ColumnDefinitions>
@@ -114,7 +115,9 @@
                                 Grid.Column="1"
                                 HorizontalAlignment="Right">
                             <Image Source="/images/outlook.png"
-                                   Height="50" Width="50"/>
+                                   Height="50" Width="50"
+                                   x:Name="imageUI"
+                                   MouseDown="imageUI_MouseDown"/>
                         </Border>
 
                     </Grid>
@@ -130,7 +133,8 @@
                              AcceptsReturn="True"
                              BorderBrush="#FF8EA5B4"
                              BorderThickness="2"
-                             Padding="3"/>
+                             Padding="3"
+                             x:Name="descriptionTextBox"/>
 
                     <TextBlock Text="Commune principale" 
                                Margin="0 20 10 0" 
@@ -144,7 +148,8 @@
                               IsReadOnly="True"
                               Height="25"
                               BorderBrush="#FF8EA5B4"
-                              BorderThickness="2">
+                              BorderThickness="2"
+                              x:Name="lieuComboBox">
                         <ComboBoxItem>Rouen</ComboBoxItem>
                     </ComboBox>
 
@@ -157,7 +162,8 @@
                                 Height="30"
                                 BorderBrush="#FF8EA5B4"
                                 BorderThickness="2"
-                                Padding="3">
+                                Padding="3"
+                                x:Name="dateDebutControl">
                     </DatePicker>
 
                     <TextBlock Text="Date de fin" 
@@ -169,7 +175,8 @@
                                 Height="30"
                                 BorderBrush="#FF8EA5B4"
                                 BorderThickness="2"
-                                Padding="3">
+                                Padding="3"
+                                x:Name="dateFinControl">
                     </DatePicker>
                 </StackPanel>
                 <Grid Margin="0 0 10 10" 
@@ -181,18 +188,20 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Button Margin="0 0 10 0"
-                                Content="Valider"
-                                Grid.Column="0"
-                                Height="30"
-                                Width="100">
+                            Content="Valider"
+                            Grid.Column="0"
+                            Height="30"
+                            Width="100"
+                            Click="ModifierOnClick">
 
                     </Button>
 
                     <Button Margin="10 0 0 0"
-                                Content="Annuler"
-                                Grid.Column="1"
-                                Height="30"
-                                Width="100">
+                            Content="Annuler"
+                            Grid.Column="1"
+                            Height="30"
+                            Width="100"
+                            Click="AnnulerOnClick">
 
                     </Button>
                 </Grid>
