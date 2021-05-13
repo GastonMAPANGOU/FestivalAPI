@@ -227,7 +227,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        ///////////////////////////Artiste//////////////////////////////////////////
         public async Task<ICollection<Artiste>> GetArtistesAsync()
         {
             ICollection<Artiste> artistes = new List<Artiste>();
@@ -870,7 +870,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+         //////////////////////////////////////////////////////Style//////////////////////////////////////////////////////////
         public async Task<ICollection<Style>> GetStylesAsync()
         {
             ICollection<Style> styles = new List<Style>();
@@ -939,7 +939,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        ///////////////////////////////////////////////////////////////Festivalier//////////////////////////////////////////////////////////////////////
         public async Task<ICollection<Festivalier>> GetFestivaliersAsync()
         {
             ICollection<Festivalier> festivaliers = new List<Festivalier>();
@@ -1008,7 +1008,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        ////////////////////////////////////////////Ami///////////////////////////////////////////////////////////////
         public async Task<ICollection<Ami>> GetAmitiésAsync()
         {
             ICollection<Ami> amis = new List<Ami>();
@@ -1101,7 +1101,7 @@ namespace WebApplication1.ControllersAPI
         }
 
 
-        // Artiste-Festival
+        ///////////////////////////////////////////////////Artiste-Festival////////////////////////////////////////////////
 
         public async Task<ICollection<ClassAssociation>> GetAssociationAsync()
         {
@@ -1114,5 +1114,98 @@ namespace WebApplication1.ControllersAPI
             }
             return classAssociations;
         }
+
+        ////////////////////////////////////////////////////Favoris Artiste////////////////////////////////////////////////////////////////
+        public async Task<ICollection<Favoris>> GetFavorisAsync()
+        {
+            ICollection<Favoris> favoris = new List<Favoris>();
+            HttpResponseMessage response = client.GetAsync("api/favoris").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                favoris = JsonConvert.DeserializeObject<List<Favoris>>(resp);
+            }
+            return favoris;
+        }
+
+        public async Task<Favoris> GetFavorissAsync(int? id)
+        {
+            Favoris favoris = null;
+            HttpResponseMessage response = client.GetAsync("api/favoris/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                favoris = JsonConvert.DeserializeObject<Favoris>(resp);
+            }
+            return favoris;
+        }
+
+        public async Task<Favoris> GetFavorisAsync(int artisteId, int festivalierId)
+        {
+            Favoris favoris = null;
+            HttpResponseMessage response = client.GetAsync("api/Favoris/" + artisteId + "/" + festivalierId).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                favoris = JsonConvert.DeserializeObject<Favoris>(resp);
+            }
+            else
+            {
+                response = client.GetAsync("api/Favoris/" + artisteId + "/" + festivalierId).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var resp = await response.Content.ReadAsStringAsync();
+                    favoris = JsonConvert.DeserializeObject<Favoris>(resp);
+                }
+
+            }
+            return favoris;
+        }
+
+        public async Task<Uri> AjoutFavorisAsync(Favoris favoris)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/Favoris", favoris);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> ModifFavorisAsync(Favoris favoris)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/Favoris/" + favoris.Id, favoris);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprFavorisAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/Favoris/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
     }
 }

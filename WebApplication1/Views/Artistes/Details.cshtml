@@ -6,7 +6,7 @@
     IEnumerable<FestivalAPI.Models.Style> styles = WebApplication1.ControllersAPI.API.Instance.GetStylesAsync().Result;
     IEnumerable<FestivalAPI.Models.Pays> pays = WebApplication1.ControllersAPI.API.Instance.GetPaysAsync().Result;}
 
-<h1>@Html.DisplayFor(model => model.Nom)</h1>
+<h1>@Html.DisplayFor(model => model.Nom) @Html.DisplayFor(model => model.Prenom)</h1>
 
 <div>
     <hr />
@@ -16,22 +16,19 @@
                 <div class="card-body">
                     <table class="table table-striped table-hover">
                         <tbody>
-                                <tr>
-                                    <td>Description :</td>
-                                    <td>@Html.DisplayFor(model => model.Descriptif)</td>
-                                </tr>
-                                <tr>
-                                    <td>Pays :</td>
-                                    <td>@API.Instance.GetPaysAsync(Model.PaysId).Result.Nom</td>
-                                </tr>
-                                <tr>
-                                    <td>Style :</td>
-                                    <td>@API.Instance.GetStyleAsync(Model.StyleId).Result.Nom</td>
-                                </tr>
-                                <tr>
-                                    <source src="@Url.Content(Model.Photo)" type="image/png">
-                                </tr>
-                            </tbody>
+                            <tr>
+                                <td>Description :</td>
+                                <td>@Html.DisplayFor(model => model.Descriptif)</td>
+                            </tr>
+                            <tr>
+                                <td>Pays :</td>
+                                <td>@API.Instance.GetPaysAsync(Model.PaysId).Result.Nom</td>
+                            </tr>
+                            <tr>
+                                <td>Style :</td>
+                                <td>@API.Instance.GetStyleAsync(Model.StyleId).Result.Nom</td>
+                            </tr>
+                        </tbody>
                         <br />
                     </table>
                     <div class="col-md-12">

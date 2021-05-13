@@ -90,5 +90,7 @@ namespace FestivalAPI.Data
                 .HasIndex(g => new { g.FestivalId, g.JourId,g.SceneId,g.ArtisteId})
                 .IsUnique(true);
         }
+
+        public DbSet<FestivalAPI.Models.Favoris> Favoris { get; set; }
     }
 }

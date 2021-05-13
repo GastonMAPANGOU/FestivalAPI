@@ -5,12 +5,11 @@
     IEnumerable<FestivalAPI.Models.Lieu> lieux = WebApplication1.ControllersAPI.API.Instance.GetLieuxAsync().Result;
 }
 
-<h1>Festivals Of The Year</h1>
+<h1>Les festivals de l'année</h1>
 
 
 
-<div class="card-deck">
-    @Model.Count()
+<div class="card-deck">s
     @foreach (var item in Model)
     {
         

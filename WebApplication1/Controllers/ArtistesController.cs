@@ -289,12 +289,28 @@ namespace WebApplication1.Controllers
 
 
             }
-
-
-
-            /*private bool ArtisteExists(int id)
+        /*public IActionResult AjoutFavoris(int? id)
+        {
+            if (id == null)
             {
-                return _context.Artiste.Any(e => e.Id == id);
-            }*/
-        }
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }*/
+
+        /*public IActionResult AjoutFavoris(Festivalier festivalier, Artiste artiste)
+        {
+            Festivalier festivalier = API.Instance.GetFestivalierAsync((int)HttpContext.Session.GetInt32("idf")).Result;
+            Artiste artiste = 
+            
+
+
+        }*/
+
+
+
+
+
+
     }
+}

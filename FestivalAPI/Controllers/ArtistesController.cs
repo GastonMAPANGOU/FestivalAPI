@@ -106,5 +106,7 @@ namespace FestivalAPI.Controllers
         {
             return _context.Artiste.Any(e => e.IdA == id);
         }
+
+
     }
 }

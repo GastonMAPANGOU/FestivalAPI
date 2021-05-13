@@ -25,6 +25,7 @@ namespace FestivalAPI.Models
         public ICollection<Festivalier> Festivaliers { get; set; }
         public ICollection<Festival_Artiste> Festival_Artistes { get; set; }
         public ICollection<Jour> Jours { get; set; }
+        public ICollection<Scene> Scenes { get; set; }
         public Festival() { }
     }
 }
