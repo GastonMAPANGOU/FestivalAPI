@@ -286,31 +286,55 @@ namespace WebApplication1.Controllers
                 var URI = API.Instance.SupprArtisteAsync(id);
                 return RedirectToAction(nameof(Index));
 
-
-
             }
-        /*public IActionResult AjoutFavoris(int? id)
+
+        public IActionResult Favoris(int? id)
         {
+            int drapeau = 0;
+            Favoris favoris = new Favoris();
+            Festivalier festivalier = API.Instance.GetFestivalierAsync((int)HttpContext.Session.GetInt32("idf")).Result;
+            var Artistes = API.Instance.GetArtistesAsync().Result;
+
+
             if (id == null)
             {
-                return null;
+                return View(API.Instance.GetArtistesAsync().Result);
             }
-            return View(API.Instance.GetFestivalAsync(id).Result);
-        }*/
+            else
+            {
+                favoris.ArtisteId = (int)id;
+                favoris.FestivalierId = (int)HttpContext.Session.GetInt32("idf");
+                favoris.Like = true;
+                IEnumerable<Favoris> fav = API.Instance.GetFavorisAsync().Result;
+                foreach (var item in fav)
+                {
+                    if ((item.ArtisteId == favoris.ArtisteId && item.FestivalierId == favoris.FestivalierId))
+                    {
+                        favoris.Id = item.Id;
+                        var URI = API.Instance.ModifFavorisAsync(favoris);
+                        return View(API.Instance.GetArtistesAsync().Result);
+                    }
+                }
 
-        /*public IActionResult AjoutFavoris(Festivalier festivalier, Artiste artiste)
+                if (ModelState.IsValid && drapeau == 0)
+                {
+                    var URI = API.Instance.AjoutFavorisAsync(favoris);
+                    return View(API.Instance.GetArtistesAsync().Result);
+                }
+            }
+            return View(API.Instance.GetArtistesAsync().Result.Where(f => f.IdA != festivalier.Id && f.FestivalId == festivalier.FestivalId));
+        }
+
+        public ActionResult DeleteFavoris(int id)
         {
             Festivalier festivalier = API.Instance.GetFestivalierAsync((int)HttpContext.Session.GetInt32("idf")).Result;
-            Artiste artiste = 
-            
 
-
-        }*/
-
-
-
-
-
-
+            if (id != null)
+            {
+                Favoris favoris = API.Instance.GetFavorisAsync((int)id, festivalier.Id).Result;
+                var URI = API.Instance.SupprFavorisAsync(favoris.Id);
+            }
+            return Redirect("/Artistes/Favoris");
+        }
     }
 }

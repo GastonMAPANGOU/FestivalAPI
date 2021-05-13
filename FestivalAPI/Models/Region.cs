@@ -12,7 +12,7 @@ namespace FestivalAPI.Models
         public int Id { get; set; }
         public string Nom { get; set; }
         [ForeignKey("FK_Pays")]
-        public int PaysId { get; set; }
+        public int? PaysId { get; set; }
         public ICollection<Departement> Departements { get; set; }
 
         public Region() { }
