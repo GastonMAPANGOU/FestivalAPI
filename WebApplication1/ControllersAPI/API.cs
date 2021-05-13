@@ -1613,7 +1613,7 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        public List<Rapport_Geo> AjoutRapportGeos(Festival festival)
+        public async Task<List<Rapport_Geo>> AjoutRapportGeoAsync(Festival festival)
         {
             List<Rapport_Geo> ras = new List<Rapport_Geo>();
             Rapport_Geo ra = new Rapport_Geo();
@@ -1649,7 +1649,7 @@ namespace WebApplication1.ControllersAPI
             }
 
 
-
+            await Instance.AjoutRapport_GeoAsync(ra);
             return ras;
         }
 
@@ -1692,10 +1692,15 @@ namespace WebApplication1.ControllersAPI
             {
                 await Instance.SupprRapport_TempsAsync(item.Id);
             }
+            foreach (var item in Instance.GetRapport_GeosAsync().Result)
+            {
+                await Instance.SupprRapport_GeoAsync(item.Id);
+            }
             foreach (var item in Instance.GetFestivalsAsync().Result)
             {
                 await Instance.AjoutRapportActivitesAsync(item);
                 await Instance.AjoutRapportTempsAsync(item);
+                await Instance.AjoutRapportGeoAsync(item);
             }
         }
     }
