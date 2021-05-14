@@ -459,15 +459,18 @@ namespace WebApplication1.Controllers
                 {
                     if ((item.AmiDemandeur == ami.AmiDemandeur && item.AmiReceveur == ami.AmiReceveur) || (item.AmiDemandeur == ami.AmiReceveur && item.AmiDemandeur == ami.AmiReceveur))
                     {
+                        drapeau++;
                         ami.Id = item.Id;
+
                         var URI = API.Instance.ModifAmiAsync(ami);
                         return View(API.Instance.GetFestivaliersAsync().Result.Where(f => f.Id != festivalier.Id && f.FestivalId == festivalier.FestivalId));
                     }
                 }
 
-                if (ModelState.IsValid && drapeau == 0)
+                if ( drapeau == 0)
                 {
                     var URI = API.Instance.AjoutAmiAsync(ami);
+
                     return View(API.Instance.GetFestivaliersAsync().Result.Where(f => f.Id != festivalier.Id && f.FestivalId == festivalier.FestivalId));
                 }
             }

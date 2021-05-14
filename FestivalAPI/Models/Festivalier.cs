@@ -19,7 +19,7 @@ namespace FestivalAPI.Models
         public int Nb_ParticipantsPT { get; set; }
         public int Nb_ParticipantsDT { get; set; }
         [ForeignKey("FK_LieuId")]
-        public int LieuId { get; set;}
+        public int? LieuId { get; set;}
         public bool InscriptionAccepted { get; set; }
         public double Somme { get; set; }
         [ForeignKey("FK_Festival")]
