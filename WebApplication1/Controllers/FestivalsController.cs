@@ -28,119 +28,73 @@ namespace WebApplication1.Controllers
 
 
         // GET: Festival
-        public IActionResult Index()
+        /* public IActionResult Index()
+         {
+
+             var festivals = API.Instance.GetFestivalsAsync().Result;
+
+             return View(festivals);
+         }*/
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        public IActionResult Index(string searchString)
         {
-            //return View(await _context.Festival.Include("Links").ToListAsync());
+            IEnumerable<Artiste> artistes = API.Instance.GetArtistesAsync().Result;
+            IEnumerable<Scene> scenes = API.Instance.GetScenesAsync().Result;
+            IEnumerable<Festival> festival = API.Instance.GetFestivalsAsync().Result;
+            IEnumerable<Lieu> communes = API.Instance.GetLieuxAsync().Result;
+            List<Festival> festivals = new List<Festival>();
 
-            //IEnumerable<Festival> Festivals = API.Instance.GetFestivalsAsync().Result;
-            //return View(Festivals);
-            var festivals = API.Instance.GetFestivalsAsync().Result;
-
-            return View(festivals);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Index(String lieu, String artiste, String style)
-        {
-
-            var artistes = from m in API.Instance.GetArtistesAsync().Result
-                           select m;
-            var artistes2 = from m in API.Instance.GetArtistesAsync().Result
-                            select m;
-
-            var lieux = from m in API.Instance.GetLieuxAsync().Result
-                        select m;
-            var styles = from m in API.Instance.GetStylesAsync().Result
-                         select m;
-            ICollection<Festival> festivals = new List<Festival>();
-            ICollection<Festival_Artiste> lieu_festival_artistes = new List<Festival_Artiste>();
-            ICollection<Festival_Artiste> artiste_festival_artistes = new List<Festival_Artiste>();
-            ICollection<Festival_Artiste> style_festival_artistes = new List<Festival_Artiste>();
-            var scenes = from m in API.Instance.GetScenesAsync().Result
-                            select m;
-           
-            List<Festival_Artiste> final_festival_artistes = new List<Festival_Artiste>();
-            //recherche par lieu
-            if (!String.IsNullOrEmpty(lieu))
+            if (!String.IsNullOrEmpty(searchString))
             {
-                lieux = lieux.Where(s => s.Commune.Contains(lieu));
-                foreach (var item in lieux)
-                {
-                    foreach (var it in item.Festivals)
-                    {
-                        festivals.Add(API.Instance.GetFestivalAsync(it.IdF).Result);
-                    }
-                }
-                foreach (var item in festivals)
-                {
-                    foreach (var it in item.Festival_Artistes)
-                    {
-                        lieu_festival_artistes.Add(API.Instance.GetFestival_ArtisteAsync(it.Id).Result);
-                    }
-                }
-
-                foreach (var item in lieu_festival_artistes)
-                {
-                    if (!final_festival_artistes.Contains(item))
-                        final_festival_artistes.Add(item);
-                }
-            }
-            festivals.Clear();
-            //recherche par artiste
-            if (!String.IsNullOrEmpty(artiste))
-            {
-                artistes = artistes.Where(s => s.Nom.Contains(artiste));
+                //var rech = artistes.Where(e => e.Nom.Contains(searchString)).Select(e => e.Artiste_Festival);
+                var fes1 = festival.Where(e => e.Nom.Contains(searchString));
+                var fes2 = communes.Where(e => e.Commune.Contains(searchString)).Select(e => e.Festivals);
+                var fes3 = artistes.Where(e => e.Nom.Contains(searchString)).Select(e => e.Festival_Artistes);
+                var fes4 = scenes.Where(e => e.Nom.Contains(searchString)).Select(e => e.Festival_Artistes);
                 
-                foreach (var item in artistes)
+                foreach (var nomfes in fes1)
                 {
-                    foreach (var it in item.Festival_Artistes)
+                    var NomFest = API.Instance.GetFestivalAsync(nomfes.IdF).Result;
+                    festivals.Add(NomFest);
+                }
+                foreach (var communefes in fes2)
+                {
+                    foreach (var idcommune in communefes)
                     {
-                        artiste_festival_artistes.Add(API.Instance.GetFestival_ArtisteAsync(it.Id).Result);
+                        var commune = API.Instance.GetLieuAsync(idcommune.LieuId).Result;
+                        var Lieu = API.Instance.GetFestivalAsync(commune.IdL).Result;
+                        festivals.Add(Lieu);
+                    }
+                }
+                foreach (var artistefes in fes3)
+                {
+                    foreach (var artiste in artistefes)
+                    {
+                        var NomArtiste = API.Instance.GetFestivalAsync(artiste.FestivalId).Result;
+                        festivals.Add(NomArtiste);
+                    }
+                }
+                foreach (var scenefes in fes4)
+                {
+                    foreach (var scene in scenefes)
+                    {
+                        var NomScene = API.Instance.GetFestivalAsync(scene.FestivalId).Result;
+                        festivals.Add(NomScene);
                     }
                 }
 
-                foreach (var item in artiste_festival_artistes)
-                {
-                    if (!final_festival_artistes.Contains(item))
-                        final_festival_artistes.Add(item);
-                }
+
+                return View(festivals);
             }
-            // recherche par style
-            if (!String.IsNullOrEmpty(style))
+            else
             {
-                styles = styles.Where(s => s.Nom.Contains(style));
-                foreach (var item in styles)
-                {
-                    foreach (var it in item.Artistes)
-                    {
-                        festivals.Add(API.Instance.GetFestivalAsync(it.IdA).Result);
-                    }
-                }
-                foreach (var item in festivals)
-                {
-                    foreach (var it in item.Festival_Artistes)
-                    {
-                        style_festival_artistes.Add(API.Instance.GetFestival_ArtisteAsync(it.Id).Result);
-                    }
-                }
-
-                foreach (var item in style_festival_artistes)
-                {
-                    if (!final_festival_artistes.Contains(item))
-                        final_festival_artistes.Add(item);
-                }
+                IEnumerable<Festival> festivalss = API.Instance.GetFestivalsAsync().Result;
+                return View(festivalss);
             }
-            scenes = from m in API.Instance.GetScenesAsync().Result
-                        select m;
-            if (final_festival_artistes.Count != 0)
-                foreach (var item in final_festival_artistes)
-                {
-                    scenes = scenes.Where(s => s.IdS == item.SceneId);
-                }
 
-
-            return View(scenes);
         }
+
 
 
         // GET: Festival/Details/5

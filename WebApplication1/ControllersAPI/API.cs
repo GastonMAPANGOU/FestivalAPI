@@ -23,7 +23,7 @@ namespace WebApplication1.ControllersAPI
         }
         private static readonly object padlock = new object();
         private static API instance = null;
-        
+
         public static API Instance
         {
             get
@@ -48,10 +48,10 @@ namespace WebApplication1.ControllersAPI
                 var resp = await response.Content.ReadAsStringAsync();
                 gimi = JsonConvert.DeserializeObject<Gimi>(resp);
             }
-            return gimi; 
+            return gimi;
         }
 
-        
+
 
         public async Task<Gimi> GetGimi(string login, string pwd)
         {
@@ -87,7 +87,7 @@ namespace WebApplication1.ControllersAPI
             }
             return organisateur;
         }
-        
+    ////////////////////////////////////////////////////////////LIEU//////////////////////////////////////
         public async Task<ICollection<Lieu>> GetLieuxAsync()
         {
             ICollection<Lieu> lieux = new List<Lieu>();
@@ -158,7 +158,7 @@ namespace WebApplication1.ControllersAPI
         }
 
 
-        
+     /////////////////////////////////////Festival/////////////////////////////////////////////////////
         public async Task<ICollection<Festival>> GetFestivalsAsync()
         {
             ICollection<Festival> festivals = new List<Festival>();
@@ -228,6 +228,7 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
+     ////////////////////////////////////////////Region/////////////////////////////////////////////////
         public async Task<ICollection<Region>> GetRegionsAsync()
         {
             ICollection<Region> regions = new List<Region>();
@@ -297,6 +298,7 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
+    ////////////////////////////////////////Artiste//////////////////////////////////////
         public async Task<ICollection<Artiste>> GetArtistesAsync()
         {
             ICollection<Artiste> artistes = new List<Artiste>();
@@ -366,7 +368,7 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-
+     ///////////////////////////////////////////FestivalArtiste///////////////////////////////////////////////
         public async Task<ICollection<Festival_Artiste>> GetFestival_ArtistesAsync()
         {
             ICollection<Festival_Artiste> festival_Artistes = new List<Festival_Artiste>();
@@ -436,7 +438,7 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
-        
+        ///////////////////////////////////////////Hebergement///////////////////////////////////////////////
         public async Task<ICollection<Hebergement>> GetHebergementsAsync()
         {
             ICollection<Hebergement> hebergements = new List<Hebergement>();
@@ -505,7 +507,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        ///////////////////////////////////////////Jour///////////////////////////////////////////////
         public async Task<ICollection<Jour>> GetJoursAsync()
         {
             ICollection<Jour> jours = new List<Jour>();
@@ -552,19 +554,19 @@ namespace WebApplication1.ControllersAPI
             jour.FestivalId = festival.IdF;
             int i = 1;
             //Festival_Artiste festival_Artiste = new Festival_Artiste();
-            
+
             jour.Date_jour = date;
 
-            while (jour.Date_jour<festival.Date_Fin)
+            while (jour.Date_jour < festival.Date_Fin)
             {
-                
+
                 jour.Numero_jour = "Jour" + i;
                 await AjoutJourAsync(jour);
-                jour.Date_jour=jour.Date_jour.AddDays(1);
+                jour.Date_jour = jour.Date_jour.AddDays(1);
                 i++;
             }
             return i;
-           
+
         }
 
         public async Task<Uri> ModifJourAsync(Jour jour)
@@ -596,7 +598,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        ///////////////////////////////////////////Departement///////////////////////////////////////////////
         public async Task<ICollection<Departement>> GetDepartementsAsync()
         {
             ICollection<Departement> departements = new List<Departement>();
@@ -665,7 +667,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        ///////////////////////////////////////////Organisateur///////////////////////////////////////////////
         public async Task<ICollection<Organisateur>> GetOrganisateursAsync()
         {
             ICollection<Organisateur> organisateurs = new List<Organisateur>();
@@ -734,7 +736,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        ///////////////////////////////////////////Scene///////////////////////////////////////////////
         public async Task<ICollection<Scene>> GetScenesAsync()
         {
             ICollection<Scene> scenes = new List<Scene>();
@@ -803,7 +805,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        ///////////////////////////////////////////Tarif///////////////////////////////////////////////
         public async Task<ICollection<Tarif>> GetTarifsAsync()
         {
             ICollection<Tarif> tarifs = new List<Tarif>();
@@ -872,6 +874,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
+        ///////////////////////////////////////////TypeHebergement///////////////////////////////////////////////
         public async Task<ICollection<Type_Hebergement>> GetType_HebergementsAsync()
         {
             ICollection<Type_Hebergement> type_Hebergements = new List<Type_Hebergement>();
@@ -1008,7 +1011,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        //////////////////////////////////////////////////////Style//////////////////////////////////////////////////////////
         public async Task<ICollection<Style>> GetStylesAsync()
         {
             ICollection<Style> styles = new List<Style>();
@@ -1077,7 +1080,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        ///////////////////////////////////////////////////////////////Festivalier//////////////////////////////////////////////////////////////////////
         public async Task<ICollection<Festivalier>> GetFestivaliersAsync()
         {
             ICollection<Festivalier> festivaliers = new List<Festivalier>();
@@ -1146,7 +1149,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        ////////////////////////////////////////////Ami///////////////////////////////////////////////////////////////
         public async Task<ICollection<Ami>> GetAmitiésAsync()
         {
             ICollection<Ami> amis = new List<Ami>();
@@ -1171,10 +1174,10 @@ namespace WebApplication1.ControllersAPI
             return ami;
         }
 
-        public async Task<Ami> GetAmitiéAsync(int idami1,int idami2)
+        public async Task<Ami> GetAmitiéAsync(int idami1, int idami2)
         {
             Ami ami = null;
-            HttpResponseMessage response = client.GetAsync("api/amis/" + idami1+"/"+ idami2).Result;
+            HttpResponseMessage response = client.GetAsync("api/amis/" + idami1 + "/" + idami2).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1237,6 +1240,111 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
+        ////////////////////////////////////////////////////Favoris Artiste////////////////////////////////////////////////////////////////
+        public async Task<ICollection<Favoris>> GetFavorisAsync()
+        {
+            ICollection<Favoris> favoris = new List<Favoris>();
+            HttpResponseMessage response = client.GetAsync("api/favoris").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                favoris = JsonConvert.DeserializeObject<List<Favoris>>(resp);
+            }
+            return favoris;
+        }
+
+        public async Task<Favoris> GetFavorissAsync(int? id)
+        {
+            Favoris favoris = null;
+            HttpResponseMessage response = client.GetAsync("api/favoris/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                favoris = JsonConvert.DeserializeObject<Favoris>(resp);
+            }
+            return favoris;
+        }
+
+        public async Task<Favoris> GetFavorisAsync(int artisteId, int festivalierId)
+        {
+            Favoris favoris = null;
+            HttpResponseMessage response = client.GetAsync("api/Favoris/" + artisteId + "/" + festivalierId).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                favoris = JsonConvert.DeserializeObject<Favoris>(resp);
+            }
+            else
+            {
+                response = client.GetAsync("api/Favoris/" + artisteId + "/" + festivalierId).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    var resp = await response.Content.ReadAsStringAsync();
+                    favoris = JsonConvert.DeserializeObject<Favoris>(resp);
+                }
+
+            }
+            return favoris;
+        }
+        public async Task<Uri> AjoutFavorisAsync(Favoris favoris)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/favoris", favoris);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+        public async Task<Uri> ModifFavorisAsync(Favoris favoris)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/favoris/" + favoris.Id, favoris);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+        public async Task<Uri> SupprFavorisAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/favoris/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+        ///////////////////////////////////////////////////Artiste-Festival////////////////////////////////////////////////
+
+        public async Task<ICollection<ClassAssociation>> GetAssociationAsync()
+        {
+            ICollection<ClassAssociation> classAssociations = new List<ClassAssociation>();
+            HttpResponseMessage response = client.GetAsync("api/ClassAssociations").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                classAssociations = JsonConvert.DeserializeObject<List<ClassAssociation>>(resp);
+            }
+            return classAssociations;
+        }
+
+
+
+
 
         public async Task<ICollection<Genre>> GetGenresAsync()
         {
@@ -1306,7 +1414,7 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
+        ///////////////////////////////////////////Rapport/////////////////////////////////////////////
         public async Task<ICollection<Rapport_Activite>> GetRapport_ActivitésAsync()
         {
             ICollection<Rapport_Activite> amis = new List<Rapport_Activite>();
@@ -1368,7 +1476,7 @@ namespace WebApplication1.ControllersAPI
             ra.FestivalId = festival.IdF;
             List<int> annees = new List<int>();
 
-            
+
             foreach (var festivalier in festival.Festivaliers)
             {
                 if (!annees.Contains(festivalier.Date_Inscription.Year))
@@ -1402,13 +1510,13 @@ namespace WebApplication1.ControllersAPI
                 ra.Annee = annee;
                 foreach (var festivalier in festival.Festivaliers)
                 {
-                    if(festivalier.Date_Inscription.Year==annee)
-                    ra.Somme_Vente = ra.Somme_Vente + festivalier.Somme;
+                    if (festivalier.Date_Inscription.Year == annee)
+                        ra.Somme_Vente = ra.Somme_Vente + festivalier.Somme;
                 }
                 await Instance.AjoutRapport_ActiviteAsync(ra);
                 ras.Add(ra);
             }
-            
+
             return ras;
         }
 
@@ -1484,7 +1592,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<IEnumerable<Rapport_Activite>> Rapport_Activites_RegionAsync(string? Region)
         {
             List<Rapport_Activite> List = new List<Rapport_Activite>();
-            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Region/"+Region).Result;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Region/" + Region).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1495,7 +1603,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<IEnumerable<Rapport_Activite>> Rapport_Activites_FestivalAsync(int? FestivalId)
         {
             List<Rapport_Activite> List = new List<Rapport_Activite>();
-            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Festival/"+FestivalId).Result;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Festival/" + FestivalId).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1550,7 +1658,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<IEnumerable<Rapport_Geo>> Rapport_Geo_GenreAsync(string? Genre)
         {
             List<Rapport_Geo> List = new List<Rapport_Geo>();
-            HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Genre/" +Genre).Result;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Genre/" + Genre).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1561,7 +1669,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<IEnumerable<Rapport_Temps>> Rapport_Temps_JourAsync(int FestivalId, DateTime? dateInscription)
         {
             List<Rapport_Temps> List = new List<Rapport_Temps>();
-            HttpResponseMessage response = client.GetAsync("api/Rapport_Temps/Rapport_Temps_Jours/" +FestivalId).Result;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Temps/Rapport_Temps_Jours/" + FestivalId).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1595,7 +1703,7 @@ namespace WebApplication1.ControllersAPI
                     dates.Add(festivalier.Date_Inscription);
             }
 
-            
+
 
             foreach (var date in dates)
             {
@@ -1667,6 +1775,9 @@ namespace WebApplication1.ControllersAPI
             return null;
         }
 
+
+
+
         public async Task<Uri> SupprRapport_GeoAsync(int id)
         {
             try
@@ -1681,7 +1792,6 @@ namespace WebApplication1.ControllersAPI
             }
             return null;
         }
-
         public async Task<List<Rapport_Geo>> AjoutRapportGeoAsync(Festivalier festivalier)
         {
             List<Rapport_Geo> ras = new List<Rapport_Geo>();
@@ -1736,6 +1846,7 @@ namespace WebApplication1.ControllersAPI
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/Rapport_Geo/" + Rapport_Geo.Id, Rapport_Geo);
+
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -1758,7 +1869,7 @@ namespace WebApplication1.ControllersAPI
             return amis;
         }
 
-        
+
 
         public async void MAJAsync()
         {
@@ -1786,3 +1897,6 @@ namespace WebApplication1.ControllersAPI
         }
     }
 }
+    
+
+

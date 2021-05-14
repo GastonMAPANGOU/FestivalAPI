@@ -46,13 +46,10 @@
                     <li class="nav-item">
                         <a class="nav-link " asp-area="" asp-controller="Artistes" asp-action="Index">Artistes</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link " asp-area="" asp-controller="Festival_Artiste" asp-action="Index">Festival & Artiste</a>
-                    </li>
-                    @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")) )
+                    @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")))
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Festivaliers">Festivaliers</a>
+                            <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Festivaliers">Ajouter Ami</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Demandes">Demandes</a>

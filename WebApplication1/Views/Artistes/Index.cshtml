@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<FestivalAPI.Models.Artiste>
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @{ ViewData["Title"] = "Index";
     IEnumerable<FestivalAPI.Models.Pays> pays = WebApplication1.ControllersAPI.API.Instance.GetPaysAsync().Result;
@@ -10,18 +12,34 @@
 
     @foreach (var item in Model)
     {
-<div class="col">
-    <div class="card shadow mb-4 text-center">
-        <div class="card-body">
-            <a asp-action="Details" asp-route-id="@item.IdA">
-                @Html.DisplayFor(modelItem => item.Nom)
-                @Html.DisplayFor(modelItem => item.Prenom)
-            </a>
-        </div>
-    </div>
-</div>}
+        <div class="col">
+            <div class="card shadow mb-4 text-center">
+
+                <div class="card-body">
+                    @{
+                        <img src="@Url.Content(item.Photo)" class="card-img-top" /> }
+                    <a asp-action="Details" asp-route-id="@item.IdA">
+                        @Html.DisplayFor(modelItem => item.Nom)
+                        @Html.DisplayFor(modelItem => item.Prenom)
+                    </a>
+                </div>
+                @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")))
+                {
+
+                    @if (WebApplication1.ControllersAPI.API.Instance.GetFavorisAsync(item.IdA, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result == null)
+                    {
+                        <a class="btn btn-primary" asp-action="Favoris" asp-route-id="@item.IdA"> Ajouter aux Favoris</a>}
+                    else
+                    {
+                        <a class="btn btn-primary" asp-action="DeleteFavoris" asp-route-id="@item.IdA">Supprimer</a>}
+                }
+            </div>
+        </div>}
 
 </div>
+
+
+
 
 
 

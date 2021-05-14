@@ -252,4 +252,4 @@ namespace WebApplication1.Controllers
                 return _context.Ami.Any(e => e.Id == id);
             }*/
         }
-    }
+}
