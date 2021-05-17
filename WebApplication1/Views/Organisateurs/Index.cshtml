@@ -1,0 +1,199 @@
+﻿@model IEnumerable<FestivalAPI.Models.Organisateur>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<head>
+    <meta charset="utf-8">
+    <title>page d'ccueil </title> <!-- page d'ccueil -->
+    <meta name="generator" content="Documenter v2.0 http://rxa.li/documenter">
+    <link rel="stylesheet" href="assets/css/documenter_style.css" media="all">
+    <link type="text/css" rel="stylesheet" href="assets/css/SyntaxHighlighter.css"></link>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,700,800'
+          rel='stylesheet' type='text/css'>
+    <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <script src="assets/js/jquery.js"></script>
+    <script src="assets/js/jquery.scrollTo.js"></script>
+    <script src="assets/js/jquery.easing.js"></script>
+    <script>
+    document.createElement('section');
+        var duration = '500', easing = 'swing';</script>
+    <script src="assets/js/script.js"></script>
+    <style>
+        html {
+            background-color: #EEEEEE;
+            color: #383838;
+        }
+
+        ::-moz-selection {
+            background: #333636;
+            color: #00DFFC;
+        }
+
+        ::selection {
+            background: #333636;
+            color: #00DFFC;
+        }
+
+        #documenter_sidebar #documenter_logo {
+            background-image: url();
+        }
+
+        a {
+            color: #008C9E;
+        }
+
+        .btn {
+            border-radius: 3px;
+        }
+
+        .btn-primary {
+            background-image: -moz-linear-gradient(top, #008C9E, #006673);
+            background-image: -ms-linear-gradient(top, #008C9E, #006673);
+            background-image: -webkit-gradient(linear, 0 0, 0 008 C9E, from(#343838), to(#006673));
+            background-image: -webkit-linear-gradient(top, #008C9E, #006673);
+            background-image: -o-linear-gradient(top, #008C9E, #006673);
+            background-image: linear-gradient(top, #008C9E, #006673);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#008C9E', endColorstr='#006673', GradientType=0);
+            border-color: #006673 #006673 #bfbfbf;
+            color: #FFFFFF;
+        }
+
+            .btn-primary:hover,
+            .btn-primary:active,
+            .btn-primary.active,
+            .btn-primary.disabled,
+            .btn-primary[disabled] {
+                border-color: #008C9E #008C9E #bfbfbf;
+                background-color: #006673;
+            }
+
+        hr {
+            border-top: 1px solid #D4D4D4;
+            border-bottom: 1px solid #FFFFFF;
+        }
+
+        #documenter_sidebar, #documenter_sidebar ul a {
+            background-color: #343838;
+            color: #FFFFFF;
+        }
+
+            #documenter_sidebar ul a {
+                -webkit-text-shadow: 1px 1px 0px #494F4F;
+                -moz-text-shadow: 1px 1px 0px #494F4F;
+                text-shadow: 1px 1px 0px #494F4F;
+            }
+
+            #documenter_sidebar ul {
+                border-top: 1px solid #212424;
+            }
+
+                #documenter_sidebar ul a {
+                    border-top: 1px solid #494F4F;
+                    border-bottom: 1px solid #212424;
+                    color: #FFFFFF;
+                }
+
+                    #documenter_sidebar ul a:hover {
+                        background: #333636;
+                        color: #00DFFC;
+                        border-top: 1px solid #333636;
+                    }
+
+                    #documenter_sidebar ul a.current {
+                        background: #333636;
+                        color: #00DFFC;
+                        border-top: 1px solid #333636;
+                    }
+
+        #documenter_copyright {
+            display: block !important;
+            visibility: visible !important;
+        }
+
+        #documenter_sidebar, #documenter_sidebar ul a {
+            background-color: #2c3e50;
+            color: #FFF;
+            margin-left: auto;
+        }
+
+            #documenter_sidebar #documenter_logo {
+                padding: 0;
+                margin-top: 43px;
+                margin-left: 57px;
+            }
+    </style>
+</head>
+<body>
+
+
+    <div id="documenter_sidebar">
+
+        <ul id="documenter_nav">
+            <li><a class="current" href="#documenter_cover">Welcome</a></li>
+
+            <a role="button" id="comparisonButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Festivals" asp-action="Index">Enregistrer un Festival</a>
+
+            <a role="button" id="comparisonButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="" asp-action="">ouvrir les inscriptions</a>
+
+            <a role="button" id="comparisonButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="" asp-action="">liste des festivals </a>
+            <a role="button" id="comparisonButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Festivals" asp-action="Create">Enregistrer un Festival</a>
+            <a role="button" id="comparisonButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Artistes" asp-action="Create">Enregistrer un artiste</a>
+
+            <a role="button" id="comparisonButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Organisateurs" asp-action="ConfirmationGestioOrganisateur">confirmation d'organiser un festival envoyé par le gestionnaire</a>
+            <a role="button" id="comparisonButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Connexion" asp-action="LogOff">Enregistrer un artiste</a>
+
+        </ul>
+    </div>
+
+    <div id="documenter_content">
+        <section id="documenter_cover">
+            <h1>Hello!</h1>
+
+            <br>
+            <h4><strong></strong></h4><!--home -->
+
+
+            <div class="card-deck mb-auto text-center">
+                <div class="card mb-auto shadow-card">
+                    <div class="card-header">
+                        <h4 id="lastActual" class="text-info"><strong></strong></h4>
+                    </div>
+                    <div class="card-body">
+                        <a id="actualViewOnlyButton" asp-action="ActualViewOnly" asp-route-date="" asp-route-month="" asp-route-charge="">
+                            <img src="/pictures/G.jpg" class="img-fluid shadow-little imgClassicHover rounded mb-auto" alt="B">
+                        </a>
+
+
+                        <h4>
+                            Once again,thank you so much for having chosen Festi'Normandie!
+                            We hope you will enjoy using it for your next
+                            project.
+                        </h4>
+                    </div>
+
+                    <div class="row flex-column align-items-center form-group">
+                        <h1 class="titleBox text-center text-info"><strong>PAGE DE L'ORGANISATEUR</strong></h1>
+                    </div>
+                    <script language="javascript" src="assets/js/shCore.js"></script>
+                    <script language="javascript" src="assets/js/shBrushCss.js"></script>
+                    <script language="javascript" src="assets/js/shBrushXml.js"></script>
+                    <script language="javascript" src="assets/js/shBrushJScript.js"></script>
+                    <style type="text/css" media="screen">
+                        p, table, hr, .box {
+                            padding-bottom: 15px;
+                        }
+
+                            .box p {
+                                margin-bottom: 10px;
+                            }
+
+                        pre, code {
+                            font-size: 14px;
+                            margin: 1.5em 0;
+                            white-space: pre;
+                        }
+                    </style>
+</body>
