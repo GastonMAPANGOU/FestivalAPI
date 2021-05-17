@@ -352,17 +352,21 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AjoutFestivalier(Festivalier festivalier, double somme, int festivalId)
         {
-
+            Festival festival = API.Instance.GetFestivalAsync(festivalId).Result;
+            if(festival.NbPlacesDispo< (festivalier.Nb_ParticipantsDT+ festivalier.Nb_ParticipantsPT))
+            {
+                ModelState.AddModelError("error", "Pas assez de  places disponibles ? veuillez en prendre moins!");
+                return AjoutFestivalier(festivalId);
+            }
             festivalier.Somme = (festivalier.Nb_ParticipantsPT * somme + festivalier.Nb_ParticipantsDT * somme * 0.5)*festivalier.NbJours;
             festivalier.FestivalId = festivalId;
             festivalier.Date_Inscription = DateTime.Now;
             int drapeau = 0;
-            Festival festival = API.Instance.GetFestivalAsync(festivalId).Result;
+            
             IEnumerable<Festivalier> Festivaliers = API.Instance.GetFestivaliersAsync().Result;
 
             if (festival.NbPlacesDispo > 0)
             {
-                festival.NbPlacesDispo--;
                 foreach (var item in Festivaliers)
                 {
                     if (item.Nom == festivalier.Nom)
@@ -424,8 +428,9 @@ namespace WebApplication1.Controllers
                 if ( drapeau == 0)
                 {
                     var URI = API.Instance.AjoutAmiAsync(ami);
-
-                    return View(API.Instance.GetFestivaliersAsync().Result.Where(f => f.Id != festivalier.Id && f.FestivalId == festivalier.FestivalId));
+                    var festivaliers = API.Instance.GetFestivaliersAsync().Result;
+                    var festivaliers2 = festivaliers.Where(f => f.Id != festivalier.Id && f.FestivalId == festivalier.FestivalId);
+                    return View(festivaliers2);
                 }
             }
             return View(API.Instance.GetFestivaliersAsync().Result.Where(f => f.Id != festivalier.Id && f.FestivalId == festivalier.FestivalId));
@@ -470,6 +475,21 @@ namespace WebApplication1.Controllers
                 Ami amitié = API.Instance.GetAmitiéAsync((int)id, festivalier.Id).Result;
                 var URI = API.Instance.SupprAmiAsync(amitié.Id);
             }
+            return Redirect("/Festivals/Festivaliers");
+        }
+
+        public ActionResult ValiderInscription(int? id)
+        {
+            if (id != null)
+            {
+                return Redirect("/Festivals/Festivaliers");
+            }
+            Festivalier festivalier = API.Instance.GetFestivalierAsync(id).Result;
+            Festival festival = API.Instance.GetFestivalAsync(festivalier.Id).Result;
+            festival.NbPlacesDispo = festival.NbPlacesDispo - (festivalier.Nb_ParticipantsDT + festivalier.Nb_ParticipantsPT);
+            var uri= API.Instance.ModifFestivalierAsync(festivalier);
+            var uri2 = API.Instance.ModifFestivalAsync(festival);
+            festivalier.InscriptionAccepted = true;
             return Redirect("/Festivals/Festivaliers");
         }
     }
