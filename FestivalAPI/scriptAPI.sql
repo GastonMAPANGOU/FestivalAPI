@@ -10,7 +10,7 @@ GO
 SELECT * INTO Country_info
 --changer le chemin du fichier selon la machine
 FROM OPENROWSET('Microsoft.ACE.OLEDB.12.0',
-    'Excel 12.0; Database=C:\Users\Hp\source\repos\FestivalAPI\FestivalAPI\docfestival.xlsx', [AC1$]);
+    'Excel 12.0; Database=C:\Users\lanvi\source\repos\FestivalAPI\FestivalAPI\docfestival.xlsx', [AC1$]);
     
 GO
 
