@@ -42,10 +42,19 @@
 
             <Grid Margin="5"
                   Grid.Column="1"
-                  Background="LightCoral"
+                  Background="Transparent"
                   HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Content="Valider"
+                        Grid.Column="0"
+                        Margin="10 0 10 0"
+                        Click="ValiderOrganisateur"/>
                 <Button Content="Actualiser"
                         Grid.Column="1"
+                        Margin="10 0 10 0"
                         Click="RechargerPage"/>
             </Grid>
         </Grid>
@@ -74,7 +83,8 @@
                                     Binding="{Binding FestivalId}"/>
                 <DataGridCheckBoxColumn Header="Accrédité"
                                         Width="*"
-                                        Binding="{Binding InscriptionAccepted}"/>
+                                        Binding="{Binding InscriptionAccepted}"
+                                        IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

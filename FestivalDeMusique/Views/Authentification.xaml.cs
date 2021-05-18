@@ -72,7 +72,6 @@ namespace FestivalDeMusique.Views
 
         private bool CheckCredentials(string email, string pass)
         {
-            return true;
             Gimi gimi = API.API.Instance.GetGimi(email, pass).Result;
             try
             {

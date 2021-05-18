@@ -74,7 +74,8 @@
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
-                  SelectionChanged="FestivalGrid_SelectionChanged">
+                  SelectionChanged="FestivalGrid_SelectionChanged"
+                  MouseDoubleClick="festivalGrid_MouseDoubleClick">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nom"
                                     Width="*"
@@ -91,7 +92,9 @@
                 <DataGridTextColumn Header="Fin"
                                     Width="*"
                                     Binding="{Binding Date_Fin}"/>
-                
+                <DataGridCheckBoxColumn Header="Annulé"
+                                    Width="*"
+                                    Binding="{Binding IsCanceled}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

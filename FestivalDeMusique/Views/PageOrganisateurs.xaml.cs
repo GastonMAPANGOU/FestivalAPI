@@ -36,22 +36,32 @@ namespace FestivalDeMusique.Views
 
         private void OrganisateurGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            /*
-            try
-            {
-                Organisateur organisateur = organisateurGrid.SelectedItem as Organisateur;
-                MessageBox.Show(organisateur.IdO.ToString());
-            }
-            catch
-            {
-                MessageBox.Show("Error while getting the value of the organisateur");
-            }
-            */
+           
         }
 
         private void RechargerPage(object sender, RoutedEventArgs e)
         {
             Reload();
+        }
+
+        private async void ValiderOrganisateur(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Organisateur org = organisateurGrid.SelectedItem as Organisateur;
+                org.InscriptionAccepted = true;
+                System.Net.Http.HttpResponseMessage response = await API.API.Instance.ModifOrganisateurAsync(org);
+                Reload();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Sélectionnez un organisateur à valider");
+            }
+        }
+
+        private void DataGridCheckBoxColumn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Hello world");
         }
     }
 }
