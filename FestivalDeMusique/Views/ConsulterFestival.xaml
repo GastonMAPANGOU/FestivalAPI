@@ -1,15 +1,13 @@
-﻿<Window x:Class="FestivalDeMusique.Views.AjoutFestival"
+﻿<Window x:Class="FestivalDeMusique.Views.ConsulterFestival"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FestivalDeMusique.Views"
         mc:Ignorable="d"
-        Title="AjoutFestival" Height="700" Width="1000"
+        Title="ConsulterFestival" Height="700" Width="1000"
         MinHeight="700" MinWidth="1000">
-
-
-
+    
     <Border Padding="50 20 50 40">
         <Border.Background>
             <ImageBrush Stretch="Fill" ImageSource="/images/music_bg_3.jpg"/>
@@ -39,8 +37,13 @@
                             Grid.Column="0"
                             Grid.Row="0"
                             Grid.RowSpan="2">
-                    <TextBlock Text="Création de" 
+                    <TextBlock Text="Consulter ou" 
                                Margin="0 20 0 0" 
+                               Foreground="White"
+                               FontSize="40"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="annulez le" 
+                               Margin="0 0 0 0" 
                                Foreground="White"
                                FontSize="40"
                                HorizontalAlignment="Center"/>
@@ -49,7 +52,7 @@
                                Foreground="White"
                                FontSize="40"
                                HorizontalAlignment="Center"/>
-                    <TextBlock Text="Créer des festivals pour les mettre à disposition d'organisateurs et de festivaliers" 
+                    <TextBlock Text="Faites des mises à jours sur les festivals qui seront vues par les organisateurs et les festivaliers" 
                                Margin="10 20 10 0" 
                                TextWrapping="Wrap"
                                Foreground="LightGray"
@@ -96,6 +99,7 @@
                              BorderBrush="#FF8EA5B4"
                              BorderThickness="2"
                              Padding="3"
+                             IsReadOnly="True"
                              x:Name="nomTextBox"/>
 
                     <Grid Margin="0 10 0 0">
@@ -136,6 +140,7 @@
                              BorderBrush="#FF8EA5B4"
                              BorderThickness="2"
                              Padding="3"
+                             IsReadOnly="True"
                              x:Name="descriptionTextBox"/>
 
                     <TextBlock Text="Commune principale" 
@@ -189,20 +194,20 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Button Margin="0 0 10 0"
-                            Content="Valider"
+                            Content="Annuler"
                             Grid.Column="0"
                             Height="30"
                             Width="100"
-                            Click="AjouterOnClick">
+                            Click="ModifierOnClick">
 
                     </Button>
 
                     <Button Margin="10 0 0 0"
-                                Content="Fermer"
-                                Grid.Column="1"
-                                Height="30"
-                                Width="100"
-                            Click="RetourOnClick">
+                            Content="Fermer"
+                            Grid.Column="1"
+                            Height="30"
+                            Width="100"
+                            Click="AnnulerOnClick">
 
                     </Button>
                 </Grid>

@@ -22,6 +22,7 @@ namespace FestivalDeMusique.Views
         public Dashboard()
         {
             InitializeComponent();
+            frame.NavigationService.Navigate(new PageFestivals());
         }
 
         private void ChargerPageFestivals(object sender, RoutedEventArgs e)
