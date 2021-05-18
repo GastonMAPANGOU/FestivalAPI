@@ -53,7 +53,6 @@
                         {
                             if (scene.IdS == item.SceneId)
                             {
-
                                 @Html.DisplayFor(modelItem => scene.Nom)
                             }
 
@@ -65,7 +64,6 @@
 
                                 @Html.DisplayFor(modelItem => jour.Numero_jour + " " + jour.Date_jour)
                             }
-
                         }
                         <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Savoir Plus</a>
                         <a class="btn btn-primary" asp-action="AjoutFestivalier" asp-route-id="@item.Id">Participer !</a>

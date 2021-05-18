@@ -97,6 +97,9 @@ namespace WebApplication1.Controllers
 
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
         public IActionResult Index(string lieu, string artiste, string style)
         {
             //return View(await _context.Region.Include("Links").ToListAsync());
