@@ -811,7 +811,145 @@ namespace FestivalDeMusique.API
             }
             return null;
         }
-        
+
+        public async Task<ICollection<Departement>> GetDepartementsAsync()
+        {
+            ICollection<Departement> departements = new List<Departement>();
+            HttpResponseMessage response = client.GetAsync("api/departements").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                departements = JsonConvert.DeserializeObject<List<Departement>>(resp);
+            }
+            return departements;
+        }
+
+        public async Task<Departement> GetDepartementAsync(int? id)
+        {
+            Departement departement = null;
+            HttpResponseMessage response = client.GetAsync("api/departements/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                departement = JsonConvert.DeserializeObject<Departement>(resp);
+            }
+            return departement;
+        }
+
+        public async Task<Uri> AjoutDepartementAsync(Departement departement)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/departements", departement);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> ModifDepartementAsync(Departement departement)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/departements/" + departement.Id, departement);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprDepartementAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/departements/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<ICollection<Region>> GetRegionsAsync()
+        {
+            ICollection<Region> regions = new List<Region>();
+            HttpResponseMessage response = client.GetAsync("api/regions").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                regions = JsonConvert.DeserializeObject<List<Region>>(resp);
+            }
+            return regions;
+        }
+
+        public async Task<Region> GetRegionAsync(int? id)
+        {
+            Region region = null;
+            HttpResponseMessage response = client.GetAsync("api/regions/" + id).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                region = JsonConvert.DeserializeObject<Region>(resp);
+            }
+            return region;
+        }
+
+        public async Task<Uri> AjoutRegionAsync(Region region)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/regions", region);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> ModifRegionAsync(Region region)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/regions/" + region.Id, region);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
+        public async Task<Uri> SupprRegionAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/regions/" + id);
+                response.EnsureSuccessStatusCode();
+                return response.Headers.Location;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
+        }
+
 
     }
 }

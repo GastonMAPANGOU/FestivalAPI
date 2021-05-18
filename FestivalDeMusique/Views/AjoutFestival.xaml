@@ -152,7 +152,6 @@
                               BorderBrush="#FF8EA5B4"
                               BorderThickness="2"
                               x:Name="lieuComboBox">
-                        <ComboBoxItem>Rouen</ComboBoxItem>
                     </ComboBox>
 
                     <TextBlock Text="Date de début" 
