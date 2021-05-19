@@ -12,7 +12,7 @@
 
 
     double somme = Model.Montant;
-    double festivalId = Model.IdF;
+    int festivalId = Model.IdF;
 
     IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result.Where(s => s.FestivalId == Model.IdF);
     IEnumerable<FestivalAPI.Models.Lieu> lieux = WebApplication1.ControllersAPI.API.Instance.GetLieuxAsync().Result;
@@ -31,7 +31,7 @@
     <div class="col-md-4">
         <form asp-action="AjoutFestivalier">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="@somme" />
+            
             <input type="hidden" asp-for="@festivalId" />
 
             <div class="form-group">
@@ -91,8 +91,8 @@
 
 
             <div class="form-group">
-                <label asp-for="LieuId" class="control-label">De quelle commune venez gous?</label>
-                <select class="form-control" asp-for="LieuId">
+                <label asp-for="@festivalier.LieuId" class="control-label">De quelle commune venez vous?</label>
+                <select class="form-control" asp-for="@festivalier.LieuId">
                     <option value="">Choisissez une option</option>
                     @foreach (var it in lieux)
                     {
@@ -101,7 +101,7 @@
                         </option>
                     }
                 </select>
-                <span asp-validation-for="LieuId" class="text-danger"></span>
+                <span asp-validation-for="@festivalier.LieuId" class="text-danger"></span>
             </div>
 
             <div class="form-group">

@@ -424,7 +424,7 @@ namespace WebApplication1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AjoutFestivalier(Festivalier festivalier, double somme, int festivalId)
+        public IActionResult AjoutFestivalier(Festivalier festivalier, int festivalId)
         {
             Festival festival = API.Instance.GetFestivalAsync(festivalId).Result;
             if(festival.NbPlacesDispo< (festivalier.Nb_ParticipantsDT+ festivalier.Nb_ParticipantsPT))
@@ -432,7 +432,7 @@ namespace WebApplication1.Controllers
                 ModelState.AddModelError("error", "Pas assez de  places disponibles ? veuillez en prendre moins!");
                 return AjoutFestivalier(festivalId);
             }
-            festivalier.Somme = (festivalier.Nb_ParticipantsPT * somme + festivalier.Nb_ParticipantsDT * somme * 0.5)*festivalier.NbJours;
+            festivalier.Somme = (festivalier.Nb_ParticipantsPT * festival.Montant + festivalier.Nb_ParticipantsDT * festival.Montant * 0.5)*festivalier.NbJours;
             festivalier.FestivalId = festivalId;
             festivalier.Date_Inscription = DateTime.Now;
             int drapeau = 0;

@@ -58,10 +58,9 @@ namespace FestivalDeMusique.Views
                 {
                     textBoxEmail.Text = "";
                     passwordTextBox.Password = "";
-                    Hide();
-                    MenuGestionnaire menu = new MenuGestionnaire();
-                    menu.ShowDialog();
-                    Show();
+                    Dashboard menu = new Dashboard();
+                    menu.Show();
+                    Close();
                 }
                 else
                 {
