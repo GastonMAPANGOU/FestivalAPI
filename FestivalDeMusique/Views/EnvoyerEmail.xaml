@@ -1,0 +1,69 @@
+﻿<Window x:Class="FestivalDeMusique.Views.EnvoyerEmail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FestivalDeMusique.Views"
+        mc:Ignorable="d"
+        Title="EnvoyerEmail" MinHeight="450" MinWidth="450">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="10"
+                    Grid.Row="0"
+                    Background="Transparent">
+            <TextBlock Text="Saisissez le mail d'annulation du festival à envoyer aux festivaliers" 
+                       Margin="0 0 0 20" 
+                       FontSize="25"/>
+            <TextBlock Text="Objet" 
+                       Margin="0 0 0 10" 
+                       FontSize="18"/>
+            <TextBox Height="50" Padding="3 3 3 3"
+                     AcceptsReturn="True"
+                     FontSize="15"
+                     Text="Objet de l'e-mail"
+                     x:Name="MailSubject"
+                     BorderThickness="2"/>
+        </StackPanel>
+        
+        <TextBox Padding="3 3 3 3"
+                 Grid.Row="1"
+                 Margin="10"
+                 AcceptsReturn="True"
+                 x:Name="MailContent"
+                 BorderThickness="2"/>
+        
+        <Grid Margin="10"
+              Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="120"/>
+                <ColumnDefinition Width="120"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Margin="10"
+                    Height="40"
+                    Width="100"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    Content="Valider"
+                    Click="ValiderButton_Click">
+                
+            </Button>
+
+            <Button Margin="10 10 10 10"
+                    Height="40"
+                    Width="100"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    Content="Annuler"
+                    Click="AnnulerButton_Click">
+            </Button>
+        </Grid>
+
+    </Grid>
+</Window>

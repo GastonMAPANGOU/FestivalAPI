@@ -4,9 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Net;
 using System.Net.Mail;
 using System.ComponentModel;
@@ -15,27 +13,28 @@ namespace FestivalAPI.Data
 {
     public class SendMail
     {
-        NetworkCredential login;
-        SmtpClient client;
-        MailMessage msg;
-        int Port = 587;
-        public void ActionSendMail(string Smtp, string Username, string Password, string To, string CC, string Subject, string Message, string Address_Mail)
+        private NetworkCredential login;
+        private SmtpClient client;
+        private MailMessage msg;
+        private static readonly int Port = 587;
+        private static readonly string Smtp = "smtp.gmail.com";
+        private static readonly string Address_Mail = "Festival.ProjetS8.G3@gmail.com";
+        private static readonly string Password = "FestivalProjetS8";
+        //public string ReturnMessage { get; set; }
+
+        public void ActionSendMail(string SendMailTo, string Subject, string Message)
         {
-            login = new NetworkCredential(Username, Password);
+            login = new NetworkCredential(Address_Mail, Password);
             client = new SmtpClient(Smtp);
             client.Port = Convert.ToInt32(Port);
             client.Credentials = login;
+            client.EnableSsl = true;
             msg = new MailMessage
             {
-                From = new MailAddress( Address_Mail, "Lucy", Encoding.UTF8)
+                From = new MailAddress( Address_Mail, "FestiNormandie", Encoding.UTF8)
             };
 
-            msg.To.Add(new MailAddress(To));
-
-            if (!string.IsNullOrEmpty(CC))
-            {
-                msg.To.Add(new MailAddress(CC));
-            }
+            msg.To.Add(new MailAddress(SendMailTo));
 
             msg.Subject = Subject;
             msg.Body = Message;
@@ -48,16 +47,20 @@ namespace FestivalAPI.Data
             client.SendAsync(msg, userstate);
         }
 
-        /*public void SendCompleteCallBack(object sender, AsyncCompletedEventArgs e)
-        {
-            if (e.Cancelled)
-            {
-                MessageBox.Show(string.Format("{0} send canceled.", e.UserState), "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            if (e.Error != null)
-                MessageBox.Show(string.Format("{0} {1}", e.UserState, e.Error), "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            else
-                MessageBox.Show(string.Format("Your message has been successfully sent"), "Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }*/
+        //private void SendCompleteCallBack(object sender, AsyncCompletedEventArgs e)
+        //{
+        //    if (e.Cancelled)
+        //    {
+        //        ReturnMessage = string.Format("{0} send canceled.", e.UserState);
+        //    }
+        //    if (e.Error != null && !e.Cancelled)
+        //    {
+        //        ReturnMessage = string.Format("{0} {1}", e.UserState, e.Error);
+        //    }
+        //    else
+        //    {
+        //        ReturnMessage = "Votre message a été convenablement envoyé";
+        //    }
+        //}
     }
 }
