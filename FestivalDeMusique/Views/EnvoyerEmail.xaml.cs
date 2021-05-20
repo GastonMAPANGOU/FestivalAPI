@@ -24,7 +24,7 @@ namespace FestivalDeMusique.Views
         //private readonly Organisateur organisateur;
         private FestivalAPI.Data.SendMail sendMail;
         private readonly Festival festival;
-
+        
         public EnvoyerEmail()
         {
             InitializeComponent();
@@ -58,6 +58,7 @@ namespace FestivalDeMusique.Views
             }
         }
 
+        
         private void EnvoyerMailFestivaliers(string mailSubject, string content)
         {
             string sendMailTo = "daramorgan69@gmail.com";

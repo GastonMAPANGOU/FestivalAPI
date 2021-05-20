@@ -16,6 +16,8 @@ namespace WebApplication1.Controllers
 {
     public class FestivalsController : Controller
     {
+        private FestivalAPI.Data.SendMail sendMail;
+        
         /* private readonly APIContext _context;
 
  
@@ -394,6 +396,7 @@ namespace WebApplication1.Controllers
         {
             Festival festival = API.Instance.GetFestivalAsync(festivalier.FestivalId).Result;
             festivalier.IsPublished = false;
+            festival.NbPlacesDispo = festival.NbPlacesDispo-(festivalier.Nb_ParticipantsDT + festivalier.Nb_ParticipantsPT);
             if (festival.NbPlacesDispo< (festivalier.Nb_ParticipantsDT+ festivalier.Nb_ParticipantsPT))
             {
                 ModelState.AddModelError("error", "Pas assez de  places disponibles ? veuillez en prendre moins!");
@@ -418,6 +421,12 @@ namespace WebApplication1.Controllers
 
                 if (ModelState.IsValid && drapeau == 0)
                 {
+                    sendMail = new FestivalAPI.Data.SendMail();
+                    string mailSubject="Inscription au festival "+festival.Nom;
+                    string content="Votre inscripion au festival "+festival.Nom+" a bien été prise en compte vous allez bientôt recevoir un mail de confirmation. <br> pour l'instant vous pouvez d'ores et déjà vous connecter sur notre site internet <br> <br> Cordialement <br> <br> A bientôt sur Festi'Normandie." ;
+                    
+                    sendMail.ActionSendMail(festivalier.Login, mailSubject, content);
+                    
                     var URI = API.Instance.AjoutFestivalierAsync(festivalier);
                     var URI2 = API.Instance.ModifFestivalAsync(festival);
                     return RedirectToAction(nameof(Index));

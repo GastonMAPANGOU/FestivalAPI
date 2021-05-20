@@ -31,7 +31,7 @@ namespace FestivalAPI.Data
             client.EnableSsl = true;
             msg = new MailMessage
             {
-                From = new MailAddress( Address_Mail, "FestiNormandie", Encoding.UTF8)
+                From = new MailAddress( Address_Mail, "Festi'Normandie", Encoding.UTF8)
             };
 
             msg.To.Add(new MailAddress(SendMailTo));
