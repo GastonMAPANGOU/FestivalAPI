@@ -7,12 +7,12 @@
     string @Login = "";
     string @Pwd = "";
     int @Nb_Participants = 0;*/
-    int id_jour = 0;
     FestivalAPI.Models.Festivalier festivalier = new FestivalAPI.Models.Festivalier();
 
 
+
     double somme = Model.Montant;
-    int festivalId = Model.IdF;
+    festivalier.FestivalId = Model.IdF;
 
     IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result.Where(s => s.FestivalId == Model.IdF);
     IEnumerable<FestivalAPI.Models.Lieu> lieux = WebApplication1.ControllersAPI.API.Instance.GetLieuxAsync().Result;
@@ -31,8 +31,8 @@
     <div class="col-md-4">
         <form asp-action="AjoutFestivalier">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
-            <input type="hidden" asp-for="@festivalId" />
+
+            <input type="hidden" asp-for="@festivalier.FestivalId" />
 
             <div class="form-group">
                 <label asp-for="@festivalier.GenreId" class="control-label">Civilité</label>
@@ -59,6 +59,11 @@
                 <span asp-validation-for="@festivalier.Prenom" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="@festivalier.Pseudo" class="control-label">Choisissez un pseudonyme</label>
+                <input asp-for="@festivalier.Pseudo" class="form-control" required />
+                <span asp-validation-for="@festivalier.Pseudo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="@festivalier.Login" class="control-label">Login</label>
                 <input asp-for="@festivalier.Login" class="form-control" required />
                 <span asp-validation-for="@festivalier.Login" class="text-danger"></span>
@@ -70,7 +75,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="@festivalier.Birthday" class="control-label">Date de naissance</label>
-                <input asp-for="@festivalier.Birthday" class="form-control" type="datetime" required />
+                <input asp-for="@festivalier.Birthday" class="form-control" min="1/1/1753 00:00:00 AM" max="@DateTime.Now" type="datetime" required />
                 <span asp-validation-for="@festivalier.Birthday" class="text-danger"></span>
             </div>
             <div class="form-group">

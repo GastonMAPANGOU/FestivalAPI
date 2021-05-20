@@ -25,14 +25,14 @@ namespace FestivalAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Festival>>> GetFestival()
         {
-            return await _context.Festival.Include("Hebergements").Include("Organisateur").Include("Festivaliers").Include("Festival_Artistes").Include("Scenes").ToListAsync();
+            return await _context.Festival.Include("Hebergements").Include("Organisateurs").Include("Festivaliers").Include("Festival_Artistes").Include("Scenes").ToListAsync();
         }
 
         // GET: api/Festivals/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Festival>> GetFestival(int id)
         {
-            var festival = await _context.Festival.Include("Hebergements").Include("Organisateur").Include("Festivaliers").Include("Festival_Artistes").FirstOrDefaultAsync(f => f.IdF == id); 
+            var festival = await _context.Festival.Include("Hebergements").Include("Organisateurs").Include("Festivaliers").Include("Festival_Artistes").FirstOrDefaultAsync(f => f.IdF == id); 
 
 
             if (festival == null)

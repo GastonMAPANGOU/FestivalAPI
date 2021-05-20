@@ -13,7 +13,9 @@ namespace FestivalAPI.Models
         public int Id { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
+        public string Pseudo { get; set; }
         public string Login { get; set; }
+        public bool IsPublished { get; set; }
         public string Pwd { get; set; }
         public int NbJours { get; set; }
         public int Nb_ParticipantsPT { get; set; }

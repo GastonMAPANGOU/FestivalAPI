@@ -307,42 +307,10 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("IdF,Nom,Logo,Descriptif,Date_Debut,Date_Fin,LieuId")] Festival Festival)
         {
-            /*if (id != Festival.Id)
-            {
-                return NotFound();
-            }
-
- 
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(Festival);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FestivalExists(Festival.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(Festival);*/
             if (id != Festival.IdF)
             {
                 return NotFound();
             }
-
-
-
-
 
             if (ModelState.IsValid)
             {
@@ -416,24 +384,23 @@ namespace WebApplication1.Controllers
             return View(API.Instance.GetFestivalAsync(id).Result);
         }
 
-        
-
 
         // POST: Festivalier/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AjoutFestivalier(Festivalier festivalier, int festivalId)
+        public IActionResult AjoutFestivalier(Festivalier festivalier)
         {
-            Festival festival = API.Instance.GetFestivalAsync(festivalId).Result;
-            if(festival.NbPlacesDispo< (festivalier.Nb_ParticipantsDT+ festivalier.Nb_ParticipantsPT))
+            Festival festival = API.Instance.GetFestivalAsync(festivalier.FestivalId).Result;
+            festivalier.IsPublished = false;
+            if (festival.NbPlacesDispo< (festivalier.Nb_ParticipantsDT+ festivalier.Nb_ParticipantsPT))
             {
                 ModelState.AddModelError("error", "Pas assez de  places disponibles ? veuillez en prendre moins!");
-                return AjoutFestivalier(festivalId);
+                return AjoutFestivalier(festivalier.FestivalId);
             }
             festivalier.Somme = (festivalier.Nb_ParticipantsPT * festival.Montant + festivalier.Nb_ParticipantsDT * festival.Montant * 0.5)*festivalier.NbJours;
-            festivalier.FestivalId = festivalId;
+            
             festivalier.Date_Inscription = DateTime.Now;
             int drapeau = 0;
             
@@ -468,7 +435,182 @@ namespace WebApplication1.Controllers
             return View(festivalier);
         }
 
-        
+        public IActionResult AjoutScene(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }
+
+
+        // POST: Scene/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AjoutScene(Scene scene)
+        {
+            
+            int drapeau = 0;
+
+            IEnumerable<Scene> scenes = API.Instance.GetScenesAsync().Result;
+
+            
+            foreach (var item in scenes)
+            {
+                if (item.Nom == scene.Nom)
+                {
+                    drapeau++;
+                }
+            }
+
+            if (ModelState.IsValid && drapeau == 0)
+            {
+                var URI = API.Instance.AjoutSceneAsync(scene);
+                return RedirectToAction(nameof(Index));
+            }
+            else if (drapeau != 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            
+            
+
+            return View(scene);
+        }
+
+        public IActionResult EditScene(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }
+
+
+        // POST: Scene/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditScene(Scene scene)
+        {
+            var URI = API.Instance.ModifSceneAsync(scene);
+            return View(scene);
+        }
+
+        public IActionResult DeleteScene(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }
+
+
+        // POST: Scene/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmedScene(int id)
+        {
+            var URI = API.Instance.SupprSceneAsync(id);
+            return Redirect("/Festivals/Festivaliers");
+        }
+
+        public IActionResult AjoutHebergement(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }
+
+
+        // POST: Hebergement/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AjoutHebergement(Hebergement hebergement)
+        {
+
+            int drapeau = 0;
+
+            IEnumerable<Hebergement> hebergements = API.Instance.GetHebergementsAsync().Result;
+
+
+            foreach (var item in hebergements)
+            {
+                if (item.Nom == hebergement.Nom)
+                {
+                    drapeau++;
+                }
+            }
+
+            if (ModelState.IsValid && drapeau == 0)
+            {
+                var URI = API.Instance.AjoutHebergementAsync(hebergement);
+                return RedirectToAction(nameof(Index));
+            }
+            else if (drapeau != 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+
+
+            return View(hebergement);
+        }
+
+        public IActionResult EditHebergement(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }
+
+
+        // POST: Hebergement/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditHebergement(Hebergement hebergement)
+        {
+            var URI = API.Instance.ModifHebergementAsync(hebergement);
+            return View(hebergement);
+        }
+
+        public IActionResult DeleteHebergement(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }
+
+
+        // POST: Hebergement/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmedHebergement(int id)
+        {
+            var URI = API.Instance.SupprHebergementAsync(id);
+            return Redirect("/Festivals/Festivaliers");
+        }
+
         public IActionResult Festivaliers(int? id)
         {
             int drapeau = 0;
