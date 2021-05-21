@@ -19,9 +19,9 @@ using Microsoft.Win32;
 namespace FestivalDeMusique.Views
 {
     /// <summary>
-    /// Logique d'interaction pour ModificationFestival.xaml
+    /// Logique d'interaction pour ConsulterFestival.xaml
     /// </summary>
-    public partial class ModificationFestival : Window
+    public partial class ConsulterFestival : Window
     {
         private Dictionary<int, string> communeLieuId = new Dictionary<int, string>();
         private readonly ICollection<Lieu> ListeLieu = new List<Lieu>();
@@ -29,81 +29,60 @@ namespace FestivalDeMusique.Views
         private readonly Festival festivalAModifier;
         private readonly Lieu lieuFestival;
         private string path;
-        public ModificationFestival(Festival festival)
+        public ConsulterFestival(Festival festival)
         {
             InitializeComponent();
-
-            festivalAModifier = festival;
-            lieuFestival = API.API.Instance.GetLieuAsync(festivalAModifier.LieuId).Result;
-
-            ListeRegion = API.API.Instance.GetRegionsAsync().Result;
-            foreach (Region region in ListeRegion)
+            try
             {
-                if (region.Nom.Trim().ToLower().Equals("normandie"))
+                festivalAModifier = festival;
+                lieuFestival = API.API.Instance.GetLieuAsync(festivalAModifier.LieuId).Result;
+
+                ListeRegion = API.API.Instance.GetRegionsAsync().Result;
+                foreach (Region region in ListeRegion)
                 {
-                    foreach (Departement departement in region.Departements)
+                    if (region.Nom.Trim().ToLower().Equals("normandie"))
                     {
-                        Departement dep = API.API.Instance.GetDepartementAsync(departement.Id).Result;
-                        foreach (Lieu lieu in dep.Lieux)
+                        foreach (Departement departement in region.Departements)
                         {
-                            if (!ListeLieu.Contains(lieu))
-                                ListeLieu.Add(lieu);
+                            Departement dep = API.API.Instance.GetDepartementAsync(departement.Id).Result;
+                            foreach (Lieu lieu in dep.Lieux)
+                            {
+                                if (!ListeLieu.Contains(lieu))
+                                    ListeLieu.Add(lieu);
+                            }
                         }
                     }
                 }
+
+                path = festival.Logo;
+
+                InitializeMap();
+                FillComboBox();
+                FillFestivalData();
             }
-
-            path = festival.Logo;
-
-            InitializeMap();
-            FillComboBox();
-            FillFestivalData();
+            catch
+            {
+                Close();
+            }
+            
         }
 
-        private async void ModifierOnClick(object sender, RoutedEventArgs e)
+        private void ModifierOnClick(object sender, RoutedEventArgs e)
         {
-            string nom = nomTextBox.Text;
-            string logo = path;
-            string descriptif = descriptionTextBox.Text;
-
-            if (nom.Length == 0 || descriptif.Length == 0 || lieuComboBox.SelectedItem == null ||
-                dateDebutControl.SelectedDate == null || dateFinControl.SelectedDate == null)
+            
+            Festival festival = festivalAModifier;
+            EnvoyerEmail envoyerEmail = new EnvoyerEmail(festival);
+            envoyerEmail.ShowDialog();
+            bool IsCanceled = envoyerEmail.IsCanceled;
+            if (IsCanceled)
             {
-                MessageBox.Show("Veuillez remplir toutes les informations requises");
+                MessageBox.Show("Festival annulé");
             }
             else
             {
-                DateTime dateDebut = dateDebutControl.SelectedDate.Value;
-                DateTime dateFin = dateFinControl.SelectedDate.Value;
-                string communePrincipale = lieuComboBox.SelectedItem.ToString();
-                if (dateDebut <= dateFin)
-                {
-                    Festival festival = new Festival() { 
-                        IdF = festivalAModifier.IdF,
-                        Nom = nom,
-                        Logo = logo,
-                        Descriptif = descriptif,
-                        Date_Debut = dateDebut,
-                        Date_Fin = dateFin,
-                        LieuId = NomCommuneToId(communePrincipale),
-                    };
-
-                    System.Net.Http.HttpResponseMessage response = await API.API.Instance.ModifFestivalAsync(festival);
-                    _ = MessageBox.Show("Modification du festival en cours");
-                    if (response.IsSuccessStatusCode)
-                    {
-                        MessageBox.Show("Festival modifié");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erreur lors de la modification du festival");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("La période entrée n'est pas valide. Veuillez mettre les dates dans le bon ordre");
-                }
+                MessageBox.Show("Erreur lors de l'annulation du festival");
             }
+
         }
 
         private void RetourOnClick(object sender, RoutedEventArgs e)

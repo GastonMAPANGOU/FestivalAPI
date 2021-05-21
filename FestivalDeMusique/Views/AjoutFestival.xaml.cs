@@ -23,15 +23,31 @@ namespace FestivalDeMusique.Views
     /// </summary>
     public partial class AjoutFestival : Window
     {
-        private Dictionary<string, int> communeLieuId = new Dictionary<string, int>();
-        private readonly ICollection<Lieu> ListeLieu;
+        private Dictionary<int, string> communeLieuId = new Dictionary<int, string>();
+        private readonly ICollection<Lieu> ListeLieu = new List<Lieu>();
+        private readonly ICollection<Region> ListeRegion;
         private string path;
         public AjoutFestival()
         {
             InitializeComponent();
-            ListeLieu = API.API.Instance.GetLieuxAsync().Result;
 
-            InitializeMap();
+            ListeRegion = API.API.Instance.GetRegionsAsync().Result;
+            foreach (Region region in ListeRegion)
+            {
+                if (region.Nom.Trim().ToLower().Equals("normandie"))
+                {
+                    foreach (Departement departement in region.Departements)
+                    {
+                        Departement dep =API.API.Instance.GetDepartementAsync(departement.Id).Result;
+                        foreach (Lieu lieu  in dep.Lieux)
+                        {
+                            if (!ListeLieu.Contains(lieu))
+                                ListeLieu.Add(lieu);
+                        }
+                    }
+                }
+            }
+                InitializeMap();
             FillComboBox();
         }
 
@@ -95,14 +111,20 @@ namespace FestivalDeMusique.Views
 
         private int NomCommuneToId(String commune)
         {
-            return communeLieuId[commune];
+            int returnValue = 0;
+            foreach(KeyValuePair<int, string> leLieu in communeLieuId)
+            {
+                if (leLieu.Value.Equals(commune))
+                    returnValue = leLieu.Key;
+            }
+            return returnValue;
         }
 
         private void InitializeMap()
         {
             foreach (Lieu lieu in ListeLieu)
             {
-                communeLieuId.Add(lieu.Commune, lieu.IdL);
+                communeLieuId.Add(lieu.IdL, lieu.Commune);
             }
         }
 

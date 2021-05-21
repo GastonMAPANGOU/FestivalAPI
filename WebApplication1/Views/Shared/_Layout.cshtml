@@ -43,9 +43,35 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Index">Festivals</a>
                     </li>
+
+
                     <li class="nav-item">
                         <a class="nav-link " asp-area="" asp-controller="Artistes" asp-action="Index">Artistes</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Organisateurs" asp-action="Index">Organisateurs</a>  
+                    </li>
+
+                    @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisteur")))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Artistes" asp-action="Create">Enregistrer un Artiste</a>
+                        </li>
+
+
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Create">Confirmer un festival(avec Gimi) </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="" asp-action="">Ouvrir les inscriptions</a>
+                        </li>
+                    }
+
+
+
+
                     @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")))
                     {
                         <li class="nav-item">
@@ -77,6 +103,22 @@
                 <input type="text" class="form-control" placeholder="Search for a Festival" name="searchString" value="@ViewData["searchString"]">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
+            @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")) || (HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisateur")))
+            {
+                <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Festivals" asp-action="Index">
+                    <input type="text" class="form-control" placeholder="Style" name="style" value="@ViewData["style"]">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
+
+                    <input type="text" class="form-control" placeholder="Artiste" name="artiste" value="@ViewData["artiste"]">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+
+
+                    <input type="text" class="form-control" placeholder="Lieu" name="lieu" value="@ViewData["lieu"]">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            }
+            
         </nav>
     </header>
     <div class="container">

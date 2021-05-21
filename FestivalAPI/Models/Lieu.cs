@@ -18,7 +18,6 @@ namespace FestivalAPI.Models
         public ICollection<Festival> Festivals { get; set; }
         public ICollection<Festivalier> Festivaliers { get; set; }
         public ICollection<Scene> Scenes { get; set; }
-        public ICollection<Hebergement> Hebergements { get; set; }
         public Lieu() { }
     }
 }

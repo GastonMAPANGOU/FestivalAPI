@@ -58,10 +58,9 @@ namespace FestivalDeMusique.Views
                 {
                     textBoxEmail.Text = "";
                     passwordTextBox.Password = "";
-                    Hide();
-                    MenuGestionnaire menu = new MenuGestionnaire();
-                    menu.ShowDialog();
-                    Show();
+                    Dashboard menu = new Dashboard();
+                    menu.Show();
+                    Close();
                 }
                 else
                 {
@@ -72,7 +71,6 @@ namespace FestivalDeMusique.Views
 
         private bool CheckCredentials(string email, string pass)
         {
-            return true;
             Gimi gimi = API.API.Instance.GetGimi(email, pass).Result;
             try
             {

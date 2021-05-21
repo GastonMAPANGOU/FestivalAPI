@@ -188,6 +188,7 @@ namespace WebApplication1.ControllersAPI
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/festivals", festival);
+                int n = AjoutJoursAsync(festival).Result;
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }

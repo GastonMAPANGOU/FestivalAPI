@@ -91,5 +91,19 @@ namespace FestivalDeMusique.Views
         {
             Reload();
         }
+
+        private void festivalGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Festival festivalA = festivalGrid.SelectedItem as Festival;
+                ConsulterFestival modificationFestival = new ConsulterFestival(festivalA);
+                modificationFestival.Show();
+            }
+            catch(Exception ex)
+            {
+                
+            }
+        }
     }
 }
