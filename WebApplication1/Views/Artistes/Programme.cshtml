@@ -1,0 +1,88 @@
+﻿@model IEnumerable<FestivalAPI.Models.Festival_Artiste>
+@using FestivalAPI.Models
+@using WebApplication1.ControllersAPI
+
+@{
+    ViewData["Title"] = "Index";
+    IEnumerable<FestivalAPI.Models.Festival> festivals = WebApplication1.ControllersAPI.API.Instance.GetFestivalsAsync().Result;
+    IEnumerable<FestivalAPI.Models.Artiste> artistes = WebApplication1.ControllersAPI.API.Instance.GetArtistesAsync().Result;
+    IEnumerable<FestivalAPI.Models.Scene> scenes = WebApplication1.ControllersAPI.API.Instance.GetScenesAsync().Result;
+    IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result;
+}
+
+<h1>Programm Of Festivals</h1>
+
+<p>
+
+</p>
+<table class="table">
+    <thead>
+        <tr>
+        <tr>
+            <th>
+                Nom_Festival
+            </th>
+            <th>
+                Nom_Artiste
+            </th>
+            <th>
+                Nom_Scene
+            </th>
+            <th>
+                Numero_jour
+            </th>
+            <th>
+                Date_jour
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+                <tr>
+                    <td>
+                        @foreach (var it in festivals)
+                        {
+                            if (item.FestivalId == it.IdF)
+                            {
+                                @Html.DisplayFor(modelItem => it.Nom)}
+                        }
+                    </td>
+                    <td>
+                        @foreach (var it in artistes)
+                        {
+                            if (item.ArtisteId == it.IdA)
+                            {
+                                @Html.DisplayFor(modelItem => it.Nom)}
+                        }
+                    </td>
+                    <td>
+                        @foreach (var it in scenes)
+                        {
+                            if (item.SceneId == it.IdS)
+                            {
+                                @Html.DisplayFor(modelItem => it.Nom)}
+                        }
+                    </td>
+                    <td>
+                        @foreach (var it in jours)
+                        {
+                            if (item.JourId == it.IdJ)
+                            {
+                                @Html.DisplayFor(modelItem => it.Numero_jour)}
+                        }
+                    </td>
+                    <td>
+                        @foreach (var it in jours)
+                        {
+                            if (item.JourId == it.IdJ)
+                            {
+                                @Html.DisplayFor(modelItem => it.Date_jour)}
+                        }
+                    </td>
+                </tr>
+
+        }
+    </tbody>
+</table>
