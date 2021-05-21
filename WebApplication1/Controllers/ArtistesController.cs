@@ -336,5 +336,24 @@ namespace WebApplication1.Controllers
             }
             return Redirect("/Artistes/Favoris");
         }
+        public ActionResult ListeFavoris()
+        {
+            List<Favoris> Favoris = (List<Favoris>)API.Instance.GetFavorisAsync().Result;
+            return View(Favoris);
+        }        
+        public ActionResult Programme(int? id)
+        {
+            if(id == null)
+            {
+                return View(API.Instance.GetFestival_ArtistesAsync().Result);
+            }
+            else
+            {
+                return View(API.Instance.GetFestival_ArtistesAsync().Result.Where(f=>f.ArtisteId==id));
+            }
+            
+        }
+
+
     }
 }

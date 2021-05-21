@@ -66,7 +66,7 @@ namespace WebApplication1.Controllers
                 {
                     foreach (var idcommune in communefes)
                     {
-                        var commune = API.Instance.GetLieuAsync(idcommune.LieuId).Result;
+                        var commune = API.Instance.GetLieuAsync(idcommune.IdF).Result;
                         var Lieu = API.Instance.GetFestivalAsync(commune.IdL).Result;
                         festivals.Add(Lieu);
                     }
