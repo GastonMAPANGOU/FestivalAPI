@@ -13,8 +13,8 @@
 
     double somme = Model.Montant;
     festivalier.FestivalId = Model.IdF;
+    IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result.Where(j => j.FestivalId==Model.IdF);
 
-    IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result.Where(s => s.FestivalId == Model.IdF);
     IEnumerable<FestivalAPI.Models.Lieu> lieux = WebApplication1.ControllersAPI.API.Instance.GetLieuxAsync().Result;
     IEnumerable<FestivalAPI.Models.Genre> genres = WebApplication1.ControllersAPI.API.Instance.GetGenresAsync().Result;
     }

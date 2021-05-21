@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Views\Festivals\AjoutArtiste.cshtml" />
+    <Content Remove="Views\Festivals\AjoutHebergement.cshtml" />
+    <Content Remove="Views\Festivals\AjoutScene.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.6">
@@ -19,8 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\img\artistes\extraits\" />
+    <Folder Include="wwwroot\img\artistes\photos\" />
     <Folder Include="wwwroot\img\logos\" />
-    <Folder Include="wwwroot\img\artistes\" />
     <Folder Include="wwwroot\img\festivals\" />
   </ItemGroup>
 
@@ -30,7 +37,10 @@
     <None Include="Views\Artistes\Details.cshtml" />
     <None Include="Views\Artistes\Edit.cshtml" />
     <None Include="Views\Artistes\Index.cshtml" />
-    <None Include="Views\Scenes\Create.cshtml" />
+    <None Include="Views\Festivals\AjoutHebergement.cshtml" />
+    <None Include="Views\Festivals\AjoutArtiste.cshtml" />
+    <None Include="Views\Festivals\AjoutScene.cshtml" />
+    <None Include="Views\Scenes\AjoutScene.cshtml" />
     <None Include="Views\Scenes\Delete.cshtml" />
     <None Include="Views\Scenes\Details.cshtml" />
     <None Include="Views\Scenes\Edit.cshtml" />

@@ -1,0 +1,56 @@
+﻿@model FestivalAPI.Models.Festival
+@{
+    ViewData["Title"] = "Create";
+    FestivalAPI.Models.Scene scene = new FestivalAPI.Models.Scene();
+    scene.FestivalId = Model.IdF;
+    scene.LieuId = Model.LieuId;
+}
+
+<h1>Create</h1>
+
+<h4>Scene</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="@scene.FestivalId" />
+            <input type="hidden" asp-for="@scene.LieuId" />
+            <div class="form-group">
+                <label asp-for="@scene.Nom" class="control-label"></label>
+                <input asp-for="@scene.Nom" class="form-control" />
+                <span asp-validation-for="@scene.Nom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@scene.Adresse" class="control-label"></label>
+                <input asp-for="@scene.Adresse" class="form-control" />
+                <span asp-validation-for="@scene.Adresse" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@scene.Capacite" class="control-label"></label>
+                <input asp-for="@scene.Capacite" type="number" class="form-control" />
+                <span asp-validation-for="@scene.Capacite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@scene.Accessibilite" class="control-label">Décrivez l'accessiblité à la scène</label>
+                <input asp-for="@scene.Accessibilite" class="form-control" />
+                <span asp-validation-for="@scene.Accessibilite" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+
+
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
