@@ -44,13 +44,31 @@
                         <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Index">Festivals</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Organisateurs" asp-action="Index">Organisateurs</a>
-                    </li>
 
                     <li class="nav-item">
                         <a class="nav-link " asp-area="" asp-controller="Artistes" asp-action="Index">Artistes</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link " asp-area="" asp-controller="Organisateurs" asp-action="Index">Organisateurs</a>  
+                    </li>
+
+                    @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisteur")))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Artistes" asp-action="Create">Enregistrer un Artiste</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Create">Enregistrer un festival</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="" asp-action="">Ouvrir les inscriptions</a>
+                        </li>
+                    }
+
+
+
+
                     @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")))
                     {
                         <li class="nav-item">
