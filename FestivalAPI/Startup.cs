@@ -59,8 +59,8 @@ namespace FestivalAPI
             //Ajout pour création bdd
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<FestivalAPIContext>();
-               context.Database.EnsureDeleted();
+               var context = serviceScope.ServiceProvider.GetRequiredService<FestivalAPIContext>();
+               //context.Database.EnsureDeleted();
                context.Database.EnsureCreated();
             }
         }

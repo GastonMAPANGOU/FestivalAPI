@@ -24,9 +24,8 @@
 
         <div class="card-body">
             <h5 class="card-title">
-                @Html.DisplayFor(modelItem => item.Nom)
+                @Html.DisplayFor(modelItem => item.Pseudo)
             </h5>
-            <p class="card-text">@(item.Prenom + " " + item.Nom)</p>
 
             @if (WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result == null)
             {

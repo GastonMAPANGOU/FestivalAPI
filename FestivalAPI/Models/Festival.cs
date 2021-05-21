@@ -16,13 +16,14 @@ namespace FestivalAPI.Models
         public string Descriptif { get; set; }
         public bool IsFree { get; set; }
         public bool IsCanceled { get; set; }
+        //public bool InscriptionsArePossible { get; set; }
         public int NbPlacesDispo { get; set; }
         public double Montant { get; set; }
         public DateTime Date_Debut { get; set; }
         public DateTime Date_Fin { get; set; }
         [ForeignKey("FK_Lieu")]
         public int LieuId { get; set; }
-        public Organisateur Organisateur { get; set; }
+        public ICollection<Organisateur> Organisateurs { get; set; }
         public ICollection<Festivalier> Festivaliers { get; set; }
         public ICollection<Hebergement> Hebergements { get; set; }
         public ICollection<Festival_Artiste> Festival_Artistes { get; set; }
