@@ -67,14 +67,14 @@ namespace FestivalDeMusique.Views
             
         }
 
-        private async void ModifierOnClick(object sender, RoutedEventArgs e)
+        private void ModifierOnClick(object sender, RoutedEventArgs e)
         {
             
             Festival festival = festivalAModifier;
-            festival.IsCanceled = true;
-            System.Net.Http.HttpResponseMessage response = await API.API.Instance.ModifFestivalAsync(festival);
-            _ = MessageBox.Show("Annulation du festival en cours");
-            if (response.IsSuccessStatusCode)
+            EnvoyerEmail envoyerEmail = new EnvoyerEmail(festival);
+            envoyerEmail.ShowDialog();
+            bool IsCanceled = envoyerEmail.IsCanceled;
+            if (IsCanceled)
             {
                 MessageBox.Show("Festival annulé");
             }
