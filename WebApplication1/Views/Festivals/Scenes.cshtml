@@ -1,0 +1,58 @@
+﻿@model IEnumerable<FestivalAPI.Models.Scene>
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Index";
+    IEnumerable<FestivalAPI.Models.Lieu> lieux = WebApplication1.ControllersAPI.API.Instance.GetLieuxAsync().Result;
+}
+
+<h1><strong>GESTION DES SCENES</strong></h1>
+<a role="button" id="lastActualButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Festivals" asp-action="AjoutScene"> ajouter une scene</a>
+
+
+
+@foreach (var item in Model)
+{
+    <div class="col">
+        <div class="card shadow mb-4 text-center">
+
+            <div class="card-body">
+
+                <a asp-controller="Scenes" asp-action="Details" asp-route-id="@item.IdS">
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </a>
+            </div>
+            @if ((HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisateur")))
+            {
+                <a class="btn btn-primary" asp-controller="Artistes" asp-action="Edit" asp-route-id="@item.IdS"> Modifier </a>
+                <a class="btn btn-primary" asp-controller="Artistes" asp-action="Delete" asp-route-id="@item.IdS">Supprimer</a>
+            }
+        </div>
+    </div>}
+
+
+@*
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div cclass="card-deck" style="width: 50%; height : 70%; margin-bottom: 15px; margin-right: 5px;">
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @Html.DisplayFor(modelItem => item.Nom)
+                            @Html.DisplayFor(modelItem => item.Prenom)
+                        </h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Nb_ParticipantsPT)</p>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Somme)€(euro)</p>
+
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Savoir Plus</a>
+                        <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                    </div>
+                </div>
+            </div>}
+
+    </div>
+*@

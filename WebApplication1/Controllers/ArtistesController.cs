@@ -185,9 +185,9 @@ namespace WebApplication1.Controllers
             // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
             [HttpPost]
             [ValidateAntiForgeryToken]
-            public IActionResult Edit(int id, [Bind("IdA,Nom,Prenom,Photo,StyleId,Descriptif,PaysId,Extrait")] Artiste artiste, IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment)
-            {
-
+        public IActionResult Edit(Artiste artiste, IFormFile file, IFormFile file2, [FromServices] IHostingEnvironment hostingEnvironment)
+        {
+            //taf de la photo
             int taillemax = 2097152;
 
             List<String> extensionsvalides = new List<String>();
@@ -197,49 +197,76 @@ namespace WebApplication1.Controllers
             extensionsvalides.Add(".gif");
             extensionsvalides.Add(".png");
             extensionsvalides.Add(".jfif");
-            string fileNamtre = file.FileName;
 
-            string fileName = "img/artistes/" + artiste.Nom;
-            string extension = Path.GetExtension(file.FileName);
-            string chemin = fileName + extension.ToLower();
-            if (file.Length < taillemax && extensionsvalides.Contains(extension))
+            if (file != null)
             {
-                using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
+                string fileName = "img/artistes/photos/" + artiste.Nom;
+                string extension = Path.GetExtension(file.FileName);
+                string chemin = fileName + extension.ToLower();
+                //taf de l'extrait musical
+
+                if (file.Length < taillemax && extensionsvalides.Contains(extension))
                 {
-                    file.CopyTo(fileStream);
-                    fileStream.Flush();
-                }
-                artiste.Photo = chemin;
-
-
-
-                int drapeau = 0;
-                IEnumerable<Artiste> Artistes = API.Instance.GetArtistesAsync().Result;
-                foreach (var item in Artistes)
-                {
-                    if (item.Nom == artiste.Nom)
+                    if (System.IO.File.Exists(chemin))
                     {
-                        drapeau++;
+                        System.IO.File.Delete(chemin);
                     }
-                }
+                    using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
+                    {
+                        file.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
 
-                if (ModelState.IsValid && drapeau == 0)
-                {
-                    var URI = API.Instance.ModifArtisteAsync(artiste);
-                    return RedirectToAction(nameof(Index));
+                    artiste.Photo = chemin;
                 }
-                else if (drapeau != 0)
+                else
                 {
-                    return RedirectToAction(nameof(Index));
+                    ModelState.AddModelError("error", "Extension du fichier non reconnu ou le fichier est trop lourd");
+                    return View(artiste);
+                }
+                
+            }
+
+            if (file2 != null)
+            {
+                //taf de l'extrait musical
+                List<String> extensionsvalides2 = new List<String>();
+                List<String> strcut2 = new List<String>();
+                extensionsvalides2.Add(".mp3");
+
+
+                string fileName2 = "img/artistes/extraits/" + artiste.Nom;
+                string extension2 = Path.GetExtension(file2.FileName);
+                string chemin2 = fileName2 + extension2.ToLower();
+                if (extensionsvalides2.Contains(extension2))
+                {
+                    if (System.IO.File.Exists(chemin2))
+                    {
+                        System.IO.File.Delete(chemin2);
+                    }
+                    using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin2))
+                    {
+                        file2.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+
+                    artiste.Extrait = chemin2;
+                }
+                else
+                {
+                    ModelState.AddModelError("error", "Extension du fichier non reconnu");
+                    return View(artiste);
                 }
             }
-            return View(artiste);
-            }
+            var URI = API.Instance.ModifArtisteAsync(artiste);
+            return RedirectToAction(nameof(Index));
+            
+        }
 
 
 
-            // GET: Artiste/Delete/5
-            public IActionResult Delete(int? id)
+        // GET: Artiste/Delete/5
+        public IActionResult Delete(int? id)
             {
                 /*if (id == null)
                 {

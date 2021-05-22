@@ -1,0 +1,49 @@
+﻿@model IEnumerable<FestivalAPI.Models.Festivalier>
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{ ViewData["Title"] = "Index"; }
+<h1>Listes des Festivaliers</h1>
+@{ ViewData["Title"] = "Index";
+    IEnumerable<FestivalAPI.Models.Festivalier> festivaliers = WebApplication1.ControllersAPI.API.Instance.GetFestivaliersAsync().Result;
+}
+<h1>Festivaliers</h1>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Pseudonyme
+            </th>
+            <th>
+                Nbre de places PT
+            </th>
+            <th>
+                Nbre de places DT
+            </th>
+            <th>
+                Côut du ticket
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pseudo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nb_ParticipantsPT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nb_ParticipantsDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Somme)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
