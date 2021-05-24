@@ -16,7 +16,7 @@ namespace FestivalAPI.Data
             List<Rapport_Activite>rapport_Activites = new List<Rapport_Activite>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Rapport_Activite where Departement = " + Departement;
+                string sqlQuery = "Select * from Rapport_Activite where Departement = '" + Departement +"'";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -46,7 +46,7 @@ namespace FestivalAPI.Data
             List<Rapport_Activite> rapport_Activites = new List<Rapport_Activite>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Rapport_Activite where Region = " + Region;
+                string sqlQuery = "Select * from Rapport_Activite where Region = '" + Region +"'" ;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();

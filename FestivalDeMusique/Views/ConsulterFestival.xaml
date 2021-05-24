@@ -122,8 +122,7 @@
                                 HorizontalAlignment="Right">
                             <Image Source="/images/outlook.png"
                                    Height="50" Width="50"
-                                   x:Name="imageUI"
-                                   MouseDown="imageUI_MouseDown"/>
+                                   x:Name="imageUI"/>
                         </Border>
 
                     </Grid>

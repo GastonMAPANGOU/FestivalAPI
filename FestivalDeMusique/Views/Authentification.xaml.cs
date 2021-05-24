@@ -56,12 +56,12 @@ namespace FestivalDeMusique.Views
                 //pass = Hash(pass);
                 if (CheckCredentials(email, pass))
                 {
-                    textBoxEmail.Text = "";
-                    passwordTextBox.Password = "";
-                    Hide();
-                    MenuGestionnaire menu = new MenuGestionnaire();
-                    menu.ShowDialog();
-                    Show();
+                    Gimi gimi = new Gimi();
+                    gimi.Nom = "Hello";
+                    gimi.Prenom = "World";
+                    Dashboard menu = new Dashboard(gimi);
+                    menu.Show();
+                    Close();
                 }
                 else
                 {
@@ -86,7 +86,7 @@ namespace FestivalDeMusique.Views
         private string Hash(String mdp)
         {
             var bytes = new UTF8Encoding().GetBytes(mdp);
-            var hashBytes = System.Security.Cryptography.MD5.Create().ComputeHash(bytes);
+            var hashBytes = System.Security.Cryptography.SHA256.Create().ComputeHash(bytes);
             return Convert.ToBase64String(hashBytes);
         }
 

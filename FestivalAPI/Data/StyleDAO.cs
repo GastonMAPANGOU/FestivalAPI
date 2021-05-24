@@ -17,7 +17,7 @@ namespace FestivalAPI.Data
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Style";
+                string sqlQuery = "Select * from dbo.Style";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
 
@@ -47,7 +47,7 @@ namespace FestivalAPI.Data
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select Nom from Style";
+                string sqlQuery = "Select Nom from dbo.Style";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
 
@@ -71,7 +71,7 @@ namespace FestivalAPI.Data
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select Id from Style where nom = "+search;
+                string sqlQuery = "Select Id from dbo.Style where nom = "+search;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
 

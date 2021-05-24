@@ -812,30 +812,6 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<ICollection<Departement>> GetDepartementsAsync()
-        {
-            ICollection<Departement> departements = new List<Departement>();
-            HttpResponseMessage response = client.GetAsync("api/departements").Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var resp = await response.Content.ReadAsStringAsync();
-                departements = JsonConvert.DeserializeObject<List<Departement>>(resp);
-            }
-            return departements;
-        }
-
-        public async Task<Departement> GetDepartementAsync(int? id)
-        {
-            Departement departement = null;
-            HttpResponseMessage response = client.GetAsync("api/departements/" + id).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                var resp = await response.Content.ReadAsStringAsync();
-                departement = JsonConvert.DeserializeObject<Departement>(resp);
-            }
-            return departement;
-        }
-
         public async Task<Uri> AjoutDepartementAsync(Departement departement)
         {
             try
