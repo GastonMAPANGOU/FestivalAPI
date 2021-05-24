@@ -175,6 +175,7 @@ namespace FestivalDeMusique.API
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/festivals", festival);
+                int n = AjoutJoursAsync(festival).Result;
                 response.EnsureSuccessStatusCode();
                 return response;
             }
@@ -183,6 +184,28 @@ namespace FestivalDeMusique.API
                 Console.WriteLine(ex.Message);
             }
             return null;
+        }
+
+        public async Task<int> AjoutJoursAsync(Festival festival)
+        {
+            DateTime date = festival.Date_Debut;
+            Jour jour = new Jour();
+            jour.FestivalId = festival.IdF;
+            int i = 1;
+            //Festival_Artiste festival_Artiste = new Festival_Artiste();
+
+            jour.Date_jour = date;
+
+            while (jour.Date_jour < festival.Date_Fin)
+            {
+
+                jour.Numero_jour = "Jour" + i;
+                await AjoutJourAsync(jour);
+                jour.Date_jour = jour.Date_jour.AddDays(1);
+                i++;
+            }
+            return i;
+
         }
 
         public async Task<HttpResponseMessage> ModifFestivalAsync(Festival festival)
@@ -924,6 +947,30 @@ namespace FestivalDeMusique.API
                 Console.WriteLine(ex.Message);
             }
             return null;
+        }
+
+        public async Task<Festivalier> GetFestivalier(string login, string pwd)
+        {
+            Festivalier festivalier = null;
+            HttpResponseMessage response = client.GetAsync("api/festivaliers/" + login + "/" + pwd).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                festivalier = JsonConvert.DeserializeObject<Festivalier>(resp);
+            }
+            return festivalier;
+        }
+
+        public async Task<ICollection<Festivalier>> GetFestivaliersAsync()
+        {
+            ICollection<Festivalier> festivaliers = new List<Festivalier>();
+            HttpResponseMessage response = client.GetAsync("api/festivaliers").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                festivaliers = JsonConvert.DeserializeObject<List<Festivalier>>(resp);
+            }
+            return festivaliers;
         }
 
 

@@ -47,13 +47,18 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Button Content="Valider"
                         Grid.Column="0"
                         Margin="10 0 10 0"
                         Click="ValiderOrganisateur"/>
-                <Button Content="Actualiser"
+                <Button Content="Supprimer"
                         Grid.Column="1"
+                        Margin="10 0 10 0"
+                        Click="ValiderOrganisateur"/>
+                <Button Content="Actualiser"
+                        Grid.Column="2"
                         Margin="10 0 10 0"
                         Click="RechargerPage"/>
             </Grid>

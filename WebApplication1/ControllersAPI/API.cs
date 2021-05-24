@@ -188,6 +188,7 @@ namespace WebApplication1.ControllersAPI
             try
             {
                 HttpResponseMessage response = await client.PostAsJsonAsync("api/festivals", festival);
+                int n = AjoutJoursAsync(festival).Result;
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -372,7 +373,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<ICollection<Festival_Artiste>> GetFestival_ArtistesAsync()
         {
             ICollection<Festival_Artiste> festival_Artistes = new List<Festival_Artiste>();
-            HttpResponseMessage response = client.GetAsync("api/festival_Artistes").Result;
+            HttpResponseMessage response = client.GetAsync("api/festival_Artiste").Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -384,7 +385,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<Festival_Artiste> GetFestival_ArtisteAsync(int? id)
         {
             Festival_Artiste festival_Artiste = null;
-            HttpResponseMessage response = client.GetAsync("api/festival_Artistes/" + id).Result;
+            HttpResponseMessage response = client.GetAsync("api/festival_Artiste/" + id).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -397,7 +398,7 @@ namespace WebApplication1.ControllersAPI
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/festival_Artistes", festival_Artiste);
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/festival_Artiste", festival_Artiste);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -412,7 +413,7 @@ namespace WebApplication1.ControllersAPI
         {
             try
             {
-                HttpResponseMessage response = await client.PutAsJsonAsync("api/festival_Artistes/" + festival_Artiste.Id, festival_Artiste);
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/festival_Artiste/" + festival_Artiste.Id, festival_Artiste);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -427,7 +428,7 @@ namespace WebApplication1.ControllersAPI
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync("api/festival_Artistes/" + id);
+                HttpResponseMessage response = await client.DeleteAsync("api/festival_Artiste/" + id);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -878,7 +879,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<ICollection<Type_Hebergement>> GetType_HebergementsAsync()
         {
             ICollection<Type_Hebergement> type_Hebergements = new List<Type_Hebergement>();
-            HttpResponseMessage response = client.GetAsync("api/type_Hebergements").Result;
+            HttpResponseMessage response = client.GetAsync("api/type_Hebergement").Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -903,7 +904,7 @@ namespace WebApplication1.ControllersAPI
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/type_Hebergements", type_Hebergement);
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/type_Hebergement", type_Hebergement);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -918,7 +919,7 @@ namespace WebApplication1.ControllersAPI
         {
             try
             {
-                HttpResponseMessage response = await client.PutAsJsonAsync("api/type_Hebergements/" + type_Hebergement.IDTH, type_Hebergement);
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/type_Hebergement/" + type_Hebergement.IDTH, type_Hebergement);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -933,7 +934,7 @@ namespace WebApplication1.ControllersAPI
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync("api/type_Hebergements/" + id);
+                HttpResponseMessage response = await client.DeleteAsync("api/type_Hebergement/" + id);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }

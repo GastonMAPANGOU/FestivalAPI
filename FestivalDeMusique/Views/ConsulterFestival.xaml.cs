@@ -29,6 +29,7 @@ namespace FestivalDeMusique.Views
         private readonly Festival festivalAModifier;
         private readonly Lieu lieuFestival;
         private string path;
+        private OrganisateursFestival organisateursFestival = null;
         public ConsulterFestival(Festival festival)
         {
             InitializeComponent();
@@ -67,14 +68,14 @@ namespace FestivalDeMusique.Views
             
         }
 
-        private async void ModifierOnClick(object sender, RoutedEventArgs e)
+        private void ModifierOnClick(object sender, RoutedEventArgs e)
         {
             
             Festival festival = festivalAModifier;
-            festival.IsCanceled = true;
-            System.Net.Http.HttpResponseMessage response = await API.API.Instance.ModifFestivalAsync(festival);
-            _ = MessageBox.Show("Annulation du festival en cours");
-            if (response.IsSuccessStatusCode)
+            EnvoyerEmail envoyerEmail = new EnvoyerEmail(festival);
+            envoyerEmail.ShowDialog();
+            bool IsCanceled = envoyerEmail.IsCanceled;
+            if (IsCanceled)
             {
                 MessageBox.Show("Festival annulé");
             }
@@ -89,10 +90,22 @@ namespace FestivalDeMusique.Views
         {
             Close();
         }
-        private void AnnulerOnClick(object sender, RoutedEventArgs e)
+
+        private void Organisateurs_ButtonClick(object sender, RoutedEventArgs e)
         {
-            //FillFestivalData();
-            Close();
+            if(organisateursFestival != null)
+            {
+                organisateursFestival = new OrganisateursFestival(festivalAModifier);
+                organisateursFestival.Show();
+            }
+            else
+            {
+                if (!organisateursFestival.IsActive)
+                {
+                    organisateursFestival = new OrganisateursFestival(festivalAModifier);
+                    organisateursFestival.Show();
+                }
+            }
         }
 
         private int NomCommuneToId(String commune)

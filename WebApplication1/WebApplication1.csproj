@@ -1,10 +1,18 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\img\festivals\**" />
+    <Content Remove="wwwroot\img\festivals\**" />
+    <EmbeddedResource Remove="wwwroot\img\festivals\**" />
+    <None Remove="wwwroot\img\festivals\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.6" />
     <PackageReference Include="bootstrap" Version="4.6.0" />
     <PackageReference Include="Chart.js" Version="2.9.3" />
     <PackageReference Include="ChartJS" Version="20.2.7" />
@@ -24,10 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\img\artistes\extraits\" />
+    <Folder Include="wwwroot\img\artistes\photos\" />
     <Folder Include="Views\Rapport\" />
     <Folder Include="wwwroot\img\logos\" />
-    <Folder Include="wwwroot\img\artistes\" />
-    <Folder Include="wwwroot\img\festivals\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -36,11 +44,53 @@
     <None Include="Views\Artistes\Details.cshtml" />
     <None Include="Views\Artistes\Edit.cshtml" />
     <None Include="Views\Artistes\Index.cshtml" />
-    <None Include="Views\Scenes\Create.cshtml" />
     <None Include="Views\Scenes\Delete.cshtml" />
     <None Include="Views\Scenes\Details.cshtml" />
     <None Include="Views\Scenes\Edit.cshtml" />
     <None Include="Views\Scenes\Index.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Styles\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Styles\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Styles\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Styles\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Styles\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Type_Hebergements\Create.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Type_Hebergements\Delete.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Type_Hebergements\Details.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Type_Hebergements\Edit.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Views\Type_Hebergements\Index.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

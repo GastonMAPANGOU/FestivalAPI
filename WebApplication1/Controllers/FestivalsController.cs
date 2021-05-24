@@ -16,6 +16,8 @@ namespace WebApplication1.Controllers
 {
     public class FestivalsController : Controller
     {
+        private FestivalAPI.Data.SendMail sendMail;
+        
         /* private readonly APIContext _context;
 
  
@@ -45,6 +47,8 @@ namespace WebApplication1.Controllers
             IEnumerable<Lieu> communes = API.Instance.GetLieuxAsync().Result;
             List<Festival> festivals = new List<Festival>();
 
+
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 //var rech = artistes.Where(e => e.Nom.Contains(searchString)).Select(e => e.Artiste_Festival);
@@ -62,7 +66,7 @@ namespace WebApplication1.Controllers
                 {
                     foreach (var idcommune in communefes)
                     {
-                        var commune = API.Instance.GetLieuAsync(idcommune.LieuId).Result;
+                        var commune = API.Instance.GetLieuAsync(idcommune.IdF).Result;
                         var Lieu = API.Instance.GetFestivalAsync(commune.IdL).Result;
                         festivals.Add(Lieu);
                     }
@@ -95,6 +99,78 @@ namespace WebApplication1.Controllers
 
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public IActionResult Index(string lieu, string artiste, string style)
+        {
+            //return View(await _context.Region.Include("Links").ToListAsync());
+
+            //IEnumerable<Region> regions = API.Instance.GetRegionsAsync().Result;
+            //return View(regions);
+            var lieux = from m in API.Instance.GetLieuxAsync().Result
+                          select m;
+            var artistes = from m in API.Instance.GetArtistesAsync().Result
+                        select m;
+            var styles = from m in API.Instance.GetArtistesAsync().Result
+                           select m;
+            ICollection<Festival_Artiste> festival_Artistes = new List<Festival_Artiste>();
+            ICollection<Festival> festivals = new List<Festival>();
+            ICollection<Artiste> artistes2 = new List<Artiste>();
+
+            if (!String.IsNullOrEmpty(lieu))
+            {
+                lieux = lieux.Where(s => s.Commune.Contains(lieu));
+                foreach (var unlieu in lieux)
+                {
+                    foreach (var scene in unlieu.Scenes)
+                    {
+                        Scene scene1 = API.Instance.GetSceneAsync(scene.FestivalId).Result;
+                        foreach(var festivalartiste in scene1.Festival_Artistes)
+                        {
+                            if (!festival_Artistes.Contains(festivalartiste))
+                                festival_Artistes.Add(festivalartiste);
+                        }
+                    }
+
+                }
+            }
+
+            if (!String.IsNullOrEmpty(artiste))
+            {
+                artistes = artistes.Where(s => s.Nom.Contains(artiste));
+                foreach (var art in artistes)
+                {
+                    Artiste artist = API.Instance.GetArtisteAsync(art.FestivalId).Result;
+                    foreach (var festivalartiste in artist.Festival_Artistes)
+                    {
+                        if (!festival_Artistes.Contains(festivalartiste))
+                            festival_Artistes.Add(festivalartiste);
+                    }
+                }
+            }
+
+            
+
+            if (!String.IsNullOrEmpty(style))
+            {
+                styles = styles.Where(s => s.Nom.Contains(style));
+                foreach (var sty in styles)
+                {
+                    artistes2.Add(API.Instance.GetArtisteAsync((int)sty.FestivalId).Result);
+                    foreach (var art in artistes2)
+                    {
+                        Artiste artist = API.Instance.GetArtisteAsync(art.FestivalId).Result;
+                        foreach (var festivalartiste in artist.Festival_Artistes)
+                        {
+                            if (!festival_Artistes.Contains(festivalartiste))
+                                festival_Artistes.Add(festivalartiste);
+                        }
+                    }
+                }
+            }
+            return View(festival_Artistes);
+        }
 
 
         // GET: Festival/Details/5
@@ -233,42 +309,10 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("IdF,Nom,Logo,Descriptif,Date_Debut,Date_Fin,LieuId")] Festival Festival)
         {
-            /*if (id != Festival.Id)
-            {
-                return NotFound();
-            }
-
- 
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(Festival);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FestivalExists(Festival.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(Festival);*/
             if (id != Festival.IdF)
             {
                 return NotFound();
             }
-
-
-
-
 
             if (ModelState.IsValid)
             {
@@ -342,24 +386,24 @@ namespace WebApplication1.Controllers
             return View(API.Instance.GetFestivalAsync(id).Result);
         }
 
-        
-
 
         // POST: Festivalier/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AjoutFestivalier(Festivalier festivalier, double somme, int festivalId)
+        public IActionResult AjoutFestivalier(Festivalier festivalier)
         {
-            Festival festival = API.Instance.GetFestivalAsync(festivalId).Result;
-            if(festival.NbPlacesDispo< (festivalier.Nb_ParticipantsDT+ festivalier.Nb_ParticipantsPT))
+            Festival festival = API.Instance.GetFestivalAsync(festivalier.FestivalId).Result;
+            festivalier.IsPublished = false;
+            festival.NbPlacesDispo = festival.NbPlacesDispo-(festivalier.Nb_ParticipantsDT + festivalier.Nb_ParticipantsPT);
+            if (festival.NbPlacesDispo< (festivalier.Nb_ParticipantsDT+ festivalier.Nb_ParticipantsPT))
             {
                 ModelState.AddModelError("error", "Pas assez de  places disponibles ? veuillez en prendre moins!");
-                return AjoutFestivalier(festivalId);
+                return AjoutFestivalier(festivalier.FestivalId);
             }
-            festivalier.Somme = (festivalier.Nb_ParticipantsPT * somme + festivalier.Nb_ParticipantsDT * somme * 0.5)*festivalier.NbJours;
-            festivalier.FestivalId = festivalId;
+            festivalier.Somme = (festivalier.Nb_ParticipantsPT * festival.Montant + festivalier.Nb_ParticipantsDT * festival.Montant * 0.5)*festivalier.NbJours;
+            
             festivalier.Date_Inscription = DateTime.Now;
             int drapeau = 0;
             
@@ -377,6 +421,12 @@ namespace WebApplication1.Controllers
 
                 if (ModelState.IsValid && drapeau == 0)
                 {
+                    sendMail = new FestivalAPI.Data.SendMail();
+                    string mailSubject="Inscription au festival "+festival.Nom;
+                    string content="Votre inscripion au festival "+festival.Nom+" a bien été prise en compte vous allez bientôt recevoir un mail de confirmation. <br> pour l'instant vous pouvez d'ores et déjà vous connecter sur notre site internet <br> <br> Cordialement <br> <br> A bientôt sur Festi'Normandie." ;
+                    
+                    sendMail.ActionSendMail(festivalier.Login, mailSubject, content);
+                    
                     var URI = API.Instance.AjoutFestivalierAsync(festivalier);
                     var URI2 = API.Instance.ModifFestivalAsync(festival);
                     return RedirectToAction(nameof(Index));
@@ -394,7 +444,308 @@ namespace WebApplication1.Controllers
             return View(festivalier);
         }
 
-        
+        public IActionResult AjoutScene()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if(festival==null)
+            {
+                return null;
+            }
+                     
+            return View(festival);
+        }
+
+
+        // POST: Scene/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AjoutScene(Scene scene)
+        {
+            
+            int drapeau = 0;
+
+            IEnumerable<Scene> scenes = API.Instance.GetScenesAsync().Result;
+
+            
+            foreach (var item in scenes)
+            {
+                if (item.Nom == scene.Nom)
+                {
+                    drapeau++;
+                }
+            }
+
+            if (ModelState.IsValid && drapeau == 0)
+            {
+                var URI = API.Instance.AjoutSceneAsync(scene);
+                return RedirectToAction(nameof(Index));
+            }
+            else if (drapeau != 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            
+            
+
+            return View(scene);
+        }
+
+        public IActionResult EditScene(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }
+
+
+        // POST: Scene/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditScene(Scene scene)
+        {
+            var URI = API.Instance.ModifSceneAsync(scene);
+            return View(scene);
+        }
+
+        public IActionResult DeleteScene(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }
+
+
+        // POST: Scene/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmedScene(int id)
+        {
+            var URI = API.Instance.SupprSceneAsync(id);
+            return Redirect("/Festivals/Festivaliers");
+        }
+
+        public IActionResult AjoutHebergement()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival);
+        }
+
+
+        // POST: Hebergement/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AjoutHebergement(Hebergement hebergement)
+        {
+
+            int drapeau = 0;
+
+            IEnumerable<Hebergement> hebergements = API.Instance.GetHebergementsAsync().Result;
+
+
+            foreach (var item in hebergements)
+            {
+                if (item.Nom == hebergement.Nom)
+                {
+                    drapeau++;
+                }
+            }
+
+            if (ModelState.IsValid && drapeau == 0)
+            {
+                var URI = API.Instance.AjoutHebergementAsync(hebergement);
+                return RedirectToAction(nameof(Index));
+            }
+            else if (drapeau != 0)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+
+
+            return View(hebergement);
+        }
+
+        public IActionResult EditHebergement(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }
+
+
+        // POST: Hebergement/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditHebergement(Hebergement hebergement)
+        {
+            var URI = API.Instance.ModifHebergementAsync(hebergement);
+            return View(hebergement);
+        }
+
+        public IActionResult DeleteHebergement(int? id)
+        {
+            if (id == null)
+            {
+                return null;
+            }
+            return View(API.Instance.GetFestivalAsync(id).Result);
+        }
+
+
+        // POST: Hebergement/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmedHebergement(int id)
+        {
+            var URI = API.Instance.SupprHebergementAsync(id);
+            return Redirect("/Festivals/Festivaliers");
+        }
+
+        // GET: Artiste/Create
+        public IActionResult AjoutArtiste()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival);
+        }
+
+
+
+        // POST: Artiste/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AjoutArtiste(Artiste artiste, IFormFile file, IFormFile file2, [FromServices] IHostingEnvironment hostingEnvironment)
+        {
+            //taf de la photo
+            int taillemax = 2097152;
+
+            List<String> extensionsvalides = new List<String>();
+            List<String> strcut = new List<String>();
+            extensionsvalides.Add(".jpg");
+            extensionsvalides.Add(".jpeg");
+            extensionsvalides.Add(".gif");
+            extensionsvalides.Add(".png");
+            extensionsvalides.Add(".jfif");
+
+            if (file != null)
+            {
+                string fileName = "img/artistes/photos/" + artiste.Nom;
+                string extension = Path.GetExtension(file.FileName);
+                string chemin = fileName + extension.ToLower();
+                //taf de l'extrait musical
+                
+                if (file.Length < taillemax && extensionsvalides.Contains(extension))
+                {
+                    using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
+                    {
+                        file.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+                    
+                    artiste.Photo = chemin;
+                }
+                else
+                {
+                    ModelState.AddModelError("error", "Extension du fichier non reconnu ou le fichier est trop lourd");
+                    return AjoutArtiste();
+                }
+            }
+
+            if (file2 != null)
+            { 
+                //taf de l'extrait musical
+                List<String> extensionsvalides2 = new List<String>();
+                List<String> strcut2 = new List<String>();
+                extensionsvalides2.Add(".mp3");
+
+
+                string fileName2 = "img/artistes/extraits/" + artiste.Nom;
+                string extension2 = Path.GetExtension(file2.FileName);
+                string chemin2 = fileName2 + extension2.ToLower();
+                if (extensionsvalides2.Contains(extension2))
+                {
+                    using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin2))
+                    {
+                        file2.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+                    
+                    artiste.Extrait = chemin2;
+                }
+                else
+                {
+                    ModelState.AddModelError("error", "Extension du fichier non reconnu");
+                    return AjoutArtiste();
+                }
+            }
+            int drapeau = 0;
+            IEnumerable<Artiste> Artistes = API.Instance.GetArtistesAsync().Result;
+            foreach (var item in Artistes)
+            {
+                if (item.Nom == artiste.Nom)
+                {
+                    drapeau++;
+                }
+            }
+
+            if (drapeau == 0)
+            {
+                var URI = API.Instance.AjoutArtisteAsync(artiste);
+                return RedirectToAction(nameof(Index));
+            }
+            else if (drapeau != 0)
+            {
+                ModelState.AddModelError("error", "Cet artiste a déjà été ajouté");
+                return AjoutArtiste();
+            }
+
+            return AjoutArtiste();
+        }
+
         public IActionResult Festivaliers(int? id)
         {
             int drapeau = 0;
@@ -478,6 +829,19 @@ namespace WebApplication1.Controllers
             return Redirect("/Festivals/Festivaliers");
         }
 
+        public ActionResult AccepterAmitié(int? id)
+        {
+            Festivalier festivalier = API.Instance.GetFestivalierAsync((int)HttpContext.Session.GetInt32("idf")).Result;
+
+            if (id != null)
+            {
+                Ami amitié = API.Instance.GetAmitiéAsync((int)id, festivalier.Id).Result;
+                amitié.Accepted = true;
+                var URI = API.Instance.ModifAmiAsync(amitié);
+            }
+            return Redirect("/Festivals/Festivaliers");
+        }
+
         public ActionResult ValiderInscription(int? id)
         {
             if (id != null)
@@ -491,6 +855,70 @@ namespace WebApplication1.Controllers
             var uri2 = API.Instance.ModifFestivalAsync(festival);
             festivalier.InscriptionAccepted = true;
             return Redirect("/Festivals/Festivaliers");
+        }
+
+        public IActionResult Scenes()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival.Scenes);
+        }
+
+        public IActionResult Inscriptions()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival.Festivaliers);
+        }
+
+        public IActionResult Hebergements()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival.Hebergements);
+        }
+
+        public IActionResult Artistes()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival.Artistes);
         }
     }
 }

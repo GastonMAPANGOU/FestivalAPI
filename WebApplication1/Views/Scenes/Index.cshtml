@@ -9,57 +9,57 @@
 
 <p>
     <a asp-action="Create">Ajouter des scènes</a>
+    <a asp-action="Edit">Modifier les scènes</a>
+    <a asp-action="Details">Voir les details des scènes</a>
+    <a asp-action="Details">Listes des scenes</a>
+
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nom)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Adresse)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Capacite)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Accessibilite)
-            </th>
-            <th>
-                Lieu
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nom)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adresse)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Capacite)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Accessibilite)
-            </td>
-            <td>
-                @foreach (var it in lieux)
-                {
-                    if (it.IdL == item.LieuId)
-                        @it.Commune
-                }
-            </td>
-            
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdS">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdS">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdS">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="card-deck mb-auto text-center">
+
+        <div class="card mb-auto shadow-card">
+            <div class="card-header">
+                <h4 id="lastActual" class="text-info"><strong>Scenes</strong></h4>
+            </div>
+
+
+            <div class="card-body">
+                <a id="actualViewOnlyButton" asp-action="ActualViewOnly" asp-route-date="" asp-route-month="" asp-route-charge="">
+                    <img src="/pictures/H.png" class="img-fluid shadow-little imgClassicHover rounded mb-auto" alt="B">
+                </a>
+                <a role="button" id="lastActualButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Scenes" asp-action="Create"> ajouter une scene</a>
+                <a role="button" id="lastActualButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Scenes" asp-action="Edit"> Modifier les scènes</a>
+                <a role="button" id="lastActualButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Scenes" asp-action="Details">Voir les details des scènes</a>
+
+            </div>
+
+          
+        </div>
+
+    }
+</div>
+
+
+@*
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div cclass="card-deck" style="width: 50%; height : 70%; margin-bottom: 15px; margin-right: 5px;">
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @Html.DisplayFor(modelItem => item.Nom)
+                            @Html.DisplayFor(modelItem => item.Prenom)
+                        </h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Nb_ParticipantsPT)</p>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.Somme)€(euro)</p>
+
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Savoir Plus</a>
+                        <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.Id">Supprimer</a>
+                    </div>
+                </div>
+            </div>}
+
+    </div>
+*@

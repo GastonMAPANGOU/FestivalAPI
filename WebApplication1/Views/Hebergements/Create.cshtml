@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Create";
+    IEnumerable<FestivalAPI.Models.Type_Hebergement> type_Hebergements = WebApplication1.ControllersAPI.API.Instance.GetType_HebergementsAsync().Result;
+    IEnumerable<FestivalAPI.Models.Festival> festivals = WebApplication1.ControllersAPI.API.Instance.GetFestivalsAsync().Result;
 }
 
 <h1>Create</h1>
@@ -10,27 +12,59 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Lien" class="control-label"></label>
-                <input asp-for="Lien" class="form-control" />
-                <span asp-validation-for="Lien" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LieuId" class="control-label"></label>
-                <input asp-for="LieuId" class="form-control" />
-                <span asp-validation-for="LieuId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Type_HebergementId" class="control-label"></label>
-                <input asp-for="Type_HebergementId" class="form-control" />
-                <span asp-validation-for="Type_HebergementId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+
+           
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Lien" class="control-label"></label>
+                    <input asp-for="Lien" class="form-control" />
+                    <span asp-validation-for="Lien" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label asp-for="Nom" class="control-label">Nom :</label>
+                    <input asp-for="Nom" class="form-control" type="text" required />
+                    <span asp-validation-for="Nom" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="control-label">Type d'hebergements </label>
+                    <select asp-for="Type_HebergementId" class="form-control " >
+                        <option value="">--Choisissez une option--</option>
+                        @foreach (var it in type_Hebergements)
+                        {
+                            <option value="@it.IDTH">
+                                @it.Type
+                            </option>
+                        }
+                    </select>
+                    <span asp-validation-for="Type_HebergementId"></span>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Festivals </label>
+                    <select asp-for="FestivalId" class="form-control " >
+                        <option value="">--Choisissez une option--</option>
+                        @foreach (var it in festivals)
+                        {
+                            <option value="@it.IdF">
+                                @it.Nom
+                            </option>
+                        }
+                    </select>
+                    <span asp-validation-for="FestivalId"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
     </div>
 </div>
 

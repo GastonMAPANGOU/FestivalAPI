@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+
 }
 
 <h1>Index</h1>
@@ -15,9 +16,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Lien)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LieuId)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.Type_HebergementId)
             </th>
@@ -30,9 +29,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Lien)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LieuId)
-            </td>
+            
             <td>
                 @Html.DisplayFor(modelItem => item.Type_HebergementId)
             </td>

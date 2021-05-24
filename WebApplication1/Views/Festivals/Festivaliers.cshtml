@@ -24,20 +24,22 @@
 
         <div class="card-body">
             <h5 class="card-title">
-                @Html.DisplayFor(modelItem => item.Nom)
+                @Html.DisplayFor(modelItem => item.Pseudo)
             </h5>
-            <p class="card-text">@(item.Prenom + " " + item.Nom)</p>
 
             @if (WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result == null)
             {
-        <a class="btn btn-primary" asp-action="Festivaliers" asp-route-id="@item.Id"> Ajouter comme ami</a>}
-else if (!WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result.Accepted)
-{
-        <a class="btn btn-primary" asp-action="DeleteAmitié" asp-route-id="@item.Id">  Annuler la demande</a> }
+                <a class="btn btn-primary" asp-action="Festivaliers" asp-route-id="@item.Id"> Ajouter comme ami</a>}
+            else if (WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result.AmiDemandeur == (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf") && !WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result.Accepted)
+            {
+                <a class="btn btn-primary" asp-action="DeleteAmitié" asp-route-id="@item.Id">  Annuler la demande</a> }
+            else if (WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result.AmiReceveur == (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf") && !WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result.Accepted)
+            {
+                <a class="btn btn-primary" asp-action="AccepterAmitié" asp-route-id="@item.Id">  Accepter la demande</a> }
 
-else
-{
-<a class="btn btn-primary" asp-action="DeleteAmitié" asp-route-id="@item.Id">Supprimer de la liste d'amis</a>}
+            else if (WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result.Accepted)
+            {
+                <a class="btn btn-primary" asp-action="DeleteAmitié" asp-route-id="@item.Id">Supprimer de la liste d'amis</a>}
 
 
         </div>

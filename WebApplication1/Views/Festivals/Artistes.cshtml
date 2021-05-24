@@ -1,0 +1,35 @@
+﻿@model IEnumerable<FestivalAPI.Models.Artiste>
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{ ViewData["Title"] = "Index";
+    IEnumerable<FestivalAPI.Models.Pays> pays = WebApplication1.ControllersAPI.API.Instance.GetPaysAsync().Result;
+    IEnumerable<FestivalAPI.Models.Style> style = WebApplication1.ControllersAPI.API.Instance.GetStylesAsync().Result; }
+
+<h1><strong>Liste des artistes</strong></h1>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+    @foreach (var item in Model)
+    {
+        <div class="col">
+            <div class="card shadow mb-4 text-center">
+
+                <div class="card-body">
+                    @{
+                        <img src="@Url.Content(item.Photo)" class="card-img-top" /> }
+                    <a asp-controller="Artistes" asp-action="Details" asp-route-id="@item.IdA">
+                        @Html.DisplayFor(modelItem => item.Nom)
+                        @Html.DisplayFor(modelItem => item.Prenom)
+                    </a>
+                </div>
+                @if ((HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisateur")))
+                {
+                    <a class="btn btn-primary" asp-controller="Artistes" asp-action="Edit" asp-route-id="@item.IdA"> Modifier </a> 
+                    <a class="btn btn-primary" asp-controller="Artistes" asp-action="Delete" asp-route-id="@item.IdA">Supprimer</a>
+                }
+            </div>
+        </div>}
+
+</div>
+
