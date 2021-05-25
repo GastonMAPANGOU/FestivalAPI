@@ -86,12 +86,19 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Suivi des actvités
+                                Rapport
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Activites" asp-action="Graphe_Region">Rapport des activités du festival</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Geos" asp-action="Rapport_Geo_Departement_Graphe">Rapport géographique</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Temps" asp-action="Rapport_Temps_Festival_Graphe">Rapport d'évolution d'inscription</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Activites" asp-action="Index">Rapport des activités par région</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Activites" asp-action="IndexDepartement">Rapport des activités par département</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Activites" asp-action="IndexFestival">Rapport des activités par festival</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Geos" asp-action="Index">Rapport géographique par régions</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Geos" asp-action="IndexDepartement">Rapport géographique par département</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Geos" asp-action="IndexPays">Rapport géographique par pays</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Temps" asp-action="Index">Rapport temps par festival</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Temps" asp-action="IndexDepartement">Rapport temps par jour</a>
                             </div>
                         </li>
 

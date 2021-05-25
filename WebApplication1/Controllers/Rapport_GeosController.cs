@@ -127,5 +127,23 @@ namespace WebApplication1.Controllers
 
             return View();
         }
+        public IActionResult Index()
+        {
+            var Artistes = API.Instance.GetRegionsAsync().Result;
+
+            return View(Artistes);
+        }
+        public IActionResult IndexPays()
+        {
+            var Artistes = API.Instance.GetPaysAsync().Result;
+
+            return View(Artistes);
+        }
+        public IActionResult IndexDepartement()
+        {
+            var Artistes = API.Instance.GetDepartementsAsync().Result;
+
+            return View(Artistes);
+        }
     }
 }
