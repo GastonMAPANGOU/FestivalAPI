@@ -84,6 +84,17 @@
                         <li class="nav-item">
                             <a class="nav-link " asp-area="" asp-controller="Festival_Artiste" asp-action="Index">Festival & Artistes</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Suivi des actvités
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Activites" asp-action="Graphe_Region">Rapport des activités du festival</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Geos" asp-action="Rapport_Geo_Departement_Graphe">Rapport géographique</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Temps" asp-action="Rapport_Temps_Festival_Graphe">Rapport d'évolution d'inscription</a>
+                            </div>
+                        </li>
+
                     }
 
                 </ul>
