@@ -246,54 +246,77 @@ namespace WebApplication1.Controllers
        
         public IActionResult Partage(int id)
         {
-            int FestivalierId = 1;
-
-            Ami ami = (Ami) API.Instance.GetAmitiéAsync(FestivalierId, id).Result;
-
-            if (ami != null)
+             if (HttpContext.Session.GetInt32("idf") == null)
             {
-                
-                IEnumerable<Favoris> favoris = API.Instance.GetFavorisAsync().Result.Where(s => s.FestivalierId == FestivalierId && s.Like == true);
-
-                List<Artiste> artistes = new List<Artiste>();
-
-                foreach (var item in favoris)
-                {
-                    Artiste artiste = new Artiste();
-
-                    artiste = (Artiste)API.Instance.GetArtisteAsync(item.ArtisteId).Result;
-
-                    artistes.Add(artiste);
-                }
-
-
-                ViewBag.Artistes = artistes;
+                return null;
             }
-            return View();
+            else
+            {
+
+                 int FestivalierId = (int)HttpContext.Session.GetInt32("idf");
+
+
+                Ami ami = (Ami)API.Instance.GetAmitiéAsync(FestivalierId, id).Result;
+
+                if (ami != null)
+                {
+
+                    IEnumerable<Favoris> favoris = API.Instance.GetFavorisAsync().Result.Where(s => s.FestivalierId == FestivalierId && s.Like == true);
+
+                    List<Artiste> artistes = new List<Artiste>();
+
+                    foreach (var item in favoris)
+                    {
+                        Artiste artiste = new Artiste();
+
+                        artiste = (Artiste)API.Instance.GetArtisteAsync(item.ArtisteId).Result;
+
+                        artistes.Add(artiste);
+                    }
+
+
+                    ViewBag.Artistes = artistes;
+                }
+                return View();
+            }
+           
         }
 
         public IActionResult Consult(int id)
         {
-            Ami ami = (Ami)API.Instance.GetAmitiéAsync(id).Result;
-
-            if (ami != null)
+            if (HttpContext.Session.GetInt32("idf") == null)
             {
-                IEnumerable<Favoris> favoris = API.Instance.GetFavorisAsync().Result.Where(s => s.FestivalierId == id && s.Like == true);
-
-                List<Artiste> artistes = new List<Artiste>();
-                foreach (var item in favoris)
-                {
-                    Artiste artiste = new Artiste();
-
-                    artiste = (Artiste)API.Instance.GetArtisteAsync(item.ArtisteId).Result;
-
-                    artistes.Add(artiste);
-                }
-
-
-                ViewBag.Artistes = artistes;
+                return null;
             }
-            return View();
+            else
+            {
+
+                int FestivalierId = (int)HttpContext.Session.GetInt32("idf");
+
+
+                Ami ami = (Ami)API.Instance.GetAmitiéAsync(FestivalierId, id).Result;
+
+                if (ami != null)
+                {
+
+                    IEnumerable<Favoris> favoris = API.Instance.GetFavorisAsync().Result.Where(s => s.FestivalierId == id && s.Like == true);
+
+                    List<Artiste> artistes = new List<Artiste>();
+
+                    foreach (var item in favoris)
+                    {
+                        Artiste artiste = new Artiste();
+
+                        artiste = (Artiste)API.Instance.GetArtisteAsync(item.ArtisteId).Result;
+
+                        artistes.Add(artiste);
+                    }
+
+
+                    ViewBag.Artistes = artistes;
+                }
+                return View();
+            }
         }
 
         /*private bool AmiExists(int id)
