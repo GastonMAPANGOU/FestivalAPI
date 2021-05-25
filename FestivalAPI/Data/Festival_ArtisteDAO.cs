@@ -59,7 +59,8 @@ namespace FestivalAPI.Data
                             festival_Artiste.ArtisteId = reader.GetInt32(2);
                             festival_Artiste.SceneId = reader.GetInt32(3);
                             festival_Artiste.JourId = reader.GetInt32(4);
-                            festival_Artiste.Heure = reader.GetDateTime(5);
+                            festival_Artiste.HeureDebut = reader.GetDateTime(5);
+                            festival_Artiste.HeureFin = reader.GetDateTime(6);
 
                             list_Scene.Add(festival_Artiste);
 
@@ -94,9 +95,10 @@ namespace FestivalAPI.Data
                             festival_Artiste.ArtisteId = reader.GetInt32(2);
                             festival_Artiste.SceneId = reader.GetInt32(3);
                             festival_Artiste.JourId = reader.GetInt32(4);
-                            festival_Artiste.Heure = reader.GetDateTime(5);
+                            festival_Artiste.HeureDebut = reader.GetDateTime(5);
+                             festival_Artiste.HeureFin = reader.GetDateTime(6);
 
-                            list_Scene.Add(festival_Artiste);
+                        list_Scene.Add(festival_Artiste);
 
 
                         }
@@ -128,7 +130,8 @@ namespace FestivalAPI.Data
                         festival_Artiste.ArtisteId = reader.GetInt32(2);
                         festival_Artiste.SceneId = reader.GetInt32(3);
                         festival_Artiste.JourId = reader.GetInt32(4);
-                        festival_Artiste.Heure = reader.GetDateTime(5);
+                        festival_Artiste.HeureDebut = reader.GetDateTime(5);
+                        festival_Artiste.HeureFin = reader.GetDateTime(6);
 
                         list_Scene.Add(festival_Artiste);
 
@@ -162,7 +165,8 @@ namespace FestivalAPI.Data
                         festival_Artiste.ArtisteId = reader.GetInt32(2);
                         festival_Artiste.SceneId = reader.GetInt32(3);
                         festival_Artiste.JourId = reader.GetInt32(4);
-                        festival_Artiste.Heure = reader.GetDateTime(5);
+                        festival_Artiste.HeureDebut = reader.GetDateTime(5);
+                        festival_Artiste.HeureFin = reader.GetDateTime(6);
 
                         list_Scene.Add(festival_Artiste);
 

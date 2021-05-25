@@ -46,7 +46,7 @@ namespace FestivalAPI.Data
             List<Rapport_Geo> rapport_Geos = new List<Rapport_Geo>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Rapport_Geo where Region = " + Region +"'";
+                string sqlQuery = "Select * from Rapport_Geo where Region = '" + Region +"'";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();

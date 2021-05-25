@@ -50,12 +50,12 @@ namespace WebApplication1.Controllers
             return View(rapport);
         }
 
-        public IActionResult Rapport_Geo_Departement_Graphe(int IdD)
+        public IActionResult Rapport_Geo_Departement_Graphe(int id)
         {
             int Ido = (int)HttpContext.Session.GetInt32("ido");
             int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
-            string Departement = API.Instance.GetDepartementAsync(IdD).Result.Nom;
-           
+            string Departement = API.Instance.GetDepartementAsync(id).Result.Nom;
+
             List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_DepartementAsync(Departement).Result;
             List<int> Nombre_Participants = new List<int>();
             List<string> Liste = new List<string>();
@@ -78,11 +78,11 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult Rapport_Geo_Region_Graphe(int IdR)
+        public IActionResult Rapport_Geo_Region_Graphe(int id)
         {
             int Ido = (int)HttpContext.Session.GetInt32("ido");
             int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
-            string Region = API.Instance.GetRegionAsync(IdR).Result.Nom;
+            string Region = API.Instance.GetRegionAsync(id).Result.Nom;
 
             List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_RegionAsync(Region).Result;
             List<int> Nombre_Participants = new List<int>();
@@ -106,11 +106,11 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult Rapport_Geo_Pays_Graphe(int IdP)
+        public IActionResult Rapport_Geo_Pays_Graphe(int id)
         {
             int Ido = (int)HttpContext.Session.GetInt32("ido");
             int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
-            string Pays = API.Instance.GetPaysAsync(IdP).Result.Nom;
+            string Pays = API.Instance.GetPaysAsync(id).Result.Nom;
 
             List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_PaysAsync(Pays).Result;
             List<int> Nombre_Participants = new List<int>();
