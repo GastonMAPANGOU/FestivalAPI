@@ -32,14 +32,19 @@
                             <a class="btn btn-primary" asp-action="Favoris" asp-route-id="@item.IdA"> Ajouter aux Favoris</a>}
                         else
                         {
-                            <a class="btn btn-primary" asp-action="DeleteFavoris" asp-route-id="@item.IdA">Supprimer</a>}
+                            <a class="btn btn-primary" asp-action="DeleteFavoris" asp-route-id="@item.IdA">Supprimer des Favoris</a>}
+
+                    }
+                    @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
+                    {
+                        <a class="btn btn-primary" asp-action="Artistes" asp-route-id="@item.IdA"> Modifier</a>
+                        <a class="btn btn-primary" asp-action="Artistes" asp-route-id="@item.IdA"> Supprimer</a>
 
                     }
 
                 </div>
             </div>
         </div>}
-    }
 </div>
 
 <div>

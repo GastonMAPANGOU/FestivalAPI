@@ -1,19 +1,21 @@
 ﻿@model IEnumerable<FestivalAPI.Models.Artiste>
+@using FestivalAPI.Models
 @using Microsoft.AspNetCore.Http;
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{ ViewData["Title"] = "Index";}
+<h1>Liste des artistes</h1>
 
-@{ ViewData["Title"] = "Index";
-    IEnumerable<FestivalAPI.Models.Pays> pays = WebApplication1.ControllersAPI.API.Instance.GetPaysAsync().Result;
-    IEnumerable<FestivalAPI.Models.Style> style = WebApplication1.ControllersAPI.API.Instance.GetStylesAsync().Result; }
 
-<h1><strong>Liste des artistes</strong></h1>
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="card-deck">
+    <span style="color:red">@Html.ValidationMessage("error")</span>
 
     @foreach (var item in Model)
     {
-        <div class="col">
-            <div class="card shadow mb-4 text-center">
+        <div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
+            <div class="card text-center">
+
+
 
                 <div class="card-body">
                     @{
@@ -22,22 +24,32 @@
                         @Html.DisplayFor(modelItem => item.Nom)
                         @Html.DisplayFor(modelItem => item.Prenom)
                     </a>
-                </div>
-                @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")))
-                {
+                    @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")))
+                    {
 
-                    @if (WebApplication1.ControllersAPI.API.Instance.GetFavorisAsync(item.IdA, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result == null)
+                        @if (WebApplication1.ControllersAPI.API.Instance.GetFavorisAsync(item.IdA, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result == null)
+                        {
+                            <a class="btn btn-primary" asp-action="Favoris" asp-route-id="@item.IdA"> Ajouter aux Favoris</a>}
+                        else
+                        {
+                            <a class="btn btn-primary" asp-action="DeleteFavoris" asp-route-id="@item.IdA">Supprimer des Favoris</a>}
+
+                    }
+                    @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
                     {
-                        <a class="btn btn-primary" asp-action="Favoris" asp-route-id="@item.IdA"> Ajouter aux Favoris</a>}
-                    else
-                    {
-                        <a class="btn btn-primary" asp-action="DeleteFavoris" asp-route-id="@item.IdA">Supprimer</a>}
-                }
+                        <a class="btn btn-primary" asp-action="Artistes" asp-route-id="@item.IdA"> Modifier</a>
+                        <a class="btn btn-primary" asp-action="Artistes" asp-route-id="@item.IdA"> Supprimer</a>
+
+                    }
+
+                </div>
             </div>
         </div>}
-
 </div>
 
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
 
 
 

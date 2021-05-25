@@ -6,10 +6,10 @@
 
 
 
-<h1>Organisateur? Connectez-vous!!!</h1>
+<h1 class="text-center font-weight-light my-4">Organisateur? Connectez-vous!!!</h1>
 
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="ConnexionOrganisateur">
             <span style="color:red">@Html.ValidationMessage("error")</span>
@@ -28,7 +28,7 @@
 
 
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input class="btn btn-info btn-lg btn-block" type="submit" value="Se connecter">
             </div>
         </form>
     </div>
@@ -37,7 +37,7 @@
 
 
 <div>
-    <a asp-controller="Home">Accueil</a>
+    <a asp-area="" asp-controller="Home" asp-action="Index">Accueil</a>
 </div>
 
 <div>

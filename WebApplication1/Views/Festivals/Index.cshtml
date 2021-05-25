@@ -1,35 +1,77 @@
 ﻿@model IEnumerable<FestivalAPI.Models.Festival>
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using WebApplication1.ControllersAPI
+@using FestivalAPI.Models
 
 @{
     ViewData["Title"] = "Index";
-    IEnumerable<FestivalAPI.Models.Lieu> lieux = WebApplication1.ControllersAPI.API.Instance.GetLieuxAsync().Result;
+    IEnumerable<FestivalAPI.Models.Festival_Artiste> festival_Artistes = WebApplication1.ControllersAPI.API.Instance.GetFestival_ArtistesAsync().Result; ;
+
 }
 
-<h1>Les festivals de l'année</h1>
 
-
+<h1>Liste des festivals</h1>
 
 <div class="card-deck">
+
+
+
     @foreach (var item in Model)
     {
-        
         <div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
+
             <div class="card text-center">
-                    @{
-                        <img src="@Url.Content(item.Logo)" class="card-img-top"  /> }
+                    <div class="card-body">
+                        <img src="@Url.Content(item.Logo)" class="card-img-top" />
+                        <a asp-action="Details" asp-route-id="@item.IdF">
+                            @Html.DisplayFor(modelItem => item.Nom)
+                        </a>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        @if (item.LieuId != 0)
+                        {
+                            <li class="list-group-item">
+                                <i class="glyphicon glyphicon-map-marker"></i>
+                                @API.Instance.GetLieuAsync(item.LieuId).Result.Commune
+                            </li>
 
+                        }
+                        else
+                        {
+                            <li class="list-group-item">
+                                <i class="fas fa-map-marker-alt "></i>
+                                Non-communiqué
+                            </li>
+                        }
+                        <li class="list-group-item" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">@Html.DisplayFor(modelItem => item.Descriptif)</li>
+                        <!--div pour le gestionnaire-->
+                        @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
+                        {
+                            <li class="list-group-item">
+                                <div class="card-body">
+                                    <a asp-action="Edit" asp-route-id="@item.IdF" class="btn btn-primary">Modifier</a>
+                                    <!--Le bouton annuler
+                        <a asp-action="Annuler" asp-route-id="@item.IdF" class="btn btn-danger">Annuler</a>-->
+                                </div>
+                            </li>
+                        }
 
-                <div class="card-body">
-                    <h5 class="card-title">
-                        @Html.DisplayFor(modelItem => item.Nom)
-                    </h5>
-                    <p class="card-text">@Html.DisplayFor(modelItem => item.Descriptif)</p>
+                        @if ((@HttpContextAccessor.HttpContext.Session.GetString("category") != "Organisateur") && (@HttpContextAccessor.HttpContext.Session.GetString("category") != "festivalier"))
+                        {
+                            <li class="list-group-item">
+                                <a asp-action="AjoutFestivalier" asp-route-id="@item.IdF" class="btn btn-primary">Participer</a>
+                            </li>
+                        }
+                        @foreach (var it in festival_Artistes)
+                        {
+                            if (item.IdF == it.FestivalId)
+                            {
+                                <a asp-action="Programme" asp-route-id="@it.FestivalId" class="btn btn-outline-primary ">Voir la programmation</a>
+                            }
+                        }
 
-
-                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.IdF">Savoir Plus</a>
-                    <a class="btn btn-primary"  asp-action="AjoutFestivalier" asp-route-id="@item.IdF" >Participer !</a>
+                    </ul>
                 </div>
-            </div>
-            </div>
-    }
+            </div>}
 </div>

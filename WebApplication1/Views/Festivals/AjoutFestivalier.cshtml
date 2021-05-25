@@ -21,13 +21,12 @@
 
 
 
-<h1>Ajouter Festivalier</h1>
+<h1>Participez!</h1>
 
 
-
-<h4>Festivalier</h4>
+<h4>Devenir un festivalier</h4>
 <hr />
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-4">
         <form asp-action="AjoutFestivalier">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -93,7 +92,6 @@
                 <input asp-for="@festivalier.NbJours" class="form-control" type="number" min="1" max="@jours.Count()" required />
                 <span asp-validation-for="@festivalier.NbJours" class="text-danger"></span>
             </div>
-
 
             <div class="form-group">
                 <label asp-for="@festivalier.LieuId" class="control-label">De quelle commune venez vous?</label>
