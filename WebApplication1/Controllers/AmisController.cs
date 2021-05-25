@@ -230,8 +230,6 @@ namespace WebApplication1.Controllers
                 }
                  return Redirect("/Festivals/Festivaliers");
 
-
-
         }
 
 
@@ -297,6 +295,7 @@ namespace WebApplication1.Controllers
             }
             return View();
         }
+
         /*private bool AmiExists(int id)
         {
             return _context.Ami.Any(e => e.Id == id);
