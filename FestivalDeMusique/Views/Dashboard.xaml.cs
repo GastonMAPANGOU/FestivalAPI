@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FestivalAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,10 +20,19 @@ namespace FestivalDeMusique.Views
     /// </summary>
     public partial class Dashboard : Window
     {
+        private readonly Gimi gimi;
         public Dashboard()
         {
             InitializeComponent();
             frame.NavigationService.Navigate(new PageFestivals());
+        }
+
+        public Dashboard(Gimi gimi)
+        {
+            InitializeComponent();
+            frame.NavigationService.Navigate(new PageFestivals());
+            this.gimi = gimi;
+            ChargerGimi();
         }
 
         private void ChargerPageFestivals(object sender, RoutedEventArgs e)
@@ -53,6 +63,18 @@ namespace FestivalDeMusique.Views
         private void ChargerPageCompte(object sender, RoutedEventArgs e)
         {
             frame.NavigationService.Navigate(new PageCompte());
+        }
+
+        private void Deconnexion(object sender, RoutedEventArgs e)
+        {
+            Authentification authentification = new Authentification();
+            authentification.Show();
+            Close();
+        }
+
+        private void ChargerGimi()
+        {
+            compteButton.Content = "Compte : " + gimi.Nom + " " + gimi.Prenom;
         }
     }
 }

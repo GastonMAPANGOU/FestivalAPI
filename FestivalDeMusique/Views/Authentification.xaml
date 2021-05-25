@@ -91,7 +91,7 @@
             <Border BorderThickness="1" Grid.RowSpan="4" Grid.Column="1"
                         CornerRadius="0 10 10 0" 
                         BorderBrush="Transparent" 
-                        Background="Beige">
+                        Background="White">
             </Border>
             
             <Grid Grid.Row="0" Grid.Column="1" >
@@ -121,7 +121,7 @@
                     VerticalAlignment="Center" 
                     Visibility="Visible" 
                     Click="Reduire_Fenetre"
-                    Background="Beige"
+                    Background="White"
                     BorderThickness="0">
 
                     <Image Source="/images/minimize.png"/>

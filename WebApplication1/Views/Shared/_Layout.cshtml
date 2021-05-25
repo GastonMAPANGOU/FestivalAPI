@@ -23,102 +23,94 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Festi'Normandie</title>
+    <title>@ViewData["Title"] - Festival Normandie</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #e3f2fd;">
-            <a class="navbar-brand" href="#">Festi'Normandie</a>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Festival Normandie</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home <span class="sr-only">(current)</span></a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Festivals
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Index">Voir festivals</a>
+                            @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Hebergements" asp-action="Create">Créer hebergements</a>
+                            }
+
+                        </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Index">Festivals</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Artistes
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-area="" asp-controller="Artistes" asp-action="Index">Voir artistes</a>
+                            @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")))
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Artistes" asp-action="ListeFavoris">liste des favoris</a>
+                            }
+                            @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Artistes" asp-action="Create">Ajouter artiste</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Scenes" asp-action="Create">Ajouter Scène</a>
+                            }
+                        </div>
                     </li>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link " asp-area="" asp-controller="Artistes" asp-action="Index">Artistes</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link " asp-area="" asp-controller="Organisateurs" asp-action="Index">Organisateurs</a>  
-                    </li>
-
-                    @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisteur")))
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Artistes" asp-action="Create">Enregistrer un Artiste</a>
-                        </li>
-
-
-
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Create">Confirmer un festival(avec Gimi) </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="" asp-action="">Ouvrir les inscriptions</a>
-                        </li>
-                    }
-
-
-
-
                     @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")))
                     {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Festivaliers">Ajouter Ami</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Festivals" asp-action="Demandes">Demandes</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Ami
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Demandes">Invitations</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Festivaliers">Participants</a>
+                            </div>
                         </li>
                     }
-
-                    @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")) || (HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisateur")))
+                    @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Connexion" asp-action="Deconnexion">LogOff</a>
+                            <a class="nav-link " asp-area="" asp-controller="Festival_Artiste" asp-action="Index">Festival & Artistes</a>
                         </li>
-                    }
-                    else
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Connexion" asp-action="ConnexionFestivalier">LogIn</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Rapport
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Activites" asp-action="Index">Rapport des activités par région</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Activites" asp-action="IndexDepartement">Rapport des activités par département</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Activites" asp-action="IndexFestival">Rapport des activités par festival</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Geos" asp-action="Index">Rapport géographique par régions</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Geos" asp-action="IndexDepartement">Rapport géographique par département</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Geos" asp-action="IndexPays">Rapport géographique par pays</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Temps" asp-action="Index">Rapport temps par festival</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Rapport_Temps" asp-action="IndexDepartement">Rapport temps par jour</a>
+                            </div>
                         </li>
+
                     }
-
-
 
                 </ul>
-            </div>
-            <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Festivals" asp-action="Index">
-                <input type="text" class="form-control" placeholder="Search for a Festival" name="searchString" value="@ViewData["searchString"]">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-            @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")) || (HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisateur")))
-            {
                 <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Festivals" asp-action="Index">
-                    <input type="text" class="form-control" placeholder="Style" name="style" value="@ViewData["style"]">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-
-
-                    <input type="text" class="form-control" placeholder="Artiste" name="artiste" value="@ViewData["artiste"]">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-
-
-                    <input type="text" class="form-control" placeholder="Lieu" name="lieu" value="@ViewData["lieu"]">
+                    <input type="text" class="form-control" placeholder="Search for a Festival" name="searchString" value="@ViewData["searchString"]">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
-            }
-            
+                <li><a class="btn btn-primary" asp-area="" asp-controller="Connexion" asp-action="ConnexionFestivalier">Se Connecter</a></li>
+            </div>
         </nav>
     </header>
     <div class="container">
@@ -129,7 +121,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2021 - Festi'Normandie
+            &copy; 2021 - Festival Normandie
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -1,0 +1,31 @@
+﻿@model IEnumerable<FestivalAPI.Models.Departement>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Liste des départements</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nom)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    <a asp-controller="Rapport_Geos" asp-action="Rapport_Geo_Departement_Graphe" asp-route-id="@item.Id">Rapport geographique Département</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

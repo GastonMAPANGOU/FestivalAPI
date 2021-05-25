@@ -18,36 +18,138 @@ namespace WebApplication1.Controllers
 {
     public class Rapport_GeosController : Controller
     {
-        public IActionResult Rapport_Geo_Departement(string Search)
+        public IActionResult Rapport_Geo_Departement(int Id)
         {
-
-            List<Rapport_Activite> rapport = (List<Rapport_Activite>)API.Instance.Rapport_Geo_DepartementAsync(Search).Result;
+            string Search = API.Instance.GetDepartementAsync(Id).Result.Nom;
+            List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_DepartementAsync(Search).Result;
 
             return View(rapport);
         }
 
-        public IActionResult Rapport_Geo_Region(string Search)
+        public IActionResult Rapport_Geo_Region(int Id)
         {
-
-            List<Rapport_Activite> rapport = (List<Rapport_Activite>)API.Instance.Rapport_Geo_RegionAsync(Search).Result;
+            string Search = API.Instance.GetRegionAsync(Id).Result.Nom;
+            List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_RegionAsync(Search).Result;
 
             return View(rapport);
         }
 
-        public IActionResult Rapport_Geo_Pays(string Search)
+        public IActionResult Rapport_Geo_Pays(int Id)
         {
-
-            List<Rapport_Activite> rapport = (List<Rapport_Activite>)API.Instance.Rapport_Geo_PaysAsync(Search).Result;
+            string Search = API.Instance.GetPaysAsync(Id).Result.Nom;
+            List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_PaysAsync(Search).Result;
 
             return View(rapport);
         }
 
-        public IActionResult Rapport_Geo_Genre(string Search)
+        public IActionResult Rapport_Geo_Genre(int Id)
         {
-
-            List<Rapport_Activite> rapport = (List<Rapport_Activite>)API.Instance.Rapport_Geo_GenreAsync(Search).Result;
+            string Search = API.Instance.GetGenreAsync(Id).Result.Nom;
+            List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_GenreAsync(Search).Result;
 
             return View(rapport);
+        }
+
+        public IActionResult Rapport_Geo_Departement_Graphe(int IdD)
+        {
+            int Ido = (int)HttpContext.Session.GetInt32("ido");
+            int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
+            string Departement = API.Instance.GetDepartementAsync(IdD).Result.Nom;
+           
+            List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_DepartementAsync(Departement).Result;
+            List<int> Nombre_Participants = new List<int>();
+            List<string> Liste = new List<string>();
+
+            foreach (var elmt in rapport)
+            {
+                int count = (int)API.Instance.Rapport_Geo_Count_DepartementAsync(IdF, Departement).Result;
+                Nombre_Participants.Add(count);
+                Liste.Add(elmt.Region);
+            }
+
+            string json1 = JsonConvert.SerializeObject(Liste);
+            string json3 = JsonConvert.SerializeObject(Nombre_Participants);
+
+            ViewBag.Liste = json1;
+            ViewBag.Nombre_Participants = json3;
+
+            ViewBag.Rapport_Geo = rapport;
+
+            return View();
+        }
+
+        public IActionResult Rapport_Geo_Region_Graphe(int IdR)
+        {
+            int Ido = (int)HttpContext.Session.GetInt32("ido");
+            int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
+            string Region = API.Instance.GetRegionAsync(IdR).Result.Nom;
+
+            List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_RegionAsync(Region).Result;
+            List<int> Nombre_Participants = new List<int>();
+            List<string> Liste = new List<string>();
+
+            foreach (var elmt in rapport)
+            {
+                int count = (int)API.Instance.Rapport_Geo_Count_RegionAsync(IdF, Region).Result;
+                Nombre_Participants.Add(count);
+                Liste.Add(elmt.Region);
+            }
+
+            string json1 = JsonConvert.SerializeObject(Liste);
+            string json3 = JsonConvert.SerializeObject(Nombre_Participants);
+
+            ViewBag.Liste = json1;
+            ViewBag.Nombre_Participants = json3;
+
+            ViewBag.Rapport_Geo = rapport;
+
+            return View();
+        }
+
+        public IActionResult Rapport_Geo_Pays_Graphe(int IdP)
+        {
+            int Ido = (int)HttpContext.Session.GetInt32("ido");
+            int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
+            string Pays = API.Instance.GetPaysAsync(IdP).Result.Nom;
+
+            List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_PaysAsync(Pays).Result;
+            List<int> Nombre_Participants = new List<int>();
+            List<string> Liste = new List<string>();
+
+            foreach (var elmt in rapport)
+            {
+                int count = (int)API.Instance.Rapport_Geo_Count_PaysAsync(IdF, Pays).Result;
+                Nombre_Participants.Add(count);
+                Liste.Add(elmt.Region);
+            }
+
+            string json1 = JsonConvert.SerializeObject(Liste);
+            string json3 = JsonConvert.SerializeObject(Nombre_Participants);
+
+            ViewBag.Liste = json1;
+            ViewBag.Nombre_Participants = json3;
+
+            ViewBag.Rapport_Geo = rapport;
+
+            return View();
+        }
+        public IActionResult Index()
+        {
+            var Artistes = API.Instance.GetRegionsAsync().Result;
+
+            return View(Artistes);
+        }
+        public IActionResult IndexPays()
+        {
+            var Artistes = API.Instance.GetPaysAsync().Result;
+
+            return View(Artistes);
+        }
+        public IActionResult IndexDepartement()
+        {
+            var Artistes = API.Instance.GetDepartementsAsync().Result;
+
+            return View(Artistes);
         }
     }
 }

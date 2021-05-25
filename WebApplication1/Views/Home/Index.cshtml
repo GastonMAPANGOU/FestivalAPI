@@ -1,78 +1,13 @@
 ﻿@{ ViewData["Title"] = "Home Page"; }
-@model IEnumerable<FestivalAPI.Models.Festival_Artiste>
-
-@{
-    ViewData["Title"] = "Index";
-    IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result;
-    IEnumerable<FestivalAPI.Models.Artiste> artistes = WebApplication1.ControllersAPI.API.Instance.GetArtistesAsync().Result;
-    IEnumerable<FestivalAPI.Models.Festival> festivals = WebApplication1.ControllersAPI.API.Instance.GetFestivalsAsync().Result;
-    IEnumerable<FestivalAPI.Models.Scene> scenes = WebApplication1.ControllersAPI.API.Instance.GetScenesAsync().Result;
-}
 <html>
 <head>
 </head>
 <body>
-    <div class="text-center">
-        <h1 class="display-4">Bienvenue sur </h1>
+    <div >
+        <div class="text-center">
+            <img src="~/pictures/Logo.PNG" height="200" />
+        </div>
     </div>
-    <div>
-        <img src="~/pictures/happy-l.png" height="200" />
-    </div>
 
-
-
-
-    <h1>scenes programmées</h1>
-
-
-
-    <div class="card-deck">
-        @if(Model.Count()!=0)
-        {
-        foreach (var item in Model)
-        {
-
-            <div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
-                <div class="card text-center">
-
-
-                    <div class="card-body">
-
-                        @foreach (var festival in festivals)
-                        {
-                            if (festival.IdF == item.FestivalId)
-                            {
-                                <h5 class="card-title">
-                                    @Html.DisplayFor(modelItem => festival.Nom)
-                                </h5>
-                                <p class="card-text">@Html.DisplayFor(modelItem => festival.Descriptif)</p>
-                            }
-
-                        }
-                        @foreach (var scene in scenes)
-                        {
-                            if (scene.IdS == item.SceneId)
-                            {
-                                @Html.DisplayFor(modelItem => scene.Nom)
-                            }
-
-                        }
-                        @foreach (var jour in jours)
-                        {
-                            if (jour.IdJ == item.JourId)
-                            {
-
-                                @Html.DisplayFor(modelItem =>jour.Date_jour )
-                            }
-                        }
-                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Savoir Plus</a>
-                        <a class="btn btn-primary" asp-action="AjoutFestivalier" asp-route-id="@item.Id">Participer !</a>
-                    </div>
-                </div>
-            </div>
-        }
-        }
-
-    </div>
 </body>
 </html>

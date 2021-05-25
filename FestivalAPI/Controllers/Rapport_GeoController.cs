@@ -136,6 +136,33 @@ namespace FestivalAPI.Controllers
             return rapport;
         }
 
+        [HttpGet("Rapport_Geo_Count_Pays/{id}/{Pays}")]
+        public ActionResult<int> Rapport_Geo_Count_Pays(int Id, string Pays)
+        {
+            int count;
+            Rapport_GeoDAO rapport_GeoDAO = new Rapport_GeoDAO();
+            count = rapport_GeoDAO.Rapport_Geo_Count_Pays(Id, Pays);
+            return count;
+        }
+
+        [HttpGet("Rapport_Geo_Count_Departement/{id}/{Departement}")]
+        public ActionResult<int> Rapport_Geo_Count_Departement(int Id, string Departement)
+        {
+            int count;
+            Rapport_GeoDAO rapport_GeoDAO = new Rapport_GeoDAO();
+            count = rapport_GeoDAO.Rapport_Geo_Count_Departement(Id, Departement);
+            return count;
+        }
+
+        [HttpGet("Rapport_Geo_Count_Region/{id}/{Region}")]
+        public ActionResult<int> Rapport_Geo_Count_Region(int Id, string Region)
+        {
+            int count;
+            Rapport_GeoDAO rapport_GeoDAO = new Rapport_GeoDAO();
+            count = rapport_GeoDAO.Rapport_Geo_Count_Departement(Id, Region);
+            return count;
+        }
+
         private bool Rapport_GeoExists(int id)
         {
             return _context.Rapport_Geo.Any(e => e.Id == id);

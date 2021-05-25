@@ -109,7 +109,7 @@ namespace FestivalAPI.Controllers
             return (rapport);
         }
 
-        [HttpGet("Rapport_Temps_Jours/{id}")]
+        [HttpGet("Rapport_Temps_Festival/{id}")]
         public ActionResult<List<Rapport_Temps>>Rapport_Temps_Festival(int id)
         {
             List<Rapport_Temps> rapport = new List<Rapport_Temps>();

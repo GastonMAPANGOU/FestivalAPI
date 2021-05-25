@@ -18,7 +18,7 @@ namespace FestivalAPI.Data
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string sqlQuery = "Select IdS from Festival_Artiste where ArtisteId = " + artiste.IdA +" Group by SceneId";
+                    string sqlQuery = "Select IdS from dbo.Festival_Artiste where ArtisteId = " + artiste.IdA +" Group by SceneId";
                     SqlCommand command = new SqlCommand(sqlQuery, connection);
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -36,13 +36,151 @@ namespace FestivalAPI.Data
             return list_Id_Scene;
         }
 
+        public List<Festival_Artiste> List_Festival_Artiste(List<Scene>Scenes)
+        {
+            List<Festival_Artiste> list_Scene = new List<Festival_Artiste>();
+            foreach (Scene scene in Scenes)
+            {
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string sqlQuery = "Select * from dbo.Festival_Artiste where SceneId = " + scene.IdS;
+                    SqlCommand command = new SqlCommand(sqlQuery, connection);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Festival_Artiste festival_Artiste = new Festival_Artiste();
+
+                            festival_Artiste.Id = reader.GetInt32(0);
+                            festival_Artiste.FestivalId = reader.GetInt32(1);
+                            festival_Artiste.ArtisteId = reader.GetInt32(2);
+                            festival_Artiste.SceneId = reader.GetInt32(3);
+                            festival_Artiste.JourId = reader.GetInt32(4);
+                            festival_Artiste.Heure = reader.GetDateTime(5);
+
+                            list_Scene.Add(festival_Artiste);
+
+                            
+                        }
+                    }
+                }
+            }
+
+            return list_Scene;
+        }
+
+        public List<Festival_Artiste> List_Festival_Artiste_Jour(int JourId)
+        {
+            List<Festival_Artiste> list_Scene = new List<Festival_Artiste>();
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    string sqlQuery = "Select * from dbo.Festival_Artiste where JourId = " + JourId;
+                    SqlCommand command = new SqlCommand(sqlQuery, connection);
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+                        while (reader.Read())
+                        {
+                            Festival_Artiste festival_Artiste = new Festival_Artiste();
+
+                            festival_Artiste.Id = reader.GetInt32(0);
+                            festival_Artiste.FestivalId = reader.GetInt32(1);
+                            festival_Artiste.ArtisteId = reader.GetInt32(2);
+                            festival_Artiste.SceneId = reader.GetInt32(3);
+                            festival_Artiste.JourId = reader.GetInt32(4);
+                            festival_Artiste.Heure = reader.GetDateTime(5);
+
+                            list_Scene.Add(festival_Artiste);
+
+
+                        }
+                    }
+                }
+
+            return list_Scene;
+        }
+
+        public List<Festival_Artiste> List_Festival_Artiste_Heure(DateTime Heure)
+        {
+            List<Festival_Artiste> list_Scene = new List<Festival_Artiste>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "Select * from dbo.Festival_Artiste where Heure = " + Heure;
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Festival_Artiste festival_Artiste = new Festival_Artiste();
+
+                        festival_Artiste.Id = reader.GetInt32(0);
+                        festival_Artiste.FestivalId = reader.GetInt32(1);
+                        festival_Artiste.ArtisteId = reader.GetInt32(2);
+                        festival_Artiste.SceneId = reader.GetInt32(3);
+                        festival_Artiste.JourId = reader.GetInt32(4);
+                        festival_Artiste.Heure = reader.GetDateTime(5);
+
+                        list_Scene.Add(festival_Artiste);
+
+
+                    }
+                }
+            }
+
+            return list_Scene;
+        }
+
+        public List<Festival_Artiste> List_Festival_Artiste_Artiste(int ArtsiteId)
+        {
+            List<Festival_Artiste> list_Scene = new List<Festival_Artiste>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "Select * from dbo.Festival_Artiste where ArtisteId = " + ArtsiteId;
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Festival_Artiste festival_Artiste = new Festival_Artiste();
+
+                        festival_Artiste.Id = reader.GetInt32(0);
+                        festival_Artiste.FestivalId = reader.GetInt32(1);
+                        festival_Artiste.ArtisteId = reader.GetInt32(2);
+                        festival_Artiste.SceneId = reader.GetInt32(3);
+                        festival_Artiste.JourId = reader.GetInt32(4);
+                        festival_Artiste.Heure = reader.GetDateTime(5);
+
+                        list_Scene.Add(festival_Artiste);
+
+
+                    }
+                }
+            }
+
+            return list_Scene;
+        }
+
         public List<Festival_Artiste>list_Festival_Artiste(int IdS, int IdA)
         {
             List<Festival_Artiste> list = new List<Festival_Artiste>();
             using(SqlConnection connection = new SqlConnection(connectionString))
             {
                 string sqlQuery = "Select Festival_Artiste.Id, Festival_Artiste.ArtisteId, Festival_Artiste.FestivalId" +
-                    "Festival_Artiste.JourId, Festival_Artiste.SceneId from Festival_Artiste " +
+                    "Festival_Artiste.JourId, Festival_Artiste.SceneId from dbo.Festival_Artiste " +
                     "inner join Artiste on Festival_Artiste.ArtisteId = Artiste.IdA " +
                     "inner join Style.Id = Artiste.StyleId where Artiste.IdA = " + IdA +
                     " and Style.Id = " + IdS;

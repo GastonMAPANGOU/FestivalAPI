@@ -230,8 +230,6 @@ namespace WebApplication1.Controllers
                 }
                  return Redirect("/Festivals/Festivaliers");
 
-
-
         }
 
 
@@ -245,11 +243,84 @@ namespace WebApplication1.Controllers
                  return Redirect("/Festivals/Festivaliers");
             }
 
-
-
-            /*private bool AmiExists(int id)
+       
+        public IActionResult Partage(int id)
+        {
+             if (HttpContext.Session.GetInt32("idf") == null)
             {
-                return _context.Ami.Any(e => e.Id == id);
-            }*/
+                return null;
+            }
+            else
+            {
+
+                 int FestivalierId = (int)HttpContext.Session.GetInt32("idf");
+
+
+                Ami ami = (Ami)API.Instance.GetAmitiéAsync(FestivalierId, id).Result;
+
+                if (ami != null)
+                {
+
+                    IEnumerable<Favoris> favoris = API.Instance.GetFavorisAsync().Result.Where(s => s.FestivalierId == FestivalierId && s.Like == true);
+
+                    List<Artiste> artistes = new List<Artiste>();
+
+                    foreach (var item in favoris)
+                    {
+                        Artiste artiste = new Artiste();
+
+                        artiste = (Artiste)API.Instance.GetArtisteAsync(item.ArtisteId).Result;
+
+                        artistes.Add(artiste);
+                    }
+
+
+                    ViewBag.Artistes = artistes;
+                }
+                return View();
+            }
+           
         }
+
+        public IActionResult Consult(int id)
+        {
+            if (HttpContext.Session.GetInt32("idf") == null)
+            {
+                return null;
+            }
+            else
+            {
+
+                int FestivalierId = (int)HttpContext.Session.GetInt32("idf");
+
+
+                Ami ami = (Ami)API.Instance.GetAmitiéAsync(FestivalierId, id).Result;
+
+                if (ami != null)
+                {
+
+                    IEnumerable<Favoris> favoris = API.Instance.GetFavorisAsync().Result.Where(s => s.FestivalierId == id && s.Like == true);
+
+                    List<Artiste> artistes = new List<Artiste>();
+
+                    foreach (var item in favoris)
+                    {
+                        Artiste artiste = new Artiste();
+
+                        artiste = (Artiste)API.Instance.GetArtisteAsync(item.ArtisteId).Result;
+
+                        artistes.Add(artiste);
+                    }
+
+                    ViewBag.Artistes = artistes;
+                }
+                return View();
+            }
+        }
+
+        /*private bool AmiExists(int id)
+        {
+            return _context.Ami.Any(e => e.Id == id);
+        }*/
+    }
 }

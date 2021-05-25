@@ -1,4 +1,4 @@
-sp_configure 'show advanced options', 1;  
+ï»¿sp_configure 'show advanced options', 1;  
 RECONFIGURE;
 GO 
 sp_configure 'Ad Hoc Distributed Queries', 1;  
@@ -10,7 +10,7 @@ GO
 SELECT * INTO Country_info
 --changer le chemin du fichier selon la machine
 FROM OPENROWSET('Microsoft.ACE.OLEDB.12.0',
-    'Excel 12.0; Database=C:\Users\mngc9\source\repos\FestivalAPI\FestivalAPI\docfestival.xlsx', [AC1$]);
+    'Excel 12.0; Database=C:\Users\Hp\source\repos\FestivalAPI\FestivalAPI\docfestival.xlsx', [AC1$]);
     
 GO
 
@@ -22,7 +22,7 @@ where country_info.pays  not in (select pays.nom from pays );
 
 GO
 
---Régions
+--Rï¿½gions
 insert into region(Nom,PaysId)
 select distinct country_info.nom_region,pays.Id
 from country_info,pays

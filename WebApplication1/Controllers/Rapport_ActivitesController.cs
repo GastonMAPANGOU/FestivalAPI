@@ -41,8 +41,9 @@ namespace WebApplication1.Controllers
 
             return View(rapport);
         }
-        public IActionResult Rapport_Activite_Region_Graphe(string region)
+        public ActionResult Rapport_Activite_Region_Graphe(int Id)
         {
+            string region = API.Instance.GetRegionAsync(Id).Result.Nom;
 
             List<Rapport_Activite> rapport = (List<Rapport_Activite>)API.Instance.Rapport_Activites_RegionAsync(region).Result;
             List<int> List_Year = new List<int>();
@@ -59,13 +60,14 @@ namespace WebApplication1.Controllers
             ViewBag.Liste_Year = json1;
             ViewBag.Liste_Somme = json3;
 
-            @ViewBag.Rapport_Activite = rapport;
+            ViewBag.Rapport_Activite = rapport;
 
             return View();
         }
 
-        public IActionResult Rapport_Activite_Departement_Graphe(string Departement)
+        public IActionResult Rapport_Activite_Departement_Graphe(int Id)
         {
+            string Departement = API.Instance.GetDepartementAsync(Id).Result.Nom;
 
             List<Rapport_Activite> rapport = (List<Rapport_Activite>)API.Instance.Rapport_Activites_DepartementAsync(Departement).Result;
             List<int> List_Year = new List<int>();
@@ -82,15 +84,15 @@ namespace WebApplication1.Controllers
             ViewBag.Liste_Year = json1;
             ViewBag.Liste_Somme = json3;
 
-            @ViewBag.Rapport_Activite = rapport;
+            ViewBag.Rapport_Activite = rapport;
 
             return View();
         }
 
-        public IActionResult Rapport_Activite_Festival_Graphe(int FestivalId)
+        public IActionResult Rapport_Activite_Festival_Graphe(int Id)
         {
 
-            List<Rapport_Activite> rapport = (List<Rapport_Activite>)API.Instance.Rapport_Activites_FestivalAsync(FestivalId).Result;
+            List<Rapport_Activite> rapport = (List<Rapport_Activite>)API.Instance.Rapport_Activites_FestivalAsync(Id).Result;
             List<int> List_Year = new List<int>();
             List<double> List_Somme = new List<double>();
             foreach (var elmt in rapport)
@@ -105,9 +107,28 @@ namespace WebApplication1.Controllers
             ViewBag.Liste_Year = json1;
             ViewBag.Liste_Somme = json3;
 
-            @ViewBag.Rapport_Activite = rapport;
+            ViewBag.Rapport_Activite = rapport;
 
             return View();
+        }
+
+        public IActionResult Index()
+        {
+            var Artistes = API.Instance.GetRegionsAsync().Result;
+
+            return View(Artistes);
+        }
+        public IActionResult IndexFestival()
+        {
+            var Artistes = API.Instance.GetFestivalsAsync().Result;
+
+            return View(Artistes);
+        }
+        public IActionResult IndexDepartement()
+        {
+            var Artistes = API.Instance.GetDepartementsAsync().Result;
+
+            return View(Artistes);
         }
     }
 }

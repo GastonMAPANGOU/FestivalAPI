@@ -17,7 +17,7 @@ namespace FestivalAPI.Data
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Scene where Nom = " + Nom;
+                string sqlQuery = "Select * from dbo.Scene where Nom = " + Nom;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -48,7 +48,7 @@ namespace FestivalAPI.Data
 
             using(SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Scene where LieuId = " + LieuId;
+                string sqlQuery = "Select * from dbo.Scene where LieuId = " + LieuId;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -83,7 +83,7 @@ namespace FestivalAPI.Data
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string sqlQuery = "Select * from Scene where IdS = " + festival_Artiste.SceneId;
+                    string sqlQuery = "Select * from dbo.Scene where IdS = " + festival_Artiste.SceneId;
                     SqlCommand command = new SqlCommand(sqlQuery, connection);
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -117,7 +117,7 @@ namespace FestivalAPI.Data
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string sqlQuery = "Select * from Scene where IdS = " + festival_Artiste.SceneId + "and LieuId = "+LieuId;
+                    string sqlQuery = "Select * from dbo.Scene where IdS = " + festival_Artiste.SceneId + "and LieuId = "+LieuId;
                     SqlCommand command = new SqlCommand(sqlQuery, connection);
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -153,7 +153,7 @@ namespace FestivalAPI.Data
             {
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    string sqlQuery = "Select * from Scene where IdS = " + i;
+                    string sqlQuery = "Select * from dbo.Scene where IdS = " + i;
                     SqlCommand command = new SqlCommand(sqlQuery, connection);
                     connection.Open();
                     SqlDataReader reader = command.ExecuteReader();
@@ -186,7 +186,7 @@ namespace FestivalAPI.Data
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select IdS from Scene where Nom = " + nom;
+                string sqlQuery = "Select IdS from dbo.Scene where Nom = " + nom;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
 
@@ -200,6 +200,40 @@ namespace FestivalAPI.Data
                     }
                 }
                 return Id;
+            }
+        }
+
+        public List<Scene> Return_Scene(int LieuId, int FestivalId)
+        {
+            List<Scene> scenes = new List<Scene>();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "Select * from dbo.Scene where LieuId = " + LieuId + "AND FestivalId = " +FestivalId;
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Scene scene = new Scene();
+
+                        scene.IdS = reader.GetInt32(0);
+                        scene.Nom = reader.GetString(1);
+                        scene.Adresse = reader.GetString(2);
+                        scene.Capacite = reader.GetInt32(3);
+                        scene.Accessibilite = reader.GetString(4);
+                        scene.LieuId = reader.GetInt32(5);
+                        scene.FestivalId = reader.GetInt32(6);
+
+                        scenes.Add(scene);
+
+                    }
+                }
+                return scenes;
             }
         }
 

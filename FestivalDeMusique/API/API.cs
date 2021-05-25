@@ -796,21 +796,6 @@ namespace FestivalDeMusique.API
             return null;
         }
 
-        public async Task<HttpResponseMessage> SupprType_HebergementAsync(int id)
-        {
-            try
-            {
-                HttpResponseMessage response = await client.DeleteAsync("api/type_Hebergements/" + id);
-                response.EnsureSuccessStatusCode();
-                return response;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-            return null;
-        }
-
         public async Task<ICollection<Departement>> GetDepartementsAsync()
         {
             ICollection<Departement> departements = new List<Departement>();
@@ -833,6 +818,21 @@ namespace FestivalDeMusique.API
                 departement = JsonConvert.DeserializeObject<Departement>(resp);
             }
             return departement;
+        }
+
+        public async Task<HttpResponseMessage> SupprType_HebergementAsync(int id)
+        {
+            try
+            {
+                HttpResponseMessage response = await client.DeleteAsync("api/type_Hebergements/" + id);
+                response.EnsureSuccessStatusCode();
+                return response;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return null;
         }
 
         public async Task<Uri> AjoutDepartementAsync(Departement departement)

@@ -1,0 +1,45 @@
+﻿
+<div class=" contenair-fluid section1 text-center ">
+    <h1>Graphe de variation par département</h1>
+</div>
+<div class=" row container-fluid section1 text-center">
+    <div class="col-md-12 text-center mb-3">
+        <h2>caractéristique du graphe</h2>
+        <p>Variation des participations des festivaliers par région </p>
+    </div>
+</div>
+<div class="row container-fluid section1 text-center">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8 mb-3">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <canvas id="myChart" width="500" height="500"></canvas>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+</div>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var v = @Html.Raw(@ViewBag.Liste_Year);
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'line',
+
+        // The data for our dataset
+        data: {
+            labels: @ViewBag.Liste_Somme ,
+            datasets: [{
+                label: 'Evolution inscription money per department',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: @ViewBag.Liste_Somme
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+</script>

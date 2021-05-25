@@ -29,6 +29,7 @@ namespace FestivalDeMusique.Views
         private readonly Festival festivalAModifier;
         private readonly Lieu lieuFestival;
         private string path;
+        private OrganisateursFestival organisateursFestival = null;
         public ConsulterFestival(Festival festival)
         {
             InitializeComponent();
@@ -89,10 +90,22 @@ namespace FestivalDeMusique.Views
         {
             Close();
         }
-        private void AnnulerOnClick(object sender, RoutedEventArgs e)
+
+        private void Organisateurs_ButtonClick(object sender, RoutedEventArgs e)
         {
-            //FillFestivalData();
-            Close();
+            if(organisateursFestival != null)
+            {
+                organisateursFestival = new OrganisateursFestival(festivalAModifier);
+                organisateursFestival.Show();
+            }
+            else
+            {
+                if (!organisateursFestival.IsActive)
+                {
+                    organisateursFestival = new OrganisateursFestival(festivalAModifier);
+                    organisateursFestival.Show();
+                }
+            }
         }
 
         private int NomCommuneToId(String commune)
