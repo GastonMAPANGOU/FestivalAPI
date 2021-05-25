@@ -1,0 +1,89 @@
+﻿@using WebApplication1.ControllersAPI
+@using FestivalAPI.Models
+@model FestivalAPI.Models.Festival
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Programme";
+}
+
+
+<h1>@Html.DisplayFor(model => model.Nom)</h1>
+<html lang='fr'>
+<head>
+    <meta charset='utf-8' />
+    <!--
+    <link href='~/fullcalendar-5.7.0/lib/main.css' rel='stylesheet' />
+    <script src='~/fullcalendar-5.7.0/lib/main.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek'
+            });
+            calendar.render();
+        });
+
+    </script>
+    -->
+    <link href='~/fullcalendar-scheduler-5.7.0/lib/main.css' rel='stylesheet' />
+    <script src='~/fullcalendar-scheduler-5.7.0/lib/main.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                initialView: 'resourceTimeGridDay',
+                resources: [
+
+                    { id: 'Lundi', title: 'Lundi' },
+                    { id: 'Mardi', title: 'Mardi' },
+                    { id: 'Mercredi', title: 'Mercredi' },
+                    { id: 'Jeudi', title: 'Jeudi' },
+                    { id: 'Vendredi', title: 'Vendredi' },
+                    { id: 'Dimanche', title: 'Dimanche' }
+                ]
+            });
+            sartst: '2021-09-05T12:30:00-05:00'
+
+            
+            new Draggable(containerEl, {
+                itemSelector: '.item-class',
+                eventData: function (eventEl) {
+                    return {
+                        title: eventEl.innerText,
+                        duration: '02:00'
+                    };
+                }
+            });
+            calendar.render();
+
+        });
+
+
+    </script>
+    <!--
+    <link href='~/fullcalendar-5.7.0/lib/main.css' rel='stylesheet' />
+    <script src='~/fullcalendar-5.7.0/lib/main.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth'
+            });
+            calendar.render();
+        });
+
+    </script>
+         -->
+</head>
+<body>
+    <div id='calendar'></div>
+</body>
+</html>
+<div>
+    <a asp-action="Index">Retour à la liste des festivals</a>
+</div>

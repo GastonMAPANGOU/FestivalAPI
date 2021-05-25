@@ -38,14 +38,6 @@ namespace WebApplication1.Controllers
                 //IEnumerable<Artiste> Artistes = API.Instance.GetArtistesAsync().Result;
                 //return View(Artistes);
                 var Artistes = API.Instance.GetArtistesAsync().Result;
-
-
-
-
-
-
-
-
                 return View(Artistes);
             }
         
@@ -152,20 +144,7 @@ namespace WebApplication1.Controllers
             // GET: Artiste/Edit/5
             public IActionResult Edit(int? id)
             {
-                /*if (id == null)
-                {
-                    return NotFound();
-                }
-
-
-
-                var Artiste = await _context.Artiste.FindAsync(id);
-                if (Artiste == null)
-                {
-                    return NotFound();
-                }
-                return View(Artiste);*/
-
+                
 
 
                 if (id == null)

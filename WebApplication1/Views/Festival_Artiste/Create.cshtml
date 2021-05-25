@@ -1,6 +1,8 @@
-﻿@model FestivalAPI.Models.Festival_Artiste
+﻿@model FestivalAPI.Models.Festival
 
 @{
+    FestivalAPI.Models.Festival_Artiste fa = new FestivalAPI.Models.Festival_Artiste();
+    fa.FestivalId = Model.IdF;
     ViewData["Title"] = "Create";
 }
 
@@ -11,22 +13,58 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
+            <span style="color:red">@Html.ValidationMessage("error")</span>
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="@fa.FestivalId" />
             <div class="form-group">
-                <label asp-for="FestivalId" class="control-label"></label>
-                <select asp-for="FestivalId" class ="form-control" asp-items="ViewBag.FestivalId"></select>
+                <label asp-for="@fa.ArtisteId" class="control-label">Choisissez l'artiste?</label>
+                <a asp-controller="Festivals" asp-action="AjoutArtiste">  ajoutez un artiste</a>
+
+                <select class="form-control" asp-for="@fa.ArtisteId">
+                    <option value="">Choisissez une option</option>
+                    @foreach (var it in Model.Artistes)
+                    {
+        <option value="@it.IdA">
+            @it.Nom
+        </option>}
+                </select>
+                <span asp-validation-for="@fa.ArtisteId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ArtisteId" class="control-label"></label>
-                <select asp-for="ArtisteId" class ="form-control" asp-items="ViewBag.ArtisteId"></select>
+                <label asp-for="@fa.SceneId" class="control-label">Choisissez la scene?</label>
+                <a asp-controller="Festivals" asp-action="AjoutScene">  ajoutez une scene</a>
+                <select class="form-control" asp-for="@fa.SceneId">
+                    <option value="">Choisissez une option</option>
+                    @foreach (var it in Model.Scenes)
+                    {
+        <option value="@it.IdS">
+            @it.Nom
+        </option>}
+                </select>
+                <span asp-validation-for="@fa.SceneId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SceneId" class="control-label"></label>
-                <select asp-for="SceneId" class ="form-control" asp-items="ViewBag.SceneId"></select>
+                <label asp-for="@fa.JourId" class="control-label">Choisissez le jour de prestation</label>
+                <select class="form-control" asp-for="@fa.JourId">
+                    <option value="">Choisissez une option</option>
+                    @foreach (var it in Model.Jours)
+                    {
+        <option value="@it.IdJ">
+            @it.Date_jour
+        </option>}
+                </select>
+                <span asp-validation-for="@fa.JourId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="JourId" class="control-label"></label>
-                <select asp-for="JourId" class ="form-control" asp-items="ViewBag.JourId"></select>
+                <label class="control-label">Début de la prestation</label>
+                <input type="time" name="HeureDebut" min="00:00" max="23:59" class="form-control" />
+                <span class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Fin de la prestation</label>
+                <input type="time" name="HeureFin" min="00:00" max="23:59" class="form-control" />
+                <span class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

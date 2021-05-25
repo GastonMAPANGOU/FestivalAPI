@@ -21,6 +21,8 @@ namespace FestivalAPI.Models
         public int? SceneId { get; set; }
         [ForeignKey("FK_Jour")]
         public int JourId { get; set; }
+        public DateTime HeureDebut { get; set; }
+        public DateTime HeureFin { get; set; }
         public Festival_Artiste() { }
     }
 }

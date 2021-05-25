@@ -43,8 +43,7 @@ namespace FestivalAPI.Controllers
         }
 
         // PUT: api/Festival_Artiste/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFestival_Artiste(int id, Festival_Artiste festival_Artiste)
         {
@@ -75,8 +74,7 @@ namespace FestivalAPI.Controllers
         }
 
         // POST: api/Festival_Artiste
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Festival_Artiste>> PostFestival_Artiste(Festival_Artiste festival_Artiste)
         {
@@ -88,7 +86,7 @@ namespace FestivalAPI.Controllers
 
         // DELETE: api/Festival_Artiste/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Festival_Artiste>> DeleteFestival_Artiste(int id)
+        public async Task<IActionResult> DeleteFestival_Artiste(int id)
         {
             var festival_Artiste = await _context.Festival_Artiste.FindAsync(id);
             if (festival_Artiste == null)
@@ -99,7 +97,7 @@ namespace FestivalAPI.Controllers
             _context.Festival_Artiste.Remove(festival_Artiste);
             await _context.SaveChangesAsync();
 
-            return festival_Artiste;
+            return NoContent();
         }
 
         private bool Festival_ArtisteExists(int id)

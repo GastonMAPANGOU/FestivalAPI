@@ -394,9 +394,16 @@ namespace WebApplication1.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult AjoutFestivalier(Festivalier festivalier)
         {
+            DateTime today = DateTime.Now;
+            var days = (today.Date - festivalier.Birthday.Date).TotalDays;
             Festival festival = API.Instance.GetFestivalAsync(festivalier.FestivalId).Result;
             festivalier.IsPublished = false;
             festival.NbPlacesDispo = festival.NbPlacesDispo-(festivalier.Nb_ParticipantsDT + festivalier.Nb_ParticipantsPT);
+            if (days < 18 * 365)
+            {
+                ModelState.AddModelError("error", "Vous n'êtes pas majeur!!!");
+                return AjoutFestivalier(festivalier.FestivalId);
+            }
             if (festival.NbPlacesDispo< (festivalier.Nb_ParticipantsDT+ festivalier.Nb_ParticipantsPT))
             {
                 ModelState.AddModelError("error", "Pas assez de  places disponibles ? veuillez en prendre moins!");
@@ -792,6 +799,7 @@ namespace WebApplication1.Controllers
             
             Ami ami = new Ami();
             Festivalier festivalier = API.Instance.GetFestivalierAsync((int)HttpContext.Session.GetInt32("idf")).Result;
+            
             IEnumerable<Ami> amitiés = API.Instance.GetAmitiésAsync().Result.Where(a => a.AmiReceveur == festivalier.Id && !a.Accepted);
             
             ICollection<Festivalier> festivaliers = new List<Festivalier>();

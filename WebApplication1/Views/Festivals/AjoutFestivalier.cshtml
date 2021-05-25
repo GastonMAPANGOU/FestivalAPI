@@ -25,6 +25,8 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AjoutFestivalier">
+            <span style="color:red">@Html.ValidationMessage("error")</span>
+
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <input type="hidden" asp-for="@festivalier.FestivalId" />
@@ -70,7 +72,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="@festivalier.Birthday" class="control-label">Date de naissance</label>
-                <input asp-for="@festivalier.Birthday" class="form-control" min="1/1/1753 00:00:00 AM" max="@DateTime.Now" type="datetime" required />
+                <input asp-for="@festivalier.Birthday" type="date" class="form-control" required />
                 <span asp-validation-for="@festivalier.Birthday" class="text-danger"></span>
             </div>
             <div class="form-group">

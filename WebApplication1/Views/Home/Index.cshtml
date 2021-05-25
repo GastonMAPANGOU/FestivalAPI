@@ -22,7 +22,7 @@
 
 
 
-    <h1>Les festivals de l'année</h1>
+    <h1>scenes programmées</h1>
 
 
 
@@ -62,7 +62,7 @@
                             if (jour.IdJ == item.JourId)
                             {
 
-                                @Html.DisplayFor(modelItem => jour.Numero_jour + " " + jour.Date_jour)
+                                @Html.DisplayFor(modelItem =>jour.Date_jour )
                             }
                         }
                         <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Savoir Plus</a>
