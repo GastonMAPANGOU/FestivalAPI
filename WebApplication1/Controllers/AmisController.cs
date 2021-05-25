@@ -312,7 +312,6 @@ namespace WebApplication1.Controllers
                         artistes.Add(artiste);
                     }
 
-
                     ViewBag.Artistes = artistes;
                 }
                 return View();

@@ -34,9 +34,10 @@ namespace WebApplication1.Controllers
             return View(rapport);
         }
 
-        public IActionResult Rapport_Temps_Jours_Graphe(int Id, DateTime date)
+        public IActionResult Rapport_Temps_Jours_Graphe(DateTime date)
         {
-
+            int Id = (int)HttpContext.Session.GetInt32("ido");
+            int IdF = API.Instance.GetOrganisateurAsync(Id).Result.FestivalId;
             List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_JourAsync(Id, date).Result;
             List<DateTime> List_Date = new List<DateTime>();
             List<int> Nombre_Inscription = new List<int>();

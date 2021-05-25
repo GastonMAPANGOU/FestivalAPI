@@ -50,8 +50,10 @@ namespace WebApplication1.Controllers
             return View(rapport);
         }
 
-        public IActionResult Rapport_Geo_Departement_Graphe(int IdF, int IdD)
+        public IActionResult Rapport_Geo_Departement_Graphe(int IdD)
         {
+            int Ido = (int)HttpContext.Session.GetInt32("ido");
+            int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
             string Departement = API.Instance.GetDepartementAsync(IdD).Result.Nom;
            
             List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_DepartementAsync(Departement).Result;
@@ -76,8 +78,10 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult Rapport_Geo_Region_Graphe(int IdF, int IdR)
+        public IActionResult Rapport_Geo_Region_Graphe(int IdR)
         {
+            int Ido = (int)HttpContext.Session.GetInt32("ido");
+            int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
             string Region = API.Instance.GetRegionAsync(IdR).Result.Nom;
 
             List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_RegionAsync(Region).Result;
@@ -102,8 +106,10 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult Rapport_Geo_Pays_Graphe(int IdF, int IdP)
+        public IActionResult Rapport_Geo_Pays_Graphe(int IdP)
         {
+            int Ido = (int)HttpContext.Session.GetInt32("ido");
+            int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
             string Pays = API.Instance.GetPaysAsync(IdP).Result.Nom;
 
             List<Rapport_Geo> rapport = (List<Rapport_Geo>)API.Instance.Rapport_Geo_PaysAsync(Pays).Result;
