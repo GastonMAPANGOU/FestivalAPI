@@ -879,7 +879,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<ICollection<Type_Hebergement>> GetType_HebergementsAsync()
         {
             ICollection<Type_Hebergement> type_Hebergements = new List<Type_Hebergement>();
-            HttpResponseMessage response = client.GetAsync("api/type_Hebergements").Result;
+            HttpResponseMessage response = client.GetAsync("api/type_Hebergement").Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -904,7 +904,7 @@ namespace WebApplication1.ControllersAPI
         {
             try
             {
-                HttpResponseMessage response = await client.PostAsJsonAsync("api/type_Hebergements", type_Hebergement);
+                HttpResponseMessage response = await client.PostAsJsonAsync("api/type_Hebergement", type_Hebergement);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -919,7 +919,7 @@ namespace WebApplication1.ControllersAPI
         {
             try
             {
-                HttpResponseMessage response = await client.PutAsJsonAsync("api/type_Hebergements/" + type_Hebergement.IDTH, type_Hebergement);
+                HttpResponseMessage response = await client.PutAsJsonAsync("api/type_Hebergement/" + type_Hebergement.IDTH, type_Hebergement);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -934,7 +934,7 @@ namespace WebApplication1.ControllersAPI
         {
             try
             {
-                HttpResponseMessage response = await client.DeleteAsync("api/type_Hebergements/" + id);
+                HttpResponseMessage response = await client.DeleteAsync("api/type_Hebergement/" + id);
                 response.EnsureSuccessStatusCode();
                 return response.Headers.Location;
             }
@@ -1593,7 +1593,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<IEnumerable<Rapport_Activite>> Rapport_Activites_RegionAsync(string? Region)
         {
             List<Rapport_Activite> List = new List<Rapport_Activite>();
-            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Region/" + Region).Result;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Activite/Rapport_Activite_Region/"+Region).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1634,6 +1634,43 @@ namespace WebApplication1.ControllersAPI
             }
             return List;
         }
+
+        public async Task<int> Rapport_Geo_Count_PaysAsync(int? FestivalId, string? Pays)
+        {
+            int count = 0;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Count_Pays/" + FestivalId +"/"+Pays).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                count = JsonConvert.DeserializeObject<int>(resp);
+            }
+            return count;
+        }
+
+        public async Task<int> Rapport_Geo_Count_RegionAsync(int? FestivalId, string? Region)
+        {
+            int count = 0;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Count_Region/" + FestivalId + "/" + Region).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                count = JsonConvert.DeserializeObject<int>(resp);
+            }
+            return count;
+        }
+
+        public async Task<int> Rapport_Geo_Count_DepartementAsync(int? FestivalId, string? Departement)
+        {
+            int count = 0;
+            HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Count_Departement/" + FestivalId + "/" + Departement).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                var resp = await response.Content.ReadAsStringAsync();
+                count = JsonConvert.DeserializeObject<int>(resp);
+            }
+            return count;
+        }
+
         public async Task<IEnumerable<Rapport_Geo>> Rapport_Geo_DepartementAsync(string? Departement)
         {
             List<Rapport_Geo> List = new List<Rapport_Geo>();

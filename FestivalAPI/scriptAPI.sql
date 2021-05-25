@@ -1,4 +1,4 @@
-sp_configure 'show advanced options', 1;  
+ï»¿sp_configure 'show advanced options', 1;  
 RECONFIGURE;
 GO 
 sp_configure 'Ad Hoc Distributed Queries', 1;  
@@ -22,7 +22,7 @@ where country_info.pays  not in (select pays.nom from pays );
 
 GO
 
---Régions
+--Rï¿½gions
 insert into region(Nom,PaysId)
 select distinct country_info.nom_region,pays.Id
 from country_info,pays

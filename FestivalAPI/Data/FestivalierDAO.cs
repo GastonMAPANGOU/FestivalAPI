@@ -17,7 +17,7 @@ namespace FestivalAPI.Data
 
             using (SqlConnection connection = new SqlConnection(connectionString)) 
             {
-                string sqlQuery = "Select * from Festivalier";
+                string sqlQuery = "Select * from dbo.Festivalier";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
 
@@ -52,7 +52,7 @@ namespace FestivalAPI.Data
             Festivalier festivalier = new Festivalier();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Festivalier where Id = " + Id;
+                string sqlQuery = "Select * from dbo.Festivalier where Id = " + Id;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 command.Parameters.Add("@Id", System.Data.SqlDbType.Int).Value = Id;
                 connection.Open();
@@ -82,7 +82,7 @@ namespace FestivalAPI.Data
             Festivalier festivalier = new Festivalier();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Festivalier where Login = " + Login + "and FestivalId = " +FestivalId;
+                string sqlQuery = "Select * from dbo.Festivalier where Login = " + Login + "and FestivalId = " +FestivalId;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -184,7 +184,7 @@ namespace FestivalAPI.Data
             using (SqlConnection connection = new SqlConnection(connectionString))
                 using(SqlCommand command = connection.CreateCommand())
             {
-                command.CommandText = "Delete from Festivalier where Id = " + Id;
+                command.CommandText = "Delete from dbo.Festivalier where Id = " + Id;
                 connection.Open();
                 int DeleteId = command.ExecuteNonQuery();
                 return DeleteId;

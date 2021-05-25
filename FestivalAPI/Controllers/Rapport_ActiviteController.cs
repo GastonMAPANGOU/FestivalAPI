@@ -102,7 +102,7 @@ namespace FestivalAPI.Controllers
 
 
         [HttpGet("Rapport_Activite_Region/{Region}")]
-        public ActionResult<List<Rapport_Activite>> Rapport_Activite_Region(string Region)
+        public ActionResult<List<Rapport_Activite>>Rapport_Activite_Region(string Region)
         {
             List<Rapport_Activite> rapport = new List<Rapport_Activite>();
             Rapport_ActiviteDAO rapport_ActiviteDAO = new Rapport_ActiviteDAO();
@@ -111,7 +111,7 @@ namespace FestivalAPI.Controllers
         }
 
         [HttpGet("Rapport_Activite_Departement/{Departement}")]
-        public ActionResult<List<Rapport_Activite>> Rapport_Activite_Departement(string Departement)
+        public ActionResult<List<Rapport_Activite>>Rapport_Activite_Departement(string Departement)
         {
             List<Rapport_Activite> rapport = new List<Rapport_Activite>();
             Rapport_ActiviteDAO rapport_ActiviteDAO = new Rapport_ActiviteDAO();
@@ -119,8 +119,8 @@ namespace FestivalAPI.Controllers
             return rapport;
         }
 
-        [HttpGet("Rapport_Activite_Pays/{FestivalId}")]
-        public ActionResult<List<Rapport_Activite>> Rapport_Activite_Pays(int FestivalId)
+        [HttpGet("Rapport_Activite_Festival/{FestivalId}")]
+        public ActionResult<List<Rapport_Activite>>Rapport_Activite_Festival(int FestivalId)
         {
             List<Rapport_Activite> rapport = new List<Rapport_Activite>();
             Rapport_ActiviteDAO rapport_ActiviteDAO = new Rapport_ActiviteDAO();

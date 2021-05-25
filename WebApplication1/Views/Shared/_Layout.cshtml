@@ -13,9 +13,9 @@
 
 }
 
-@if (HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null)
+@if (HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null)
 {
-     organisateur = WebApplication1.ControllersAPI.API.Instance.GetOrganisateurAsync((int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result;
+     organisateur = WebApplication1.ControllersAPI.API.Instance.GetOrganisateurAsync((int)HttpContextAccessor.HttpContext.Session.GetInt32("ido")).Result;
 
 }
 <!DOCTYPE html>

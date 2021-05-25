@@ -444,13 +444,20 @@ namespace WebApplication1.Controllers
             return View(festivalier);
         }
 
-        public IActionResult AjoutScene(int? id)
+        public IActionResult AjoutScene()
         {
-            if (id == null)
+            if (HttpContext.Session.GetInt32("ido") == null)
             {
                 return null;
             }
-            return View(API.Instance.GetFestivalAsync(id).Result);
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if(festival==null)
+            {
+                return null;
+            }
+                     
+            return View(festival);
         }
 
 
@@ -532,13 +539,20 @@ namespace WebApplication1.Controllers
             return Redirect("/Festivals/Festivaliers");
         }
 
-        public IActionResult AjoutHebergement(int? id)
+        public IActionResult AjoutHebergement()
         {
-            if (id == null)
+            if (HttpContext.Session.GetInt32("ido") == null)
             {
                 return null;
             }
-            return View(API.Instance.GetFestivalAsync(id).Result);
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival);
         }
 
 
@@ -618,6 +632,118 @@ namespace WebApplication1.Controllers
         {
             var URI = API.Instance.SupprHebergementAsync(id);
             return Redirect("/Festivals/Festivaliers");
+        }
+
+        // GET: Artiste/Create
+        public IActionResult AjoutArtiste()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival);
+        }
+
+
+
+        // POST: Artiste/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AjoutArtiste(Artiste artiste, IFormFile file, IFormFile file2, [FromServices] IHostingEnvironment hostingEnvironment)
+        {
+            //taf de la photo
+            int taillemax = 2097152;
+
+            List<String> extensionsvalides = new List<String>();
+            List<String> strcut = new List<String>();
+            extensionsvalides.Add(".jpg");
+            extensionsvalides.Add(".jpeg");
+            extensionsvalides.Add(".gif");
+            extensionsvalides.Add(".png");
+            extensionsvalides.Add(".jfif");
+
+            if (file != null)
+            {
+                string fileName = "img/artistes/photos/" + artiste.Nom;
+                string extension = Path.GetExtension(file.FileName);
+                string chemin = fileName + extension.ToLower();
+                //taf de l'extrait musical
+                
+                if (file.Length < taillemax && extensionsvalides.Contains(extension))
+                {
+                    using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
+                    {
+                        file.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+                    
+                    artiste.Photo = chemin;
+                }
+                else
+                {
+                    ModelState.AddModelError("error", "Extension du fichier non reconnu ou le fichier est trop lourd");
+                    return AjoutArtiste();
+                }
+            }
+
+            if (file2 != null)
+            { 
+                //taf de l'extrait musical
+                List<String> extensionsvalides2 = new List<String>();
+                List<String> strcut2 = new List<String>();
+                extensionsvalides2.Add(".mp3");
+
+
+                string fileName2 = "img/artistes/extraits/" + artiste.Nom;
+                string extension2 = Path.GetExtension(file2.FileName);
+                string chemin2 = fileName2 + extension2.ToLower();
+                if (extensionsvalides2.Contains(extension2))
+                {
+                    using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin2))
+                    {
+                        file2.CopyTo(fileStream);
+                        fileStream.Flush();
+                    }
+                    
+                    artiste.Extrait = chemin2;
+                }
+                else
+                {
+                    ModelState.AddModelError("error", "Extension du fichier non reconnu");
+                    return AjoutArtiste();
+                }
+            }
+            int drapeau = 0;
+            IEnumerable<Artiste> Artistes = API.Instance.GetArtistesAsync().Result;
+            foreach (var item in Artistes)
+            {
+                if (item.Nom == artiste.Nom)
+                {
+                    drapeau++;
+                }
+            }
+
+            if (drapeau == 0)
+            {
+                var URI = API.Instance.AjoutArtisteAsync(artiste);
+                return RedirectToAction(nameof(Index));
+            }
+            else if (drapeau != 0)
+            {
+                ModelState.AddModelError("error", "Cet artiste a déjà été ajouté");
+                return AjoutArtiste();
+            }
+
+            return AjoutArtiste();
         }
 
         public IActionResult Festivaliers(int? id)
@@ -703,6 +829,19 @@ namespace WebApplication1.Controllers
             return Redirect("/Festivals/Festivaliers");
         }
 
+        public ActionResult AccepterAmitié(int? id)
+        {
+            Festivalier festivalier = API.Instance.GetFestivalierAsync((int)HttpContext.Session.GetInt32("idf")).Result;
+
+            if (id != null)
+            {
+                Ami amitié = API.Instance.GetAmitiéAsync((int)id, festivalier.Id).Result;
+                amitié.Accepted = true;
+                var URI = API.Instance.ModifAmiAsync(amitié);
+            }
+            return Redirect("/Festivals/Festivaliers");
+        }
+
         public ActionResult ValiderInscription(int? id)
         {
             if (id != null)
@@ -716,6 +855,70 @@ namespace WebApplication1.Controllers
             var uri2 = API.Instance.ModifFestivalAsync(festival);
             festivalier.InscriptionAccepted = true;
             return Redirect("/Festivals/Festivaliers");
+        }
+
+        public IActionResult Scenes()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival.Scenes);
+        }
+
+        public IActionResult Inscriptions()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival.Festivaliers);
+        }
+
+        public IActionResult Hebergements()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival.Hebergements);
+        }
+
+        public IActionResult Artistes()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(festival.Artistes);
         }
     }
 }

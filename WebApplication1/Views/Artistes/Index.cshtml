@@ -22,7 +22,7 @@
                         <img src="@Url.Content(item.Photo)" class="card-img-top" /> }
                     <a asp-action="Details" asp-route-id="@item.IdA">
                         @Html.DisplayFor(modelItem => item.Nom)
-                        @Html.DisplayFor(modelItem => item.Prenom)
+                        @Html.DisplayFor(modelItem => item.Prenom) 
                     </a>
                     @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")))
                     {

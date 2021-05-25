@@ -2,19 +2,14 @@
 
 @{ 
 
-    /* string @Nom = "";
-    string @Prenom = "";
-    string @Login = "";
-    string @Pwd = "";
-    int @Nb_Participants = 0;*/
     FestivalAPI.Models.Festivalier festivalier = new FestivalAPI.Models.Festivalier();
 
 
 
     double somme = Model.Montant;
     festivalier.FestivalId = Model.IdF;
+    IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result.Where(j => j.FestivalId==Model.IdF);
 
-    IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result.Where(s => s.FestivalId == Model.IdF);
     IEnumerable<FestivalAPI.Models.Lieu> lieux = WebApplication1.ControllersAPI.API.Instance.GetLieuxAsync().Result;
     IEnumerable<FestivalAPI.Models.Genre> genres = WebApplication1.ControllersAPI.API.Instance.GetGenresAsync().Result;
     }

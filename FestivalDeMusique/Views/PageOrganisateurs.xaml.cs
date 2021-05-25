@@ -59,6 +59,20 @@ namespace FestivalDeMusique.Views
             }
         }
 
+        private async void Supprimer_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Organisateur org = organisateurGrid.SelectedItem as Organisateur;
+                System.Net.Http.HttpResponseMessage response = await API.API.Instance.SupprOrganisateurAsync(org.IdO);
+                Reload();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Sélectionnez un organisateur à supprimer");
+            }
+        }
+
         private void DataGridCheckBoxColumn_MouseDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("Hello world");

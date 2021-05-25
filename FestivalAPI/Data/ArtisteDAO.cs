@@ -17,7 +17,7 @@ namespace FestivalAPI.Data
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Artiste";
+                string sqlQuery = "Select * from dbo.Artiste";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
 
@@ -51,7 +51,7 @@ namespace FestivalAPI.Data
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select Nom from Artiste";
+                string sqlQuery = "Select Nom from dbo.Artiste";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
 
@@ -69,13 +69,13 @@ namespace FestivalAPI.Data
             }
         }
 
-        public int Return_IdArtiste(string search)
+        public int Return_IdArtiste(string Nom)
         {
             int Id = -1;
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select IdA from Artist where nom = " + search;
+                string sqlQuery = "Select IdA from dbo.Artist where nom = " + Nom;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
 
@@ -98,7 +98,7 @@ namespace FestivalAPI.Data
 
             using(SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Artiste where StyleId = " + StyleId;
+                string sqlQuery = "Select * from dbo.Artiste where StyleId = " + StyleId;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
 
@@ -124,6 +124,38 @@ namespace FestivalAPI.Data
                 }
             }
             return (artistes);
+        }
+
+        public Artiste Return_Artiste(int ArtisteId)
+        {
+            Artiste artiste = new Artiste();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "Select * from dbo.Artiste where IdA = " + ArtisteId;
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+                connection.Open();
+
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+
+                        artiste.IdA = reader.GetInt32(0);
+                        artiste.Nom = reader.GetString(1);
+                        artiste.Prenom = reader.GetString(2);
+                        artiste.Photo = reader.GetString(3);
+                        artiste.StyleId = reader.GetInt32(4);
+                        artiste.Descriptif = reader.GetString(5);
+                        artiste.PaysId = reader.GetInt32(6);
+                        artiste.Extrait = reader.GetString(7);
+
+                    }
+                }
+            }
+            return (artiste);
         }
     }
 }

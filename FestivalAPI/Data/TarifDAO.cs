@@ -15,7 +15,7 @@ namespace FestivalAPI.Data
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Tarif where IdJ = " + IdJ +"Coefficient = "+Coefficient;
+                string sqlQuery = "Select * from dbo.Tarif where IdJ = " + IdJ +"Coefficient = "+Coefficient;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 command.Parameters.Add("@Id", System.Data.SqlDbType.Int).Value = IdJ;
                 connection.Open();

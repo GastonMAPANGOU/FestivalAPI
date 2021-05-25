@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@*@{
+        ViewBag["Title"] = "For Region";
+    }*@
+
+<div class=" contenair-fluid section1 text-center ">
+    <h1>Rapport Géographique (Région)</h1>
+</div>
+<div class=" row container-fluid section1 text-center">
+    <div class="col-md-12 text-center mb-3">
+        <h2>caractéristique du graphe</h2>
+        <p>Présentation générale et Variation des participations des festivaliers par région </p>
+    </div>
+</div>
+<div class="row container-fluid section1 text-center">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-8 mb-3">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <canvas id="myChart" width="500" height="500"></canvas>
+    </div>
+    <div class="col-md-2">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Pays</th>
+                    <th scope="col">Departement</th>
+                    <th scope="col">Region</th>
+                    <th scope="col">Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @foreach (var item in ViewBag.Rapport_Geo)
+                    {
+                        <th scope="row">@item.Id</th>
+                        <td>@item.Pays</td>
+                        <td>@item.Departement</td>
+                        <td>@item.Region</td>
+                        <td>@item.Genre</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+<script>
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var v = @Html.Raw(@ViewBag.Liste);
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'bar',
+
+        // The data for our dataset
+        data: {
+            labels: @ViewBag.Nombre_Participants ,
+            datasets: [{
+                label: 'Inscription per region',
+                backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: @ViewBag.Liste_Somme
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+</script>

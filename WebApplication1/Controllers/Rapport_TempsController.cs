@@ -18,26 +18,26 @@ namespace WebApplication1.Controllers
 {
     public class Rapport_TempsController : Controller
     {
-        public IActionResult Rapport_Temps_Jours(int FestivalId, DateTime date)
+        public IActionResult Rapport_Temps_Jours(int Id, DateTime date)
         {
 
-            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_JourAsync(FestivalId, date).Result;
+            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_JourAsync(Id, date).Result;
 
             return View(rapport);
         }
 
-        public IActionResult Rapport_Temps_Festival(int FestivalId)
+        public IActionResult Rapport_Temps_Festival(int Id)
         {
 
-            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_FestivalAsync(FestivalId).Result;
+            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_FestivalAsync(Id).Result;
 
             return View(rapport);
         }
 
-        public IActionResult Rapport_Temps_Jours_Graphe(int FestivalId, DateTime date)
+        public IActionResult Rapport_Temps_Jours_Graphe(int Id, DateTime date)
         {
 
-            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_JourAsync(FestivalId, date).Result;
+            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_JourAsync(Id, date).Result;
             List<DateTime> List_Date = new List<DateTime>();
             List<int> Nombre_Inscription = new List<int>();
             foreach (var elmt in rapport)
@@ -58,10 +58,10 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult Rapport_Temps_Festival_Graphe(int FestivalId)
+        public IActionResult Rapport_Temps_Festival_Graphe(int Id)
         {
 
-            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_FestivalAsync(FestivalId).Result;
+            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_FestivalAsync(Id).Result;
             List<DateTime> List_Date = new List<DateTime>();
             List<int> Nombre_Inscription = new List<int>();
             foreach (var elmt in rapport)

@@ -16,7 +16,7 @@ namespace FestivalAPI.Data
             Jour jour = new Jour();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select IdJ from Jour where Date_Jour = " + dateJour + " And FestivalId = " +FestivalId;
+                string sqlQuery = "Select IdJ from dbo.Jour where Date_Jour = " + dateJour + " And FestivalId = " +FestivalId;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -30,6 +30,30 @@ namespace FestivalAPI.Data
                 }
             }
             return jour.IdJ;
+        }
+
+        public Jour Return_Jour(int JourId, int FestivalId)
+        {
+            Jour jour = new Jour();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                string sqlQuery = "Select * from dbo.Jour where IdJ = "+JourId+" and FestivalId = "+FestivalId;
+                SqlCommand command = new SqlCommand(sqlQuery, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        jour.IdJ = reader.GetInt32(0);
+                        jour.Numero_jour = reader.GetString(1);
+                        jour.Date_jour = reader.GetDateTime(2);
+                        jour.FestivalId = reader.GetInt32(3);
+                    }
+                }
+            }
+            return jour;
         }
     }
 }
