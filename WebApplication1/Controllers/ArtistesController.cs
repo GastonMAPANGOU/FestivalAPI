@@ -186,15 +186,20 @@ namespace WebApplication1.Controllers
 
                 if (file.Length < taillemax && extensionsvalides.Contains(extension))
                 {
-                    if (System.IO.File.Exists(chemin))
+                    if(chemin!=null)
                     {
-                        System.IO.File.Delete(chemin);
+                        if (System.IO.File.Exists(chemin))
+                        {
+                            System.IO.File.Delete(chemin);
+                        }
+                        using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
+                        {
+                            file.CopyTo(fileStream);
+                            fileStream.Flush();
+                        }
                     }
-                    using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
-                    {
-                        file.CopyTo(fileStream);
-                        fileStream.Flush();
-                    }
+
+                    
 
                     artiste.Photo = chemin;
                 }
