@@ -564,7 +564,7 @@ namespace WebApplication1.ControllersAPI
 
             jour.Date_jour = date;
 
-            while (jour.Date_jour < festival.Date_Fin)
+            while (jour.Date_jour <= festival.Date_Fin)
             {
 
                 jour.Numero_jour = "Jour" + i;
