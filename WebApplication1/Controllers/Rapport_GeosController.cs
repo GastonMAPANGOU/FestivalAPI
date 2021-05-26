@@ -91,9 +91,9 @@ namespace WebApplication1.Controllers
 
             foreach (var elmt in rapport)
             {
-                if (!Liste.Contains(elmt.Region))
+                if (!Liste.Contains(elmt.Genre))
                 {
-                    Liste.Add(elmt.Region);
+                    Liste.Add(elmt.Genre);
                 }
             }
             Liste.Reverse();

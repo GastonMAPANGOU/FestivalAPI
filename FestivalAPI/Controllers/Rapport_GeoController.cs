@@ -159,7 +159,7 @@ namespace FestivalAPI.Controllers
         {
             List<int> count = new List<int>();
             Rapport_GeoDAO rapport_GeoDAO = new Rapport_GeoDAO();
-            count = rapport_GeoDAO.Rapport_Geo_Count_Departement(Id, Region);
+            count = rapport_GeoDAO.Rapport_Geo_Count_Region(Id, Region);
             return count;
         }
 
