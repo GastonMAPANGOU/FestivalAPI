@@ -14,9 +14,6 @@
     {
         <div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
             <div class="card text-center">
-
-
-
                 <div class="card-body">
                     @{
                         <img src="@Url.Content(item.Photo)" class="card-img-top" /> }
@@ -35,12 +32,15 @@
                             <a class="btn btn-primary" asp-action="DeleteFavoris" asp-route-id="@item.IdA">Supprimer des Favoris</a>}
 
                     }
+                <div>
                     @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
                     {
                         <a class="btn btn-primary" asp-action="Edit" asp-route-id="@item.IdA"> Modifier</a>
                         <a class="btn btn-primary" asp-action="Delete" asp-route-id="@item.IdA"> Supprimer</a>
 
                     }
+                </div>
+
 
                 </div>
             </div>
