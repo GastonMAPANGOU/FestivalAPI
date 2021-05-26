@@ -86,5 +86,6 @@ namespace WebApplication1.Controllers
             HttpContext.Session.Clear();
             return Redirect("/Home/Index");
         }
+
     }
 }

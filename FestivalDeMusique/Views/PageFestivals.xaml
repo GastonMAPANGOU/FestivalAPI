@@ -14,7 +14,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid Margin="0 0 0 0" Background="AliceBlue"
+        <Grid Margin="0 0 0 0" Background="LightGray"
               Grid.Row="0">
             <!-- Colunm definition -->
             <Grid.ColumnDefinitions>
@@ -24,25 +24,28 @@
 
             <Grid Margin="5"
                   Grid.Column="0"
-                  Background="LightBlue">
+                  Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="Nom du festival"
+                <TextBox Text=""
                          Margin="5 0 5 0"
                          Padding="3"
-                         Grid.Column="0"/>
-                <ComboBox Text="Recherche par" Margin="5 0 5 0"
+                         Grid.Column="0"
+                         x:Name="RechercheTextBox"
+                         TextChanged="RechercheTextBox_TextChanged"/>
+                <ComboBox Margin="5 0 5 0"
                           IsEditable="True"
                           IsReadOnly="True"
-                          Grid.Column="1"/>
+                          Grid.Column="1"
+                          x:Name="RechercheComboBox"/>
             </Grid>
             
             <Grid Margin="5"
                   Grid.Column="1"
-                  Background="LightCoral">
+                  Background="Transparent">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />

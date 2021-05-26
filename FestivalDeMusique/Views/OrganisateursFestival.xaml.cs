@@ -51,7 +51,9 @@ namespace FestivalDeMusique.Views
 
         private void Ajouter_ButtonClick(object sender, RoutedEventArgs e)
         {
-            // Windows to add organizer to the festival, takes festival as parameter
+            AjoutOrganisateur ajoutOrganisateur = new AjoutOrganisateur(festival);
+            ajoutOrganisateur.ShowDialog();
+            Reload();
         }
 
         private void Modifier_ButtonClick(object sender, RoutedEventArgs e)
@@ -59,7 +61,9 @@ namespace FestivalDeMusique.Views
             try
             {
                 Organisateur org = OrganisateursGrid.SelectedItem as Organisateur;
-                // Open a window to change details about the organizer
+                ModifierOrganisateur modifierOrganisateur = new ModifierOrganisateur(org);
+                modifierOrganisateur.ShowDialog();
+                Reload();
             }
             catch (Exception ex)
             {

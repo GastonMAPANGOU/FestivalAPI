@@ -31,10 +31,11 @@
                     <ul class="list-group list-group-flush">
                         @if (item.LieuId != 0)
                         {
-                            <li class="list-group-item">
-                                <i class="glyphicon glyphicon-map-marker"></i>
-                                @API.Instance.GetLieuAsync(item.LieuId).Result.Commune
-                            </li>
+                        <li class="list-group-item">
+                            <i class="glyphicon glyphicon-map-marker"></i>
+                            <td><strong>Localisation</strong></td>
+                            @API.Instance.GetLieuAsync(item.LieuId).Result.Commune
+                        </li>
 
                         }
                         else

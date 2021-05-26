@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FestivalAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,16 @@ namespace FestivalDeMusique.Views
     /// </summary>
     public partial class PageCompte : Page
     {
+        private readonly Gimi gimi;
         public PageCompte()
         {
             InitializeComponent();
+        }
+
+        public PageCompte(Gimi gimi)
+        {
+            InitializeComponent();
+            this.gimi = gimi;
         }
     }
 }

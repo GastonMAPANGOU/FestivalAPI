@@ -30,14 +30,17 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="Nom de l'organisateur"
+                <TextBox Text=""
                          Margin="5 0 5 0"
                          Padding="3"
-                         Grid.Column="0"/>
-                <ComboBox Text="Recherche par" Margin="5 0 5 0"
+                         Grid.Column="0"
+                         x:Name="RechercheTextBox"
+                         TextChanged="RechercheTextBox_TextChanged"/>
+                <ComboBox Margin="5 0 5 0"
                           IsEditable="True"
                           IsReadOnly="True"
-                          Grid.Column="1"/>
+                          Grid.Column="1"
+                          x:Name="RechercheComboBox"/>
             </Grid>
 
             <Grid Margin="5"
@@ -52,13 +55,16 @@
                 <Button Content="Valider"
                         Grid.Column="0"
                         Margin="10 0 10 0"
+                        Width="80"
                         Click="ValiderOrganisateur"/>
                 <Button Content="Supprimer"
                         Grid.Column="1"
                         Margin="10 0 10 0"
-                        Click="ValiderOrganisateur"/>
+                        Width="80"
+                        Click="Supprimer_ButtonClick"/>
                 <Button Content="Actualiser"
                         Grid.Column="2"
+                        Width="80"
                         Margin="10 0 10 0"
                         Click="RechargerPage"/>
             </Grid>
@@ -82,10 +88,10 @@
                                     Width="*"
                                     Binding="{Binding Prenom}"
                                     IsReadOnly="True"/>
-                <DataGridTextColumn Header="Festival"
+                <DataGridTextColumn Header="E-mail"
                                     Width="*"
                                     IsReadOnly="True"
-                                    Binding="{Binding FestivalId}"/>
+                                    Binding="{Binding Login}"/>
                 <DataGridCheckBoxColumn Header="Accrédité"
                                         Width="*"
                                         Binding="{Binding InscriptionAccepted}"
