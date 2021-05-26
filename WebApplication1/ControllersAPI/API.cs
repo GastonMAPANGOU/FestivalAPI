@@ -1641,38 +1641,38 @@ namespace WebApplication1.ControllersAPI
             return List;
         }
 
-        public async Task<int> Rapport_Geo_Count_PaysAsync(int? FestivalId, string? Pays)
+        public async Task<IEnumerable<int>> Rapport_Geo_Count_PaysAsync(int? FestivalId, string? Pays)
         {
-            int count = 0;
+            List<int> count = new List<int>();
             HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Count_Pays/" + FestivalId +"/"+Pays).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
-                count = JsonConvert.DeserializeObject<int>(resp);
+                count = JsonConvert.DeserializeObject<List<int>>(resp);
             }
             return count;
         }
 
-        public async Task<int> Rapport_Geo_Count_RegionAsync(int? FestivalId, string? Region)
+        public async Task<IEnumerable<int>> Rapport_Geo_Count_RegionAsync(int? FestivalId, string? Region)
         {
-            int count = 0;
+            List<int> count = new List<int>();
             HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Count_Region/" + FestivalId + "/" + Region).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
-                count = JsonConvert.DeserializeObject<int>(resp);
+                count = JsonConvert.DeserializeObject<List<int>>(resp);
             }
             return count;
         }
 
-        public async Task<int> Rapport_Geo_Count_DepartementAsync(int? FestivalId, string? Departement)
+        public async Task<IEnumerable<int>> Rapport_Geo_Count_DepartementAsync(int? FestivalId, string? Departement)
         {
-            int count = 0;
+            List<int> count = new List<int>();
             HttpResponseMessage response = client.GetAsync("api/Rapport_Geo/Rapport_Geo_Count_Departement/" + FestivalId + "/" + Departement).Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
-                count = JsonConvert.DeserializeObject<int>(resp);
+                count = JsonConvert.DeserializeObject<List<int>>(resp);
             }
             return count;
         }

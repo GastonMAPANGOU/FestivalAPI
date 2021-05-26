@@ -29,10 +29,11 @@ namespace FestivalAPI.Data
 
                         rapport_Geo.Id = reader.GetInt32(0);
                         rapport_Geo.FestivalId = reader.GetInt32(1);
-                        rapport_Geo.Pays = reader.GetString(2);
-                        rapport_Geo.Departement = reader.GetString(3);
-                        rapport_Geo.Region = reader.GetString(4);
-                        rapport_Geo.Genre = reader.GetString(5);
+                        rapport_Geo.FestivalierId = reader.GetInt32(2);
+                        rapport_Geo.Pays = reader.GetString(3);
+                        rapport_Geo.Departement = reader.GetString(4);
+                        rapport_Geo.Region = reader.GetString(5);
+                        rapport_Geo.Genre = reader.GetString(6);
 
                         rapport_Geos.Add(rapport_Geo);
                     }
@@ -59,10 +60,11 @@ namespace FestivalAPI.Data
 
                         rapport_Geo.Id = reader.GetInt32(0);
                         rapport_Geo.FestivalId = reader.GetInt32(1);
-                        rapport_Geo.Pays = reader.GetString(2);
-                        rapport_Geo.Departement = reader.GetString(3);
-                        rapport_Geo.Region = reader.GetString(4);
-                        rapport_Geo.Genre = reader.GetString(5);
+                        rapport_Geo.FestivalierId = reader.GetInt32(2);
+                        rapport_Geo.Pays = reader.GetString(3);
+                        rapport_Geo.Departement = reader.GetString(4);
+                        rapport_Geo.Region = reader.GetString(5);
+                        rapport_Geo.Genre = reader.GetString(6);
 
                         rapport_Geos.Add(rapport_Geo);
                     }
@@ -89,10 +91,11 @@ namespace FestivalAPI.Data
 
                         rapport_Geo.Id = reader.GetInt32(0);
                         rapport_Geo.FestivalId = reader.GetInt32(1);
-                        rapport_Geo.Pays = reader.GetString(2);
-                        rapport_Geo.Departement = reader.GetString(3);
-                        rapport_Geo.Region = reader.GetString(4);
-                        rapport_Geo.Genre = reader.GetString(5);
+                        rapport_Geo.FestivalierId = reader.GetInt32(2);
+                        rapport_Geo.Pays = reader.GetString(3);
+                        rapport_Geo.Departement = reader.GetString(4);
+                        rapport_Geo.Region = reader.GetString(5);
+                        rapport_Geo.Genre = reader.GetString(6);
 
                         rapport_Geos.Add(rapport_Geo);
                     }
@@ -119,10 +122,11 @@ namespace FestivalAPI.Data
 
                         rapport_Geo.Id = reader.GetInt32(0);
                         rapport_Geo.FestivalId = reader.GetInt32(1);
-                        rapport_Geo.Pays = reader.GetString(2);
-                        rapport_Geo.Departement = reader.GetString(3);
-                        rapport_Geo.Region = reader.GetString(4);
-                        rapport_Geo.Genre = reader.GetString(5);
+                        rapport_Geo.FestivalierId = reader.GetInt32(2);
+                        rapport_Geo.Pays = reader.GetString(3);
+                        rapport_Geo.Departement = reader.GetString(4);
+                        rapport_Geo.Region = reader.GetString(5);
+                        rapport_Geo.Genre = reader.GetString(6);
 
                         rapport_Geos.Add(rapport_Geo);
                     }
@@ -131,14 +135,14 @@ namespace FestivalAPI.Data
             return rapport_Geos;
         }
 
-        public int Rapport_Geo_Count_Pays(int FestivalierId, string Pays)
+        public List<int> Rapport_Geo_Count_Pays(int FestivalId, string Pays)
         {
-            int count = 0;
+            List<int> count = new List<int>();
 
             List<Rapport_Geo> rapport_Geos = new List<Rapport_Geo>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select count(FestivalierId) from Rapport_Geo where FestivalierId = " + FestivalierId + "And Pays = '"+ Pays +"'";
+                string sqlQuery = "Select count(FestivalierId) from Rapport_Geo where FestivalId = " + FestivalId + "And Pays = '"+ Pays +"' group by Region";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -147,21 +151,21 @@ namespace FestivalAPI.Data
                 {
                     while (reader.Read())
                     {
-                        count = reader.GetInt32(0);
+                        count.Add(reader.GetInt32(0));
                     }
                 }
             }
             return count;
         }
 
-        public int Rapport_Geo_Count_Departement(int FestivalierId, string Departement)
+        public List<int> Rapport_Geo_Count_Departement(int FestivalId, string Departement)
         {
-            int count = 0;
+            List<int> count = new List<int>();
 
             List<Rapport_Geo> rapport_Geos = new List<Rapport_Geo>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select count(FestivalierId) from Rapport_Geo where FestivalierId = " + FestivalierId + "And Departement = '" + Departement + "'";
+                string sqlQuery = "Select count(FestivalierId) from Rapport_Geo where FestivalId = " + FestivalId + "And Departement = '" + Departement + "' group by Region";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -170,21 +174,21 @@ namespace FestivalAPI.Data
                 {
                     while (reader.Read())
                     {
-                        count = reader.GetInt32(0);
+                        count.Add(reader.GetInt32(0));
                     }
                 }
             }
             return count;
         }
 
-        public int Rapport_Geo_Count_Region(int FestivalierId, string Region)
+        public List<int> Rapport_Geo_Count_Region(int FestivalId, string Region)
         {
-            int count = 0;
+            List<int> count = new List<int>();
 
             List<Rapport_Geo> rapport_Geos = new List<Rapport_Geo>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select count(FestivalierId) from Rapport_Geo where FestivalierId = " + FestivalierId + "And Region = '" + Region + "'";
+                string sqlQuery = "Select count(FestivalierId) from Rapport_Geo where FestivalId = " + FestivalId + "And Region = '" + Region + "' group by Genre";
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -193,7 +197,7 @@ namespace FestivalAPI.Data
                 {
                     while (reader.Read())
                     {
-                        count = reader.GetInt32(0);
+                        count.Add(reader.GetInt32(0));
                     }
                 }
             }

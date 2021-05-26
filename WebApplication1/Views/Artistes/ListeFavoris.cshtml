@@ -32,17 +32,19 @@
                                 {
                                     if (item.ArtisteId == it.IdA)
                                     {
-                                    @Html.DisplayFor(modelIt2 => it.Nom) @Html.DisplayFor(modelIt2 => it.Prenom)}
+                                        @Html.DisplayFor(modelIt2 => it.Nom) @Html.DisplayFor(modelIt2 => it.Prenom)
+                                        <a asp-action="Programme" asp-route-id="@it.IdA" class="btn btn-outline-primary ">Voir la programmation</a>
+                                    }
                                 }
-                             }
-                            }
-                        @foreach (var it in festival_Artistes)
-                        {
-                            if (item.ArtisteId == it.ArtisteId)
-                            {
-                                <a asp-action="Programme" asp-route-id="@it.ArtisteId" class="btn btn-outline-primary ">Voir la programmation</a>
                             }
                         }
+                        <!-- @foreach (var it in festival_Artistes)
+    {
+        if (item.ArtisteId == it.ArtisteId)
+        {
+            <a asp-action="Programme" asp-route-id="@it.ArtisteId" class="btn btn-outline-primary ">Voir la programmation</a>
+        }
+    }-->
 
                     </div>
                 </div>

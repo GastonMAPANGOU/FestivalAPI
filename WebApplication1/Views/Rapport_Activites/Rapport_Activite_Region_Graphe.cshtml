@@ -36,7 +36,7 @@
 
         // The data for our dataset
         data: {
-            labels: @ViewBag.Liste_Somme ,
+            labels: @Html.Raw(@ViewBag.Liste_Year) ,
             datasets: [{
                 label: 'Evolution inscription money per region',
                 backgroundColor: 'rgb(255, 99, 132)',
