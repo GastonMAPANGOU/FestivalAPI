@@ -819,8 +819,23 @@ namespace WebApplication1.Controllers
 
             return AjoutArtiste();
         }
+        public IActionResult Festivaliers()
+        {
+            if (HttpContext.Session.GetInt32("idf") == null)
+            {
+                return null;
+            }
+            Festivalier festivalier = API.Instance.GetFestivalierAsync((int)HttpContext.Session.GetInt32("idf")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(festivalier.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
 
-        public IActionResult Festivaliers(int? id)
+            return View(API.Instance.GetFestivaliersAsync().Result.Where(f => f.Id != festivalier.Id && f.FestivalId == festivalier.FestivalId));
+        }
+        
+        public ActionResult AjoutAmi(int? id)
         {
             int drapeau = 0;
             Ami ami = new Ami();
@@ -829,7 +844,7 @@ namespace WebApplication1.Controllers
 
             if (id == null)
             {
-                return View(API.Instance.GetFestivaliersAsync().Result.Where(f=>f.Id!=festivalier.Id && f.FestivalId == festivalier.FestivalId));
+                return Redirect("/Festivals/Festivaliers");
             }
             else
             {
@@ -844,21 +859,17 @@ namespace WebApplication1.Controllers
                     {
                         drapeau++;
                         ami.Id = item.Id;
+                        ami.AmiDemandeur = item.AmiReceveur;
+                        ami.AmiReceveur = item.AmiReceveur;
 
-                        var URI = API.Instance.ModifAmiAsync(ami);
-                        return View(API.Instance.GetFestivaliersAsync().Result.Where(f => f.Id != festivalier.Id && f.FestivalId == festivalier.FestivalId));
+                        var URI2 = API.Instance.ModifAmiAsync(ami);
+                        return Redirect("/Festivals/Festivaliers");
                     }
                 }
-
-                if ( drapeau == 0)
-                {
-                    var URI = API.Instance.AjoutAmiAsync(ami);
-                    var festivaliers = API.Instance.GetFestivaliersAsync().Result;
-                    var festivaliers2 = festivaliers.Where(f => f.Id != festivalier.Id && f.FestivalId == festivalier.FestivalId);
-                    return View(festivaliers2);
-                }
+                  var URI = API.Instance.AjoutAmiAsync(ami);
+                
             }
-            return View(API.Instance.GetFestivaliersAsync().Result.Where(f => f.Id != festivalier.Id && f.FestivalId == festivalier.FestivalId));
+            return Redirect("/Festivals/Festivaliers");
         }
 
         public IActionResult Demandes(int? id)
