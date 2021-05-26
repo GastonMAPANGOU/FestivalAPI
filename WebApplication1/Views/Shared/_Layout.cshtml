@@ -45,7 +45,7 @@
                             <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Index">Voir festivals</a>
                             @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
                             {
-                                <a class="dropdown-item" asp-area="" asp-controller="Hebergements" asp-action="Create">Créer hebergements</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="AjoutHebergement">Créer hebergements</a>
                             }
 
                         </div>
@@ -62,8 +62,8 @@
                             }
                             @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
                             {
-                                <a class="dropdown-item" asp-area="" asp-controller="Artistes" asp-action="Create">Ajouter artiste</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Scenes" asp-action="Create">Ajouter Scène</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="AjoutArtiste">Ajouter artiste</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="AjoutScene">Ajouter Scène</a>
                             }
                         </div>
                     </li>
@@ -109,7 +109,15 @@
                     <input type="text" class="form-control" placeholder="Search for a Festival" name="searchString" value="@ViewData["searchString"]">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
-                <li><a class="btn btn-primary" asp-area="" asp-controller="Connexion" asp-action="ConnexionFestivalier">Se Connecter</a></li>
+                @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")) || (HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisateur")))
+                {
+                    <li><a class="btn btn-primary" asp-area="" asp-controller="Connexion" asp-action="Deconnexion">Se déconnecter</a></li>
+                }
+                else
+                {
+                    <li><a class="btn btn-primary" asp-area="" asp-controller="Connexion" asp-action="ConnexionFestivalier">Se Connecter</a></li>
+                }
+
             </div>
         </nav>
     </header>
