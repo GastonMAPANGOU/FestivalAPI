@@ -25,6 +25,7 @@ namespace FestivalDeMusique.Views
         public PageOrganisateurs()
         {
             InitializeComponent();
+            InitComboBox();
             Reload();
         }
 
@@ -76,6 +77,39 @@ namespace FestivalDeMusique.Views
         private void DataGridCheckBoxColumn_MouseDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("Hello world");
+        }
+
+        private void RechercheTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string critere = RechercheComboBox.SelectedItem.ToString();
+            string recherche = RechercheTextBox.Text.ToLower();
+
+            if(recherche.Trim().Length == 0)
+            {
+                Reload();
+            }
+            else
+            {
+                if(critere == "Nom") 
+                {
+                    ListeOrganisateurs = (ICollection<Organisateur>)API.API.Instance.GetOrganisateursAsync().Result.Where(org => org.Nom.ToLower().Contains(recherche));
+                }
+                else if(critere == "Prénom") 
+                {
+                    ListeOrganisateurs = (ICollection<Organisateur>)API.API.Instance.GetOrganisateursAsync().Result.Where(org => org.Prenom.ToLower().Contains(recherche));
+                }
+                else 
+                {
+                    ListeOrganisateurs = (ICollection<Organisateur>)API.API.Instance.GetOrganisateursAsync().Result.Where(org => org.Login.ToLower().Contains(recherche));
+                }
+            }
+        }
+
+        private void InitComboBox()
+        {
+            RechercheComboBox.Items.Add("Nom");
+            RechercheComboBox.Items.Add("Prénom");
+            RechercheComboBox.Items.Add("E-mail");
         }
     }
 }
