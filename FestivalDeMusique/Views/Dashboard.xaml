@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FestivalDeMusique.Views"
         mc:Ignorable="d"
-        Title="Dashboard" Height="600" Width="800">
+        Title="Dashboard" Height="600" Width="1100"
+        MinHeight="600" MinWidth="1100">
     <Window.Resources>
         <Style x:Key="FocusVisual">
             <Setter Property="Control.Template">

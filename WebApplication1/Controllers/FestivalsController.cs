@@ -740,7 +740,7 @@ namespace WebApplication1.Controllers
             extensionsvalides.Add(".gif");
             extensionsvalides.Add(".png");
             extensionsvalides.Add(".jfif");
-
+            
             if (file != null)
             {
                 string fileName = "img/artistes/photos/" + artiste.Nom;
@@ -1140,7 +1140,19 @@ namespace WebApplication1.Controllers
                 sendMail.ActionSendMail(festivalier.Login, mailSubject, content);
             }
             
-            return Redirect("Home/OrganisateursPage");
+            return Redirect("Index");
+        }
+        public ActionResult Programme(int? id)
+        {
+            if (id == null)
+            {
+                return View(API.Instance.GetFestival_ArtistesAsync().Result);
+            }
+            else
+            {
+                return View(API.Instance.GetFestival_ArtistesAsync().Result.Where(f => f.FestivalId == id));
+            }
+
         }
     }
 }

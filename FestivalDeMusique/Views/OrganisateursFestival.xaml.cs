@@ -32,8 +32,20 @@ namespace FestivalDeMusique.Views
 
         private void Reload()
         {
-            ListeOrganisateurs = (ICollection<Organisateur>)API.API.Instance.GetOrganisateursAsync().Result.Where(org => org.FestivalId == festival.IdF);
-            OrganisateursGrid.DataContext = ListeOrganisateurs;
+            try {
+                ICollection<Organisateur> listOrg = API.API.Instance.GetOrganisateursAsync().Result;
+                ListeOrganisateurs = new List<Organisateur>();
+                foreach (Organisateur org in listOrg)
+                {
+                    if(org.FestivalId == festival.IdF)
+                    {
+                        ListeOrganisateurs.Add(org);
+                    }
+                }
+                OrganisateursGrid.DataContext = ListeOrganisateurs;
+            }
+            catch { }
+            
         }
 
         private void OrganisateursGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
