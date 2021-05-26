@@ -26,7 +26,7 @@ namespace FestivalDeMusique.Views
         public PageFestivals()
         {
             InitializeComponent();
-            Reload();
+            try { Reload(); } catch { }
             DeactivateButtons();
             InitComboBox();
         }
@@ -133,6 +133,7 @@ namespace FestivalDeMusique.Views
         {
             RechercheComboBox.Items.Add("Nom");
             RechercheComboBox.Items.Add("Descriptif");
+            RechercheComboBox.SelectedIndex = 0;
         }
     }
 }
