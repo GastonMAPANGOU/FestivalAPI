@@ -21,11 +21,14 @@
         <div class="card-body">
             <h5 class="card-title">
                 @Html.DisplayFor(modelItem => item.Nom)
+                @Html.DisplayFor(modelItem => item.Prenom)
             </h5>
-            <p class="card-text">@(item.Prenom + " " + item.Nom)</p>
 
 
-            <a class="btn btn-primary" asp-action="Demandes" asp-route-id="@item.Id"> Accepter</a>
+                <a class="btn btn-primary" asp-action="Festivaliers" asp-route-id="@item.Id"> Accepter</a>
+            
+            <a class="btn btn-primary" asp-action="DeleteAmitié" asp-route-id="@item.Id"> Refuser</a>
+            
 
 
         </div>
