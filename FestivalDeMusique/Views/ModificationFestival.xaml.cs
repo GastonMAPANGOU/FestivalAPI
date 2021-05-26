@@ -78,15 +78,12 @@ namespace FestivalDeMusique.Views
                 string communePrincipale = lieuComboBox.SelectedItem.ToString();
                 if (dateDebut <= dateFin)
                 {
-                    Festival festival = new Festival() { 
-                        IdF = festivalAModifier.IdF,
-                        Nom = nom,
-                        Logo = logo,
-                        Descriptif = descriptif,
-                        Date_Debut = dateDebut,
-                        Date_Fin = dateFin,
-                        LieuId = NomCommuneToId(communePrincipale),
-                    };
+                    Festival festival = festivalAModifier;
+                    festival.Nom = nom;
+                    festival.Descriptif = descriptif;
+                    festival.Date_Debut = dateDebut;
+                    festival.Date_Fin = dateFin;
+                    festival.LieuId = NomCommuneToId(communePrincipale);
 
                     System.Net.Http.HttpResponseMessage response = await API.API.Instance.ModifFestivalAsync(festival);
                     _ = MessageBox.Show("Modification du festival en cours");
@@ -177,6 +174,7 @@ namespace FestivalDeMusique.Views
 
         private void imageUI_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            /*
             OpenFileDialog op = new OpenFileDialog();
             op.Title = "Choisissez votre logo";
             op.Filter = "Format compatibles|*.jpg;*.jpeg;*.png|" +
@@ -187,6 +185,7 @@ namespace FestivalDeMusique.Views
                 path = op.FileName;
                 imageUI.Source = new BitmapImage(new Uri(path));
             }
+            */
         }
     }
 }

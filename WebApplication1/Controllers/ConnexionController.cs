@@ -63,6 +63,7 @@ namespace WebApplication1.Controllers
                 organisateur = API.Instance.GetOrganisateur(organisateur.Login, organisateur.Pwd).Result;
                 if (organisateur != null)
                 {
+                    API.Instance.MAJAsync();
                     HttpContext.Session.SetInt32("ido", organisateur.IdO);
                     HttpContext.Session.SetString("email", organisateur.Login);
                     HttpContext.Session.SetString("category", "Organisateur");
