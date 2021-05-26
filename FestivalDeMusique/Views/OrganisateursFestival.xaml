@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FestivalDeMusique.Views"
         mc:Ignorable="d"
-        Title="OrganisateursFestival" Height="450" Width="800">
+        Title="OrganisateursFestival" Height="500" Width="820"
+        MinHeight="500" MinWidth="820">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
