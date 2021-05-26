@@ -1921,6 +1921,7 @@ namespace WebApplication1.ControllersAPI
             {
                 await Instance.SupprRapport_ActiviteAsync(item.Id);
             }
+            
             foreach (var item in Instance.GetRapport_TempsAsync().Result)
             {
                 await Instance.SupprRapport_TempsAsync(item.Id);

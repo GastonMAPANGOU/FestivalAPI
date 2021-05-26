@@ -740,7 +740,7 @@ namespace WebApplication1.Controllers
             extensionsvalides.Add(".gif");
             extensionsvalides.Add(".png");
             extensionsvalides.Add(".jfif");
-
+            
             if (file != null)
             {
                 string fileName = "img/artistes/photos/" + artiste.Nom;
