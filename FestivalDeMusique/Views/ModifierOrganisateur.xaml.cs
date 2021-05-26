@@ -27,8 +27,12 @@ namespace FestivalDeMusique.Views
         {
             InitializeComponent();
             this.organisateur = organisateur;
-            this.festival = API.API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
-            ChargerOrganisateur();
+            try {
+                this.festival = API.API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+                ChargerOrganisateur();
+            }
+            catch { Close(); }
+            
         }
 
         private void Retour_ButtonClick(object sender, RoutedEventArgs e)

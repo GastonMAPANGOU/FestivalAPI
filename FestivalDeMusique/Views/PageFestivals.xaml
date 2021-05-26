@@ -83,12 +83,6 @@
                 <DataGridTextColumn Header="Nom"
                                     Width="*"
                                     Binding="{Binding Nom}"/>
-                <DataGridTextColumn Header="Prix journalier"
-                                    Width="*"
-                                    Binding="{Binding Montant}"/>
-                <DataGridCheckBoxColumn Header="Gratuit"
-                                        Width="*"
-                                        Binding="{Binding IsFree}"/>
                 <DataGridTextColumn Header="Début"
                                     Width="*"
                                     Binding="{Binding Date_Debut}"/>

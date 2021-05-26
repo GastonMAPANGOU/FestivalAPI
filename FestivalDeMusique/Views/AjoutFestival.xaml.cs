@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FestivalAPI.Models;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 
 namespace FestivalDeMusique.Views
 {
@@ -71,26 +72,26 @@ namespace FestivalDeMusique.Views
                 {
                     Festival festival = new Festival();
                     festival.Nom = nom;
-                    festival.Logo = logo;
+                    //festival.Logo = logo;
                     festival.Descriptif = descriptif;
                     festival.Date_Debut = dateDebut;
                     festival.Date_Fin = dateFin;
                     festival.LieuId = NomCommuneToId(communePrincipale);
 
-                    try
-                    {
-                        festival.Logo = SaveImage(festival);
-                    }
-                    catch
-                    {
-                        // To do
-                    }
+                    /*
+                    try { festival.Logo = SaveImage(festival); }
+                    catch { }
+                    */
 
                     HttpResponseMessage response = await API.API.Instance.AjoutFestivalAsync(festival);
                     _ = MessageBox.Show("Création du festival en cours");
                     if (response.IsSuccessStatusCode)
                     {
                         MessageBox.Show("Festival créé");
+                        var resp = await response.Content.ReadAsStringAsync();
+                        festival = JsonConvert.DeserializeObject<Festival>(resp);
+                        int n = await API.API.Instance.AjoutJoursAsync(festival);
+                        MessageBox.Show(n.ToString());
                     }
                     else
                     {
@@ -196,6 +197,7 @@ namespace FestivalDeMusique.Views
 
         private void imageUI_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            /*
             OpenFileDialog op = new OpenFileDialog();
             op.Title = "Choisissez votre logo";
             op.Filter = "Format compatibles|*.jpg;*.jpeg;*.png|" +
@@ -208,6 +210,7 @@ namespace FestivalDeMusique.Views
                 BitmapImage bitmap = new BitmapImage(new Uri(path));
                 imageUI.Source = bitmap;
             }
+            */
         }
     }
 }
