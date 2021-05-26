@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    IEnumerable<FestivalAPI.Models.Festival> festivals = WebApplication1.ControllersAPI.API.Instance.GetFestivalsAsync().Result;
 }
 
 <h1>Liste des départements</h1>
@@ -22,6 +23,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Nom)
                 </td>
+
                 <td>
                     <a asp-controller="Rapport_Geos" asp-action="Rapport_Geo_Departement_Graphe" asp-route-id="@item.Id">Rapport geographique Département</a>
                 </td>
