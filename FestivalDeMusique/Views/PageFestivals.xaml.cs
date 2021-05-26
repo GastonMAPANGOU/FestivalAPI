@@ -26,8 +26,7 @@ namespace FestivalDeMusique.Views
         public PageFestivals()
         {
             InitializeComponent();
-            try { Reload(); } catch { }
-            DeactivateButtons();
+            try { Reload(); } catch { MessageBox.Show("Connection à la base de donnée impossible"); }
             InitComboBox();
         }
 
@@ -36,7 +35,6 @@ namespace FestivalDeMusique.Views
             AjoutFestival ajoutFestival = new AjoutFestival();
             ajoutFestival.ShowDialog();
             Reload();
-            DeactivateButtons();
         }
 
         private void AnnulerOnClick(object sender, RoutedEventArgs e)
@@ -44,16 +42,22 @@ namespace FestivalDeMusique.Views
             Festival festival = festivalGrid.SelectedItem as Festival;
             _ = API.API.Instance.SupprFestivalAsync(festival.IdF);
             Reload();
-            DeactivateButtons();
-
         }
 
         private void ModifierOnClick(object sender, RoutedEventArgs e)
         {
-            Festival festivalAModifier = festivalGrid.SelectedItem as Festival;
-            ModificationFestival modificationFestival = new ModificationFestival(festivalAModifier);
-            _ = modificationFestival.ShowDialog();
-            DeactivateButtons();
+            if(festivalGrid.SelectedItem != null)
+            {
+                Festival festivalAModifier = festivalGrid.SelectedItem as Festival;
+                ModificationFestival modificationFestival = new ModificationFestival(festivalAModifier);
+                Reload();
+                _ = modificationFestival.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Sélectionner le festival à modifier avant de cliquer sur ce bouton");
+            }
+            
         }
 
         private void Reload()
@@ -64,28 +68,7 @@ namespace FestivalDeMusique.Views
 
         private void FestivalGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ActivateButtons();
-            /*
-            try
-            {
-                Festival festival = festivalGrid.SelectedItem as Festival;
-                MessageBox.Show(festival.IdF.ToString());
-            }
-            catch
-            {
-                MessageBox.Show("Error while getting the value of the festival");
-            }
-            */
-        }
 
-        private void DeactivateButtons()
-        {
-            ModifierButton.IsEnabled = false;
-        }
-
-        private void ActivateButtons()
-        {
-            ModifierButton.IsEnabled = true;
         }
 
         private void RechargerPage(object sender, RoutedEventArgs e)
@@ -100,6 +83,7 @@ namespace FestivalDeMusique.Views
                 Festival festivalA = festivalGrid.SelectedItem as Festival;
                 ConsulterFestival modificationFestival = new ConsulterFestival(festivalA);
                 modificationFestival.Show();
+                Reload();
             }
             catch(Exception ex)
             {
@@ -120,11 +104,39 @@ namespace FestivalDeMusique.Views
             {
                 if (critere == "Nom")
                 {
-                    ListeFestival = (ICollection<Festival>)API.API.Instance.GetFestivalsAsync().Result.Where(fest => fest.Nom.ToLower().Contains(recherche));
+                    try
+                    {
+                        ICollection<Festival> listfest = API.API.Instance.GetFestivalsAsync().Result;
+                        ListeFestival = new List<Festival>();
+                        foreach (Festival fest in listfest)
+                        {
+                            if (fest.Nom.ToLower().Contains(recherche))
+                            {
+                                ListeFestival.Add(fest);
+                            }
+                        }
+                        festivalGrid.DataContext = ListeFestival;
+                    }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); }
+                    
                 }
                 else
                 {
-                    ListeFestival = (ICollection<Festival>)API.API.Instance.GetFestivalsAsync().Result.Where(org => org.Descriptif.ToLower().Contains(recherche));
+                    try
+                    {
+                        ICollection<Festival> listfest = API.API.Instance.GetFestivalsAsync().Result;
+                        ListeFestival = new List<Festival>();
+                        foreach (Festival fest in listfest)
+                        {
+                            if (fest.Descriptif.ToLower().Contains(recherche))
+                            {
+                                ListeFestival.Add(fest);
+                            }
+                        }
+                        festivalGrid.DataContext = ListeFestival;
+                    }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); }
+
                 }
             }
         }

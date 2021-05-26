@@ -81,7 +81,7 @@ namespace FestivalDeMusique.Views
 
         private void RechercheTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string critere = RechercheComboBox.SelectedItem.ToString();
+            string critere = (string) RechercheComboBox.SelectedItem;
             string recherche = RechercheTextBox.Text.ToLower();
 
             if(recherche.Trim().Length == 0)
@@ -92,15 +92,55 @@ namespace FestivalDeMusique.Views
             {
                 if(critere == "Nom") 
                 {
-                    ListeOrganisateurs = (ICollection<Organisateur>)API.API.Instance.GetOrganisateursAsync().Result.Where(org => org.Nom.ToLower().Contains(recherche));
+                    try
+                    {
+                        ICollection<Organisateur> listOrg = API.API.Instance.GetOrganisateursAsync().Result;
+                        ListeOrganisateurs = new List<Organisateur>();
+                        foreach (Organisateur org in listOrg)
+                        {
+                            if (org.Nom.ToLower().Contains(recherche))
+                            {
+                                ListeOrganisateurs.Add(org);
+                            }
+                        }
+                        organisateurGrid.DataContext = ListeOrganisateurs;
+                    }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); }
+                    
                 }
                 else if(critere == "Prénom") 
                 {
-                    ListeOrganisateurs = (ICollection<Organisateur>)API.API.Instance.GetOrganisateursAsync().Result.Where(org => org.Prenom.ToLower().Contains(recherche));
+                    try
+                    {
+                        ICollection<Organisateur> listOrg = API.API.Instance.GetOrganisateursAsync().Result;
+                        ListeOrganisateurs = new List<Organisateur>();
+                        foreach (Organisateur org in listOrg)
+                        {
+                            if (org.Prenom.ToLower().Contains(recherche))
+                            {
+                                ListeOrganisateurs.Add(org);
+                            }
+                        }
+                        organisateurGrid.DataContext = ListeOrganisateurs;
+                    }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); }
                 }
                 else 
                 {
-                    ListeOrganisateurs = (ICollection<Organisateur>)API.API.Instance.GetOrganisateursAsync().Result.Where(org => org.Login.ToLower().Contains(recherche));
+                    try
+                    {
+                        ICollection<Organisateur> listOrg = API.API.Instance.GetOrganisateursAsync().Result;
+                        ListeOrganisateurs = new List<Organisateur>();
+                        foreach (Organisateur org in listOrg)
+                        {
+                            if (org.Login.ToLower().Contains(recherche))
+                            {
+                                ListeOrganisateurs.Add(org);
+                            }
+                        }
+                        organisateurGrid.DataContext = ListeOrganisateurs;
+                    }
+                    catch (Exception ex) { MessageBox.Show(ex.Message); }
                 }
             }
         }
@@ -110,6 +150,7 @@ namespace FestivalDeMusique.Views
             RechercheComboBox.Items.Add("Nom");
             RechercheComboBox.Items.Add("Prénom");
             RechercheComboBox.Items.Add("E-mail");
+            RechercheComboBox.SelectedIndex = 0;
         }
     }
 }

@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using FestivalAPI.Models;
 using Microsoft.Win32;
+using Newtonsoft.Json;
 
 namespace FestivalDeMusique.Views
 {
@@ -90,6 +91,14 @@ namespace FestivalDeMusique.Views
                     if (response.IsSuccessStatusCode)
                     {
                         MessageBox.Show("Festival modifié");
+                        foreach(var item in festival.Jours)
+                        {
+                            await API.API.Instance.SupprJourAsync(item.IdJ);
+                        }
+                        //var resp = await response.Content.ReadAsStringAsync();
+                        //festival = JsonConvert.DeserializeObject<Festival>(resp);
+                        int n = await API.API.Instance.AjoutJoursAsync(festival);
+                        MessageBox.Show(n.ToString());
                     }
                     else
                     {

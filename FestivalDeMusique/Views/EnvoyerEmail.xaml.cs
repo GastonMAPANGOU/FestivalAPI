@@ -38,8 +38,36 @@ namespace FestivalDeMusique.Views
             InitializeComponent();
             sendMail = new FestivalAPI.Data.SendMail();
             this.festival = festival;
-            this.ListeOrganisateurs = (ICollection<Organisateur>)API.API.Instance.GetOrganisateursAsync().Result.Where(organisateur => organisateur.FestivalId == festival.IdF);
-            this.ListeFestivaliers = (ICollection<Festivalier>)API.API.Instance.GetFestivaliersAsync().Result.Where(festivalier => festivalier.FestivalId == festival.IdF);
+
+            try
+            {
+                ICollection<Organisateur> listOrg = API.API.Instance.GetOrganisateursAsync().Result;
+                ListeOrganisateurs = new List<Organisateur>();
+                foreach (Organisateur org in listOrg)
+                {
+                    if (org.FestivalId == festival.IdF)
+                    {
+                        ListeOrganisateurs.Add(org);
+                    }
+                }
+                
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            try
+            {
+                ICollection<Festivalier> listeFest = API.API.Instance.GetFestivaliersAsync().Result;
+                ListeFestivaliers = new List<Festivalier>();
+                foreach (Festivalier festivalier in listeFest)
+                {
+                    if (festivalier.FestivalId == festival.IdF)
+                    {
+                        ListeFestivaliers.Add(festivalier);
+                    }
+                }
+
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         private void AnnulerButton_Click(object sender, RoutedEventArgs e)
@@ -47,7 +75,7 @@ namespace FestivalDeMusique.Views
             Close();
         }
 
-        private void ValiderButton_Click(object sender, RoutedEventArgs e)
+        private async void ValiderButton_Click(object sender, RoutedEventArgs e)
         {
             string content = MailContent.Text;
             string mailSubject = MailSubject.Text;
@@ -60,7 +88,7 @@ namespace FestivalDeMusique.Views
             {
                 Festival festivalA = festival;
                 festivalA.IsCanceled = true;
-                HttpResponseMessage response = API.API.Instance.ModifFestivalAsync(festivalA).Result;
+                HttpResponseMessage response = await API.API.Instance.ModifFestivalAsync(festivalA);
                 if (response.IsSuccessStatusCode)
                 {
                     IsCanceled = true;
@@ -85,7 +113,7 @@ namespace FestivalDeMusique.Views
                 sendMailTo = festivalier.Login;
                 sendMail.ActionSendMail(sendMailTo, mailSubject, content);
             }
-            MessageBox.Show("Message envoyé aux festivaliers du festival" + festival.Nom);
+            MessageBox.Show("Message envoyé aux festivaliers du festival : " + festival.Nom);
         }
 
         private void EnvoyerMailOrganisateurs(string mailSubject)
@@ -99,7 +127,7 @@ namespace FestivalDeMusique.Views
                 contenu += "<br> <br> Cordialement, <br> <br> A bientot sur Festi'Normandie";
                 sendMail.ActionSendMail(sendMailTo, mailSubject, contenu);
             }
-            MessageBox.Show("Message envoyé aux organisateurs du festival" + festival.Nom);
+            MessageBox.Show("Message envoyé aux organisateurs du festival : " + festival.Nom);
         }
     }
 }
