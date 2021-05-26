@@ -38,7 +38,8 @@ namespace WebApplication1.Controllers
         {
             int Id = (int)HttpContext.Session.GetInt32("ido");
             int IdF = API.Instance.GetOrganisateurAsync(Id).Result.FestivalId;
-            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_JourAsync(Id, date).Result;
+            //List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_JourAsync(Id, date).Result;
+            ICollection<Rapport_Temps> rapport = (ICollection<Rapport_Temps>)API.Instance.GetRapport_TempsAsync().Result.Where(s => s.FestivalId == IdF && s.Date_Inscription == date);
             List<DateTime> List_Date = new List<DateTime>();
             List<int> Nombre_Inscription = new List<int>();
             foreach (var elmt in rapport)
@@ -54,21 +55,21 @@ namespace WebApplication1.Controllers
             ViewBag.Liste_Year = json1;
             ViewBag.Liste_Somme = json3;
 
-            @ViewBag.Rapport_Activite = rapport;
+            ViewBag.Rapport_Activite = rapport;
 
             return View();
         }
 
-        public IActionResult Rapport_Temps_Festival_Graphe(int id)
+        public IActionResult Rapport_Temps_Festival_Graphe()
         {
             int Ido = (int)HttpContext.Session.GetInt32("ido");
             int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
-            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_FestivalAsync(id).Result;
-            List<DateTime> List_Date = new List<DateTime>();
+            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_FestivalAsync(IdF).Result;
+            List<string> List_Date = new List<string>();
             List<int> Nombre_Inscription = new List<int>();
             foreach (var elmt in rapport)
             {
-                List_Date.Add(elmt.Date_Inscription);
+                List_Date.Add(elmt.Date_Inscription.Date.ToString("d"));
                 Nombre_Inscription.Add(elmt.Nombre_Inscription);
             }
 
@@ -79,7 +80,7 @@ namespace WebApplication1.Controllers
             ViewBag.Liste_Year = json1;
             ViewBag.Liste_Somme = json3;
 
-            @ViewBag.Rapport_Activite = rapport;
+            ViewBag.Rapport_Activite = rapport;
 
             return View();
         }

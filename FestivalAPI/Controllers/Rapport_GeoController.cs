@@ -137,29 +137,29 @@ namespace FestivalAPI.Controllers
         }
 
         [HttpGet("Rapport_Geo_Count_Pays/{id}/{Pays}")]
-        public ActionResult<int> Rapport_Geo_Count_Pays(int Id, string Pays)
+        public ActionResult<List<int>> Rapport_Geo_Count_Pays(int Id, string Pays)
         {
-            int count;
+            List<int> count = new List<int>();
             Rapport_GeoDAO rapport_GeoDAO = new Rapport_GeoDAO();
             count = rapport_GeoDAO.Rapport_Geo_Count_Pays(Id, Pays);
             return count;
         }
 
         [HttpGet("Rapport_Geo_Count_Departement/{id}/{Departement}")]
-        public ActionResult<int> Rapport_Geo_Count_Departement(int Id, string Departement)
+        public ActionResult<List<int>> Rapport_Geo_Count_Departement(int Id, string Departement)
         {
-            int count;
+            List<int> count = new List<int>();
             Rapport_GeoDAO rapport_GeoDAO = new Rapport_GeoDAO();
             count = rapport_GeoDAO.Rapport_Geo_Count_Departement(Id, Departement);
             return count;
         }
 
         [HttpGet("Rapport_Geo_Count_Region/{id}/{Region}")]
-        public ActionResult<int> Rapport_Geo_Count_Region(int Id, string Region)
+        public ActionResult<List<int>> Rapport_Geo_Count_Region(int Id, string Region)
         {
-            int count;
+            List<int> count = new List<int>();
             Rapport_GeoDAO rapport_GeoDAO = new Rapport_GeoDAO();
-            count = rapport_GeoDAO.Rapport_Geo_Count_Departement(Id, Region);
+            count = rapport_GeoDAO.Rapport_Geo_Count_Region(Id, Region);
             return count;
         }
 
