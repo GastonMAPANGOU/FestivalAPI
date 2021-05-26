@@ -306,6 +306,10 @@ namespace WebApplication1.Controllers
             extensionsvalides.Add(".gif");
             extensionsvalides.Add(".png");
             extensionsvalides.Add(".jfif");
+            if(festival.IdF==0)
+            {
+                return null;
+            }
 
             if (file != null)
             {

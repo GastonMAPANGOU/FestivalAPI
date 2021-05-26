@@ -45,20 +45,19 @@
                                 Non-communiqué
                             </li>
                         }
-                        <li class="list-group-item" style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">@Html.DisplayFor(modelItem => item.Descriptif)</li>
                         <!--div pour le gestionnaire-->
                         @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
                         {
                             <li class="list-group-item">
                                 <div class="card-body">
-                                    <a asp-action="Edit" asp-route-id="@item.IdF" class="btn btn-primary">Modifier</a>
+                                    <a asp-action="Edit" class="btn btn-primary">Modifier</a>
                                     <!--Le bouton annuler
                         <a asp-action="Annuler" asp-route-id="@item.IdF" class="btn btn-danger">Annuler</a>-->
                                 </div>
                             </li>
                         }
 
-                        @if ((@HttpContextAccessor.HttpContext.Session.GetString("category") != "Organisateur") && (@HttpContextAccessor.HttpContext.Session.GetString("category") != "festivalier"))
+                        @if ((@HttpContextAccessor.HttpContext.Session.GetString("category") != "Organisateur") && (@HttpContextAccessor.HttpContext.Session.GetString("category") != "Festivalier"))
                         {
                             <li class="list-group-item">
                                 <a asp-action="AjoutFestivalier" asp-route-id="@item.IdF" class="btn btn-primary">Participer</a>

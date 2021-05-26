@@ -2,36 +2,48 @@
 
 @{
     ViewData["Title"] = "Index";
+    IEnumerable<FestivalAPI.Models.Type_Hebergement> type_Hebergements = WebApplication1.ControllersAPI.API.Instance.GetType_HebergementsAsync().Result;
 
 }
 
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-area="" asp-controller="Festivals" asp-action="AjoutHebergement">Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+        <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Lien)
+                Nom d'hebergement
             </th>
-            
             <th>
-                @Html.DisplayNameFor(model => model.Type_HebergementId)
+                Lien
+            </th>
+            <th>
+                Type d'hebergement
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @foreach (var item in Model)
+        {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nom)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Lien)
             </td>
-            
             <td>
-                @Html.DisplayFor(modelItem => item.Type_HebergementId)
+                @foreach (var it in type_Hebergements)
+                {
+                    if (item.Type_HebergementId == it.IDTH)
+                    {
+                        @Html.DisplayFor(modelItem => it.Type)}
+                }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.IdH">Edit</a> |
@@ -39,6 +51,6 @@
                 <a asp-action="Delete" asp-route-id="@item.IdH">Delete</a>
             </td>
         </tr>
-}
+        }
     </tbody>
 </table>
