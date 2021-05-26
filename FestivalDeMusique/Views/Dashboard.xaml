@@ -67,8 +67,8 @@
     <Grid>
         <!-- Colunm definition -->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
         <Rectangle 
@@ -88,46 +88,166 @@
         <StackPanel Grid.Column="0" VerticalAlignment="Top"
                     Margin="0 20 0 0">
             <Button Style="{DynamicResource DashboardButton}" 
-                    Content="Festivals" Margin="0 0 0 0"
+                    Margin="0 0 0 0"
                     Height="50" Background="Transparent"
                     BorderThickness="0" Foreground="White"
-                    Click="ChargerPageFestivals"/>
-            <Button Content="Organisateurs" Margin="0 5 0 0"
+                    Click="ChargerPageFestivals">
+                <Grid Margin="20 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/images/music_festival.png"
+                           Grid.Column="0"
+                           Width="25" Height="25"
+                           HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1"
+                               Margin="0 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="Festivals"
+                               FontSize="15"/>                    
+                </Grid>
+            </Button>
+            <Button Margin="0 5 0 0"
                     Style="{DynamicResource DashboardButton}"
                     Height="50" Background="Transparent"
                     BorderThickness="0" Foreground="White"
-                    Click="ChargerPageOrganisateurs"/>
-            <Button Content="Statistiques" Margin="0 5 0 0"
+                    Click="ChargerPageOrganisateurs">
+                <Grid Margin="20 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/images/manager_1.png"
+                           Grid.Column="0"
+                           Width="25" Height="25"
+                           HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1"
+                               Margin="0 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="Organisateurs"
+                               FontSize="15"/>
+                </Grid>
+            </Button>
+            <Button Margin="0 5 0 0"
                     Style="{DynamicResource DashboardButton}"
                     Height="50" Background="Transparent"
                     BorderThickness="0" Foreground="White"
-                    Click="ChargerPageStatistiques"/>
+                    Click="ChargerPageStatistiques">
+                <Grid Margin="20 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/images/decreasing_stats_1.png"
+                           Grid.Column="0"
+                           Width="25" Height="25"
+                           HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1"
+                               Margin="0 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="Statistiques"
+                               FontSize="15"/>
+                </Grid>
+            </Button>
         </StackPanel>
 
         <StackPanel Grid.Column="0" 
                     VerticalAlignment="Bottom"
                     Margin="0 0 0 50">
-            <Button Content="Aide" Margin="0 5 0 0"
+            <Button Margin="0 5 0 0"
                     Style="{DynamicResource DashboardButton}"
                     Height="50" Background="Transparent"
                     BorderThickness="0" Foreground="White"
-                    Click="ChargerPageAide"/>
-            <Button Content="A propos" Margin="0 5 0 0"
+                    Click="ChargerPageAide">
+                <Grid Margin="20 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/images/help.png"
+                           Grid.Column="0"
+                           Width="25" Height="25"
+                           HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1"
+                               Margin="0 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="Aide"
+                               FontSize="15"/>
+                </Grid>                
+            </Button>
+            <Button Margin="0 5 0 0"
                     Style="{DynamicResource DashboardButton}"
                     Height="50" Background="Transparent"
                     BorderThickness="0" Foreground="White"
-                    Click="ChargerPageApropos"/>
-            <Button Content="Compte : nom prénom" Margin="0 5 0 0"
+                    Click="ChargerPageApropos">
+                <Grid Margin="20 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/images/about.png"
+                           Grid.Column="0"
+                           Width="25" Height="25"
+                           HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1"
+                               Margin="0 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="A propos"
+                               FontSize="15"/>
+                </Grid>                
+            </Button>
+            <Button Margin="0 5 0 0"
                     Style="{DynamicResource DashboardButton}"
                     Height="50" Background="Transparent"
                     BorderThickness="0" Foreground="White"
                     Click="ChargerPageCompte"
-                    x:Name="compteButton"/>
-            <Button Content="Déconnexion" Margin="0 5 0 0"
+                    x:Name="compteButton">
+                <Grid Margin="20 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/images/manager_2.png"
+                           Grid.Column="0"
+                           Width="25" Height="25"
+                           HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1"
+                               Margin="0 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="Compte : nom prénom"
+                               x:Name="compteTextBox"
+                               FontSize="15"/>
+                </Grid>                
+            </Button>
+            <Button Margin="0 5 0 0"
                     Style="{DynamicResource DashboardButton}"
                     Height="50" Background="Transparent"
                     BorderThickness="0" Foreground="White"
-                    Click="Deconnexion"/>
+                    Click="Deconnexion">
+                <Grid Margin="20 0 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="220" />
+                        <ColumnDefinition Width="10" />
+                    </Grid.ColumnDefinitions>
+                    <Image Source="/images/shutdownPastel.png"
+                           Grid.Column="0"
+                           Width="25" Height="25"
+                           HorizontalAlignment="Left"/>
+                    <TextBlock Grid.Column="1"
+                               Margin="0 0 0 0"
+                               VerticalAlignment="Center"
+                               Text="Déconnexion"
+                               FontSize="15"/>
+                </Grid>
+            </Button>
         </StackPanel>
 
         <Frame Grid.Column="1" x:Name="frame">

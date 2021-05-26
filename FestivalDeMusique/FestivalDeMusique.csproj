@@ -8,11 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\about.png" />
     <None Remove="images\acceuil.jpg" />
+    <None Remove="images\decreasing_stats_1.png" />
     <None Remove="images\gmail.png" />
+    <None Remove="images\help.png" />
     <None Remove="images\image_holder.png" />
+    <None Remove="images\increasing_stats_1.png" />
+    <None Remove="images\manager_1.png" />
+    <None Remove="images\manager_2.png" />
     <None Remove="images\minimize.png" />
     <None Remove="images\music_bg_3.jpg" />
+    <None Remove="images\music_festival.png" />
     <None Remove="images\normandie.png" />
     <None Remove="images\outlook.png" />
     <None Remove="images\outlookGrey.png" />
@@ -33,11 +40,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="images\about.png" />
     <Resource Include="images\acceuil.jpg" />
+    <Resource Include="images\decreasing_stats_1.png" />
     <Resource Include="images\gmail.png" />
+    <Resource Include="images\help.png" />
     <Resource Include="images\image_holder.png" />
+    <Resource Include="images\increasing_stats_1.png" />
+    <Resource Include="images\manager_1.png" />
+    <Resource Include="images\manager_2.png" />
     <Resource Include="images\minimize.png" />
     <Resource Include="images\music_bg_3.jpg" />
+    <Resource Include="images\music_festival.png" />
     <Resource Include="images\normandie.png" />
     <Resource Include="images\outlook.png" />
     <Resource Include="images\outlookGrey.png" />
