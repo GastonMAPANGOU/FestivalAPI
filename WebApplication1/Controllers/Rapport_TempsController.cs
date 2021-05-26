@@ -65,11 +65,11 @@ namespace WebApplication1.Controllers
             int Ido = (int)HttpContext.Session.GetInt32("ido");
             int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
             List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_FestivalAsync(IdF).Result;
-            List<DateTime> List_Date = new List<DateTime>();
+            List<string> List_Date = new List<string>();
             List<int> Nombre_Inscription = new List<int>();
             foreach (var elmt in rapport)
             {
-                List_Date.Add(elmt.Date_Inscription);
+                List_Date.Add(elmt.Date_Inscription.Date.ToString("d"));
                 Nombre_Inscription.Add(elmt.Nombre_Inscription);
             }
 
