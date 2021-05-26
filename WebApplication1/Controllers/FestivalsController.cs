@@ -342,7 +342,8 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                festival.Logo = "img/logos/defaut";
+                Festival fvl = API.Instance.GetFestivalAsync(festival.IdF).Result;
+                festival.Logo = fvl.Logo;
             }
 
             
@@ -761,7 +762,7 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                artiste.Photo = "img/artistes/defaut";
+                artiste.Photo = "img/artistes/photos/defaut.png";
             }
 
             if (file2 != null)

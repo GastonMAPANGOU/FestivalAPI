@@ -212,7 +212,8 @@ namespace WebApplication1.Controllers
             }
             else
             {
-                artiste.Photo = "img/artistes/defaut";
+                Artiste art = API.Instance.GetArtisteAsync(artiste.IdA).Result;
+                artiste.Photo = art.Photo;
             }
 
             if (file2 != null)
@@ -245,6 +246,11 @@ namespace WebApplication1.Controllers
                     ModelState.AddModelError("error", "Extension du fichier non reconnu");
                     return View(artiste);
                 }
+            }
+            else
+            {
+                Artiste art = API.Instance.GetArtisteAsync(artiste.IdA).Result;
+                artiste.Extrait = art.Extrait;
             }
             var URI = API.Instance.ModifArtisteAsync(artiste);
             return RedirectToAction(nameof(Index));
