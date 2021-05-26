@@ -24,14 +24,8 @@
                             <tr>
                                 <td><strong>Commune</strong></td>
 
-                                @if (Model.LieuId != 0)
-                                {
-                                    <td>@API.Instance.GetLieuAsync(Model.LieuId).Result.Commune</td>
-                                }
-                                else
-                                {
-                                    <td>Non-communiqué</td>
-                                }
+                                <td>@API.Instance.GetLieuAsync(Model.LieuId).Result.Commune</td>
+
                             </tr>
                             <tr>
                                 <td><strong> Date de début </strong>  </td>
@@ -41,7 +35,9 @@
                                 <td><strong>Date de fin</strong></td>
                                 <td>@Html.DisplayFor(model => model.Date_Fin)</td>
                             </tr>
-                            </tbody>
+                            <tr>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
