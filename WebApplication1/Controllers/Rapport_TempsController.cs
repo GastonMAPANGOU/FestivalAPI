@@ -60,11 +60,11 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public IActionResult Rapport_Temps_Festival_Graphe(int id)
+        public IActionResult Rapport_Temps_Festival_Graphe()
         {
             int Ido = (int)HttpContext.Session.GetInt32("ido");
             int IdF = API.Instance.GetOrganisateurAsync(Ido).Result.FestivalId;
-            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_FestivalAsync(id).Result;
+            List<Rapport_Temps> rapport = (List<Rapport_Temps>)API.Instance.Rapport_Temps_FestivalAsync(IdF).Result;
             List<DateTime> List_Date = new List<DateTime>();
             List<int> Nombre_Inscription = new List<int>();
             foreach (var elmt in rapport)

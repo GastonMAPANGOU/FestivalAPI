@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-8 mb-3">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <canvas id="myChart" width="500" height="500"></canvas>
+        <canvas id="myChart" width="1000" height="1000"></canvas>
     </div>
     <div class="col-md-2">
 
@@ -36,7 +36,7 @@
 
         // The data for our dataset
         data: {
-            labels: @ViewBag.Liste_Somme ,
+            labels: @Html.Raw(@ViewBag.Liste_Year) ,
             datasets: [{
                 label: 'Evolution inscription',
                 backgroundColor: 'rgb(255, 99, 132)',
