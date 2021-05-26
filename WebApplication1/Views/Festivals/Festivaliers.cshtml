@@ -39,10 +39,6 @@
             else if (WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result !=null && WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result.Accepted)
             {
                 <a class="btn btn-primary" asp-action="DeleteAmitié" asp-route-id="@item.Id">  Supprimer de la liste des amis</a>}
-
-
-            <!--else if (WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result.AmiDemandeur == (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf") && !WebApplication1.ControllersAPI.API.Instance.GetAmitiéAsync(item.Id, (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result.Accepted)
-    class="btn btn-primary" asp-action="DeleteAmitié" asp-route-id="@item.Id"-->
         </div>
     </div>
 </div>}

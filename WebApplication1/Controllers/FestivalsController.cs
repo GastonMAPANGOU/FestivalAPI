@@ -1112,7 +1112,7 @@ namespace WebApplication1.Controllers
             {
                 return null;
             }
-            return Redirect("Home/OrganisateursPage");
+            return Redirect("Index");
         }
 
         public IActionResult Annuler()
