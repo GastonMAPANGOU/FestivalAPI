@@ -15,6 +15,11 @@
         <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdF" />
+            <input type="hidden" asp-for="LieuId" />
+            <input type="hidden" asp-for="IsReachable" />
+            <input type="hidden" asp-for="IsPublished" />
+            <input type="hidden" asp-for="IsCanceled" />
+
             <div class="form-group">
                 <label asp-for="Nom" class="control-label"></label>
                 <input asp-for="Nom" class="form-control" />
@@ -31,13 +36,13 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Date_Debut" class="control-label">Date de naissance</label>
+                <label asp-for="Date_Debut" class="control-label">Date de début</label>
                 <input asp-for="Date_Debut" type="date" class="form-control" required />
                 <span asp-validation-for="Date_Debut" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Date_Fin" class="control-label"></label>
+                <label asp-for="Date_Fin" class="control-label">Date de fin</label>
                 <input asp-for="Date_Fin" type="date" class="form-control" />
                 <span asp-validation-for="Date_Fin" class="text-danger"></span>
             </div>
@@ -52,13 +57,18 @@
                 <input asp-for="IsFree" type="checkbox" class="form-control" />
                 <span asp-validation-for="IsFree" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="Montant" class="control-label">Somme journalière par adulte </label>
+                <input asp-for="Montant" type="number" class="form-control" />
+                <span asp-validation-for="Montant" class="text-danger"></span>
+            </div>
 
 
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
-        <a asp-controller="Festivals" asp-action="EditTarif">  Modifier le tarif</a>
+        
 
     </div>
 </div>
