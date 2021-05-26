@@ -26,8 +26,9 @@ namespace FestivalDeMusique.Views
         public PageFestivals()
         {
             InitializeComponent();
-            Reload();
+            try { Reload(); } catch { }
             DeactivateButtons();
+            InitComboBox();
         }
 
         private void CreerOnClick(object sender, RoutedEventArgs e)
@@ -104,6 +105,35 @@ namespace FestivalDeMusique.Views
             {
                 
             }
+        }
+
+        private void RechercheTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string critere = RechercheComboBox.SelectedItem.ToString();
+            string recherche = RechercheTextBox.Text.ToLower();
+
+            if (recherche.Trim().Length == 0)
+            {
+                Reload();
+            }
+            else
+            {
+                if (critere == "Nom")
+                {
+                    ListeFestival = (ICollection<Festival>)API.API.Instance.GetFestivalsAsync().Result.Where(fest => fest.Nom.ToLower().Contains(recherche));
+                }
+                else
+                {
+                    ListeFestival = (ICollection<Festival>)API.API.Instance.GetFestivalsAsync().Result.Where(org => org.Descriptif.ToLower().Contains(recherche));
+                }
+            }
+        }
+
+        private void InitComboBox()
+        {
+            RechercheComboBox.Items.Add("Nom");
+            RechercheComboBox.Items.Add("Descriptif");
+            RechercheComboBox.SelectedIndex = 0;
         }
     }
 }

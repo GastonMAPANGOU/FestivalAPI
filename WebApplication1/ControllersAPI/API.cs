@@ -1539,7 +1539,7 @@ namespace WebApplication1.ControllersAPI
         public async Task<ICollection<Rapport_Temps>> GetRapport_TempsAsync()
         {
             ICollection<Rapport_Temps> amis = new List<Rapport_Temps>();
-            HttpResponseMessage response = client.GetAsync("api/rapport_activite").Result;
+            HttpResponseMessage response = client.GetAsync("api/rapport_temps").Result;
             if (response.IsSuccessStatusCode)
             {
                 var resp = await response.Content.ReadAsStringAsync();
@@ -1738,7 +1738,7 @@ namespace WebApplication1.ControllersAPI
             foreach (var festivalier in festival.Festivaliers)
             {
                 if (!dates.Contains(festivalier.Date_Inscription))
-                    dates.Add(festivalier.Date_Inscription);
+                    dates.Add(festivalier.Date_Inscription.Date);
             }
 
 
@@ -1834,7 +1834,7 @@ namespace WebApplication1.ControllersAPI
         {
             List<Rapport_Geo> ras = new List<Rapport_Geo>();
             Rapport_Geo ra = new Rapport_Geo();
-            Festival festival = Instance.GetFestivalAsync(festivalier.Id).Result;
+            Festival festival = Instance.GetFestivalAsync(festivalier.FestivalId).Result;
 
             ra.FestivalId = festival.IdF;
             ra.FestivalierId = festivalier.Id;

@@ -56,9 +56,8 @@ namespace FestivalDeMusique.Views
                 //pass = Hash(pass);
                 if (CheckCredentials(email, pass))
                 {
-                    textBoxEmail.Text = "";
-                    passwordTextBox.Password = "";
-                    Dashboard menu = new Dashboard();
+                    Gimi gimi = API.API.Instance.GetGimi(email, pass).Result;
+                    Dashboard menu = new Dashboard(gimi);
                     menu.Show();
                     Close();
                 }
