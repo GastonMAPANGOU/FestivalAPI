@@ -5,8 +5,191 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FestivalDeMusique.Views"
         mc:Ignorable="d"
-        Title="ModifierOrganisateur" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="ModifierOrganisateur" Height="700" Width="1000"
+        MinHeight="700" MinWidth="1000">
+    <Border Padding="50 20 50 40">
+        <Border.Background>
+            <ImageBrush Stretch="Fill" ImageSource="/images/music_bg_3.jpg"/>
+        </Border.Background>
+        <Border BorderThickness="2" BorderBrush="Gray">
+            <Border.Background>
+                <ImageBrush Stretch="Fill" ImageSource="/images/music_bg_3.jpg"/>
+            </Border.Background>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle Fill="White" 
+                           Margin="0 0 0 0"
+                           Grid.Column="1"
+                           Grid.RowSpan="2"/>
+
+                <StackPanel Margin="0 0 0 0"
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Grid.RowSpan="2">
+                    <TextBlock Text="Modifier" 
+                               Margin="0 20 0 0" 
+                               Foreground="White"
+                               FontSize="40"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="l'organisateur" 
+                               Margin="0 0 0 0" 
+                               Foreground="White"
+                               FontSize="40"
+                               HorizontalAlignment="Center"/>
+                    <TextBlock Text="Modifier les organisateurs chargés de gérer le festival" 
+                               Margin="10 20 10 0" 
+                               TextWrapping="Wrap"
+                               Foreground="LightGray"
+                               FontSize="20"
+                               HorizontalAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Margin="20 20 20 0"
+                            Grid.Column="1"
+                            Grid.Row="0">
+                    <Grid Margin="0 0 0 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Organisateur" 
+                                   Margin="0 0 0 20" 
+                                   Foreground="Black"
+                                   FontSize="40"
+                                   FontWeight="Bold"
+                                   Grid.Column="0"/>
+                        <Border BorderThickness="1"
+                                Background="Transparent"
+                                BorderBrush="Black"
+                                Width="51"
+                                Height="51"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right">
+                            <Image Source="/images/outlook.png"
+                                   Height="50" Width="50"/>
+                        </Border>
+
+                    </Grid>
+
+
+                    <TextBlock Text="Nom" 
+                               Margin="0 0 0 0" 
+                               Foreground="#FF1C252B"
+                               FontSize="15"
+                               FontWeight="Bold"/>
+
+                    <TextBox Text=""
+                             Height="30"
+                             BorderBrush="#FF8EA5B4"
+                             BorderThickness="2"
+                             Padding="3"
+                             x:Name="nomTextBox"/>
+
+
+                    <TextBlock Text="Prénom" 
+                               Margin="0 20 0 0" 
+                               Foreground="#FF1C252B"
+                               FontSize="15"
+                               FontWeight="Bold"/>
+
+                    <TextBox Text=""
+                             Height="30"
+                             BorderBrush="#FF8EA5B4"
+                             BorderThickness="2"
+                             Padding="3"
+                             x:Name="prenomTextBox"/>
+
+                    <TextBlock Text="E-mail" 
+                               Margin="0 20 10 0" 
+                               Foreground="#FF1C252B"
+                               FontSize="15"
+                               FontWeight="Bold"/>
+
+                    <TextBox Text=""
+                             Height="30"
+                             BorderBrush="#FF8EA5B4"
+                             BorderThickness="2"
+                             Padding="3"
+                             x:Name="emailTextBox"/>
+
+                    <TextBlock Text="Mot de passe" 
+                               Margin="0 20 10 0" 
+                               Foreground="#FF1C252B"
+                               FontSize="15"
+                               FontWeight="Bold"/>
+                    <TextBox Text=""
+                             Height="30"
+                             BorderBrush="#FF8EA5B4"
+                             BorderThickness="2"
+                             Padding="3"
+                             x:Name="motDePasseTextBox"/>
+
+                    <Grid Margin="0 20 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Text="Accrédité" 
+                                   Margin="0 0 0 0" 
+                                   Foreground="#FF1C252B"
+                                   FontSize="15"
+                                   FontWeight="Bold"/>
+
+                        <CheckBox Margin="0 0 0 0" 
+                                  Grid.Column="1"
+                                  HorizontalAlignment="Right"
+                                  x:Name="validationCheckBox"/>
+
+                    </Grid>
+                    <TextBlock Text="Festival" 
+                               Margin="0 20 10 0" 
+                               Foreground="#FF1C252B"
+                               FontSize="15"
+                               FontWeight="Bold"/>
+                    <TextBlock Text="Nom du festival"
+                               TextWrapping="Wrap"
+                               x:Name="FestivalTextBlock"
+                               MaxHeight="60"/>
+                </StackPanel>
+                <Grid Margin="0 0 10 10" 
+                      HorizontalAlignment="Right"
+                      Grid.Column="1"
+                      Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Margin="0 0 10 0"
+                            Content="Valider"
+                            Grid.Column="0"
+                            Height="30"
+                            Width="100"
+                            Click="Valider_ButtonClick">
+
+                    </Button>
+
+                    <Button Margin="10 0 0 0"
+                            Content="Fermer"
+                            Grid.Column="1"
+                            Height="30"
+                            Width="100"
+                            Click="Retour_ButtonClick">
+
+                    </Button>
+                </Grid>
+            </Grid>
+
+        </Border>
+    </Border>
 </Window>
