@@ -210,6 +210,10 @@ namespace WebApplication1.Controllers
                 }
                 
             }
+            else
+            {
+                artiste.Photo = "img/artistes/defaut";
+            }
 
             if (file2 != null)
             {

@@ -1,9 +1,29 @@
-﻿@{
-    ViewData["Title"] = "Oraganisateurs Page";
+﻿@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{ ViewData["Title"] = "Oraganisateurs Page";
     ViewData["CustomBody"] = "organisateurspage";
-}
+    FestivalAPI.Models.Organisateur organisateur = WebApplication1.ControllersAPI.API.Instance.GetOrganisateurAsync((int)HttpContextAccessor.HttpContext.Session.GetInt32("ido")).Result;
+        FestivalAPI.Models.Festival festival = WebApplication1.ControllersAPI.API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+    }
 
 <div class="container">
+    @if (!festival.IsReachable)
+    {
+        <a class="btn btn-primary" asp-controller="Festivals" asp-action="OuvrirInscriptions"> Ouvrir les inscriptions</a>}
+    else
+    {
+        <a class="btn btn-primary" asp-controller="Festivals" asp-action="FermerInscriptions"> Fermer les inscriptions</a>}
+
+    @if (!festival.IsPublished)
+    {
+        <a class="btn btn-primary" asp-controller="Festivals" asp-action="Publier"> Publier</a>}
+    else
+    {
+        <a class="btn btn-primary" asp-controller="Festivals" asp-action="Depublier"> Depublier</a>}
+    @if (!festival.IsCanceled)
+    {
+<a class="btn btn-primary" asp-controller="Festivals" asp-action="Annuler"> Annuler</a>}
+
     <div class="row flex-column align-items-center form-group">
         <h1 class="titleBox text-center text-info"><strong>PAGE DE L'ORGANISATEUR</strong></h1>
     </div>
@@ -42,8 +62,8 @@
                 </a>
                 <a role="button" id="trajectoryButton" class="btn btn-lg btn-block btn-info" asp-area="" asp-controller="Tarifs" asp-action="Index">Cliquez ici</a>
             </div>
-          
+
         </div>
-        
+
     </div>
 </div>

@@ -1,0 +1,38 @@
+﻿@model FestivalAPI.Models.Festival
+
+@{
+    ViewData["Title"] = "EditTarif";
+        
+        
+}
+
+<h1>EditTarif</h1>
+
+<h4>Festival</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditTarif">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdF" />
+            
+            <div class="form-group">
+                <label asp-for="Montant" class="control-label">Tarif journalier par adulte</label>
+                <input asp-for="Montant" type="number" class="form-control" />
+                <span asp-validation-for="Montant" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Modifier" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
