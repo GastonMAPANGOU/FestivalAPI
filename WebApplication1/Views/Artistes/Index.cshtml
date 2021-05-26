@@ -16,7 +16,7 @@
             <div class="card text-center">
                 <div class="card-body">
                     @{
-                        <img src="@Url.Content(item.Photo)" class="card-img-top" /> }
+                        <img src="@Url.Content(item.Photo)" width="400" height="300" class="card-img-top" /> }
                     <a asp-action="Details" asp-route-id="@item.IdA">
                         @Html.DisplayFor(modelItem => item.Nom)
                         @Html.DisplayFor(modelItem => item.Prenom) 
