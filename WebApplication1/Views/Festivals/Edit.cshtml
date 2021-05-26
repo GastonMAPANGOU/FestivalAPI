@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Edit";
+        
+        
 }
 
 <h1>Edit</h1>
@@ -10,7 +12,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdF" />
             <div class="form-group">
@@ -19,34 +21,45 @@
                 <span asp-validation-for="Nom" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Logo" class="control-label"></label>
-                <input asp-for="Logo" class="form-control" />
-                <span asp-validation-for="Logo" class="text-danger"></span>
+                <label class="control-label">Logo du festival :extensions valides: ".jpg",".jpeg",".gif",".png",".jfif"</label>
+                <input type="file" name="file" />
             </div>
             <div class="form-group">
                 <label asp-for="Descriptif" class="control-label"></label>
                 <input asp-for="Descriptif" class="form-control" />
                 <span asp-validation-for="Descriptif" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="Date_Debut" class="control-label"></label>
-                <input asp-for="Date_Debut" class="form-control" />
+                <label asp-for="Date_Debut" class="control-label">Date de naissance</label>
+                <input asp-for="Date_Debut" type="date" class="form-control" required />
                 <span asp-validation-for="Date_Debut" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Date_Fin" class="control-label"></label>
-                <input asp-for="Date_Fin" class="form-control" />
+                <input asp-for="Date_Fin" type="date" class="form-control" />
                 <span asp-validation-for="Date_Fin" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="LieuId" class="control-label"></label>
-                <select asp-for="LieuId" class="form-control" asp-items="ViewBag.LieuId"></select>
-                <span asp-validation-for="LieuId" class="text-danger"></span>
+                <label asp-for="NbPlacesDispo" class="control-label">Nombre de places disponibles </label>
+                <input asp-for="NbPlacesDispo" type="number" class="form-control" />
+                <span asp-validation-for="NbPlacesDispo" class="text-danger"></span>
             </div>
+
+            <div class="form-group">
+                <label asp-for="IsFree" class="control-label">Gratuit? </label>
+                <input asp-for="IsFree" type="checkbox" class="form-control" />
+                <span asp-validation-for="IsFree" class="text-danger"></span>
+            </div>
+
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+        <a asp-controller="Festivals" asp-action="EditTarif">  Modifier le tarif</a>
+
     </div>
 </div>
 

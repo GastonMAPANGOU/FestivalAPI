@@ -16,7 +16,7 @@ namespace FestivalAPI.Data
             List<Rapport_Temps> rapport_Temps = new List<Rapport_Temps>();
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                string sqlQuery = "Select * from Rapport_Temps where FestivalId = " + FestivalId + "AND Date_Inscription = "+ date_Inscription;
+                string sqlQuery = "Select * from Rapport_Temps where FestivalId = " + FestivalId + "AND Date_Inscription = " + date_Inscription;
                 SqlCommand command = new SqlCommand(sqlQuery, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -33,7 +33,7 @@ namespace FestivalAPI.Data
                         rapport.Nombre_Inscription = reader.GetInt32(3);
 
                         rapport_Temps.Add(rapport);
-                        
+
                     }
                 }
             }

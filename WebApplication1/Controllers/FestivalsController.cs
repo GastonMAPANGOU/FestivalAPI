@@ -272,32 +272,19 @@ namespace WebApplication1.Controllers
 
 
         // GET: Festival/Edit/5
-        public IActionResult Edit(int? id)
+        public IActionResult Edit()
         {
-            /*if (id == null)
-            {
-                return NotFound();
-            }
-
- 
-
-            var Festival = await _context.Festival.FindAsync(id);
-            if (Festival == null)
-            {
-                return NotFound();
-            }
-            return View(Festival);*/
-
-
-
-            if (id == null)
+            if (HttpContext.Session.GetInt32("ido") == null)
             {
                 return null;
             }
-            return View(API.Instance.GetFestivalAsync(id).Result);
-
-
-
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            return View(festival);
         }
 
 
@@ -307,19 +294,89 @@ namespace WebApplication1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("IdF,Nom,Logo,Descriptif,Date_Debut,Date_Fin,LieuId")] Festival Festival)
+        public IActionResult Edit(Festival festival, IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment)
         {
-            if (id != Festival.IdF)
+            //taf de la photo
+            int taillemax = 2097152;
+
+            List<String> extensionsvalides = new List<String>();
+            List<String> strcut = new List<String>();
+            extensionsvalides.Add(".jpg");
+            extensionsvalides.Add(".jpeg");
+            extensionsvalides.Add(".gif");
+            extensionsvalides.Add(".png");
+            extensionsvalides.Add(".jfif");
+
+            if (file != null)
             {
-                return NotFound();
+                string fileName = "img/logos/" + festival.Nom;
+                string extension = Path.GetExtension(file.FileName);
+                string chemin = fileName + extension.ToLower();
+                //taf de l'extrait musical
+
+                if (file.Length < taillemax && extensionsvalides.Contains(extension))
+                {
+                    if (chemin != null)
+                    {
+                        if (System.IO.File.Exists(chemin))
+                        {
+                            System.IO.File.Delete(chemin);
+                        }
+                        using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
+                        {
+                            file.CopyTo(fileStream);
+                            fileStream.Flush();
+                        }
+                    }
+
+
+
+                    festival.Logo = chemin;
+                }
+                else
+                {
+                    ModelState.AddModelError("error", "Extension du fichier non reconnu ou le fichier est trop lourd");
+                    return View(festival);
+                }
+
+            }
+            else
+            {
+                festival.Logo = "img/logos/defaut";
             }
 
-            if (ModelState.IsValid)
+            
+            var URI = API.Instance.ModifFestivalAsync(festival);
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        public IActionResult EditTarif()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
             {
-                var URI = API.Instance.ModifFestivalAsync(Festival);
-                return RedirectToAction(nameof(Index));
+                return null;
             }
-            return View(Festival);
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            return View(festival);
+        }
+
+
+
+        // POST: Festival/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditTarif(Festival festival)
+        {
+            var URI = API.Instance.ModifFestivalAsync(festival);
+            return RedirectToAction(nameof(Index));
         }
 
 
@@ -398,7 +455,8 @@ namespace WebApplication1.Controllers
             var days = (today.Date - festivalier.Birthday.Date).TotalDays;
             Festival festival = API.Instance.GetFestivalAsync(festivalier.FestivalId).Result;
             festivalier.IsPublished = false;
-            festival.NbPlacesDispo = festival.NbPlacesDispo-(festivalier.Nb_ParticipantsDT + festivalier.Nb_ParticipantsPT);
+            festival.NbPlacesDispo = festival.NbPlacesDispo - (festivalier.Nb_ParticipantsDT + festivalier.Nb_ParticipantsPT);
+
             if (days < 18 * 365)
             {
                 ModelState.AddModelError("error", "Vous n'êtes pas majeur!!!");
@@ -430,7 +488,7 @@ namespace WebApplication1.Controllers
                 {
                     sendMail = new FestivalAPI.Data.SendMail();
                     string mailSubject="Inscription au festival "+festival.Nom;
-                    string content="Votre inscripion au festival "+festival.Nom+" a bien été prise en compte vous allez bientôt recevoir un mail de confirmation. <br> pour l'instant vous pouvez d'ores et déjà vous connecter sur notre site internet <br> <br> Cordialement <br> <br> A bientôt sur Festi'Normandie." ;
+                    string content="Votre inscripion au festival "+festival.Nom+" a bien été prise en compte vous allez bientôt recevoir un mail de validation de paiement. <br> pour l'instant vous pouvez d'ores et déjà vous connecter sur notre site internet <br> <br> Cordialement <br> <br> A bientôt sur Festi'Normandie." ;
                     
                     sendMail.ActionSendMail(festivalier.Login, mailSubject, content);
                     
@@ -701,6 +759,10 @@ namespace WebApplication1.Controllers
                     return AjoutArtiste();
                 }
             }
+            else
+            {
+                artiste.Photo = "img/artistes/defaut";
+            }
 
             if (file2 != null)
             { 
@@ -850,7 +912,7 @@ namespace WebApplication1.Controllers
             return Redirect("/Festivals/Festivaliers");
         }
 
-        public ActionResult ValiderInscription(int? id)
+        public ActionResult ValiderPaiement(int? id)
         {
             if (id != null)
             {
@@ -858,10 +920,14 @@ namespace WebApplication1.Controllers
             }
             Festivalier festivalier = API.Instance.GetFestivalierAsync(id).Result;
             Festival festival = API.Instance.GetFestivalAsync(festivalier.Id).Result;
-            festival.NbPlacesDispo = festival.NbPlacesDispo - (festivalier.Nb_ParticipantsDT + festivalier.Nb_ParticipantsPT);
-            var uri= API.Instance.ModifFestivalierAsync(festivalier);
-            var uri2 = API.Instance.ModifFestivalAsync(festival);
             festivalier.InscriptionAccepted = true;
+            var uri= API.Instance.ModifFestivalierAsync(festivalier);
+            sendMail = new FestivalAPI.Data.SendMail();
+            string mailSubject = "Validation de paiement pour le festival" + festival.Nom;
+            string content = "Votre paiement de ticket pour le festival " + festival.Nom + " a bien été validée. Ci dessous votre facture: <br> <br> Nom:"+ festivalier.Prenom+" "+festivalier.Nom + "< br> Nombre de places Demi-Tarif:" + festivalier.Nb_ParticipantsDT+ " <br>Nombre de places Plein-Tarif:" + festivalier.Nb_ParticipantsPT + " Nombre de jours:" + festivalier.NbJours + "<br>Tarif-Plein: " + festival.Montant + " < br > Demi-Tarif: " + (festival.Montant/2) + " < br > Total: "+festivalier.Somme+"< br >Cordialement <br> <br> A bientôt sur Festi'Normandie.";
+
+            sendMail.ActionSendMail(festivalier.Login, mailSubject, content);
+
             return Redirect("/Festivals/Festivaliers");
         }
 
@@ -894,7 +960,23 @@ namespace WebApplication1.Controllers
                 return null;
             }
 
-            return View(festival.Festivaliers);
+            return View(API.Instance.GetFestivaliersAsync().Result.Where(f =>f.FestivalId== festival.IdF));
+        }
+
+        public IActionResult Ventes()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+
+            return View(API.Instance.GetFestivaliersAsync().Result.Where(f => f.FestivalId == festival.IdF && f.InscriptionAccepted));
         }
 
         public IActionResult Hebergements()
@@ -927,6 +1009,133 @@ namespace WebApplication1.Controllers
             }
 
             return View(festival.Artistes);
+        }
+
+        public IActionResult OuvrirInscriptions()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            festival.IsReachable = true;
+            var uri = API.Instance.ModifFestivalAsync(festival);
+
+            return Redirect("Home/OrganisateursPage");
+        }
+
+        public IActionResult FermerInscriptions()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            festival.IsReachable = false;
+            var uri = API.Instance.ModifFestivalAsync(festival);
+
+            return Redirect("Home/OrganisateursPage");
+        }
+
+        public IActionResult Publier()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            festival.IsPublished = true;
+            var uri = API.Instance.ModifFestivalAsync(festival);
+
+            return Redirect("Home/OrganisateursPage");
+        }
+
+        public IActionResult Depublier()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            festival.IsPublished = false;
+            var uri = API.Instance.ModifFestivalAsync(festival);
+
+            return Redirect("Home/OrganisateursPage");
+        }
+
+        public IActionResult Retour()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            return Redirect("Home/OrganisateursPage");
+        }
+
+        public IActionResult Annuler()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            return View();
+        }
+        public IActionResult AnnulerConfirmed()
+        {
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            festival.IsCanceled = true;
+            var uri = API.Instance.ModifFestivalAsync(festival);
+            sendMail = new FestivalAPI.Data.SendMail();
+            foreach(var festivalier in festival.Festivaliers)
+            {
+                string mailSubject = "Festival Annulé:" + festival.Nom;
+                string content = "Le festival " + festival.Nom + " a été annulé. Nous vos prions de contacter le +33 00 00 00 00 00 pour toute demande remboursement <br> <br> :< br >Cordialement <br> <br> A bientôt sur Festi'Normandie.";
+
+                sendMail.ActionSendMail(festivalier.Login, mailSubject, content);
+            }
+            
+            return Redirect("Home/OrganisateursPage");
         }
     }
 }
