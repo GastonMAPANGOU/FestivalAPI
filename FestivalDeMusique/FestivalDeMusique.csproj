@@ -10,8 +10,10 @@
   <ItemGroup>
     <None Remove="images\acceuil.jpg" />
     <None Remove="images\gmail.png" />
+    <None Remove="images\image_holder.png" />
     <None Remove="images\minimize.png" />
     <None Remove="images\music_bg_3.jpg" />
+    <None Remove="images\normandie.png" />
     <None Remove="images\outlook.png" />
     <None Remove="images\outlookGrey.png" />
     <None Remove="images\shutdownPastel.png" />
@@ -33,8 +35,10 @@
   <ItemGroup>
     <Resource Include="images\acceuil.jpg" />
     <Resource Include="images\gmail.png" />
+    <Resource Include="images\image_holder.png" />
     <Resource Include="images\minimize.png" />
     <Resource Include="images\music_bg_3.jpg" />
+    <Resource Include="images\normandie.png" />
     <Resource Include="images\outlook.png" />
     <Resource Include="images\outlookGrey.png" />
     <Resource Include="images\shutdownPastel.png" />
