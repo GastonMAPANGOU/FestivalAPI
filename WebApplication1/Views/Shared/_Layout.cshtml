@@ -45,7 +45,7 @@
                             <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Index">Voir festivals</a>
                             @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
                             {
-                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="AjoutHebergement">Créer hebergements</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Hebergements" asp-action="Index">Gérer hebergements</a>
                             }
 
                         </div>
@@ -63,7 +63,8 @@
                             @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
                             {
                                 <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="AjoutArtiste">Ajouter artiste</a>
-                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="AjoutScene">Ajouter Scène</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Scenes" asp-action="Index">Gérer Scène</a>
+
                             }
                         </div>
                     </li>
@@ -74,8 +75,9 @@
                                 Ami
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Demandes">Invitations</a>
                                 <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Festivaliers">Participants</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Demandes">Invitations</a>
+                                <a class="dropdown-item" asp-area="" asp-controller="Amis" asp-action="Index">Liste des amis</a>
                             </div>
                         </li>
                     }

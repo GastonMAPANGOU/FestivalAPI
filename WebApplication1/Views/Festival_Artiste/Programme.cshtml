@@ -2,7 +2,7 @@
 @using FestivalAPI.Models
 @model FestivalAPI.Models.Festival
 @using Microsoft.AspNetCore.Http;
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor;
 
 @{
     ViewData["Title"] = "Programme";
@@ -38,26 +38,19 @@
                 initialView: 'resourceTimeGridDay',
                 resources: [
 
-                    { id: 'Lundi', title: 'Lundi' },
-                    { id: 'Mardi', title: 'Mardi' },
-                    { id: 'Mercredi', title: 'Mercredi' },
-                    { id: 'Jeudi', title: 'Jeudi' },
-                    { id: 'Vendredi', title: 'Vendredi' },
-                    { id: 'Dimanche', title: 'Dimanche' }
+                    { id: 'a', title: 'Lundi' },
+                    { id: 'b', title: 'Mardi' },
+                    { id: 'c', title: 'Mercredi' },
+                    { id: 'd', title: 'Jeudi' },
+                    { id: 'e', title: 'Vendredi' },
+                    { id: 'f', title: 'Samedi' },
+                    { id: 'g', title: 'Dimanche' }
                 ]
             });
-            sartst: '2021-09-05T12:30:00-05:00'
+            sartst: '2021-09-01T12:30:00-05:00'
 
             
-            new Draggable(containerEl, {
-                itemSelector: '.item-class',
-                eventData: function (eventEl) {
-                    return {
-                        title: eventEl.innerText,
-                        duration: '02:00'
-                    };
-                }
-            });
+            
             calendar.render();
 
         });

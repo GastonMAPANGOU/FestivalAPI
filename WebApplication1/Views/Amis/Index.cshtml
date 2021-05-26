@@ -1,0 +1,57 @@
+﻿@model IEnumerable<FestivalAPI.Models.Ami>
+@using FestivalAPI.Models
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@{
+    ViewData["Title"] = "Index";
+    IEnumerable<FestivalAPI.Models.Festival_Artiste> festival_Artistes = WebApplication1.ControllersAPI.API.Instance.GetFestival_ArtistesAsync().Result;
+    IEnumerable<FestivalAPI.Models.Festivalier> festivaliers = WebApplication1.ControllersAPI.API.Instance.GetFestivaliersAsync().Result;
+}
+
+<h1>Liste des amis</h1>
+
+<div class="card-deck">
+    <span style="color:red">@Html.ValidationMessage("error")</span>
+
+    @foreach (var item in Model)
+    {
+        if (item.AmiDemandeur == (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf"))
+        {
+            <div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
+                <div class="card text-center">
+
+
+
+                    <div class="card-body">
+                        @{
+
+                            @foreach (var it2 in Model)
+                            {
+                                @foreach (var it in festivaliers)
+                                {
+                                    if (item.AmiReceveur == it.Id)
+                                    {
+                                        @Html.DisplayFor(modelIt => it.Nom) @Html.DisplayFor(modelIt => it.Prenom)}
+                                }
+                            }
+                        }
+                        <a asp-action="Consult" asp-route-id="@item.AmiReceveur" class="btn btn-outline-primary ">Consulter</a>
+                        <a asp-action="Partage" asp-route-id="@item.AmiReceveur" class="btn btn-outline-primary ">Partager</a>
+
+
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
