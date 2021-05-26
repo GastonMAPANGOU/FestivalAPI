@@ -6,44 +6,37 @@
 @{ ViewData["Title"] = "Index";
     IEnumerable<FestivalAPI.Models.Festivalier> festivaliers = WebApplication1.ControllersAPI.API.Instance.GetFestivaliersAsync().Result;
 }
-<h1>Festivaliers</h1>
+<h1>Festivals Of The Year</h1>
 
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Pseudonyme
-            </th>
-            <th>
-                Nbre de places PT
-            </th>
-            <th>
-                Nbre de places DT
-            </th>
-            <th>
-                Côut du ticket
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
+<div class="card-deck">
+    <span style="color:red">@Html.ValidationMessage("error")</span>
+
+    @foreach (var item in Model)
+    {
+        if (item.Id != (int)HttpContextAccessor.HttpContext.Session.GetInt32("idf"))
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pseudo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nb_ParticipantsPT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nb_ParticipantsDT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Somme)
-            </td>
-        </tr>
-        }
-    </tbody>
-</table>
+            <div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
+                <div class="card text-center">
+
+
+
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            @Html.DisplayFor(modelItem => item.Pseudo)
+                        </h5>
+
+                        @if (item.InscriptionAccepted)
+                        {
+                            <h5> Paiement validé</h5>}
+                        else 
+                        {
+                            <a class="btn btn-primary" asp-action="ValiderPaiement" asp-route-id="@item.Id">  Valider le paiement</a> }
+                        
+
+                    </div>
+                </div>
+            </div>}
+    }
+</div>
