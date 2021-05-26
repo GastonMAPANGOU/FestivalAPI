@@ -31,23 +31,24 @@ namespace WebApplication1.Controllers
             // GET: Ami
             public IActionResult Index()
             {
-                //return View(await _context.Ami.Include("Links").ToListAsync());
 
-
-
-                //IEnumerable<Ami> Amis = API.Instance.GetAmisAsync().Result;
-                //return View(Amis);
-                var Amis = API.Instance.GetAmitiésAsync().Result;
-
-
-
-
-
-
-
-
-                return View(Amis);
+        
+            if (HttpContext.Session.GetInt32("idf") == null)
+            {
+                return null;
             }
+            else
+            {
+                           int FestivalierId = (int)HttpContext.Session.GetInt32("idf");
+        var Amis = API.Instance.GetAmitiésAsync().Result.Where(f => f.Accepted && (f.AmiReceveur == FestivalierId || f.AmiDemandeur == FestivalierId));
+
+            return View(Amis);
+    }
+
+ 
+
+
+        }
         
 
 
