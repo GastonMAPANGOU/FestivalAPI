@@ -167,7 +167,7 @@ namespace WebApplication1.Controllers
             // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
             [HttpPost]
             [ValidateAntiForgeryToken]
-            public IActionResult Edit(int id, [Bind("IdH,Lien,LieuId,Type_HebergementIDTH")] Hebergement Hebergement)
+            public IActionResult Edit(Hebergement hebergement)
             {
                 /*if (id != Hebergement.Id)
                 {
@@ -197,21 +197,18 @@ namespace WebApplication1.Controllers
                     return RedirectToAction(nameof(Index));
                 }
                 return View(Hebergement);*/
-                if (id != Hebergement.IdH)
-                {
-                    return NotFound();
-                }
+                
 
 
 
-
-
-                if (ModelState.IsValid)
-                {
-                    var URI = API.Instance.ModifHebergementAsync(Hebergement);
-                    return RedirectToAction(nameof(Index));
-                }
-                return View(Hebergement);
+            if(hebergement.IdH!=0)
+            {
+                var URI = API.Instance.ModifHebergementAsync(hebergement);
+                return RedirectToAction(nameof(Index));
+            }
+                    
+                
+                return View(hebergement);
             }
 
 

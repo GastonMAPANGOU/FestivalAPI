@@ -207,10 +207,19 @@ namespace WebApplication1.ControllersAPI
 
         public async Task<Uri> ModifFestivalAsync(Festival festival)
         {
+            Festival fvl = GetFestivalAsync(festival.IdF).Result;
             try
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/festivals/" + festival.IdF, festival);
                 response.EnsureSuccessStatusCode();
+                if (response.IsSuccessStatusCode && fvl.Jours.Count!=0)
+                {
+                    foreach (var item in fvl.Jours)
+                    {
+                        await SupprJourAsync(item.IdJ);
+                    }
+                    int n = await AjoutJoursAsync(festival);
+                }
                 return response.Headers.Location;
             }
             catch (Exception ex)

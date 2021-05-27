@@ -21,7 +21,7 @@
 
             <div class="card text-center">
                     <div class="card-body">
-                        <img src="@Url.Content(item.Logo)" class="card-img-top" />
+                        <img src="@Url.Content("~/"+item.Logo)" alt="Sample Photo" width="200" height="341">
                         <a asp-action="Details" asp-route-id="@item.IdF">
                             @Html.DisplayFor(modelItem => item.Nom)
                         </a>

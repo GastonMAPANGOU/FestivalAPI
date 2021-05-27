@@ -325,12 +325,11 @@ namespace WebApplication1.Controllers
                         if (System.IO.File.Exists(chemin))
                         {
                             System.IO.File.Delete(chemin);
-
-                            using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
-                            {
-                                file.CopyTo(fileStream);
-                                fileStream.Flush();
-                            }
+                        }
+                        using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
+                        {
+                            file.CopyTo(fileStream);
+                            fileStream.Flush();
                         }
                     }
 
@@ -1155,6 +1154,19 @@ namespace WebApplication1.Controllers
             return Redirect("Index");
         }
         public ActionResult Programme(int? id)
+        {
+            if (id == null)
+            {
+                return View(API.Instance.GetFestival_ArtistesAsync().Result);
+            }
+            else
+            {
+                return View(API.Instance.GetFestival_ArtistesAsync().Result.Where(f => f.FestivalId == id));
+            }
+
+        }
+
+        public ActionResult Test(int? id)
         {
             if (id == null)
             {
