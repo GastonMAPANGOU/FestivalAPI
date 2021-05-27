@@ -7,21 +7,97 @@
 @{
     ViewData["Title"] = "Index";
     IEnumerable<FestivalAPI.Models.Festival_Artiste> festival_Artistes = WebApplication1.ControllersAPI.API.Instance.GetFestival_ArtistesAsync().Result;
+    Organisateur organisateur = new Organisateur();
+    if (@HttpContextAccessor.HttpContext.Session.GetInt32("ido")!=null)
+    {
+         organisateur = WebApplication1.ControllersAPI.API.Instance.GetOrganisateurAsync(@HttpContextAccessor.HttpContext.Session.GetInt32("ido")).Result;
+    }
+
 
 }
 
 
 <h1>Liste des festivals</h1>
 
+
 <div class="card-deck">
 
     @foreach (var item in Model)
     {
-        <div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
+        @if (item.IsPublished && (@HttpContextAccessor.HttpContext.Session.GetString("category") != "Organisateur"))
+        {
+                <div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
 
-            <div class="card text-center">
+                    <div class="card text-center">
+
+                        <div class="card-body">
+                            @if (item.IsCanceled)
+                            {
+                                <div class="card-header text-danger">Ce festival a été annulé</div>
+                            }
+                                <img src="@Url.Content("~/" + item.Logo)" alt="Sample Photo" width="200" height="341">
+                                <a asp-action="Details" asp-route-id="@item.IdF">
+                                    @Html.DisplayFor(modelItem => item.Nom)
+                                </a>
+                            </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <i class="glyphicon glyphicon-map-marker"></i>
+                                <strong>Localisation</strong>
+                                @API.Instance.GetLieuAsync(item.LieuId).Result.Commune
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Nombre de places disponible</strong>
+                                @Html.DisplayFor(modelItem => item.NbPlacesDispo)
+                            </li>
+                            <li class="list-group-item">
+                                <strong>Il reste  </strong>
+
+                                @{ var i = 0;
+                                    var Festivaliers = API.Instance.GetFestivaliersAsync().Result;
+                                    foreach (var festivalier in Festivaliers)
+                                    {
+                                        if (festivalier.FestivalId == item.IdF)
+                                        {
+                                            i++;
+                                        }
+                                    }
+                                    var nbPlaceRestante = item.NbPlacesDispo - i; }
+
+                                @nbPlaceRestante places !
+
+                            </li>
+
+                            <a asp-action="Programme" asp-route-id="@item.IdF" class="btn btn-outline-primary ">Voir la programmation</a>
+
+
+                            @if ((@HttpContextAccessor.HttpContext.Session.GetString("category") != "Organisateur") && (@HttpContextAccessor.HttpContext.Session.GetString("category") != "Festivalier"))
+                            {
+                                @if (item.IsReachable)
+                                {
+                                    <li class="list-group-item">
+                                        <a asp-action="AjoutFestivalier" asp-route-id="@item.IdF" class="btn btn-primary">Participer</a>
+                                    </li>
+                                }
+
+                            }
+
+                        </ul>
+                    </div>
+                </div>
+
+             }
+
+
+
+        @if ((@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur") && item.IdF==organisateur.FestivalId)
+        {
+            <div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
+
+                <div class="card text-center">
+
                     <div class="card-body">
-                        <img src="@Url.Content("~/"+item.Logo)" alt="Sample Photo" width="200" height="341">
+                        <img src="@Url.Content("~/" + item.Logo)" alt="Sample Photo" width="200" height="341">
                         <a asp-action="Details" asp-route-id="@item.IdF">
                             @Html.DisplayFor(modelItem => item.Nom)
                         </a>
@@ -61,39 +137,35 @@
                         @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
                         {
 
-                    <div>
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Gestion de festival
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" asp-action="Edit">Modifier</a>
-                            @if (item.IsPublished)
-                            {
-                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Depublier">Depublier</a>
-                            }
-                            else
-                            {
-                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Publier">Publier</a>
-                            }
-                            @if (item.IsReachable)
-                            {
-                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="FermerInscriptions">Fermer les inscriptions</a>
-                            }
-                            else
-                            {
-                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="OuvrirInscriptions">Ouvrir les inscriptions</a>
-                            }
-                            @if (!item.IsCanceled)
-                            {
-                                <a class="dropdown-item" asp-action="Annuler">Annuler le festival</a>
-                            }
-                        </div>
-                    </div>
-  
-                        
-                            
+                            <div>
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Gestion de festival
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-action="Edit">Modifier</a>
+                                    @if (item.IsPublished)
+                                    {
+                                        <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Depublier">Depublier</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Publier">Publier</a>
+                                    }
+                                    @if (item.IsReachable)
+                                    {
+                                        <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="FermerInscriptions">Fermer les inscriptions</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="OuvrirInscriptions">Ouvrir les inscriptions</a>
+                                    }
+                                    @if (!item.IsCanceled)
+                                    {
+                                        <a class="dropdown-item" asp-action="Annuler">Annuler le festival</a>
+                                    }
+                                </div>
+                            </div>
 
-                            
                         }
 
                         @if ((@HttpContextAccessor.HttpContext.Session.GetString("category") != "Organisateur") && (@HttpContextAccessor.HttpContext.Session.GetString("category") != "Festivalier"))
@@ -105,5 +177,7 @@
 
                     </ul>
                 </div>
-        </div>}
-</div>
+            </div>}
+
+    }
+

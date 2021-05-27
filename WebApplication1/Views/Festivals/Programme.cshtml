@@ -17,7 +17,12 @@
     string artiste = "";
 }
 
-<a class="nav-link " asp-area="" asp-controller="Festival_Artiste" asp-action="Create">Rajouter un créneau</a>
+
+@if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
+{
+    <a class="nav-link " asp-area="" asp-controller="Festival_Artiste" asp-action="Create">Rajouter un créneau</a>
+}
+
 
 
 

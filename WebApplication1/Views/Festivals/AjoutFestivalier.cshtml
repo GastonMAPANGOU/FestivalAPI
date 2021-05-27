@@ -86,7 +86,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="@festivalier.NbJours" class="control-label">Nombre de jours:</label>
-                <input asp-for="@festivalier.NbJours" class="form-control" type="number" min="1" max="@jours.Count()" required />
+                <input asp-for="@festivalier.NbJours" class="form-control" type="number" required />
                 <span asp-validation-for="@festivalier.NbJours" class="text-danger"></span>
             </div>
 

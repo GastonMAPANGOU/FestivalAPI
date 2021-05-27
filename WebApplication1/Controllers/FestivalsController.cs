@@ -832,7 +832,7 @@ namespace WebApplication1.Controllers
                 return null;
             }
 
-            return View(API.Instance.GetFestivaliersAsync().Result.Where(f => f.Id != festivalier.Id && f.FestivalId == festivalier.FestivalId));
+            return View(API.Instance.GetFestivaliersAsync().Result.Where(f => f.Id != festivalier.Id && f.FestivalId == festivalier.FestivalId && f.IsPublished));
         }
         
         public ActionResult AjoutAmi(int? id)
