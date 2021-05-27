@@ -899,8 +899,8 @@ namespace WebApplication1.Controllers
                 amitié.Accepted = true;
                 var URI = API.Instance.ModifAmiAsync(amitié);
             }
-            
-            return View(festivaliers);
+
+            return View(festivaliers.Where(f => f.IsPublished));
         }
 
         public ActionResult DeleteAmitié(int? id)

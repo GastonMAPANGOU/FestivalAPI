@@ -4,12 +4,14 @@
 
 @{ 
     FestivalAPI.Models.Festivalier festivalier = new FestivalAPI.Models.Festivalier();
+    FestivalAPI.Models.Festival festival = new FestivalAPI.Models.Festival();
     FestivalAPI.Models.Organisateur organisateur = new FestivalAPI.Models.Organisateur();
 }
 
 @if (HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null)
 {
     festivalier = WebApplication1.ControllersAPI.API.Instance.GetFestivalierAsync((int)HttpContextAccessor.HttpContext.Session.GetInt32("idf")).Result;
+    festival = WebApplication1.ControllersAPI.API.Instance.GetFestivalAsync(festivalier.FestivalId).Result;
 
 }
 
@@ -88,7 +90,7 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Rapport
+                                @festivalier.Pseudo
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-area="" asp-controller="Rapport_Activites" asp-action="Index">Rapport des activités par région</a>
@@ -106,18 +108,43 @@
                     }
 
                 </ul>
-                <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Festivals" asp-action="Index">
-                    <input type="text" class="form-control" placeholder="Search for a Festival" name="searchString" value="@ViewData["searchString"]">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-                @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")) || (HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisateur")))
+                @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier") ))
+                {
+
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @festivalier.Pseudo
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Vous participez à @festival.Nom</a>
+                            @if (festivalier.IsPublished)
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivaliers" asp-action="Depublier">Depublier</a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivaliers" asp-action="Publier">Publier</a>
+                            }
+                            <a class="dropdown-item" asp-area="" asp-controller="Connexion" asp-action="Deconnexion">Se déconnecter</a>
+                        </div>
+                    </div>
+
+                }
+                else if (HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisateur"))
                 {
                     <a class="btn btn-primary" asp-area="" asp-controller="Connexion" asp-action="Deconnexion">Se déconnecter</a>
+
+
                 }
                 else
                 {
                     <a class="btn btn-primary" asp-area="" asp-controller="Connexion" asp-action="ConnexionFestivalier">Se Connecter</a>
                 }
+                <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Festivals" asp-action="Index">
+                    <input type="text" class="form-control" placeholder="Search for a Festival" name="searchString" value="@ViewData["searchString"]">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+
 
             </div>
         </nav>

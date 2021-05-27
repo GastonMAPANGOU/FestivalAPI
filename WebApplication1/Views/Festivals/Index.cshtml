@@ -68,12 +68,16 @@
 
                             </li>
 
-                            <a asp-action="Programme" asp-route-id="@item.IdF" class="btn btn-outline-primary ">Voir la programmation</a>
+                            @if (!item.IsCanceled)
+                            {
+                                <a asp-action="Programme" asp-route-id="@item.IdF" class="btn btn-outline-primary ">Voir la programmation</a>
+                            }
+
 
 
                             @if ((@HttpContextAccessor.HttpContext.Session.GetString("category") != "Organisateur") && (@HttpContextAccessor.HttpContext.Session.GetString("category") != "Festivalier"))
                             {
-                                @if (item.IsReachable)
+                                @if (item.IsReachable && !item.IsCanceled)
                                 {
                                     <li class="list-group-item">
                                         <a asp-action="AjoutFestivalier" asp-route-id="@item.IdF" class="btn btn-primary">Participer</a>

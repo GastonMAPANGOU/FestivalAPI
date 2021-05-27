@@ -9,6 +9,10 @@ using FestivalAPI.Data;
 using FestivalAPI.Models;
 using WebApplication1.ControllersAPI;
 
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
+
 namespace WebApplication1.Controllers
 {
     public class FestivaliersController : Controller
@@ -243,12 +247,41 @@ namespace WebApplication1.Controllers
 
 
         }
-
-
-
-        /*private bool FestivalierExists(int id)
+        public ActionResult Publier()
         {
-            return _context.Festivalier.Any(e => e.Id == id);
-        }*/
+            if (HttpContext.Session.GetInt32("idf") == null)
+            {
+                return null;
+            }
+            Festivalier festivalier = API.Instance.GetFestivalierAsync((int)HttpContext.Session.GetInt32("idf")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(festivalier.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            festivalier.IsPublished = true;
+            var uri = API.Instance.ModifFestivalierAsync(festivalier);
+
+            return Redirect("/Home/Index");
+        }
+
+        public ActionResult Depublier()
+        {
+            if (HttpContext.Session.GetInt32("idf") == null)
+            {
+                return null;
+            }
+            Festivalier festivalier = API.Instance.GetFestivalierAsync((int)HttpContext.Session.GetInt32("idf")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(festivalier.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            festivalier.IsPublished = false;
+            var uri = API.Instance.ModifFestivalierAsync(festivalier);
+
+            return Redirect("/Home/Index");
+        }
+
     }
 }
