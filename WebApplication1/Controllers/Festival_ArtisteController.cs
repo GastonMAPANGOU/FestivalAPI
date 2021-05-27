@@ -94,7 +94,7 @@ namespace WebApplication1.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Festival_Artiste fa,TimeSpan HeureDebut, TimeSpan HeureFin)
+        public IActionResult Create(Festival_Artiste fa, TimeSpan HeureDebut, TimeSpan HeureFin)
         {
             if (HttpContext.Session.GetInt32("ido") == null)
             {
@@ -111,15 +111,17 @@ namespace WebApplication1.Controllers
             fa.HeureFin = jour.Date_jour.Date + HeureFin;
 
 
+
+
             IEnumerable<Festival_Artiste> fas = API.Instance.GetFestival_ArtistesAsync().Result.Where(f => f.SceneId == fa.SceneId);
             fas = API.Instance.GetFestival_ArtistesAsync().Result.Where(f => f.ArtisteId == fa.ArtisteId && f.JourId == fa.JourId);
-            
-            if (fas.Count()!=0)
+
+            if (fas.Count() != 0)
             {
                 ModelState.AddModelError("error", "Cet artiste a déjà été programmé pour ce jour");
                 return Create();
             }
-            
+
             if (fa.HeureDebut > fa.HeureFin)
             {
                 ModelState.AddModelError("error", "Heure de début est plus grande que l'heure de fin !!!");
@@ -134,6 +136,8 @@ namespace WebApplication1.Controllers
                 }
             }
 
+
+
             fas = API.Instance.GetFestival_ArtistesAsync().Result.Where(f => f.ArtisteId == fa.ArtisteId);
             foreach (var item in fas)
             {
@@ -144,11 +148,13 @@ namespace WebApplication1.Controllers
                 }
             }
 
+
+
             var URI = API.Instance.AjoutFestival_ArtisteAsync(fa);
-                return RedirectToAction(nameof(Index));
-            
+            return Redirect("/Festival_Artiste/Programme");
+
             //ViewBag.liste_pays= countries ;
-            
+
         }
 
         public IActionResult Edit(int id)
