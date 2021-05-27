@@ -1,13 +1,52 @@
-﻿@{ ViewData["Title"] = "Home Page"; }
+﻿@model IEnumerable<FestivalAPI.Models.Festival_Artiste>
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@using WebApplication1.ControllersAPI
+@using FestivalAPI.Models
+@{ ViewData["Title"] = "Home Page"; }
 <html>
 <head>
 </head>
 <body>
-    <div >
+    @{
+        ViewData["Title"] = "Index";
+
+    }
+
+
+    <h1>Programmations</h1>
+
+    <div>
         <div class="text-center">
             <img src="~/pictures/Logo.PNG" height="200" />
         </div>
     </div>
 
+    <div class="card-deck">
+
+        @foreach (var item in Model)
+        {
+            <div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
+
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="@Url.Content("~/"+API.Instance.GetArtisteAsync(item.ArtisteId).Result.Photo)" alt="Sample Photo" width="200" height="341">
+                        <a asp-action="Details" asp-route-id="@API.Instance.GetFestivalAsync(item.FestivalId).Result.">
+                            @Html.DisplayFor(modelItem => API.Instance.GetFestivalAsync(item.FestivalId).Result.Nom)
+                        </a>
+                    </div>
+                    <p>
+                        @API.Instance.GetArtisteAsync(item.ArtisteId).Result.Nom <br>
+                        Scene: @API.Instance.GetSceneAsync(item.SceneId).Result.Nom <br />
+                        Le @item.HeureDebut.ToString("d") de @item.HeureDebut.ToString("H:mm") à @item.HeureFin.ToString("H:mm")<br />
+                    </p>
+                </div>
+            </div>}
+    </div>
+
+
+
 </body>
 </html>
+
+
