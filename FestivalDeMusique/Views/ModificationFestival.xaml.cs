@@ -98,7 +98,7 @@ namespace FestivalDeMusique.Views
                         //var resp = await response.Content.ReadAsStringAsync();
                         //festival = JsonConvert.DeserializeObject<Festival>(resp);
                         int n = await API.API.Instance.AjoutJoursAsync(festival);
-                        MessageBox.Show(n.ToString());
+                        //MessageBox.Show(n.ToString());
                     }
                     else
                     {

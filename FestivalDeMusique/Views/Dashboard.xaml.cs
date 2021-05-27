@@ -74,7 +74,7 @@ namespace FestivalDeMusique.Views
 
         private void ChargerGimi()
         {
-            compteButton.Content = "Compte : " + gimi.Nom + " " + gimi.Prenom;
+            compteTextBox.Text = "Compte : " + gimi.Nom + " " + gimi.Prenom;
         }
     }
 }

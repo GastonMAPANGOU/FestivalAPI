@@ -26,9 +26,26 @@ namespace FestivalDeMusique.Views
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void RapportTemps_ButtonClick(object sender, RoutedEventArgs e)
         {
-            string target = "http://www.microsoft.com";
+            string target = "https://localhost:44344/Rapport_temps";
+            OpenWebPage(target);
+        }
+
+        private void RapportGeo_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            string target = "https://localhost:44344/Rapport_Geos";
+            OpenWebPage(target);
+        }
+
+        private void RapportActivites_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            string target = "https://localhost:44344/Rapport_Activites";
+            OpenWebPage(target);
+        }
+
+        private void OpenWebPage(string target)
+        {
             try
             {
                 ProcessStartInfo startInfo = new ProcessStartInfo()
