@@ -19,7 +19,7 @@
 
                 <div class="card-body">
                     @{
-                        <img src="@Url.Content(item.Photo)" class="card-img-top" /> }
+                        <img src="@Url.Content("~/"+item.Photo)" class="card-img-top" width="300" height="300"/> }
                     <a asp-action="Details" asp-route-id="@item.IdA">
                         @Html.DisplayFor(modelItem => item.Nom)
                         @Html.DisplayFor(modelItem => item.Prenom)
