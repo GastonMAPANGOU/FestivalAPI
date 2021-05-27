@@ -17,11 +17,11 @@
 
     @foreach (var item in Model)
     {
-        <div class="card-deck" style="width: 25%; margin-bottom: 15px; margin-right: 5px;">
+        <div class="card-deck" style="width: 35%; margin-bottom: 15px; margin-right: 5px;">
 
             <div class="card text-center">
                     <div class="card-body">
-                        <img src="@Url.Content("~/"+item.Logo)" alt="Sample Photo" width="200" height="341">
+                        <img src="@Url.Content("~/"+item.Logo)" alt="Sample Photo" width="300" height="300">
                         <a asp-action="Details" asp-route-id="@item.IdF">
                             @Html.DisplayFor(modelItem => item.Nom)
                         </a>
