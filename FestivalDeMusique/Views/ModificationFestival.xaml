@@ -10,11 +10,11 @@
 
     <Border Padding="50 20 50 40">
         <Border.Background>
-            <ImageBrush Stretch="Fill" ImageSource="/images/music_bg_3.jpg"/>
+            <ImageBrush Stretch="Fill" ImageSource="/bg/6.jpg"/>
         </Border.Background>
         <Border BorderThickness="2" BorderBrush="Gray">
             <Border.Background>
-                <ImageBrush Stretch="Fill" ImageSource="/images/music_bg_3.jpg"/>
+                <ImageBrush Stretch="Fill" ImageSource="/bg/2.jpg"/>
             </Border.Background>
 
             <Grid>

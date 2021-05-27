@@ -70,18 +70,15 @@ namespace FestivalDeMusique.Views
 
         private bool CheckCredentials(string email, string pass)
         {
-            Gimi gimi = API.API.Instance.GetGimi(email, pass).Result;
-            try
+            foreach(Gimi gimi in API.API.Instance.GetGimis().Result)
             {
-                return email == gimi.Login && pass == gimi.Pwd;
+                if (email == gimi.Login && pass == gimi.Pwd)
+                    return true;
             }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
 
-        private string Hash(String mdp)
+        private string Hash(string mdp)
         {
             var bytes = new UTF8Encoding().GetBytes(mdp);
             var hashBytes = System.Security.Cryptography.SHA256.Create().ComputeHash(bytes);

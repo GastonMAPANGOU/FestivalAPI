@@ -29,19 +29,6 @@
 
                             </tr>
                             <tr>
-
-                                <td>Lien vers le site de l'hebergement</td>
-                                <td>
-                                    @foreach (var it in hebergements)
-                                    {
-                                        if (Model.IdF == it.FestivalId)
-                                        {
-                                    <a href="@Html.DisplayFor(model => it.Lien)"></a>}
-                                    }
-                                    
-                                </td>
-                            </tr>
-                            <tr>
                                 <td><strong> Date de début </strong>  </td>
                                 <td>@Html.DisplayFor(model => model.Date_Debut)</td>
                             </tr>

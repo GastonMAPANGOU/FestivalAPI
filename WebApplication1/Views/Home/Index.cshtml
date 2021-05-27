@@ -14,7 +14,7 @@
     }
 
 
-    <h1>Programmations</h1>
+    <h1 class="text-center font-weight-light my-4">Les grands artistes des festivals de musique de la narmandie</h1>
 
     <div>
         <div class="text-center">
@@ -32,7 +32,7 @@
                     <div class="card-body">
                         <img src="@Url.Content("~/"+API.Instance.GetArtisteAsync(item.ArtisteId).Result.Photo)" alt="Sample Photo" width="200" height="341">
                         <a asp-action="Details" asp-route-id="@API.Instance.GetFestivalAsync(item.FestivalId).Result.">
-                            @Html.DisplayFor(modelItem => API.Instance.GetFestivalAsync(item.FestivalId).Result.Nom)
+                            <strong> @Html.DisplayFor(modelItem => API.Instance.GetFestivalAsync(item.FestivalId).Result.Nom)</strong>
                         </a>
                     </div>
                     <p>

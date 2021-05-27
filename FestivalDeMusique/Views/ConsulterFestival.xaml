@@ -10,11 +10,11 @@
     
     <Border Padding="50 20 50 40">
         <Border.Background>
-            <ImageBrush Stretch="Fill" ImageSource="/images/music_bg_3.jpg"/>
+            <ImageBrush Stretch="Fill" ImageSource="/bg/1.jpg"/>
         </Border.Background>
         <Border BorderThickness="2" BorderBrush="Gray">
             <Border.Background>
-                <ImageBrush Stretch="Fill" ImageSource="/images/music_bg_3.jpg"/>
+                <ImageBrush Stretch="Fill" ImageSource="/bg/3.jpg"/>
             </Border.Background>
 
             <Grid>
@@ -192,6 +192,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
                     <Button Margin="0 0 10 0"
@@ -214,10 +215,20 @@
 
                     <Button Margin="10 0 0 0"
                             Content="Fermer"
-                            Grid.Column="2"
+                            Grid.Column="3"
                             Height="30"
                             Width="100"
                             Click="RetourOnClick">
+
+                    </Button>
+
+
+                    <Button Margin="10 0 0 0"
+                            Content="Rapport"
+                            Grid.Column="2"
+                            Height="30"
+                            Width="100"
+                            Click="Rapports_ButtonClick">
 
                     </Button>
                 </Grid>
