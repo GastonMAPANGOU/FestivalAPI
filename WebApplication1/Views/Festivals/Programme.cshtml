@@ -1,88 +1,161 @@
-﻿@model IEnumerable<FestivalAPI.Models.Festival_Artiste>
+﻿@using WebApplication1.ControllersAPI
 @using FestivalAPI.Models
-@using WebApplication1.ControllersAPI
+@model IEnumerable<FestivalAPI.Models.Festival_Artiste>
+@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @{
-    ViewData["Title"] = "Index";
-    IEnumerable<FestivalAPI.Models.Festival> festivals = WebApplication1.ControllersAPI.API.Instance.GetFestivalsAsync().Result;
-    IEnumerable<FestivalAPI.Models.Artiste> artistes = WebApplication1.ControllersAPI.API.Instance.GetArtistesAsync().Result;
-    IEnumerable<FestivalAPI.Models.Scene> scenes = WebApplication1.ControllersAPI.API.Instance.GetScenesAsync().Result;
-    IEnumerable<FestivalAPI.Models.Jour> jours = WebApplication1.ControllersAPI.API.Instance.GetJoursAsync().Result;
+    ViewData["Title"] = "test";
+    Festival festival = API.Instance.GetFestivalAsync(1).Result;
+    string test = "";
+    string month = "";
+    string day = "";
+    string hour = "";
+    string minute = "";
+    string test2 = "";
+    string scene = "";
+    string artiste = "";
 }
 
-<h1>Programm Of Festivals</h1>
+<a class="nav-link " asp-area="" asp-controller="Festival_Artiste" asp-action="Create">Rajouter un créneau</a>
 
-<p>
 
-</p>
-<table class="table">
-    <thead>
-        <tr>
-        <tr>
-            <th>
-                Nom_Festival
-            </th>
-            <th>
-                Nom_Artiste
-            </th>
-            <th>
-                Nom_Scene
-            </th>
-            <th>
-                Numero_jour
-            </th>
-            <th>
-                Date_jour
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @foreach (var it in festivals)
-                    {
-                        if (item.FestivalId == it.IdF)
-                        {
-                            @Html.DisplayFor(modelItem => it.Nom)}
-                    }
-                </td>
-                <td>
-                    @foreach (var it in artistes)
-                    {
-                        if (item.ArtisteId == it.IdA)
-                        {
-                            @Html.DisplayFor(modelItem => it.Nom)}
-                    }
-                </td>
-                <td>
-                    @foreach (var it in scenes)
-                    {
-                        if (item.SceneId == it.IdS)
-                        {
-                            @Html.DisplayFor(modelItem => it.Nom)}
-                    }
-                </td>
-                <td>
-                    @foreach (var it in jours)
-                    {
-                        if (item.JourId == it.IdJ)
-                        {
-                            @Html.DisplayFor(modelItem => it.Numero_jour)}
-                    }
-                </td>
-                <td>
-                    @foreach (var it in jours)
-                    {
-                        if (item.JourId == it.IdJ)
-                        {
-                            @Html.DisplayFor(modelItem => it.Date_jour)}
-                    }
-                </td>
-            </tr>
 
-        }
-    </tbody>
-</table>
+<html lang='fr'>
+<head>
+    <meta charset='utf-8' />
+    <!--
+    <link href='~/fullcalendar-5.7.0/lib/main.css' rel='stylesheet' />
+    <script src='~/fullcalendar-5.7.0/lib/main.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek'
+            });
+            calendar.render();
+        });
+
+    </script>
+    -->
+    <link href='~/fullcalendar-scheduler-5.7.0/lib/main.css' rel='stylesheet' />
+    <script src='~/fullcalendar-scheduler-5.7.0/lib/main.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var date = new Date();
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+
+            if (day < 10) {
+                dt = '0' + dt;
+            }
+            if (month < 10) {
+                month = '0' + month;
+            }
+
+            var finalDate = `${year}-${month}-${day}`;
+            console.log(finalDate);
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                initialDate: finalDate,
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: [
+                    @foreach (var item in Model)
+                    {
+                        scene = WebApplication1.ControllersAPI.API.Instance.GetSceneAsync(item.SceneId).Result.Nom;
+                        artiste = WebApplication1.ControllersAPI.API.Instance.GetArtisteAsync(item.ArtisteId).Result.Nom;
+                        day = "" + item.HeureDebut.Day;
+                        month = "" + item.HeureDebut.Month;
+                        hour = "" + item.HeureDebut.Hour;
+                        minute = "" + item.HeureDebut.Hour;
+
+                        if (month.Length < 2)
+                        {
+                            month = "0" + month;
+                        }
+                        if (day.Length < 2)
+                        {
+                            day = "0" + day;
+                        }
+                        if (hour.Length < 2)
+                        {
+                            hour = "0" + hour;
+                        }
+                        if (minute.Length < 2)
+                        {
+                            minute = "0" + minute;
+                        }
+                        test = item.HeureDebut.Year + "-" + month + "-" + day+ "T" + hour + ":" + minute + ":00";
+
+                        day = "" + item.HeureFin.Day;
+                        month = "" + item.HeureFin.Month;
+                        hour = "" + item.HeureFin.Hour;
+                        minute = "" + item.HeureFin.Hour;
+
+                        if (month.Length < 2)
+                        {
+                            month = "0" + month;
+                        }
+                        if (day.Length < 2)
+                        {
+                            day = "0" + day;
+                        }
+                        if (hour.Length < 2)
+                        {
+                            hour = "0" + hour;
+                        }
+                        if (minute.Length < 2)
+                        {
+                            minute = "0" + minute;
+                        }
+
+                        test2 = item.HeureFin.Year + "-" + month + "-" + day+"T"+hour+":"+minute+":00";
+                            <text>
+                            {
+                                title : '@artiste sur @scene',
+                                start: '@test',
+                                end: '@test2'
+
+                            },
+                            </text>
+
+
+}
+                        ]
+                        });
+
+                        calendar.render();
+                        });
+
+
+    </script>
+    <!--
+    <link href='~/fullcalendar-5.7.0/lib/main.css' rel='stylesheet' />
+    <script src='~/fullcalendar-5.7.0/lib/main.js'></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth'
+            });
+            calendar.render();
+        });
+
+    </script>
+         -->
+</head>
+<body>
+    <div id='calendar'></div>
+</body>
+</html>
+<div>
+    <a asp-action="Index">Retour à la liste des festivals</a>
+</div>

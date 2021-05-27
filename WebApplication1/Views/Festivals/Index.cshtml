@@ -67,11 +67,26 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" asp-action="Edit">Modifier</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Publier">Publier</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Depublier">Depublier</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="OuvrirInscriptions">Ouvrir les inscriptions</a>
-                            <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="FesrmerInscriptions">Fermer les inscriptions</a>
-                            <a class="dropdown-item" asp-action="Annuler">Annuler le festival</a>
+                            @if (item.IsPublished)
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Depublier">Depublier</a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Publier">Publier</a>
+                            }
+                            @if (item.IsReachable)
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="FermerInscriptions">Fermer les inscriptions</a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="OuvrirInscriptions">Ouvrir les inscriptions</a>
+                            }
+                            @if (!item.IsCanceled)
+                            {
+                                <a class="dropdown-item" asp-action="Annuler">Annuler le festival</a>
+                            }
                         </div>
                     </div>
   
