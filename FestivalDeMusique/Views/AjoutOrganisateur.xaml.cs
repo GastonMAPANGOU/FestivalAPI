@@ -54,27 +54,34 @@ namespace FestivalDeMusique.Views
                 };
 
                 HttpResponseMessage response = await API.API.Instance.AjoutOrganisateurAsync(organisateur);
-                if (response.IsSuccessStatusCode)
+                try
                 {
-                    MessageBox.Show("Nouvel organisateur ajouté avec succès");
+                    if (response.IsSuccessStatusCode)
+                    {
+                        MessageBox.Show("Nouvel organisateur ajouté avec succès");
 
-                    FestivalAPI.Data.SendMail sendMail = new FestivalAPI.Data.SendMail();
-                    string message = "Votre compte d'organisateur viens d'etre créé <br><br>Nom : " + organisateur.Nom;
-                    message += "<br>Prénom : " + organisateur.Prenom;
-                    message += "<br>Login : " + organisateur.Login;
-                    message += "<br>Mot de passe : " + organisateur.Pwd;
-                    message += "<br><br>Festi'Normandie";
-                    sendMail.ActionSendMail(organisateur.Login, "Creation de votre compte d'organisateur", message);
+                        FestivalAPI.Data.SendMail sendMail = new FestivalAPI.Data.SendMail();
+                        string message = "Votre compte d'organisateur viens d'etre créé <br><br>Nom : " + organisateur.Nom;
+                        message += "<br>Prénom : " + organisateur.Prenom;
+                        message += "<br>Login : " + organisateur.Login;
+                        message += "<br>Mot de passe : " + organisateur.Pwd;
+                        message += "<br><br>Festi'Normandie";
+                        sendMail.ActionSendMail(organisateur.Login, "Creation de votre compte d'organisateur", message);
 
-                    nomTextBox.Text = "";
-                    prenomTextBox.Text = "";
-                    emailTextBox.Text = "";
-                    motDePasseTextBox.Text = "";
-                    validationCheckBox.IsChecked = false;
+                        nomTextBox.Text = "";
+                        prenomTextBox.Text = "";
+                        emailTextBox.Text = "";
+                        motDePasseTextBox.Text = "";
+                        validationCheckBox.IsChecked = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erreur lors de l'ajout de l'organisateur");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Erreur lors de l'ajout de l'organisateur");
+                    MessageBox.Show(ex.Message);
                 }
             }
         }

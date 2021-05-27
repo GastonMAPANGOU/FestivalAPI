@@ -40,7 +40,7 @@
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="Rapport Activites" 
+                <TextBlock Text="Rapport Geos" 
                        Margin="0 0 0 0" Foreground="AliceBlue"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -49,7 +49,7 @@
             <Button Margin="0 0 0 0"
                 VerticalAlignment="Center"
                 Height="100" Width="100"
-                Click="RapportActivites_ButtonClick"
+                Click="RapportGeo_ButtonClick"
                 Background="LightSteelBlue"
                 Grid.Column="0"
                     Grid.Row="1"
@@ -58,7 +58,7 @@
                            Width="60" Height="50"/>
             </Button>
 
-            <TextBlock Text="Rapport Geos" 
+                <TextBlock Text="Rapport Activites" 
                        Margin="0 0 0 0" Foreground="AliceBlue"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -67,7 +67,7 @@
             <Button Margin="0 0 0 0"
                 VerticalAlignment="Center"
                 Height="100" Width="100"
-                Click="RapportGeo_ButtonClick"
+                Click="RapportActivites_ButtonClick"
                 Background="LightSteelBlue"
                 Grid.Column="1"
                     Grid.Row="1"
