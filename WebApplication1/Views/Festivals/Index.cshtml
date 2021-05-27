@@ -55,19 +55,30 @@
                         </li>
 
                         <a asp-action="Programme" asp-route-id="@item.IdF" class="btn btn-outline-primary ">Voir la programmation</a>
-                            
-                        
+
+
                         <!--div pour le gestionnaire-->
                         @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
                         {
-                            <li class="list-group-item">
-                                <div class="card-body">
-                                    <a asp-action="Edit" class="btn btn-primary">Modifier</a>
-                                    <a asp-action="Annuler" class="btn btn-primary">Annuler le festival</a>
-                                    <!--Le bouton annuler
-                <a asp-action="Annuler" asp-route-id="@item.IdF" class="btn btn-danger">Annuler</a>-->
-                                </div>
-                            </li>
+
+                    <div>
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gestion de festival
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" asp-action="Edit">Modifier</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Publier">Publier</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="Depublier">Depublier</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="OuvrirInscriptions">Ouvrir les inscriptions</a>
+                            <a class="dropdown-item" asp-area="" asp-controller="Festivals" asp-action="FesrmerInscriptions">Fermer les inscriptions</a>
+                            <a class="dropdown-item" asp-action="Annuler">Annuler le festival</a>
+                        </div>
+                    </div>
+  
+                        
+                            
+
+                            
                         }
 
                         @if ((@HttpContextAccessor.HttpContext.Session.GetString("category") != "Organisateur") && (@HttpContextAccessor.HttpContext.Session.GetString("category") != "Festivalier"))
