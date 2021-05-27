@@ -34,7 +34,6 @@
   <ItemGroup>
     <Folder Include="wwwroot\img\artistes\extraits\" />
     <Folder Include="Views\Rapport\" />
-    <Folder Include="wwwroot\img\logos\" />
   </ItemGroup>
 
   <ItemGroup>
