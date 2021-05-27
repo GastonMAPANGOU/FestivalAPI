@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="bg\1.jpg" />
+    <None Remove="bg\2.jpg" />
+    <None Remove="bg\3.jpg" />
+    <None Remove="bg\4.jpg" />
+    <None Remove="bg\5.jpg" />
+    <None Remove="bg\6.jpg" />
+    <None Remove="bg\7.jpg" />
+    <None Remove="bg\8.jpg" />
+    <None Remove="bg\9.jpg" />
     <None Remove="images\about.png" />
     <None Remove="images\acceuil.jpg" />
     <None Remove="images\decreasing_stats_1.png" />
@@ -42,6 +51,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="bg\1.jpg" />
+    <Resource Include="bg\2.jpg" />
+    <Resource Include="bg\3.jpg" />
+    <Resource Include="bg\4.jpg" />
+    <Resource Include="bg\5.jpg" />
+    <Resource Include="bg\6.jpg" />
+    <Resource Include="bg\7.jpg" />
+    <Resource Include="bg\8.jpg" />
+    <Resource Include="bg\9.jpg" />
     <Resource Include="images\about.png" />
     <Resource Include="images\acceuil.jpg" />
     <Resource Include="images\decreasing_stats_1.png" />

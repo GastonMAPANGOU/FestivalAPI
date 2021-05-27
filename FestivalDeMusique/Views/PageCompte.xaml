@@ -8,35 +8,42 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageCompte">
 
-    <StackPanel Background="AliceBlue">
+    <Border>
+        <Border.Background>
+            <ImageBrush Stretch="Fill" ImageSource="/bg/5.jpg"/>
+        </Border.Background>
+    <StackPanel Background="Transparent">
         <TextBlock Text="Votre compte" Margin="0 20 0 0" 
-                   FontSize="40"
+                   FontSize="40" Foreground="AliceBlue"
                    HorizontalAlignment="Center"/>
         
         
         <TextBlock Text="Nom" Margin="20 20 0 0" 
-                   FontSize="20"
+                   FontSize="20" Foreground="AliceBlue"
                    HorizontalAlignment="Left"/>
-        <TextBox   Text="" Margin="20 5 0 0" 
+        <TextBox   Text="" Margin="20 5 0 0"
+                   Foreground="Black"
                    FontSize="20" FontWeight="Bold"
                    HorizontalAlignment="Left" IsReadOnly="True"
                    Width="500" x:Name="NomTextBox"/>
         
         
         <TextBlock Text="Prénom" Margin="20 25 0 0" 
-                   FontSize="20"
+                   FontSize="20" Foreground="AliceBlue"
                    HorizontalAlignment="Left"/>
         <TextBox   Text="" Margin="20 5 0 0" 
                    FontSize="20" FontWeight="Bold"
+                   Foreground="Black"
                    HorizontalAlignment="Left"
                    Width="500" IsReadOnly="True"
                    x:Name="PrenomTextBox"/>
         
         
         <TextBlock Text="Login" Margin="20 25 0 0" 
-                   FontSize="20"
+                   FontSize="20" Foreground="AliceBlue"
                    HorizontalAlignment="Left"/>
-        <TextBox   Text="" Margin="20 5 0 0" 
+        <TextBox   Text="" Margin="20 5 0 0"
+                   Foreground="Black"
                    FontSize="20" FontWeight="Bold"
                    HorizontalAlignment="Left"
                    Width="500" IsReadOnly="True"
@@ -45,12 +52,14 @@
         
         
         <TextBlock Text="Mot de passe" Margin="20 25 0 0" 
-                   FontSize="20"
+                   FontSize="20" Foreground="AliceBlue"
                    HorizontalAlignment="Left"/>
         <TextBox   Text="" Margin="20 5 0 0" 
                    FontSize="20" FontWeight="Bold"
                    HorizontalAlignment="Left"
+                   Foreground="Black"
                    IsReadOnly="True"
                    Width="500" x:Name="MdpTextBox"/>
     </StackPanel>
+    </Border>
 </Page>

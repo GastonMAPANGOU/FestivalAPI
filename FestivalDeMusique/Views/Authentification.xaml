@@ -72,7 +72,7 @@
     <Border CornerRadius="10" MouseDown="DragFrame">
 
         <Border.Background>
-            <ImageBrush Stretch="Fill" ImageSource="/images/acceuil.jpg"/>
+            <ImageBrush Stretch="Fill" ImageSource="/bg/8.jpg"/>
         </Border.Background>
         
         <Grid>

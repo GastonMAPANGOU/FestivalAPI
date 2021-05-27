@@ -8,18 +8,23 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageStatistiques">
 
+    <Border>
+        <Border.Background>
+            <ImageBrush Stretch="Fill" ImageSource="/bg/9.jpg"/>
+        </Border.Background>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"/>
             <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <Rectangle Fill="LightBlue" Margin="0 0 0 0"
-                   Grid.Row="0" Grid.RowSpan="3"/>
-        
-        <TextBlock Text="Statistiques des festivals" 
-                   Margin="0 20 0 0"
+
+
+            <Rectangle Stretch="Fill" Fill="Green" 
+                       Grid.Row="0" Grid.RowSpan="3"
+                       Opacity="0.3"/>
+            <TextBlock Text="Statistiques des festivals" 
+                   Margin="0 20 0 0" Foreground="AliceBlue"
                    HorizontalAlignment="Center"
                    FontSize="40" Grid.Row="0"/>
         
@@ -36,7 +41,7 @@
             </Grid.RowDefinitions>
 
             <TextBlock Text="Rapport Activites" 
-                       Margin="0 0 0 0" 
+                       Margin="0 0 0 0" Foreground="AliceBlue"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="25"
@@ -45,7 +50,7 @@
                 VerticalAlignment="Center"
                 Height="100" Width="100"
                 Click="RapportActivites_ButtonClick"
-                Background="Transparent"
+                Background="LightSteelBlue"
                 Grid.Column="0"
                     Grid.Row="1"
                 BorderThickness="2">
@@ -54,7 +59,7 @@
             </Button>
 
             <TextBlock Text="Rapport Geos" 
-                       Margin="0 0 0 0" 
+                       Margin="0 0 0 0" Foreground="AliceBlue"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="25"
@@ -63,7 +68,7 @@
                 VerticalAlignment="Center"
                 Height="100" Width="100"
                 Click="RapportGeo_ButtonClick"
-                Background="Transparent"
+                Background="LightSteelBlue"
                 Grid.Column="1"
                     Grid.Row="1"
                 BorderThickness="2">
@@ -72,7 +77,7 @@
             </Button>
             
             <TextBlock Text="Rapport temps" 
-                       Margin="0 0 0 0" 
+                       Margin="0 0 0 0" Foreground="AliceBlue"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        FontSize="25"
@@ -81,7 +86,7 @@
                 VerticalAlignment="Center"
                 Height="100" Width="100"
                 Click="RapportTemps_ButtonClick"
-                Background="Transparent"
+                Background="LightSteelBlue"
                 Grid.Column="2"
                     Grid.Row="1"
                 BorderThickness="2">
@@ -92,4 +97,5 @@
         </Grid>
 
     </Grid>
+    </Border>
 </Page>
