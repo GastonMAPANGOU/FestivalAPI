@@ -145,10 +145,10 @@ namespace WebApplication1.Controllers
             }
 
             var URI = API.Instance.AjoutFestival_ArtisteAsync(fa);
-                return RedirectToAction(nameof(Index));
-            
+            return Redirect("/Festival_Artiste/Programme");
+
             //ViewBag.liste_pays= countries ;
-            
+
         }
 
         public IActionResult Edit(int id)

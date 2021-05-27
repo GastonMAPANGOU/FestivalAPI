@@ -1027,7 +1027,7 @@ namespace WebApplication1.Controllers
             return View(festival.Artistes);
         }
 
-        public IActionResult OuvrirInscriptions()
+        public ActionResult OuvrirInscriptions()
         {
             if (HttpContext.Session.GetInt32("ido") == null)
             {
@@ -1042,10 +1042,10 @@ namespace WebApplication1.Controllers
             festival.IsReachable = true;
             var uri = API.Instance.ModifFestivalAsync(festival);
 
-            return Redirect("Home/OrganisateursPage");
+            return Redirect("/Festivals/Index");
         }
 
-        public IActionResult FermerInscriptions()
+        public ActionResult FermerInscriptions()
         {
             if (HttpContext.Session.GetInt32("ido") == null)
             {
@@ -1060,10 +1060,10 @@ namespace WebApplication1.Controllers
             festival.IsReachable = false;
             var uri = API.Instance.ModifFestivalAsync(festival);
 
-            return Redirect("Home/OrganisateursPage");
+            return Redirect("/Festivals/Index");
         }
 
-        public IActionResult Publier()
+        public ActionResult Publier()
         {
             if (HttpContext.Session.GetInt32("ido") == null)
             {
@@ -1078,10 +1078,10 @@ namespace WebApplication1.Controllers
             festival.IsPublished = true;
             var uri = API.Instance.ModifFestivalAsync(festival);
 
-            return Redirect("Home/OrganisateursPage");
+            return Redirect("/Festivals/Index");
         }
 
-        public IActionResult Depublier()
+        public ActionResult Depublier()
         {
             if (HttpContext.Session.GetInt32("ido") == null)
             {
@@ -1096,7 +1096,7 @@ namespace WebApplication1.Controllers
             festival.IsPublished = false;
             var uri = API.Instance.ModifFestivalAsync(festival);
 
-            return Redirect("Home/OrganisateursPage");
+            return Redirect("/Festivals/Index");
         }
 
         public IActionResult Retour()
