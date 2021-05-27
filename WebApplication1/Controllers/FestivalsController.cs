@@ -1042,7 +1042,7 @@ namespace WebApplication1.Controllers
             festival.IsReachable = true;
             var uri = API.Instance.ModifFestivalAsync(festival);
 
-            return Redirect("Index");
+            return Redirect("/Festivals/Index");
         }
 
         public ActionResult FermerInscriptions()
@@ -1060,7 +1060,7 @@ namespace WebApplication1.Controllers
             festival.IsReachable = false;
             var uri = API.Instance.ModifFestivalAsync(festival);
 
-            return Redirect("Index");
+            return Redirect("/Festivals/Index");
         }
 
         public ActionResult Publier()
@@ -1078,7 +1078,7 @@ namespace WebApplication1.Controllers
             festival.IsPublished = true;
             var uri = API.Instance.ModifFestivalAsync(festival);
 
-            return Redirect("Index");
+            return Redirect("/Festivals/Index");
         }
 
         public ActionResult Depublier()
@@ -1096,7 +1096,7 @@ namespace WebApplication1.Controllers
             festival.IsPublished = false;
             var uri = API.Instance.ModifFestivalAsync(festival);
 
-            return Redirect("Index");
+            return Redirect("/Festivals/Index");
         }
 
         public IActionResult Retour()

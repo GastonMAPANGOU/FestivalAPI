@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -98,7 +99,8 @@ namespace FestivalDeMusique.Views
 
         private void Rapports_ButtonClick(object sender, RoutedEventArgs e)
         {
-            // Rapport du festival à implémenter ici
+            string target = "https://localhost:44344/Rapport_Activites/Rapport_Activite_Festival_Graphe/"+festivalAModifier.IdF;
+            OpenWebPage(target);
         }
 
         private int NomCommuneToId(String commune)
@@ -171,6 +173,28 @@ namespace FestivalDeMusique.Views
             {
                 path = op.FileName;
                 imageUI.Source = new BitmapImage(new Uri(path));
+            }
+        }
+
+        private void OpenWebPage(string target)
+        {
+            try
+            {
+                ProcessStartInfo startInfo = new ProcessStartInfo()
+                {
+                    FileName = target,
+                    UseShellExecute = true
+                };
+                System.Diagnostics.Process.Start(startInfo);
+            }
+            catch (System.ComponentModel.Win32Exception noBrowser)
+            {
+                if (noBrowser.ErrorCode == -2147467259)
+                    MessageBox.Show(noBrowser.Message);
+            }
+            catch (System.Exception other)
+            {
+                MessageBox.Show(other.Message);
             }
         }
     }

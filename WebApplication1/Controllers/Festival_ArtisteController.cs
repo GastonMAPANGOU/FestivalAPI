@@ -153,11 +153,7 @@ namespace WebApplication1.Controllers
             var URI = API.Instance.AjoutFestival_ArtisteAsync(fa);
             return Redirect("/Festival_Artiste/Programme");
 
-
-
             //ViewBag.liste_pays= countries ;
-
-
 
         }
 
