@@ -96,6 +96,11 @@ namespace FestivalDeMusique.Views
             organisateursFestival.Show();
         }
 
+        private void Rapports_ButtonClick(object sender, RoutedEventArgs e)
+        {
+            // Rapport du festival à implémenter ici
+        }
+
         private int NomCommuneToId(String commune)
         {
             int returnValue = 0;
