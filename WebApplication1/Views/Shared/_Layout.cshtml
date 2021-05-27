@@ -112,11 +112,11 @@
                 </form>
                 @if ((HttpContextAccessor.HttpContext.Session.GetInt32("idf") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Festivalier")) || (HttpContextAccessor.HttpContext.Session.GetInt32("ido") != null && HttpContextAccessor.HttpContext.Session.GetString("category").Equals("Organisateur")))
                 {
-                    <li><a class="btn btn-primary" asp-area="" asp-controller="Connexion" asp-action="Deconnexion">Se déconnecter</a></li>
+                    <a class="btn btn-primary" asp-area="" asp-controller="Connexion" asp-action="Deconnexion">Se déconnecter</a>
                 }
                 else
                 {
-                    <li><a class="btn btn-primary" asp-area="" asp-controller="Connexion" asp-action="ConnexionFestivalier">Se Connecter</a></li>
+                    <a class="btn btn-primary" asp-area="" asp-controller="Connexion" asp-action="ConnexionFestivalier">Se Connecter</a>
                 }
 
             </div>
