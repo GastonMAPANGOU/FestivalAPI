@@ -78,7 +78,7 @@ namespace FestivalDeMusique.Views
             return false;
         }
 
-        private string Hash(String mdp)
+        private string Hash(string mdp)
         {
             var bytes = new UTF8Encoding().GetBytes(mdp);
             var hashBytes = System.Security.Cryptography.SHA256.Create().ComputeHash(bytes);
