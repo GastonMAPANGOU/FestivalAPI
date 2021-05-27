@@ -6,7 +6,7 @@
 
 @{
     ViewData["Title"] = "Index";
-    IEnumerable<FestivalAPI.Models.Festival_Artiste> festival_Artistes = WebApplication1.ControllersAPI.API.Instance.GetFestival_ArtistesAsync().Result; ;
+    IEnumerable<FestivalAPI.Models.Festival_Artiste> festival_Artistes = WebApplication1.ControllersAPI.API.Instance.GetFestival_ArtistesAsync().Result;
 
 }
 
@@ -14,8 +14,6 @@
 <h1>Liste des festivals</h1>
 
 <div class="card-deck">
-
-
 
     @foreach (var item in Model)
     {
@@ -29,29 +27,36 @@
                         </a>
                     </div>
                     <ul class="list-group list-group-flush">
-                        @if (item.LieuId != 0)
-                        {
-                            <li class="list-group-item">
-                                <i class="glyphicon glyphicon-map-marker"></i>
-                                <td><strong>Localisation</strong></td>
-                                @API.Instance.GetLieuAsync(item.LieuId).Result.Commune
-                            </li>
+                        <li class="list-group-item">
+                            <i class="glyphicon glyphicon-map-marker"></i>
+                            <strong>Localisation</strong>
+                            @API.Instance.GetLieuAsync(item.LieuId).Result.Commune
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Nombre de places disponible</strong>
+                            @Html.DisplayFor(modelItem => item.NbPlacesDispo)
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Il reste  </strong>
 
-                        }
-                        else
-                        {
-                            <li class="list-group-item">
-                                <i class="fas fa-map-marker-alt "></i>
-                                Non-communiqué
-                            </li>
-                        }
-                        @foreach (var it in festival_Artistes)
-                        {
-                            if (item.IdF == it.FestivalId)
-                            {
-                                <a asp-action="Programme" asp-route-id="@it.FestivalId" class="btn btn-outline-primary ">Voir la programmation</a>
-                            }
-                        }
+                            @{ var i = 0;
+                                var Festivaliers = API.Instance.GetFestivaliersAsync().Result;
+                                foreach (var festivalier in Festivaliers)
+                                {
+                                    if (festivalier.FestivalId == item.IdF)
+                                    {
+                                        i++;
+                                    }
+                                }
+                                var nbPlaceRestante = item.NbPlacesDispo - i; }
+
+                            @nbPlaceRestante places !
+
+                        </li>
+
+                        <a asp-action="Programme" asp-route-id="@item.IdF" class="btn btn-outline-primary ">Voir la programmation</a>
+                            
+                        
                         <!--div pour le gestionnaire-->
                         @if (@HttpContextAccessor.HttpContext.Session.GetString("category") == "Organisateur")
                         {
@@ -60,7 +65,7 @@
                                     <a asp-action="Edit" class="btn btn-primary">Modifier</a>
                                     <a asp-action="Annuler" class="btn btn-primary">Annuler le festival</a>
                                     <!--Le bouton annuler
-    <a asp-action="Annuler" asp-route-id="@item.IdF" class="btn btn-danger">Annuler</a>-->
+                <a asp-action="Annuler" asp-route-id="@item.IdF" class="btn btn-danger">Annuler</a>-->
                                 </div>
                             </li>
                         }
@@ -74,5 +79,5 @@
 
                     </ul>
                 </div>
-            </div>}
+        </div>}
 </div>

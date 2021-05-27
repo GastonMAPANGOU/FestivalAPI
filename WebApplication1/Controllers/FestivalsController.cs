@@ -325,11 +325,12 @@ namespace WebApplication1.Controllers
                         if (System.IO.File.Exists(chemin))
                         {
                             System.IO.File.Delete(chemin);
-                        }
-                        using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
-                        {
-                            file.CopyTo(fileStream);
-                            fileStream.Flush();
+
+                            using (FileStream fileStream = System.IO.File.Create("wwwroot/" + chemin))
+                            {
+                                file.CopyTo(fileStream);
+                                fileStream.Flush();
+                            }
                         }
                     }
 

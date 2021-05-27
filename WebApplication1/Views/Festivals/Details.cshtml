@@ -6,6 +6,7 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @{ ViewData["Title"] = "Details";
+    IEnumerable<FestivalAPI.Models.Hebergement> hebergements = WebApplication1.ControllersAPI.API.Instance.GetHebergementsAsync().Result;
     }
 
 <h1>@Html.DisplayFor(model => model.Nom)</h1>
@@ -24,14 +25,21 @@
                             <tr>
                                 <td><strong>Commune</strong></td>
 
-                                @if (Model.LieuId != 0)
-                                {
-                                    <td>@API.Instance.GetLieuAsync(Model.LieuId).Result.Commune</td>
-                                }
-                                else
-                                {
-                                    <td>Non-communiqué</td>
-                                }
+                                <td>@API.Instance.GetLieuAsync(Model.LieuId).Result.Commune</td>
+
+                            </tr>
+                            <tr>
+
+                                <td>Lien vers le site de l'hebergement</td>
+                                <td>
+                                    @foreach (var it in hebergements)
+                                    {
+                                        if (Model.IdF == it.FestivalId)
+                                        {
+                                    <a href="@Html.DisplayFor(model => it.Lien)"></a>}
+                                    }
+                                    
+                                </td>
                             </tr>
                             <tr>
                                 <td><strong> Date de début </strong>  </td>
@@ -41,7 +49,9 @@
                                 <td><strong>Date de fin</strong></td>
                                 <td>@Html.DisplayFor(model => model.Date_Fin)</td>
                             </tr>
-                            </tbody>
+                            <tr>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
