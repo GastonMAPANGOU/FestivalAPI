@@ -35,8 +35,7 @@ namespace FestivalDeMusique.Views
 
         private void RapportGeo_ButtonClick(object sender, RoutedEventArgs e)
         {
-            string target = "https://localhost:44344/Rapport_Activites";
-            //string target = "https://localhost:44344/Rapport_Geos";
+            string target = "https://localhost:44344/Rapport_Geos/IndexPays";
             OpenWebPage(target);
         }
 

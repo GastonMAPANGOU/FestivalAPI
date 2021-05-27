@@ -172,6 +172,9 @@
                     </Grid.ColumnDefinitions>
                     <Button Margin="0 0 10 0"
                             Content="Valider"
+                            Foreground="DarkBlue"
+                            Background="White"
+                            BorderBrush="DarkBlue"
                             Grid.Column="0"
                             Height="30"
                             Width="100"
@@ -183,6 +186,9 @@
                             Content="Fermer"
                             Grid.Column="1"
                             Height="30"
+                            Background="White"
+                            Foreground="Crimson"
+                            BorderBrush="Crimson"
                             Width="100"
                             Click="Retour_ButtonClick">
 

@@ -40,25 +40,8 @@
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
 
-                <TextBlock Text="Rapport Geos" 
-                       Margin="0 0 0 0" Foreground="AliceBlue"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="25"
-                       Grid.Row="0" Grid.Column="0"/>
-            <Button Margin="0 0 0 0"
-                VerticalAlignment="Center"
-                Height="100" Width="100"
-                Click="RapportGeo_ButtonClick"
-                Background="LightSteelBlue"
-                Grid.Column="0"
-                    Grid.Row="1"
-                BorderThickness="2">
-                <Image Source="/images/open.png"
-                           Width="60" Height="50"/>
-            </Button>
-
-                <TextBlock Text="Rapport Activites" 
+                
+            <TextBlock Text="Rapport Activités" 
                        Margin="0 0 0 0" Foreground="AliceBlue"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -70,30 +53,13 @@
                 Click="RapportActivites_ButtonClick"
                 Background="LightSteelBlue"
                 Grid.Column="1"
-                    Grid.Row="1"
+                Grid.Row="1" Opacity="0.8"
                 BorderThickness="2">
                 <Image Source="/images/open.png"
                            Width="60" Height="50"/>
             </Button>
             
-            <TextBlock Text="Rapport temps" 
-                       Margin="0 0 0 0" Foreground="AliceBlue"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       FontSize="25"
-                       Grid.Row="0" Grid.Column="2"/>
-            <Button Margin="0 0 0 0"
-                VerticalAlignment="Center"
-                Height="100" Width="100"
-                Click="RapportTemps_ButtonClick"
-                Background="LightSteelBlue"
-                Grid.Column="2"
-                    Grid.Row="1"
-                BorderThickness="2">
-                <Image Source="/images/open.png"
-                           Grid.Column="0"
-                           Width="60" Height="50"/>
-            </Button>
+            
         </Grid>
 
     </Grid>

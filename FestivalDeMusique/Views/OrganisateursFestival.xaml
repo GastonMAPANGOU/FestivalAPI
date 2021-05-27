@@ -37,12 +37,20 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Button Content="Ajouter" Margin="5 0 5 0" Grid.Column="0"
+                            Foreground="DarkBlue" Background="White"
+                            BorderBrush="DarkBlue"
                             Click="Ajouter_ButtonClick"/>
                     <Button Content="Modifier" Margin="5 0 5 0" Grid.Column="1"
+                            Background="White"
+                            Foreground="Purple" BorderBrush="Purple"
                             x:Name="ModifierButton" Click="Modifier_ButtonClick"/>
                     <Button Content="Supprimer" Margin="5 0 5 0" Grid.Column="2"
+                            Background="White" Foreground="Crimson"
+                            BorderBrush="Crimson"
                             x:Name="SupprimerButton" Click="Supprimer_ButtonClick"/>
                     <Button Content="Actualiser" Margin="5 0 5 0" Grid.Column="3"
+                            Background="White" Foreground="DarkGreen"
+                            BorderBrush="DarkGreen"
                             Click="RechargerPage"/>
                 </Grid>
             </Grid>
