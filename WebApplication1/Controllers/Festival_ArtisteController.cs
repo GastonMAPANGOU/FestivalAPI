@@ -62,11 +62,20 @@ namespace WebApplication1.Controllers
             return View(Festival_Artistes);
         }
 
-        public IActionResult Programme()
+        public ActionResult Programme(int? id)
         {
-            Festival festival = API.Instance.GetFestivalAsync(1).Result;
-            //ViewBag.liste_pays= countries ;
-            return View(festival);
+            if (HttpContext.Session.GetInt32("ido") == null)
+            {
+                return null;
+            }
+            Organisateur organisateur = API.Instance.GetOrganisateurAsync((int)HttpContext.Session.GetInt32("ido")).Result;
+            Festival festival = API.Instance.GetFestivalAsync(organisateur.FestivalId).Result;
+            if (festival == null)
+            {
+                return null;
+            }
+            return View(festival.Festival_Artistes);
+
         }
 
         public IActionResult Create()

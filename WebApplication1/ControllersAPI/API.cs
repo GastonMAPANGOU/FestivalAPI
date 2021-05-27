@@ -211,6 +211,14 @@ namespace WebApplication1.ControllersAPI
             {
                 HttpResponseMessage response = await client.PutAsJsonAsync("api/festivals/" + festival.IdF, festival);
                 response.EnsureSuccessStatusCode();
+                if (response.IsSuccessStatusCode)
+                {
+                    foreach (var item in festival.Jours)
+                    {
+                        await SupprJourAsync(item.IdJ);
+                    }
+                    int n = await AjoutJoursAsync(festival);
+                }
                 return response.Headers.Location;
             }
             catch (Exception ex)

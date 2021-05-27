@@ -1165,5 +1165,18 @@ namespace WebApplication1.Controllers
             }
 
         }
+
+        public ActionResult Test(int? id)
+        {
+            if (id == null)
+            {
+                return View(API.Instance.GetFestival_ArtistesAsync().Result);
+            }
+            else
+            {
+                return View(API.Instance.GetFestival_ArtistesAsync().Result.Where(f => f.FestivalId == id));
+            }
+
+        }
     }
 }
