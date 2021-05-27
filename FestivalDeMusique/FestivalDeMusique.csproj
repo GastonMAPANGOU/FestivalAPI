@@ -21,6 +21,8 @@
     <None Remove="images\music_bg_3.jpg" />
     <None Remove="images\music_festival.png" />
     <None Remove="images\normandie.png" />
+    <None Remove="images\open.png" />
+    <None Remove="images\open_2.png" />
     <None Remove="images\outlook.png" />
     <None Remove="images\outlookGrey.png" />
     <None Remove="images\shutdownPastel.png" />
@@ -53,6 +55,8 @@
     <Resource Include="images\music_bg_3.jpg" />
     <Resource Include="images\music_festival.png" />
     <Resource Include="images\normandie.png" />
+    <Resource Include="images\open.png" />
+    <Resource Include="images\open_2.png" />
     <Resource Include="images\outlook.png" />
     <Resource Include="images\outlookGrey.png" />
     <Resource Include="images\shutdownPastel.png" />

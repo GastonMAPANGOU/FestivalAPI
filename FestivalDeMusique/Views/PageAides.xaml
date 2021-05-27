@@ -8,10 +8,32 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="PageAides">
 
-    <Grid>
-        <Rectangle Fill="LightSeaGreen" Margin="0 0 0 0"/>
+    <StackPanel Background="AliceBlue">
         <TextBlock Text="Aide" Margin="0 20 0 0" 
                    FontSize="40"
-                   HorizontalAlignment="Center"/>
-    </Grid>
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top"/>
+
+        <TextBlock Margin="40 40 40 0" 
+                   FontSize="20" TextWrapping="Wrap"
+                   Text="Vous pouvez consulter un festival en double cliquant sur un festival (Page des festivals).
+                   
+                   
+                   
+                   
+                   
+                   Vous pourrez ajouter des organisateurs depuis la fenetre de consultation de festival, les supprimer et les modifier.
+                   
+                   
+                   
+                   Vous pouvez valider les organisateurs depuis la page des organisateurs mais aussi les supprimer.
+                   
+                   
+                   
+                   
+                   Lorsque vous créer un organisateur mail lui est envoyé contenant ses informations de connection (Login, Mot de passe).
+                   
+                            L'annulation du festival envoi un e-mail à tous les festivaliers et aux organisateurs de ce festival."/>
+
+    </StackPanel>
 </Page>
