@@ -20,7 +20,7 @@ namespace FestivalDeMusique.Views
     /// </summary>
     public partial class Dashboard : Window
     {
-        private readonly Gimi gimi;
+        private readonly Gimi gimi = null;
         public Dashboard()
         {
             InitializeComponent();
@@ -62,7 +62,10 @@ namespace FestivalDeMusique.Views
 
         private void ChargerPageCompte(object sender, RoutedEventArgs e)
         {
-            frame.NavigationService.Navigate(new PageCompte());
+            if(gimi == null)
+                frame.NavigationService.Navigate(new PageCompte());
+            else
+                frame.NavigationService.Navigate(new PageCompte(gimi));
         }
 
         private void Deconnexion(object sender, RoutedEventArgs e)

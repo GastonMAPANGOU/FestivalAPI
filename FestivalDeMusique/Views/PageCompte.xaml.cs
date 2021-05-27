@@ -31,6 +31,15 @@ namespace FestivalDeMusique.Views
         {
             InitializeComponent();
             this.gimi = gimi;
+            ChargerGimi();
+        }
+
+        private void ChargerGimi()
+        {
+            NomTextBox.Text = gimi.Nom;
+            PrenomTextBox.Text = gimi.Prenom;
+            LoginTextBox.Text = gimi.Login;
+            MdpTextBox.Text = gimi.Pwd;
         }
     }
 }
