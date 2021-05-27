@@ -53,7 +53,7 @@
                 Click="RapportActivites_ButtonClick"
                 Background="LightSteelBlue"
                 Grid.Column="1"
-                    Grid.Row="1"
+                Grid.Row="1" Opacity="0.8"
                 BorderThickness="2">
                 <Image Source="/images/open.png"
                            Width="60" Height="50"/>

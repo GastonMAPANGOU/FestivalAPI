@@ -172,6 +172,8 @@
                     </Grid.ColumnDefinitions>
                     <Button Margin="0 0 10 0"
                             Content="Valider"
+                            Foreground="DarkBlue"
+                            
                             Grid.Column="0"
                             Height="30"
                             Width="100"
